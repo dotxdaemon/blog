@@ -21,8 +21,8 @@ A single-page futuristic blog built entirely with HTML and CSS. Every post lives
 ## Write a new post
 
 1. Open `index.html` in any text editor.
-2. Find the `<section class="post-list">` element.
-3. Copy one of the `<article class="post-card">` blocks and paste it where you want the new story to appear (newest at the top).
+2. Find the `<section class="post-list">` element and duplicate one of the `<article class="post-card">` blocks inside it.
+3. Paste the copy where you want the new story to appear (keep the newest entries nearest the top).
 4. Update the contents:
    - The `<h2>` headline.
    - The `<time>` element text and its `datetime="YYYY-MM-DD"` attribute.
