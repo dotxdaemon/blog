@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Constellation Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body>
+    <div class="background-glow" aria-hidden="true"></div>
+    <div class="background-grid" aria-hidden="true"></div>
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">Neon Constellation</div>
+        <p class="tagline">Thoughts from the edge of tomorrow.</p>
+        <nav class="site-nav" aria-label="Site navigation">
+          <a href="#posts" class="pill">Posts</a>
+          <a href="#about" class="pill">About</a>
+          <a href="#write" class="pill">Write your own</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container" id="posts">
+      <section class="intro-card">
+        <h1>Welcome to your futuristic blog</h1>
+        <p>
+          This single-page blog is powered by a simple JavaScript file. Update one
+          file, and your stories light up the universe with vibrant gradients and
+          animated starlight.
+        </p>
+      </section>
+
+      <section class="post-list" aria-live="polite"></section>
+    </main>
+
+    <section class="container" id="about">
+      <article class="info-card">
+        <h2>About this project</h2>
+        <p>
+          Neon Constellation is designed to feel like a portal into the future. It
+          uses glowing layers, glassmorphism, and cosmic gradients to showcase your
+          writing.
+        </p>
+        <p>
+          Everything runs in the browser with zero dependencies. You only edit a
+          single JavaScript file to add or update posts.
+        </p>
+      </article>
+    </section>
+
+    <section class="container" id="write">
+      <article class="info-card">
+        <h2>Write a new entry</h2>
+        <ol class="instructions">
+          <li>Open <code>assets/js/posts.js</code> in any text editor.</li>
+          <li>
+            Duplicate one of the sample post objects and update the
+            <code>title</code>, <code>date</code>, <code>excerpt</code>, and
+            <code>body</code> fields.
+          </li>
+          <li>
+            Use ISO date format (<code>YYYY-MM-DD</code>) so posts stay sorted
+            automatically.
+          </li>
+          <li>
+            Separate paragraphs in the <code>body</code> with a blank line. The
+            site converts them into clean HTML for you.
+          </li>
+          <li>Save the file and refresh the page. Your post will appear instantly.</li>
+        </ol>
+        <p>
+          Ready to share with the world? Check the README for simple hosting
+          options like GitHub Pages or Netlify.
+        </p>
+      </article>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Crafted in the future. Built with pure HTML, CSS, and JavaScript.</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
+  </body>
+</html>
