@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neon Constellation Blog</title>
+    <title>YoRHa Archives</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Spectral:wght@400;500;600&family=Source+Code+Pro:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -17,8 +17,8 @@
     <div class="background-grid" aria-hidden="true"></div>
     <header class="site-header">
       <div class="container">
-        <div class="logo">Neon Constellation</div>
-        <p class="tagline">Thoughts from the edge of tomorrow.</p>
+        <div class="logo">YoRHa Archives</div>
+        <p class="tagline">Operational logs from humanity's last bastion.</p>
         <nav class="site-nav" aria-label="Site navigation">
           <a href="#posts" class="pill">Posts</a>
           <a href="#about" class="pill">About</a>
@@ -29,11 +29,11 @@
 
     <main class="container" id="posts">
       <section class="intro-card">
-        <h1>Welcome to your futuristic blog</h1>
+        <h1>Welcome to the Bunker archive</h1>
         <p>
-          This single-page blog is powered by a simple JavaScript file. Update one
-          file, and your stories light up the universe with vibrant gradients and
-          animated starlight.
+          This single-page archive is tuned for decrypted YoRHa transmissions.
+          Update one file and watch the mission logs render with stark lines,
+          operator marks, and that familiar monochrome glow.
         </p>
       </section>
 
@@ -42,49 +42,93 @@
 
     <section class="container" id="about">
       <article class="info-card">
-        <h2>About this project</h2>
+        <h2>About this terminal</h2>
         <p>
-          Neon Constellation is designed to feel like a portal into the future. It
-          uses glowing layers, glassmorphism, and cosmic gradients to showcase your
-          writing.
+          The YoRHa Archives theme strips away neon futurism in favor of desolate
+          sepia tones, mechanical borders, and utilitarian typography. It's meant
+          to evoke the briefing rooms of the Bunker.
         </p>
         <p>
-          Everything runs in the browser with zero dependencies. You only edit a
-          single JavaScript file to add or update posts.
+          Everything still runs in the browser with zero dependencies. Only a
+          single JavaScript file controls the feed of mission reports and
+          operator notes.
         </p>
       </article>
     </section>
 
     <section class="container" id="write">
       <article class="info-card">
-        <h2>Write a new entry</h2>
+        <h2>Log a new entry</h2>
         <ol class="instructions">
-          <li>Open <code>assets/js/posts.js</code> in any text editor.</li>
           <li>
-            Duplicate one of the sample post objects and update the
-            <code>title</code>, <code>date</code>, <code>excerpt</code>, and
-            <code>body</code> fields.
+            Compose your report with the YoRHa drafting console below. It
+            renders directly into the archive so you can proofread before
+            committing.
           </li>
           <li>
-            Use ISO date format (<code>YYYY-MM-DD</code>) so posts stay sorted
-            automatically.
+            When satisfied, copy the generated data packet into
+            <code>assets/js/posts.js</code> (one object per post inside
+            <code>window.BLOG_POSTS</code>) and commit the change to make it
+            permanent.
           </li>
           <li>
-            Separate paragraphs in the <code>body</code> with a blank line. The
-            site converts them into clean HTML for you.
+            Use ISO dates (<code>YYYY-MM-DD</code>) to maintain chronological
+            order and leave blank lines between paragraphs in the body copy.
           </li>
-          <li>Save the file and refresh the page. Your post will appear instantly.</li>
+          <li>
+            Need operator tips on deployment? Consult the README for static
+            hosting options like GitHub Pages or Netlify.
+          </li>
         </ol>
-        <p>
-          Ready to share with the world? Check the README for simple hosting
-          options like GitHub Pages or Netlify.
-        </p>
+        <form class="entry-form" id="entry-form" novalidate>
+          <div class="field-group">
+            <label for="entry-title">Title<span aria-hidden="true">*</span></label>
+            <input
+              id="entry-title"
+              name="title"
+              type="text"
+              autocomplete="off"
+              required
+              maxlength="160"
+            />
+          </div>
+          <div class="field-group">
+            <label for="entry-date">Date<span aria-hidden="true">*</span></label>
+            <input id="entry-date" name="date" type="date" required />
+            <small class="hint">Format: YYYY-MM-DD</small>
+          </div>
+          <div class="field-group">
+            <label for="entry-excerpt">Excerpt</label>
+            <textarea
+              id="entry-excerpt"
+              name="excerpt"
+              rows="2"
+              maxlength="280"
+              placeholder="Optional teaser sentence for the mission log."
+            ></textarea>
+          </div>
+          <div class="field-group">
+            <label for="entry-body">Body</label>
+            <textarea
+              id="entry-body"
+              name="body"
+              rows="8"
+              placeholder="Write the full transmission. Use blank lines between paragraphs."
+            ></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="pill">Render preview</button>
+            <button type="reset" class="pill pill-ghost">Clear</button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <pre class="code-block" id="entry-snippet" hidden></pre>
+        </form>
       </article>
     </section>
 
     <footer class="site-footer">
       <div class="container">
-        <p>Crafted in the future. Built with pure HTML, CSS, and JavaScript.</p>
+        <p>Glory to mankind. Built with pure HTML, CSS, and JavaScript.</p>
       </div>
     </footer>
 

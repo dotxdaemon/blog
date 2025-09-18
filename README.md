@@ -1,13 +1,14 @@
-# Neon Constellation Blog
+# YoRHa Archives
 
-A single-page futuristic blog built with only HTML, CSS, and JavaScript. Write posts by editing one file, then deploy anywhere that hosts static sites.
+A single-page YoRHa-inspired archive rendered with plain HTML, CSS, and JavaScript. Capture bunker transmissions without build tooling or server-side dependencies.
 
 ## Features
 
-- **Futuristic design** – neon gradients, glassmorphism cards, and smooth entry animations.
-- **Zero build step** – all posts live in `assets/js/posts.js`; no frameworks or command-line tooling required.
-- **Automatic sorting** – posts render with the newest entry first based on the ISO date you provide.
-- **Lightweight formatting** – add bold text with `**double asterisks**` and inline code with backticks.
+- **NieR:Automata aesthetic** – sepia-toned panels, mechanical borders, and utilitarian typography evocative of the bunker briefing rooms.
+- **Zero build step** – all posts live in `assets/js/posts.js`; no frameworks or bundlers are required.
+- **Instant drafting console** – use the in-page form to preview entries and grab a ready-to-paste data packet.
+- **Automatic sorting** – posts render newest-first based on the ISO date you provide.
+- **Lightweight formatting** – add emphasis with `**double asterisks**` and inline code with backticks.
 
 ## Project structure
 
@@ -16,24 +17,33 @@ A single-page futuristic blog built with only HTML, CSS, and JavaScript. Write p
 ├── index.html          # main page
 ├── assets
 │   ├── css
-│   │   └── main.css    # futuristic styling
+│   │   └── main.css    # YoRHa styling tokens and components
 │   └── js
-│       ├── app.js      # renders posts onto the page
-│       └── posts.js    # the file you edit to add content
+│       ├── app.js      # renders posts and powers the drafting console
+│       └── posts.js    # populate this array with your live content
 ```
 
 ## Write a new post
 
-1. Open `assets/js/posts.js` in any text editor.
-2. Duplicate one of the sample post objects inside the `window.BLOG_POSTS` array.
-3. Update the fields:
-   - `title`: the headline shown on the card.
-   - `date`: use `YYYY-MM-DD` so the posts stay in chronological order.
-   - `excerpt`: a short teaser sentence.
-   - `body`: write your full post. Separate paragraphs with a blank line. Use `**bold**` for emphasis and \`backticks\` for inline code.
-4. Save the file and refresh `index.html` in your browser. The new post will fade into view automatically.
+1. Scroll to the **Log a new entry** section on `index.html`.
+2. Fill out the drafting console. Title and date are required; excerpt and body are optional.
+3. Press **Render preview**. The post will appear immediately in the archive and a JSON packet will display beneath the form.
+4. Copy the packet into the `window.BLOG_POSTS` array inside `assets/js/posts.js`, keeping one object per post:
 
-> **Tip:** If you prefer Markdown editors, you can still draft there. Paste the finished content into the `body` string when you are ready.
+   ```js
+   window.BLOG_POSTS = [
+     {
+       "title": "Unit 2B – Recon Debrief",
+       "date": "2024-07-17",
+       "excerpt": "Quick summary of the desert recon sweep.",
+       "body": "Encountered minimal resistance.\n\nRecovered encrypted cache; forwarding to Operator 6O.",
+     },
+   ];
+   ```
+
+5. Commit the change (or save locally) and redeploy. Reloading the page will now include the transmission by default.
+
+> **Tip:** Separate paragraphs in the body with a blank line. The renderer splits on double newlines and wraps each paragraph automatically.
 
 ## Preview locally
 
@@ -71,8 +81,8 @@ Because the blog is just static files, you can deploy it almost anywhere. Three 
 
 ## Customize the look
 
-- Change fonts or colors inside `assets/css/main.css`.
-- Adjust the glow effects by tweaking the `.background-glow` gradients.
-- Modify the animation timings in the `.post-card` styles.
+- Adjust fonts, borders, and palette tokens inside `assets/css/main.css`.
+- Tweak the glow fields by modifying the `.background-glow` gradients.
+- Refine card animations or spacing in the `.post-card` rule set.
 
-Have fun filling the galaxy with your stories!
+Glory to mankind.
