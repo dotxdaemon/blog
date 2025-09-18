@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Constellation Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body>
+    <div class="background-glow" aria-hidden="true"></div>
+    <div class="background-grid" aria-hidden="true"></div>
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">Neon Constellation</div>
+        <p class="tagline">Thoughts from the edge of tomorrow.</p>
+        <nav class="site-nav" aria-label="Site navigation">
+          <a href="#posts" class="pill">Posts</a>
+          <a href="#about" class="pill">About</a>
+          <a href="#write" class="pill">Write your own</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container" id="posts">
+      <section class="intro-card">
+        <h1>Welcome to your futuristic blog</h1>
+        <p>
+          Every post lives right in this HTML file now—no JavaScript data files or
+          tooling to worry about. Duplicate a card, write your story, and the neon
+          styling takes care of the rest.
+        </p>
+      </section>
+
+      <section class="post-list" aria-label="Blog posts">
+        <article class="post-card">
+          <h2>Welcome to the Constellation</h2>
+          <time datetime="2024-05-12">May 12, 2024</time>
+          <p class="excerpt">
+            Charting the course of this experimental blog and how to add your own cosmic thoughts.
+          </p>
+          <div class="body">
+            <p>
+              This demo post shows you how your writing will look inside the neon interface.
+            </p>
+            <p>
+              Use the instructions below to create as many posts as you like. The cards automatically
+              arrange themselves exactly as you order them in the markup, so keep the newest at the top.
+            </p>
+            <p>
+              Sprinkle in <strong>bold highlights</strong> or <code>inline code</code> directly in the HTML—no special syntax needed.
+            </p>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <h2>Signal From the Aurora</h2>
+          <time datetime="2024-04-20">April 20, 2024</time>
+          <p class="excerpt">
+            An imaginary dispatch from a research station floating above the north pole.
+          </p>
+          <div class="body">
+            <p>
+              A green ribbon of light folds across the sky, weaving a network that dances between the magnetic field lines.
+            </p>
+            <p>
+              We route transmissions through the aurora now. The plasma reflects every emotion, every curiosity, every plan for what comes next.
+            </p>
+            <p>
+              And it all started because someone decided to write down their observations.
+            </p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <section class="container" id="about">
+      <article class="info-card">
+        <h2>About this project</h2>
+        <p>
+          Neon Constellation is designed to feel like a portal into the future. It
+          uses glowing layers, glassmorphism, and cosmic gradients to showcase your
+          writing.
+        </p>
+        <p>
+          Everything runs in the browser with zero dependencies. Each story is
+          just an <code>&lt;article&gt;</code> block inside <code>index.html</code>.
+        </p>
+      </article>
+    </section>
+
+    <section class="container" id="write">
+      <article class="info-card">
+        <h2>Write a new entry</h2>
+        <ol class="instructions">
+          <li>Open <code>index.html</code> in any text editor.</li>
+          <li>
+            Duplicate one of the <code>&lt;article class="post-card"&gt;</code>
+            blocks inside the <code>&lt;section class="post-list"&gt;</code>
+            element.
+          </li>
+          <li>
+            Update the heading, <code>&lt;time&gt;</code> element (including the
+            <code>datetime</code> attribute), the teaser paragraph, and the
+            paragraphs inside <code>&lt;div class="body"&gt;</code>.
+          </li>
+          <li>
+            Keep your newest story toward the top of the list. The order in the
+            HTML is exactly how the page renders it.
+          </li>
+          <li>
+            Save the file and refresh your browser to see the update
+            immediately.
+          </li>
+        </ol>
+        <p>
+          Ready to share with the world? Check the README for simple hosting
+          options like GitHub Pages or Netlify.
+        </p>
+      </article>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Crafted in the future. Built with pure HTML and CSS.</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
