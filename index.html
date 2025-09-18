@@ -62,9 +62,16 @@
         <ol class="instructions">
           <li>Open <code>assets/js/posts.js</code> in your preferred terminal.</li>
           <li>
-            Duplicate one of the sample data packets and update the
+            Append a fresh object to <code>window.BLOG_POSTS</code>. Give it
             <code>title</code>, <code>date</code>, <code>excerpt</code>, and
-            <code>body</code> fields.
+            <code>body</code> properties just like the existing entries—for
+            example:
+            <pre><code>window.BLOG_POSTS.push({
+  title: "Unit 2B Debrief",
+  date: "11945-04-05",
+  excerpt: "Short-range recon near the Flooded City.",
+  body: "Initial scan revealed..."
+});</code></pre>
           </li>
           <li>
             Use ISO date format (<code>YYYY-MM-DD</code>) so the command console
