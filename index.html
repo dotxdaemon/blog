@@ -17,6 +17,10 @@
     <div class="background-grid" aria-hidden="true"></div>
     <header class="site-header">
       <div class="container">
+        <div>
+          <a class="logo" href="#posts">YoRHa Archives</a>
+          <p class="tagline">Mission logs from the bunker command archive</p>
+        </div>
         <nav class="site-nav" aria-label="Site navigation">
           <a href="#posts" class="pill">Posts</a>
           <a href="#about" class="pill">About</a>
@@ -25,8 +29,58 @@
       </div>
     </header>
 
-    <div id="posts" hidden></div>
-    <div id="about" hidden></div>
-    <div id="write" hidden></div>
+    <main>
+      <div class="container">
+        <section id="posts" class="intro-card" aria-labelledby="posts-heading">
+          <h1 id="posts-heading">Latest transmissions</h1>
+          <p>
+            Pull up a chair in the command center. These archived dispatches from the
+            YoRHa bunker fade in as soon as they're decrypted.
+          </p>
+        </section>
+
+        <section class="post-list" aria-live="polite"></section>
+
+        <section id="about" class="info-card" aria-labelledby="about-heading">
+          <h2 id="about-heading">About the archives</h2>
+          <p>
+            YoRHa Archives is a lightweight static journal inspired by the terminal
+            readouts used by the android forces in the bunker. Entries are rendered
+            directly in the browser—no database, no build step.
+          </p>
+          <p>
+            Update <code>assets/js/posts.js</code> and refresh the page to decrypt new
+            field reports.
+          </p>
+        </section>
+
+        <section id="write" class="info-card" aria-labelledby="write-heading">
+          <h2 id="write-heading">Write your own log</h2>
+          <p>
+            Add a new object to <code>window.BLOG_POSTS</code> and include these
+            fields:
+          </p>
+          <ol class="instructions">
+            <li><strong>title</strong> – the operation name or headline.</li>
+            <li><strong>date</strong> – timestamp in <code>YYYY-MM-DD</code> format.</li>
+            <li><strong>excerpt</strong> – a short teaser for the mission.</li>
+            <li>
+              <strong>body</strong> – the full briefing. Separate paragraphs with a
+              blank line; use <code>**bold**</code> and <code>`code`</code> for
+              emphasis.
+            </li>
+          </ol>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Glory to mankind.</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
   </body>
 </html>
