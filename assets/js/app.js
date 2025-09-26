@@ -39,16 +39,46 @@ if (!posts.length) {
 }
 
 function formatDate(isoString) {
-  const date = new Date(isoString);
-  if (Number.isNaN(date.getTime())) {
+  if (!isoString) {
+    return '';
+  }
+
+  let date;
+
+  if (isoString instanceof Date) {
+    date = isoString;
+  } else if (typeof isoString === 'string') {
+    const match = isoString.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+
+    if (match) {
+      const [, yearStr, monthStr, dayStr] = match;
+      const year = Number(yearStr);
+      const month = Number(monthStr);
+      const day = Number(dayStr);
+
+      if (
+        Number.isNaN(year) ||
+        Number.isNaN(month) ||
+        Number.isNaN(day)
+      ) {
+        return isoString;
+      }
+
+      date = new Date(year, month - 1, day);
+    } else {
+      date = new Date(isoString);
+    }
+  }
+
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
     return isoString;
   }
 
-  return date.toLocaleDateString(undefined, {
+  return new Intl.DateTimeFormat(undefined, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
+  }).format(date);
 }
 
 function renderBody(raw) {
