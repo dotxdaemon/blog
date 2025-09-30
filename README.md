@@ -1,6 +1,4 @@
-# YoRHa Archives
-
-Welcome to **YoRHa Archives**, a Nier: Automata–inspired static blog engine. It emulates the bunker’s record‑keeping system with sepia tones, mechanical borders, and minimal design reminiscent of the YoRHa Commander's terminals.
+# velvetdaemon
 
 ## Features
 
