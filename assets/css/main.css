@@ -205,56 +205,6 @@ time {
   position: relative;
   display: inline-block;
   text-shadow: 0 0 10px rgba(245, 207, 135, 0.35);
-  transition: text-shadow 0.3s ease;
-}
-
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-}
-
-.glitch::before {
-  color: rgba(245, 207, 135, 0.85);
-  transform: translate(-2px, 0);
-}
-
-.glitch::after {
-  color: rgba(162, 142, 110, 0.75);
-  transform: translate(2px, 0);
-}
-
-.post-card:hover .glitch::before {
-  opacity: 0.6;
-  animation: glitch-shift-left 1.4s infinite;
-}
-
-.post-card:hover .glitch::after {
-  opacity: 0.6;
-  animation: glitch-shift-right 1.4s infinite;
-}
-
-@keyframes glitch-shift-left {
-  0%,
-  100% {
-    transform: translate(-2px, 0);
-  }
-  50% {
-    transform: translate(2px, 0);
-  }
-}
-
-@keyframes glitch-shift-right {
-  0%,
-  100% {
-    transform: translate(2px, 0);
-  }
-  50% {
-    transform: translate(-2px, 0);
-  }
 }
 
 .cursor-target {
