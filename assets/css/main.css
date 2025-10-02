@@ -28,12 +28,46 @@ body {
   color: var(--fg);
   min-height: 100%;
   scroll-behavior: smooth;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="10" y="0" width="4" height="24" fill="%23221f1b"/><rect x="0" y="10" width="24" height="4" fill="%23221f1b"/><rect x="8" y="8" width="8" height="8" fill="none" stroke="%23221f1b" stroke-width="2"/></svg>') 12 12, auto;
 }
 
 body {
   position: relative;
   overflow-x: hidden;
   line-height: 1.7;
+}
+
+/* CRT Scanlines */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    transparent 1px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Noise grain texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.08"/></svg>');
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.4;
 }
 
 .background-glow {
@@ -57,6 +91,12 @@ body {
     );
   filter: blur(110px);
   transform: translateZ(0);
+  animation: glow-pulse 12s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 .background-grid {
@@ -71,6 +111,12 @@ body {
     transparent 80%
   );
   z-index: -3;
+  animation: grid-shift 20s linear infinite;
+}
+
+@keyframes grid-shift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(120px, 120px); }
 }
 
 .container {
@@ -104,6 +150,7 @@ body {
   color: var(--fg);
   position: relative;
   padding-bottom: 6px;
+  text-shadow: 2px 2px 0 rgba(200, 182, 130, 0.3);
 }
 
 .logo::after {
@@ -114,6 +161,12 @@ body {
   width: 68px;
   height: 2px;
   background: var(--accent);
+  animation: border-pulse 3s ease-in-out infinite;
+}
+
+@keyframes border-pulse {
+  0%, 100% { width: 68px; opacity: 1; }
+  50% { width: 88px; opacity: 0.7; }
 }
 
 .tagline {
@@ -144,6 +197,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="0" y="0" width="24" height="24" fill="%23c8b682"/></svg>') 12 12, pointer;
 }
 
 .pill:hover,
@@ -151,6 +205,7 @@ body {
   border-color: rgba(38, 33, 27, 0.6);
   background: rgba(200, 182, 130, 0.25);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200, 182, 130, 0.3);
 }
 
 main {
@@ -171,6 +226,47 @@ main {
   overflow: hidden;
   box-shadow: var(--shadow);
   isolation: isolate;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.intro-card:hover,
+.info-card:hover,
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px rgba(33, 28, 22, 0.2);
+}
+
+/* Animated borders */
+.intro-card::before,
+.info-card::before,
+.post-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  padding: 2px;
+  background: linear-gradient(135deg, 
+    transparent,
+    rgba(200, 182, 130, 0.4),
+    transparent
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.intro-card:hover::before,
+.info-card:hover::before,
+.post-card:hover::before {
+  opacity: 1;
+  animation: border-shimmer 2s linear infinite;
+}
+
+@keyframes border-shimmer {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
 }
 
 .intro-card::after,
@@ -213,6 +309,52 @@ main {
 .post-card.in-view {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Glitch effect class */
+.glitch {
+  position: relative;
+  animation: glitch-anim 3s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch::before {
+  animation: glitch-before 3s infinite;
+  color: rgba(200, 182, 130, 0.8);
+  z-index: -1;
+}
+
+.glitch::after {
+  animation: glitch-after 3s infinite;
+  color: rgba(95, 89, 79, 0.8);
+  z-index: -2;
+}
+
+@keyframes glitch-anim {
+  0%, 98%, 100% { transform: translate(0); }
+  99% { transform: translate(-2px, 2px); }
+}
+
+@keyframes glitch-before {
+  0%, 3%, 5%, 42%, 44%, 55%, 100% { opacity: 0; transform: translate(0); }
+  4% { opacity: 0.7; transform: translate(-2px, -2px); }
+  43% { opacity: 0.7; transform: translate(2px, 2px); }
+}
+
+@keyframes glitch-after {
+  0%, 3%, 5%, 42%, 44%, 55%, 100% { opacity: 0; transform: translate(0); }
+  4% { opacity: 0.7; transform: translate(2px, 0); }
+  43% { opacity: 0.7; transform: translate(-2px, 0); }
 }
 
 .post-card h2 {
@@ -285,6 +427,18 @@ main {
   color: rgba(38, 33, 27, 0.82);
 }
 
+/* Chromatic aberration effect on hover */
+.post-card:hover h2 {
+  animation: chromatic-aberration 0.3s ease-out;
+}
+
+@keyframes chromatic-aberration {
+  0%, 100% { text-shadow: none; }
+  25% { text-shadow: -2px 0 rgba(200, 182, 130, 0.5), 2px 0 rgba(95, 89, 79, 0.5); }
+  50% { text-shadow: -3px 0 rgba(200, 182, 130, 0.7), 3px 0 rgba(95, 89, 79, 0.7); }
+  75% { text-shadow: -2px 0 rgba(200, 182, 130, 0.5), 2px 0 rgba(95, 89, 79, 0.5); }
+}
+
 .site-footer {
   padding: 48px 0 64px;
   color: rgba(67, 60, 52, 0.75);
@@ -320,5 +474,13 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  
+  body::before,
+  body::after,
+  .background-glow,
+  .background-grid,
+  .logo::after {
+    animation: none !important;
   }
 }
