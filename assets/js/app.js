@@ -105,3 +105,8 @@ if ('IntersectionObserver' in window) {
 } else {
   cards.forEach((card) => card.classList.add('in-view'));
 }
+
+const currentYearEl = document.getElementById('current-year');
+if (currentYearEl) {
+  currentYearEl.textContent = String(new Date().getFullYear());
+}
