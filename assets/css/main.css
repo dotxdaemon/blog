@@ -1,12 +1,17 @@
 :root {
-  color-scheme: light;
-  --bg: #f5f2ea;
-  --fg: #231f1b;
-  --muted: #5f594f;
-  --accent: #c8b682;
-  --card-bg: #fffaf0;
-  --border: rgba(35, 31, 27, 0.12);
-  --shadow: 0 12px 24px rgba(35, 31, 27, 0.12);
+  color-scheme: dark;
+  --bg: #0b0a07;
+  --fg: #e9e4d6;
+  --muted: rgba(233, 228, 214, 0.7);
+  --accent: #f5cf87;
+  --card-bg: rgba(18, 17, 14, 0.9);
+  --border: rgba(245, 207, 135, 0.15);
+  --shadow: 0 24px 48px rgba(8, 7, 5, 0.6);
+  --scanline: rgba(12, 11, 9, 0.65);
+  --scanline-highlight: rgba(33, 31, 27, 0.6);
+  --noise-strength: 0.18;
+  --cursor-width: 0.55ch;
+  --cursor-height: 1.1em;
   --mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
   --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L',
@@ -31,11 +36,65 @@ body {
 body {
   display: flex;
   justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+  transition: background 1.2s ease;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+body::before {
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.1) 40%,
+      rgba(0, 0, 0, 0)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--scanline),
+      var(--scanline) 1px,
+      rgba(0, 0, 0, 0) 1px,
+      rgba(0, 0, 0, 0) 3px
+    );
+  opacity: 0.25;
+  animation: scanline-flicker 9s linear infinite;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' seed='12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='%23000' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: var(--noise-strength);
+  mix-blend-mode: soft-light;
+  animation: noise-shift 3s steps(3) infinite;
 }
 
 main {
   flex: 1;
   padding: clamp(2rem, 4vw, 4rem) 0;
+  position: relative;
+  z-index: 1;
+  transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), opacity 1s ease,
+    filter 1s ease;
+}
+
+body.has-js main {
+  opacity: 0;
+  transform: translateY(32px) scale(0.98);
+  filter: blur(6px);
+}
+
+body.has-js.is-loaded main {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: none;
 }
 
 .container {
@@ -58,6 +117,8 @@ main {
   transform: translateY(24px);
   opacity: 0;
   transition: transform 0.6s ease, opacity 0.6s ease;
+  overflow: hidden;
+  outline: none;
 }
 
 .post-card.in-view {
@@ -70,8 +131,33 @@ main {
   position: absolute;
   inset: 10px;
   border-radius: 12px;
-  border: 1px solid rgba(35, 31, 27, 0.08);
+  border: 1px solid rgba(245, 207, 135, 0.08);
   pointer-events: none;
+}
+
+.post-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(245, 207, 135, 0) 0%,
+    rgba(245, 207, 135, 0.08) 45%,
+    rgba(245, 207, 135, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.post-card:focus-visible {
+  box-shadow: 0 0 0 3px rgba(245, 207, 135, 0.35), var(--shadow);
+}
+
+.post-card:hover::before,
+.post-card:focus-visible::before {
+  opacity: 1;
 }
 
 .post-card h2 {
@@ -95,7 +181,7 @@ time {
   margin: 0 0 1.25rem;
   font-size: 1.05rem;
   line-height: 1.7;
-  color: rgba(35, 31, 27, 0.84);
+  color: rgba(233, 228, 214, 0.84);
 }
 
 .body p {
@@ -110,63 +196,102 @@ time {
 .body code {
   font-family: var(--mono);
   font-size: 0.95rem;
-  background: rgba(35, 31, 27, 0.06);
+  background: rgba(245, 207, 135, 0.1);
   border-radius: 6px;
   padding: 0.2rem 0.4rem;
 }
 
-.glitch {
+.cursor-target {
   position: relative;
   display: inline-block;
-  text-shadow: 2px 2px 0 rgba(200, 182, 130, 0.35);
+  padding-right: calc(var(--cursor-width) + 0.3ch);
 }
 
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
+.cursor-target::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  pointer-events: none;
+  bottom: 0.1em;
+  right: 0.1ch;
+  width: var(--cursor-width);
+  height: var(--cursor-height);
+  background: var(--accent);
   opacity: 0;
+  animation: cursor-blink 1s steps(2, start) infinite;
+  box-shadow: 0 0 8px rgba(245, 207, 135, 0.6);
 }
 
-.glitch::before {
-  color: rgba(200, 182, 130, 0.85);
-  transform: translate(-2px, 0);
+.post-card:hover .cursor-target::after,
+.post-card:focus-within .cursor-target::after,
+.cursor-target:focus::after {
+  opacity: 0.8;
 }
 
-.glitch::after {
-  color: rgba(95, 89, 79, 0.75);
-  transform: translate(2px, 0);
+.cursor-target-block {
+  position: relative;
+  display: block;
+  padding-right: calc(var(--cursor-width) + 0.4ch);
 }
 
-.post-card:hover .glitch::before {
-  opacity: 0.6;
-  animation: glitch-shift-left 1.4s infinite;
+.cursor-target-block::after {
+  content: '';
+  position: absolute;
+  bottom: 0.35em;
+  right: 0;
+  width: var(--cursor-width);
+  height: var(--cursor-height);
+  background: var(--accent);
+  opacity: 0;
+  animation: cursor-blink 1.05s steps(2, start) infinite;
+  box-shadow: 0 0 10px rgba(245, 207, 135, 0.45);
 }
 
-.post-card:hover .glitch::after {
-  opacity: 0.6;
-  animation: glitch-shift-right 1.4s infinite;
+.post-card:hover .cursor-target-block::after,
+.post-card:focus-within .cursor-target-block::after,
+.cursor-target-block:focus::after {
+  opacity: 0.75;
 }
 
-@keyframes glitch-shift-left {
+@keyframes cursor-blink {
   0%,
   100% {
-    transform: translate(-2px, 0);
+    opacity: 0.85;
   }
   50% {
-    transform: translate(2px, 0);
+    opacity: 0.1;
   }
 }
 
-@keyframes glitch-shift-right {
+@keyframes scanline-flicker {
   0%,
   100% {
-    transform: translate(2px, 0);
+    opacity: 0.18;
+  }
+  20% {
+    opacity: 0.28;
+  }
+  38% {
+    opacity: 0.2;
+  }
+  63% {
+    opacity: 0.33;
+  }
+  75% {
+    opacity: 0.19;
+  }
+}
+
+@keyframes noise-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: calc(var(--noise-strength) * 0.8);
   }
   50% {
-    transform: translate(-2px, 0);
+    transform: translate3d(-1%, 1%, 0);
+    opacity: calc(var(--noise-strength) * 1.1);
+  }
+  100% {
+    transform: translate3d(1%, -1%, 0);
+    opacity: calc(var(--noise-strength) * 0.9);
   }
 }
 
@@ -177,5 +302,16 @@ time {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  body.has-js main {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
