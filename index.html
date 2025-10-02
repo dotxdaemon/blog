@@ -13,54 +13,11 @@
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body>
-    <div class="background-glow" aria-hidden="true"></div>
-    <div class="background-grid" aria-hidden="true"></div>
-
-    <header class="site-header">
-      <div class="container">
-        <div class="brand">
-          <span class="logo" aria-label="velvetdaemon">velvetdaemon</span>
-          <p class="tagline">Analog transmissions from the terminal void</p>
-        </div>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <a class="pill" href="#posts">Posts</a>
-          <a class="pill" href="#manifesto">Manifesto</a>
-          <a class="pill" href="#toolkit">Toolkit</a>
-        </nav>
-      </div>
-    </header>
-
     <main>
       <div class="container">
-        <section class="intro-card" id="manifesto">
-          <h1 class="glitch" data-text="Field Notes from the Terminal">
-            Field Notes from the Terminal
-          </h1>
-          <p>
-            Broadcasting fragments, rituals, and analog dreams from a flickering
-            command line future. Tune in for speculative essays, cultural
-            dispatches, and the occasional systems breach.
-          </p>
-        </section>
-
-        <section class="info-card" id="toolkit" aria-labelledby="toolkit-title">
-          <h2 id="toolkit-title">Operator Toolkit</h2>
-          <ul class="instructions">
-            <li>Deploy the <code>.glitch</code> class with a <code>data-text</code> attribute for instant signal distortion.</li>
-            <li>Hover over cards to trigger shimmering borders, chromatic drifts, and elevated shadows.</li>
-            <li>Point anywhere to wield the custom crosshair cursor crafted for terminal explorers.</li>
-          </ul>
-        </section>
-
         <section class="post-list" id="posts" aria-live="polite"></section>
       </div>
     </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p>© <span id="current-year"></span> velvetdaemon — Signals never sleep.</p>
-      </div>
-    </footer>
 
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/app.js" type="module"></script>
