@@ -68,6 +68,19 @@ body::after {
   pointer-events: none;
   z-index: 9998;
   opacity: 0.4;
+  animation: grain-shift 6s steps(8) infinite;
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.02);
+  }
+  50% {
+    transform: translate3d(-2%, 1%, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(1%, -1%, 0) scale(1.01);
+  }
 }
 
 .background-glow {
@@ -139,6 +152,12 @@ body::after {
   flex-direction: column;
   gap: 16px;
   padding: 28px 0 22px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .logo {
@@ -412,6 +431,15 @@ main {
   margin: 0 0 18px;
   padding-left: 20px;
   line-height: 1.8;
+  list-style: square;
+}
+
+.instructions li {
+  margin-bottom: 8px;
+}
+
+.instructions li:last-child {
+  margin-bottom: 0;
 }
 
 .instructions code,
