@@ -1,6 +1,10 @@
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const postList = document.querySelector('.post-list');
 
+if (!postList) {
+  throw new Error('Expected an element with the class "post-list" to render posts.');
+}
+
 if (document.body) {
   document.body.classList.add('has-js');
 }
@@ -61,6 +65,13 @@ function formatDate(isoString) {
         return isoString;
       }
       date = new Date(year, month - 1, day);
+      if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== month - 1 ||
+        date.getDate() !== day
+      ) {
+        return isoString;
+      }
     } else {
       date = new Date(isoString);
     }
