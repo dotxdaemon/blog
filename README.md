@@ -3,7 +3,7 @@
 ## Features
 
 - **Self-contained static site.** Posts are stored in a single JavaScript array; there is no back‑end or build step. Deploy the repository anywhere static files can be served.
-- **YoRHa aesthetics.** Sepia color palette, thick borders, and subtle animations evoke the worn terminals of the bunker.
+- **Retro terminal aesthetics.** Sepia color palette, thick borders, and subtle animations evoke the feel of a well-loved command console.
 - **Responsive layout.** Grid of cards adjusts for desktop and mobile.
 - **Open source.** Fork it and customize the styles and card component to suit your vision.
 
@@ -35,4 +35,4 @@ Then open the URL shown in the terminal (usually `http://localhost:3000`).
 
 ## Customize the look
 
-Modify the sepia tones or typography inside `assets/css/main.css`. Adjust the borders and card styles under `.post-card` to match your vision of the bunker.
+Modify the sepia tones or typography inside `assets/css/main.css`. Adjust the borders and card styles under `.post-card` to match your vision for the site.
