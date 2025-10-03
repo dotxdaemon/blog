@@ -1,17 +1,21 @@
+/* === Root theme tokens (sepia bunker palette) === */
 :root {
   color-scheme: dark;
-  --bg: #0b0a07;
-  --fg: #e9e4d6;
-  --muted: rgba(233, 228, 214, 0.7);
-  --accent: #f5cf87;
-  --card-bg: rgba(18, 17, 14, 0.9);
-  --border: rgba(245, 207, 135, 0.15);
-  --shadow: 0 24px 48px rgba(8, 7, 5, 0.6);
-  --scanline: rgba(12, 11, 9, 0.65);
-  --scanline-highlight: rgba(33, 31, 27, 0.6);
-  --noise-strength: 0.18;
+  --bg: #1a1612;
+  --fg: #d4c5a9;
+  --muted: rgba(212, 197, 169, 0.72);
+  --accent: #d4c5a9;
+  --accent-soft: rgba(212, 197, 169, 0.22);
+  --card-bg: rgba(42, 36, 32, 0.92);
+  --border: rgba(212, 197, 169, 0.18);
+  --shadow: 0 28px 52px rgba(8, 6, 4, 0.68);
+  --shadow-hover: 0 32px 58px rgba(10, 8, 6, 0.78);
+  --scanline: rgba(17, 14, 11, 0.62);
+  --scanline-highlight: rgba(41, 36, 32, 0.48);
+  --noise-strength: 0.15;
   --cursor-width: 0.55ch;
   --cursor-height: 1.1em;
+  --bracket-thickness: 2px;
   --mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
   --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L',
@@ -39,10 +43,13 @@ body {
   position: relative;
   overflow-x: hidden;
   transition: background 1.2s ease;
+  /* === Custom tactical cursor === */
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg stroke='%23d4c5a9' stroke-width='1.4' stroke-linecap='square'%3E%3Cpath d='M12 1v6M12 17v6M1 12h6M17 12h6'/%3E%3Ccircle cx='12' cy='12' r='2.3' fill='none'/%3E%3C/g%3E%3C/svg%3E") 12 12, crosshair;
 }
 
 body::before,
-body::after {
+body::after,
+html::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -51,6 +58,7 @@ body::after {
   mix-blend-mode: screen;
 }
 
+/* === CRT scanlines overlay with subtle flicker === */
 body::before {
   background-image: linear-gradient(
       rgba(0, 0, 0, 0),
@@ -64,16 +72,29 @@ body::before {
       rgba(0, 0, 0, 0) 1px,
       rgba(0, 0, 0, 0) 3px
     );
-  opacity: 0.25;
-  animation: scanline-flicker 9s linear infinite;
+  opacity: 0.24;
+  animation: scanline-flicker 11s linear infinite;
   mix-blend-mode: multiply;
 }
 
+/* === Animated noise / grain overlay === */
 body::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' seed='12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='%23000' opacity='0.4'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='3' seed='12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='%23000' opacity='0.4'/%3E%3C/svg%3E");
   opacity: var(--noise-strength);
   mix-blend-mode: soft-light;
-  animation: noise-shift 3s steps(3) infinite;
+  animation: noise-shift 16s linear infinite;
+}
+
+/* === Vignette effect darkening the edges === */
+html::before {
+  background: radial-gradient(
+    circle at center,
+    rgba(26, 22, 18, 0) 45%,
+    rgba(10, 8, 6, 0.3) 70%,
+    rgba(10, 8, 6, 0.55) 100%
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.85;
 }
 
 main {
@@ -107,57 +128,91 @@ body.has-js.is-loaded main {
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
+/* === Post card styling with corner brackets & hover lift === */
 .post-card {
+  --card-delay: 0s;
   position: relative;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border-radius: 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  transform: translateY(24px);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 -6px 24px rgba(10, 8, 6, 0.42);
+  transform: translateY(28px);
   opacity: 0;
-  transition: transform 0.6s ease, opacity 0.6s ease;
+  transition: transform 0.6s ease, box-shadow 0.45s ease,
+    border-color 0.45s ease;
   overflow: hidden;
   outline: none;
+  backdrop-filter: blur(1px);
 }
 
-.post-card.in-view {
-  transform: translateY(0);
-  opacity: 1;
+body.has-js .post-card.in-view {
+  animation: card-fade-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--card-delay);
 }
 
+.post-card::before,
 .post-card::after {
   content: '';
   position: absolute;
-  inset: 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(245, 207, 135, 0.08);
+  width: 48px;
+  height: 48px;
   pointer-events: none;
+  transition: transform 0.45s ease, opacity 0.45s ease;
 }
 
 .post-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(245, 207, 135, 0) 0%,
-    rgba(245, 207, 135, 0.08) 45%,
-    rgba(245, 207, 135, 0) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  mix-blend-mode: screen;
+  top: 16px;
+  left: 20px;
+  border-top: var(--bracket-thickness) solid var(--accent);
+  border-left: var(--bracket-thickness) solid var(--accent);
+  opacity: 0.65;
 }
 
+.post-card::after {
+  right: 20px;
+  bottom: 16px;
+  border-bottom: var(--bracket-thickness) solid var(--accent);
+  border-right: var(--bracket-thickness) solid var(--accent);
+  opacity: 0.55;
+}
+
+.post-card:hover,
 .post-card:focus-visible {
-  box-shadow: 0 0 0 3px rgba(245, 207, 135, 0.35), var(--shadow);
+  transform: translateY(18px);
+  box-shadow: var(--shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -8px 26px rgba(10, 8, 6, 0.5);
+  border-color: rgba(212, 197, 169, 0.32);
 }
 
 .post-card:hover::before,
 .post-card:focus-visible::before {
-  opacity: 1;
+  transform: translate(-6px, -6px) scale(1.1);
+  opacity: 0.9;
+}
+
+.post-card:hover::after,
+.post-card:focus-visible::after {
+  transform: translate(6px, 6px) scale(1.1);
+  opacity: 0.85;
+}
+
+.post-card:focus-visible {
+  box-shadow: 0 0 0 3px rgba(212, 197, 169, 0.32), var(--shadow-hover);
+}
+
+/* Staggered reveal cadence */
+.post-card:nth-child(3n + 1) {
+  --card-delay: 0.05s;
+}
+
+.post-card:nth-child(3n + 2) {
+  --card-delay: 0.18s;
+}
+
+.post-card:nth-child(3n + 3) {
+  --card-delay: 0.3s;
 }
 
 .post-card h2 {
@@ -168,6 +223,7 @@ body.has-js.is-loaded main {
   text-transform: uppercase;
 }
 
+/* === Date meta styling with tabular numerals === */
 time {
   display: inline-block;
   font-family: var(--mono);
@@ -175,6 +231,7 @@ time {
   letter-spacing: 0.08em;
   color: var(--muted);
   margin-bottom: 1rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .excerpt {
@@ -201,10 +258,14 @@ time {
   padding: 0.2rem 0.4rem;
 }
 
+/* === Chromatic aberration headings === */
 .glitch {
   position: relative;
   display: inline-block;
-  text-shadow: 0 0 10px rgba(245, 207, 135, 0.35);
+  text-shadow: 0 0 8px rgba(212, 197, 169, 0.3),
+    1px 0 rgba(255, 81, 81, 0.24),
+    -1px 0 rgba(82, 168, 255, 0.24);
+  animation: chromatic-aberration 7s ease-in-out infinite;
 }
 
 .cursor-target {
@@ -223,7 +284,7 @@ time {
   background: var(--accent);
   opacity: 0;
   animation: cursor-blink 1s steps(2, start) infinite;
-  box-shadow: 0 0 8px rgba(245, 207, 135, 0.6);
+  box-shadow: 0 0 8px rgba(212, 197, 169, 0.55);
 }
 
 .post-card:hover .cursor-target::after,
@@ -248,13 +309,31 @@ time {
   background: var(--accent);
   opacity: 0;
   animation: cursor-blink 1.05s steps(2, start) infinite;
-  box-shadow: 0 0 10px rgba(245, 207, 135, 0.45);
+  box-shadow: 0 0 10px rgba(212, 197, 169, 0.45);
 }
+
 
 .post-card:hover .cursor-target-block::after,
 .post-card:focus-within .cursor-target-block::after,
 .cursor-target-block:focus::after {
   opacity: 0.75;
+}
+
+/* === Breathing glow for main title === */
+h1,
+.page-title {
+  font-family: var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(212, 197, 169, 0.35);
+  animation: title-breathe 6.5s ease-in-out infinite;
+}
+
+/* === Custom selection styling === */
+::selection {
+  background: var(--fg);
+  color: #1a1612;
+  text-shadow: none;
 }
 
 @keyframes cursor-blink {
@@ -270,34 +349,85 @@ time {
 @keyframes scanline-flicker {
   0%,
   100% {
-    opacity: 0.18;
+    opacity: 0.19;
   }
   20% {
-    opacity: 0.28;
+    opacity: 0.3;
   }
   38% {
-    opacity: 0.2;
+    opacity: 0.23;
   }
   63% {
-    opacity: 0.33;
+    opacity: 0.28;
   }
   75% {
-    opacity: 0.19;
+    opacity: 0.24;
   }
 }
 
 @keyframes noise-shift {
   0% {
     transform: translate3d(0, 0, 0);
-    opacity: calc(var(--noise-strength) * 0.8);
+    opacity: calc(var(--noise-strength) * 0.75);
   }
   50% {
-    transform: translate3d(-1%, 1%, 0);
-    opacity: calc(var(--noise-strength) * 1.1);
+    transform: translate3d(-2%, 2%, 0);
+    opacity: calc(var(--noise-strength) * 1.12);
   }
   100% {
     transform: translate3d(1%, -1%, 0);
-    opacity: calc(var(--noise-strength) * 0.9);
+    opacity: calc(var(--noise-strength) * 0.85);
+  }
+}
+
+@keyframes chromatic-aberration {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgba(212, 197, 169, 0.3),
+      1px 0 rgba(255, 81, 81, 0.24),
+      -1px 0 rgba(82, 168, 255, 0.24);
+  }
+  45% {
+    text-shadow: 0 0 10px rgba(212, 197, 169, 0.4),
+      2px 0 rgba(255, 81, 81, 0.34),
+      -2px 0 rgba(82, 168, 255, 0.34);
+  }
+  55% {
+    text-shadow: 0 0 6px rgba(212, 197, 169, 0.28),
+      -1px 0 rgba(255, 81, 81, 0.28),
+      1px 0 rgba(82, 168, 255, 0.28);
+  }
+  70% {
+    text-shadow: 0 0 9px rgba(212, 197, 169, 0.35),
+      1.5px 0 rgba(255, 81, 81, 0.26),
+      -1.5px 0 rgba(82, 168, 255, 0.26);
+  }
+}
+
+@keyframes card-fade-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0) scale(0.98);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(0, -4px, 0) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes title-breathe {
+  0%,
+  100% {
+    text-shadow: 0 0 12px rgba(212, 197, 169, 0.32),
+      0 0 22px rgba(212, 197, 169, 0.18);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(212, 197, 169, 0.45),
+      0 0 28px rgba(212, 197, 169, 0.26);
   }
 }
 
@@ -311,7 +441,8 @@ time {
   }
 
   body::before,
-  body::after {
+  body::after,
+  html::before {
     display: none;
   }
 
@@ -319,5 +450,11 @@ time {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+
+  body.has-js .post-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 }
