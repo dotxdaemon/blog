@@ -126,12 +126,15 @@ body.has-js.is-loaded main {
 .post-list {
   display: grid;
   gap: clamp(1.5rem, 3vw, 2.5rem);
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
 }
 
 /* === Post card styling with corner brackets & hover lift === */
 .post-card {
   --card-delay: 0s;
   position: relative;
+  width: 100%;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border-radius: 18px;
   background: var(--card-bg);
