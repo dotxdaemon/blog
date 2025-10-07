@@ -40,6 +40,8 @@ body {
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   position: relative;
   overflow-x: hidden;
   transition: background 1.2s ease;
@@ -98,7 +100,8 @@ html::before {
 }
 
 main {
-  flex: 1;
+  flex: 0 1 auto;
+  width: min(720px, 92vw);
   padding: clamp(2rem, 4vw, 4rem) 0;
   position: relative;
   z-index: 1;
