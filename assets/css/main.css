@@ -101,7 +101,7 @@ html::before {
 }
 
 main {
-  flex: 0 1 auto;
+  flex: none;
   width: min(720px, 92vw);
   padding: clamp(2rem, 4vw, 4rem) 0;
   position: relative;
