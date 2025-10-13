@@ -29,6 +29,8 @@ Die, My Love
 
 The Testament of Ann Lee
 
-Wake Up Dead Man`,
+Wake Up Dead Man
+
+https://letterboxd.com/000_leo/list/oscars-2026-1/`,
   },
 ];
