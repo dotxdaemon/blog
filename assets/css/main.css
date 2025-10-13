@@ -193,19 +193,17 @@ body.has-js.is-loaded main {
 }
 
 .post-list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: clamp(1.5rem, 3vw, 2.5rem);
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  align-items: start;
-  justify-content: center;
-  justify-items: center;
+  align-items: stretch;
 }
 
 /* === Post card styling with corner brackets & hover lift === */
 .post-card {
   --card-delay: 0s;
   position: relative;
-  width: min(100%, 360px);
+  width: 100%;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border-radius: 18px;
   background: var(--card-bg);
