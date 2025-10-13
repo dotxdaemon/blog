@@ -10,14 +10,17 @@ if (document.body) {
 }
 
 if (!posts.length) {
-  postList.innerHTML = `<article class="post-card"><h2 class="glitch">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p></article>`;
+  postList.innerHTML = `<article class="post-card" data-ambient-tone="warm"><h2 class="glitch">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span></article>`;
 } else {
   posts
     .filter((post) => post && post.title && post.date)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .forEach((post) => {
+    .forEach((post, index) => {
       const card = document.createElement('article');
       card.className = 'post-card';
+      const tone = index % 2 === 0 ? 'warm' : 'cool';
+      card.dataset.ambientTone = tone;
+      card.setAttribute('data-ambient-tone', tone);
       const title = document.createElement('h2');
       title.className = 'glitch';
       title.textContent = post.title;
@@ -39,6 +42,10 @@ if (!posts.length) {
         body.innerHTML = renderBody(post.body);
         card.appendChild(body);
       }
+      const brackets = document.createElement('span');
+      brackets.className = 'post-card__brackets';
+      brackets.setAttribute('aria-hidden', 'true');
+      card.appendChild(brackets);
       card.tabIndex = 0;
       postList.appendChild(card);
     });
@@ -109,24 +116,86 @@ function applyFormatting(text) {
 }
 // Fancy hover effect for post cards.
 const cards = document.querySelectorAll('.post-card');
+
+if (!posts.length) {
+  const loneCard = postList.querySelector('.post-card');
+  if (loneCard) {
+    loneCard.dataset.ambientTone = loneCard.dataset.ambientTone || 'warm';
+    loneCard.setAttribute('data-ambient-tone', loneCard.dataset.ambientTone);
+  }
+}
+
+cards.forEach((card, index) => {
+  if (!card.dataset.ambientTone) {
+    const tone = index % 2 === 0 ? 'warm' : 'cool';
+    card.dataset.ambientTone = tone;
+    card.setAttribute('data-ambient-tone', tone);
+  }
+  card.style.setProperty('--pointer-x', '50%');
+  card.style.setProperty('--pointer-y', '50%');
+  card.style.setProperty('--pointer-opacity', '0');
+});
+
 if ('IntersectionObserver' in window) {
   const cardObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        entry.target.classList.toggle('in-view', entry.isIntersecting);
+        const card = entry.target;
+        card.classList.toggle('in-view', entry.isIntersecting);
+        if (entry.isIntersecting) {
+          const tone = card.dataset.ambientTone || 'warm';
+          card.dataset.tone = tone;
+        } else {
+          card.removeAttribute('data-tone');
+        }
       });
     },
     { threshold: 0.1 }
   );
   cards.forEach((card) => cardObserver.observe(card));
 } else {
-  cards.forEach((card) => card.classList.add('in-view'));
+  cards.forEach((card) => {
+    card.classList.add('in-view');
+    const tone = card.dataset.ambientTone || 'warm';
+    card.dataset.tone = tone;
+  });
 }
 
 cards.forEach((card) => {
   if (!card.hasAttribute('tabindex')) {
     card.tabIndex = 0;
   }
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const updateFromPoint = (event) => {
+    const rect = card.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      return;
+    }
+    const x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+    const y = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+    card.style.setProperty('--pointer-x', `${(x * 100).toFixed(2)}%`);
+    card.style.setProperty('--pointer-y', `${(y * 100).toFixed(2)}%`);
+  };
+  const enableSheen = () => {
+    card.style.setProperty('--pointer-opacity', '0.55');
+  };
+  const disableSheen = () => {
+    card.style.setProperty('--pointer-opacity', '0');
+    card.style.setProperty('--pointer-x', '50%');
+    card.style.setProperty('--pointer-y', '50%');
+  };
+  card.addEventListener('pointerenter', (event) => {
+    enableSheen();
+    updateFromPoint(event);
+  });
+  card.addEventListener('pointermove', updateFromPoint);
+  card.addEventListener('pointerleave', disableSheen);
+  card.addEventListener('focusin', () => {
+    card.style.setProperty('--pointer-x', '50%');
+    card.style.setProperty('--pointer-y', '46%');
+    card.style.setProperty('--pointer-opacity', '0.4');
+  });
+  card.addEventListener('focusout', disableSheen);
 });
 
 const currentYearEl = document.getElementById('current-year');
