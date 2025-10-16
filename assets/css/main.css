@@ -322,12 +322,21 @@ body.has-js.is-loaded main {
   --sheen-h: var(--tone-warm-h);
   --sheen-s: var(--tone-warm-s);
   --sheen-l: var(--tone-warm-l);
+  --card-tint-highlight: hsl(
+    var(--sheen-h) var(--sheen-s) calc(var(--sheen-l) + 18%) / 0.32
+  );
+  --card-tint-shadow: hsl(
+    var(--sheen-h) var(--sheen-s) calc(var(--sheen-l) - 6%) / 0.22
+  );
   position: relative;
   isolation: isolate;
   width: 100%;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border-radius: 18px;
-  background: var(--card-bg);
+  background:
+    linear-gradient(150deg, var(--card-tint-highlight), transparent 58%),
+    linear-gradient(330deg, var(--card-tint-shadow), transparent 62%),
+    var(--card-bg);
   border: 1px solid var(--border);
   box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.03),
     inset 0 -6px 24px rgba(10, 8, 6, 0.42);
