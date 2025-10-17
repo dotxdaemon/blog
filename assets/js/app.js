@@ -12,42 +12,99 @@ if (document.body) {
 if (!posts.length) {
   postList.innerHTML = `<article class="post-card" data-ambient-tone="warm"><h2 class="glitch">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span></article>`;
 } else {
+  postList.innerHTML = '';
+  const timeline = document.createElement('ol');
+  timeline.className = 'timeline';
+  timeline.setAttribute('role', 'list');
+  postList.appendChild(timeline);
+
+  let previousYear = null;
+
   posts
     .filter((post) => post && post.title && post.date)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .forEach((post, index) => {
+      const timelineItem = document.createElement('li');
+      timelineItem.className = 'timeline__item';
+      const postYear = extractYear(post.date);
+      const isFirstOfYear = postYear !== previousYear;
+      timelineItem.dataset.year = postYear;
+      if (isFirstOfYear) {
+        timelineItem.dataset.yearFirst = 'true';
+      } else {
+        timelineItem.dataset.yearFirst = 'false';
+      }
+
+      const rail = document.createElement('div');
+      rail.className = 'timeline__rail';
+      rail.dataset.year = postYear;
+      rail.dataset.yearFirst = isFirstOfYear ? 'true' : 'false';
+
+      const yearLabel = document.createElement('span');
+      yearLabel.className = 'timeline__year';
+      yearLabel.textContent = postYear;
+      if (!isFirstOfYear) {
+        yearLabel.setAttribute('aria-hidden', 'true');
+      }
+      rail.appendChild(yearLabel);
+
+      const node = document.createElement('span');
+      node.className = 'timeline__node';
+      node.setAttribute('aria-hidden', 'true');
+      rail.appendChild(node);
+
+      timelineItem.appendChild(rail);
+
       const card = document.createElement('article');
       card.className = 'post-card';
       const tone = index % 2 === 0 ? 'warm' : 'cool';
       card.dataset.ambientTone = tone;
       card.setAttribute('data-ambient-tone', tone);
+
+      const header = document.createElement('header');
+      header.className = 'post-card__header';
+
       const title = document.createElement('h2');
-      title.className = 'glitch';
+      title.className = 'post-card__title glitch';
       title.textContent = post.title;
-      card.appendChild(title);
-      const meta = document.createElement('time');
-      meta.dateTime = post.date;
-      meta.textContent = formatDate(post.date);
-      meta.classList.add('cursor-target');
-      card.appendChild(meta);
+      header.appendChild(title);
+
+      const formattedDate = formatDate(post.date);
+      if (formattedDate) {
+        const meta = document.createElement('time');
+        meta.dateTime = post.date;
+        meta.textContent = formattedDate;
+        meta.className = 'post-card__date cursor-target';
+        header.appendChild(meta);
+      }
+
+      card.appendChild(header);
+
       if (post.excerpt) {
         const excerpt = document.createElement('p');
         excerpt.className = 'excerpt cursor-target-block';
         excerpt.textContent = post.excerpt;
         card.appendChild(excerpt);
       }
+
       if (post.body) {
         const body = document.createElement('div');
         body.className = 'body cursor-target-block';
         body.innerHTML = renderBody(post.body);
         card.appendChild(body);
       }
+
       const brackets = document.createElement('span');
       brackets.className = 'post-card__brackets';
       brackets.setAttribute('aria-hidden', 'true');
       card.appendChild(brackets);
+
       card.tabIndex = 0;
-      postList.appendChild(card);
+
+      timelineItem.appendChild(card);
+      timeline.appendChild(timelineItem);
+
+      previousYear = postYear;
     });
 }
 function formatDate(isoString) {
@@ -91,6 +148,30 @@ function formatDate(isoString) {
     month: 'long',
     day: 'numeric',
   }).format(date);
+}
+
+function extractYear(isoString) {
+  if (!isoString) {
+    return '—';
+  }
+
+  if (isoString instanceof Date && !Number.isNaN(isoString.getTime())) {
+    return String(isoString.getFullYear());
+  }
+
+  if (typeof isoString === 'string') {
+    const match = isoString.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (match) {
+      return match[1];
+    }
+
+    const parsed = new Date(isoString);
+    if (!Number.isNaN(parsed.getTime())) {
+      return String(parsed.getFullYear());
+    }
+  }
+
+  return '—';
 }
 function renderBody(raw) {
   const paragraphs = String(raw)
