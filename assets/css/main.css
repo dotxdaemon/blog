@@ -22,6 +22,7 @@
   --cursor-width: 0.55ch;
   --cursor-height: 1.1em;
   --bracket-thickness: 2px;
+  --masthead-offset: clamp(4.5rem, 9vw, 6rem);
   --mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
   --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L',
@@ -43,6 +44,10 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-padding-top: var(--masthead-offset);
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -52,6 +57,7 @@ body {
   position: relative;
   overflow-x: hidden;
   transition: background 1.2s ease;
+  padding-top: var(--masthead-offset);
   --ambient-h: var(--tone-warm-h);
   --ambient-s: var(--tone-warm-s);
   --ambient-l: var(--tone-warm-l);
@@ -60,6 +66,18 @@ body {
   --ambient-strength: 0.18;
   /* === Custom tactical cursor === */
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg stroke='%23d4c5a9' stroke-width='1.4' stroke-linecap='square'%3E%3Cpath d='M12 1v6M12 17v6M1 12h6M17 12h6'/%3E%3Ccircle cx='12' cy='12' r='2.3' fill='none'/%3E%3C/g%3E%3C/svg%3E") 12 12, crosshair;
+}
+
+@supports (padding-top: calc(1rem + env(safe-area-inset-top))) {
+  body {
+    padding-top: calc(var(--masthead-offset) + env(safe-area-inset-top));
+  }
+}
+
+@supports (scroll-padding-top: calc(1rem + env(safe-area-inset-top))) {
+  html {
+    scroll-padding-top: calc(var(--masthead-offset) + env(safe-area-inset-top));
+  }
 }
 
 body:has(.post-card[data-tone='cool'].in-view) {
@@ -200,13 +218,15 @@ body.has-js.is-loaded main {
 }
 
 .site-masthead {
-  position: sticky;
-  top: clamp(1rem, 4vw, 2rem);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: clamp(1rem, 3vw, 1.75rem) 0 0;
-  z-index: 5;
+  padding: clamp(0.75rem, 2.5vw, 1.25rem) 0;
+  z-index: 10;
 }
 
 .site-masthead__inner {
@@ -288,7 +308,7 @@ body.has-js.is-loaded main {
 }
 
 main {
-  margin-top: clamp(3rem, 8vw, 5rem);
+  margin-top: 0;
 }
 
 .container {
@@ -967,8 +987,12 @@ h1,
     display: none;
   }
 
+  :root {
+    --masthead-offset: clamp(5.5rem, 18vw, 7.5rem);
+  }
+
   .site-masthead {
-    top: clamp(0.75rem, 6vw, 1.5rem);
+    padding: clamp(0.5rem, 4vw, 1rem) 0;
   }
 
   .site-masthead__inner {
