@@ -22,9 +22,6 @@
   --cursor-width: 0.55ch;
   --cursor-height: 1.1em;
   --bracket-thickness: 2px;
-  --masthead-height: clamp(3.75rem, 8vw, 4.85rem);
-  --masthead-clearance: clamp(0.75rem, 3vw, 1.15rem);
-  --masthead-offset: calc(var(--masthead-height) + var(--masthead-clearance));
   --mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
   --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L',
@@ -46,10 +43,6 @@ body {
   min-height: 100%;
 }
 
-html {
-  scroll-padding-top: var(--masthead-offset);
-}
-
 body {
   display: flex;
   flex-direction: column;
@@ -59,7 +52,6 @@ body {
   position: relative;
   overflow-x: hidden;
   transition: background 1.2s ease;
-  padding-top: var(--masthead-offset);
   --ambient-h: var(--tone-warm-h);
   --ambient-s: var(--tone-warm-s);
   --ambient-l: var(--tone-warm-l);
@@ -68,18 +60,6 @@ body {
   --ambient-strength: 0.18;
   /* === Custom tactical cursor === */
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg stroke='%23d4c5a9' stroke-width='1.4' stroke-linecap='square'%3E%3Cpath d='M12 1v6M12 17v6M1 12h6M17 12h6'/%3E%3Ccircle cx='12' cy='12' r='2.3' fill='none'/%3E%3C/g%3E%3C/svg%3E") 12 12, crosshair;
-}
-
-@supports (padding-top: calc(1rem + env(safe-area-inset-top))) {
-  body {
-    padding-top: calc(var(--masthead-offset) + env(safe-area-inset-top));
-  }
-}
-
-@supports (scroll-padding-top: calc(1rem + env(safe-area-inset-top))) {
-  html {
-    scroll-padding-top: calc(var(--masthead-offset) + env(safe-area-inset-top));
-  }
 }
 
 body:has(.post-card[data-tone='cool'].in-view) {
@@ -217,97 +197,6 @@ body.has-js.is-loaded main {
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: none;
-}
-
-.site-masthead {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  min-height: var(--masthead-height);
-  padding: clamp(0.75rem, 2.5vw, 1.25rem) 0;
-  z-index: 10;
-}
-
-.site-masthead__inner {
-  width: min(960px, 92vw);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 999px;
-  border: 1px solid rgba(212, 197, 169, 0.25);
-  background: linear-gradient(
-      120deg,
-      rgba(212, 197, 169, 0.16),
-      rgba(212, 197, 169, 0.06)
-    )
-    rgba(32, 26, 22, 0.6);
-  box-shadow: 0 18px 36px rgba(8, 6, 4, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(18px) saturate(130%);
-  -webkit-backdrop-filter: blur(18px) saturate(130%);
-}
-
-.site-masthead__brand {
-  font-family: var(--display);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-size: clamp(1.1rem, 3vw, 1.35rem);
-  color: var(--fg);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.site-masthead__brand::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--fg) 65%, transparent);
-  box-shadow: 0 0 12px rgba(212, 197, 169, 0.6);
-}
-
-.site-masthead__links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: inline-flex;
-  gap: 1.75rem;
-  align-items: center;
-  font-family: var(--mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.site-masthead__links a {
-  color: var(--fg);
-  text-decoration: none;
-  position: relative;
-  padding-bottom: 0.2rem;
-}
-
-.site-masthead__links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(212, 197, 169, 0.8), rgba(212, 197, 169, 0));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s ease;
-}
-
-.site-masthead__links a:hover::after,
-.site-masthead__links a:focus-visible::after {
-  transform: scaleX(1);
 }
 
 main {
@@ -988,30 +877,6 @@ h1,
 
   .timeline__node::after {
     display: none;
-  }
-
-  :root {
-    --masthead-height: clamp(4.25rem, 12vw, 5.25rem);
-    --masthead-clearance: clamp(1.25rem, 6vw, 2.25rem);
-  }
-
-  .site-masthead {
-    padding: clamp(0.5rem, 4vw, 1rem) 0;
-  }
-
-  .site-masthead__inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-  }
-
-  .site-masthead__brand {
-    justify-content: center;
-  }
-
-  .site-masthead__links {
-    justify-content: space-between;
-    width: 100%;
   }
 
   .post-card__header {
