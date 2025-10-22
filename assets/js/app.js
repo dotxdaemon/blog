@@ -10,7 +10,7 @@ if (document.body) {
 }
 
 if (!posts.length) {
-  postList.innerHTML = `<article class="post-card" data-ambient-tone="warm"><h2 class="glitch">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span></article>`;
+  postList.innerHTML = `<article class="post-card" data-ambient-tone="cool"><h2 class="glitch">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span></article>`;
 } else {
   postList.innerHTML = '';
   const timeline = document.createElement('ol');
@@ -23,7 +23,7 @@ if (!posts.length) {
   posts
     .filter((post) => post && post.title && post.date)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .forEach((post, index) => {
+    .forEach((post) => {
       const timelineItem = document.createElement('li');
       timelineItem.className = 'timeline__item';
       const postYear = extractYear(post.date);
@@ -57,7 +57,7 @@ if (!posts.length) {
 
       const card = document.createElement('article');
       card.className = 'post-card';
-      const tone = index % 2 === 0 ? 'warm' : 'cool';
+      const tone = 'cool';
       card.dataset.ambientTone = tone;
       card.setAttribute('data-ambient-tone', tone);
 
@@ -201,14 +201,14 @@ const cards = document.querySelectorAll('.post-card');
 if (!posts.length) {
   const loneCard = postList.querySelector('.post-card');
   if (loneCard) {
-    loneCard.dataset.ambientTone = loneCard.dataset.ambientTone || 'warm';
+    loneCard.dataset.ambientTone = loneCard.dataset.ambientTone || 'cool';
     loneCard.setAttribute('data-ambient-tone', loneCard.dataset.ambientTone);
   }
 }
 
-cards.forEach((card, index) => {
+cards.forEach((card) => {
   if (!card.dataset.ambientTone) {
-    const tone = index % 2 === 0 ? 'warm' : 'cool';
+    const tone = 'cool';
     card.dataset.ambientTone = tone;
     card.setAttribute('data-ambient-tone', tone);
   }
@@ -224,7 +224,7 @@ if ('IntersectionObserver' in window) {
         const card = entry.target;
         card.classList.toggle('in-view', entry.isIntersecting);
         if (entry.isIntersecting) {
-          const tone = card.dataset.ambientTone || 'warm';
+          const tone = card.dataset.ambientTone || 'cool';
           card.dataset.tone = tone;
         } else {
           card.removeAttribute('data-tone');
@@ -237,7 +237,7 @@ if ('IntersectionObserver' in window) {
 } else {
   cards.forEach((card) => {
     card.classList.add('in-view');
-    const tone = card.dataset.ambientTone || 'warm';
+    const tone = card.dataset.ambientTone || 'cool';
     card.dataset.tone = tone;
   });
 }
