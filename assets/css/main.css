@@ -23,8 +23,13 @@
   --cursor-height: 1.1em;
   --bracket-thickness: 2px;
   --masthead-height: clamp(3.75rem, 8vw, 4.85rem);
+  --masthead-padding-block: clamp(0.75rem, 2.5vw, 1.25rem);
   --masthead-clearance: clamp(0.75rem, 3vw, 1.15rem);
-  --masthead-offset: calc(var(--masthead-height) + var(--masthead-clearance));
+  --masthead-offset: calc(
+    var(--masthead-height) +
+      var(--masthead-clearance) +
+      (var(--masthead-padding-block) * 2)
+  );
   --mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
   --serif: 'Spectral', 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L',
@@ -228,7 +233,7 @@ body.has-js.is-loaded main {
   display: flex;
   justify-content: center;
   min-height: var(--masthead-height);
-  padding: clamp(0.75rem, 2.5vw, 1.25rem) 0;
+  padding: var(--masthead-padding-block) 0;
   z-index: 10;
 }
 
