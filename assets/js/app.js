@@ -1,3 +1,25 @@
+const TONE_DEFAULTS = {
+  cool: {
+    hue: 112,
+    saturation: 28,
+    lightness: 54,
+    strength: 0.26,
+    highlightOffset: 10,
+    shadowOffset: 18,
+  },
+  warm: {
+    hue: 48,
+    saturation: 32,
+    lightness: 60,
+    strength: 0.18,
+    highlightOffset: 12,
+    shadowOffset: 14,
+  },
+};
+
+const DEFAULT_TONE = 'cool';
+const VALID_TONES = new Set(Object.keys(TONE_DEFAULTS));
+
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const postList = document.querySelector('.post-list');
 
@@ -10,7 +32,7 @@ if (document.body) {
 }
 
 if (!posts.length) {
-  postList.innerHTML = `<article class="post-card" data-ambient-tone="cool"><h2 class="glitch">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span></article>`;
+  postList.innerHTML = `<article class="post-card" data-ambient-tone="cool"><h2 class="glitch" data-glitch="No posts yet">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span></article>`;
 } else {
   postList.innerHTML = '';
   const timeline = document.createElement('ol');
@@ -57,9 +79,11 @@ if (!posts.length) {
 
       const card = document.createElement('article');
       card.className = 'post-card';
-      const tone = 'cool';
+      const tone = normalizeTone(post.ambientTone || post.tone);
       card.dataset.ambientTone = tone;
       card.setAttribute('data-ambient-tone', tone);
+      const ambientValues = resolveAmbientValues(tone, post.ambient);
+      setAmbientDataset(card, ambientValues);
 
       const header = document.createElement('header');
       header.className = 'post-card__header';
@@ -67,6 +91,7 @@ if (!posts.length) {
       const title = document.createElement('h2');
       title.className = 'post-card__title glitch';
       title.textContent = post.title;
+      title.dataset.glitch = post.title;
       header.appendChild(title);
 
       const formattedDate = formatDate(post.date);
@@ -106,6 +131,132 @@ if (!posts.length) {
 
       previousYear = postYear;
     });
+}
+
+function normalizeTone(rawTone) {
+  if (typeof rawTone === 'string') {
+    const normalized = rawTone.trim().toLowerCase();
+    if (VALID_TONES.has(normalized)) {
+      return normalized;
+    }
+  }
+  return DEFAULT_TONE;
+}
+
+function resolveAmbientValues(tone, ambientInput) {
+  const defaults = { ...(TONE_DEFAULTS[tone] || TONE_DEFAULTS[DEFAULT_TONE]) };
+  if (!ambientInput || typeof ambientInput !== 'object') {
+    return defaults;
+  }
+
+  const hue = normalizeHue(ambientInput.hue ?? ambientInput.h ?? ambientInput.angle);
+  if (hue !== null) {
+    defaults.hue = hue;
+  }
+
+  const saturation = normalizePercentage(ambientInput.saturation ?? ambientInput.sat);
+  if (saturation !== null) {
+    defaults.saturation = saturation;
+  }
+
+  const lightness = normalizePercentage(ambientInput.lightness ?? ambientInput.l);
+  if (lightness !== null) {
+    defaults.lightness = lightness;
+  }
+
+  const strength = normalizeStrength(ambientInput.strength ?? ambientInput.intensity);
+  if (strength !== null) {
+    defaults.strength = strength;
+  }
+
+  const highlightOffset = normalizeOffset(
+    ambientInput.highlightOffset ?? ambientInput.highlightDelta
+  );
+  if (highlightOffset !== null) {
+    defaults.highlightOffset = highlightOffset;
+  }
+
+  const shadowOffset = normalizeOffset(ambientInput.shadowOffset ?? ambientInput.shadowDelta);
+  if (shadowOffset !== null) {
+    defaults.shadowOffset = shadowOffset;
+  }
+
+  return defaults;
+}
+
+function setAmbientDataset(card, values) {
+  card.dataset.ambientHue = String(values.hue);
+  card.dataset.ambientSaturation = String(values.saturation);
+  card.dataset.ambientLightness = String(values.lightness);
+  card.dataset.ambientStrength = String(values.strength);
+  card.dataset.ambientHighlightOffset = String(values.highlightOffset);
+  card.dataset.ambientShadowOffset = String(values.shadowOffset);
+}
+
+function getAmbientFromDataset(card, tone) {
+  const defaults = { ...(TONE_DEFAULTS[tone] || TONE_DEFAULTS[DEFAULT_TONE]) };
+  const hue = normalizeHue(card.dataset.ambientHue);
+  if (hue !== null) {
+    defaults.hue = hue;
+  }
+  const saturation = normalizePercentage(card.dataset.ambientSaturation);
+  if (saturation !== null) {
+    defaults.saturation = saturation;
+  }
+  const lightness = normalizePercentage(card.dataset.ambientLightness);
+  if (lightness !== null) {
+    defaults.lightness = lightness;
+  }
+  const strength = normalizeStrength(card.dataset.ambientStrength);
+  if (strength !== null) {
+    defaults.strength = strength;
+  }
+  const highlightOffset = normalizeOffset(card.dataset.ambientHighlightOffset);
+  if (highlightOffset !== null) {
+    defaults.highlightOffset = highlightOffset;
+  }
+  const shadowOffset = normalizeOffset(card.dataset.ambientShadowOffset);
+  if (shadowOffset !== null) {
+    defaults.shadowOffset = shadowOffset;
+  }
+  return defaults;
+}
+
+function normalizeHue(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return null;
+  }
+  const wrapped = ((parsed % 360) + 360) % 360;
+  return Number.parseFloat(wrapped.toFixed(2));
+}
+
+function normalizePercentage(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return null;
+  }
+  return clampNumber(parsed, 0, 100);
+}
+
+function normalizeStrength(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return null;
+  }
+  return clampNumber(parsed, 0, 1);
+}
+
+function normalizeOffset(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return null;
+  }
+  return clampNumber(parsed, 0, 40);
+}
+
+function clampNumber(value, min, max) {
+  return Math.min(Math.max(value, min), max);
 }
 function formatDate(isoString) {
   if (!isoString) {
@@ -201,21 +352,82 @@ const cards = document.querySelectorAll('.post-card');
 if (!posts.length) {
   const loneCard = postList.querySelector('.post-card');
   if (loneCard) {
-    loneCard.dataset.ambientTone = loneCard.dataset.ambientTone || 'cool';
-    loneCard.setAttribute('data-ambient-tone', loneCard.dataset.ambientTone);
+    const tone = normalizeTone(loneCard.dataset.ambientTone);
+    loneCard.dataset.ambientTone = tone;
+    loneCard.setAttribute('data-ambient-tone', tone);
+    setAmbientDataset(loneCard, resolveAmbientValues(tone));
+    const heading = loneCard.querySelector('.glitch');
+    if (heading && !heading.dataset.glitch) {
+      heading.dataset.glitch = heading.textContent || '';
+    }
   }
 }
 
 cards.forEach((card) => {
-  if (!card.dataset.ambientTone) {
-    const tone = 'cool';
-    card.dataset.ambientTone = tone;
-    card.setAttribute('data-ambient-tone', tone);
+  const tone = normalizeTone(card.dataset.ambientTone);
+  card.dataset.ambientTone = tone;
+  card.setAttribute('data-ambient-tone', tone);
+  setAmbientDataset(card, getAmbientFromDataset(card, tone));
+  const glitchElement = card.querySelector('.glitch');
+  if (glitchElement && !glitchElement.dataset.glitch) {
+    glitchElement.dataset.glitch = glitchElement.textContent || '';
   }
   card.style.setProperty('--pointer-x', '50%');
   card.style.setProperty('--pointer-y', '50%');
   card.style.setProperty('--pointer-opacity', '0');
 });
+
+let activeAmbientCard = null;
+
+function setBodyAmbient(tone, ambient) {
+  if (!document.body) {
+    return;
+  }
+  const resolvedTone = normalizeTone(tone);
+  const values = resolveAmbientValues(resolvedTone, ambient);
+  document.body.style.setProperty('--ambient-h', `${values.hue}deg`);
+  document.body.style.setProperty('--ambient-s', `${values.saturation}%`);
+  document.body.style.setProperty('--ambient-l', `${values.lightness}%`);
+  document.body.style.setProperty('--ambient-strength', values.strength.toFixed(3));
+  document.body.style.setProperty(
+    '--ambient-highlight-offset',
+    `${values.highlightOffset}%`
+  );
+  document.body.style.setProperty(
+    '--ambient-shadow-offset',
+    `${values.shadowOffset}%`
+  );
+  const railStrength = clampNumber(values.strength * 1.8, 0.12, 0.65);
+  document.body.style.setProperty('--ambient-rail-strength', railStrength.toFixed(3));
+  document.body.dataset.activeTone = resolvedTone;
+}
+
+function setAmbientFromCard(card) {
+  const tone = normalizeTone(card.dataset.ambientTone);
+  const ambient = getAmbientFromDataset(card, tone);
+  setBodyAmbient(tone, ambient);
+  card.dataset.tone = tone;
+  activeAmbientCard = card;
+}
+
+function resetAmbient() {
+  setBodyAmbient(DEFAULT_TONE, TONE_DEFAULTS[DEFAULT_TONE]);
+  activeAmbientCard = null;
+}
+
+function findFallbackAmbientCard(excludeCard) {
+  for (const candidate of cards) {
+    if (candidate === excludeCard) {
+      continue;
+    }
+    if (candidate.classList.contains('in-view')) {
+      return candidate;
+    }
+  }
+  return null;
+}
+
+resetAmbient();
 
 if ('IntersectionObserver' in window) {
   const cardObserver = new IntersectionObserver(
@@ -224,21 +436,34 @@ if ('IntersectionObserver' in window) {
         const card = entry.target;
         card.classList.toggle('in-view', entry.isIntersecting);
         if (entry.isIntersecting) {
-          const tone = card.dataset.ambientTone || 'cool';
-          card.dataset.tone = tone;
+          if (activeAmbientCard !== card) {
+            setAmbientFromCard(card);
+          }
         } else {
           card.removeAttribute('data-tone');
+          if (activeAmbientCard === card) {
+            const fallbackCard = findFallbackAmbientCard(card);
+            if (fallbackCard) {
+              setAmbientFromCard(fallbackCard);
+            } else {
+              resetAmbient();
+            }
+          }
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.35 }
   );
   cards.forEach((card) => cardObserver.observe(card));
 } else {
-  cards.forEach((card) => {
+  cards.forEach((card, index) => {
     card.classList.add('in-view');
-    const tone = card.dataset.ambientTone || 'cool';
-    card.dataset.tone = tone;
+    if (index === 0) {
+      setAmbientFromCard(card);
+    } else {
+      const tone = normalizeTone(card.dataset.ambientTone);
+      card.dataset.tone = tone;
+    }
   });
 }
 
@@ -278,6 +503,111 @@ cards.forEach((card) => {
   });
   card.addEventListener('focusout', disableSheen);
 });
+
+const pointerState = {
+  x: 50,
+  y: 50,
+  strength: 0,
+  frame: null,
+  enabled: true,
+};
+
+const reduceMotionQuery = window.matchMedia
+  ? window.matchMedia('(prefers-reduced-motion: reduce)')
+  : null;
+
+if (reduceMotionQuery) {
+  const updateFromPreference = (event) => {
+    pointerState.enabled = !event.matches;
+    if (!pointerState.enabled) {
+      resetPointerPosition();
+    }
+  };
+  reduceMotionQuery.addEventListener
+    ? reduceMotionQuery.addEventListener('change', updateFromPreference)
+    : reduceMotionQuery.addListener(updateFromPreference);
+  pointerState.enabled = !reduceMotionQuery.matches;
+}
+
+function schedulePointerUpdate() {
+  if (pointerState.frame !== null) {
+    return;
+  }
+  pointerState.frame = requestAnimationFrame(updateAmbientPointerVars);
+}
+
+function updateAmbientPointerVars() {
+  pointerState.frame = null;
+  if (!document.body) {
+    return;
+  }
+  const focusA = computeFocusPosition(50, 18, 0.3, 0.24);
+  const focusB = computeFocusPosition(52, 86, 0.22, 0.18);
+  document.body.style.setProperty(
+    '--ambient-focus-a',
+    `${focusA.x.toFixed(2)}% ${focusA.y.toFixed(2)}%`
+  );
+  document.body.style.setProperty(
+    '--ambient-focus-b',
+    `${focusB.x.toFixed(2)}% ${focusB.y.toFixed(2)}%`
+  );
+  document.body.style.setProperty(
+    '--ambient-pointer-strength',
+    pointerState.strength.toFixed(3)
+  );
+}
+
+function computeFocusPosition(baseX, baseY, spreadX, spreadY) {
+  const deltaX = pointerState.x - 50;
+  const deltaY = pointerState.y - 50;
+  return {
+    x: clampNumber(baseX + deltaX * spreadX, 0, 100),
+    y: clampNumber(baseY + deltaY * spreadY, 0, 100),
+  };
+}
+
+function handlePointerMove(event) {
+  if (!pointerState.enabled) {
+    return;
+  }
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  const viewportHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  if (!viewportWidth || !viewportHeight) {
+    return;
+  }
+  pointerState.x = clampNumber((event.clientX / viewportWidth) * 100, 0, 100);
+  pointerState.y = clampNumber((event.clientY / viewportHeight) * 100, 0, 100);
+  pointerState.strength = 0.75;
+  schedulePointerUpdate();
+}
+
+function resetPointerPosition() {
+  pointerState.x = 50;
+  pointerState.y = 50;
+  pointerState.strength = 0;
+  schedulePointerUpdate();
+}
+
+document.addEventListener('pointermove', handlePointerMove, { passive: true });
+
+window.addEventListener('mouseout', (event) => {
+  if (!pointerState.enabled) {
+    return;
+  }
+  if (!event.relatedTarget && event.target === document.documentElement) {
+    resetPointerPosition();
+  }
+});
+
+window.addEventListener('blur', () => {
+  if (!pointerState.enabled) {
+    return;
+  }
+  resetPointerPosition();
+});
+
+resetPointerPosition();
 
 const currentYearEl = document.getElementById('current-year');
 if (currentYearEl) {
