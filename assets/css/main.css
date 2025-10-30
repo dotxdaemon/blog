@@ -1,25 +1,25 @@
-/* === Root theme tokens (cool tide palette) === */
+/* === Root theme tokens (NieR:Automata-inspired palette) === */
 :root {
   color-scheme: dark;
-  --bg: #061120;
-  --fg: #d5e7ff;
-  --muted: rgba(182, 212, 255, 0.72);
-  --accent: #7fc4ff;
-  --accent-soft: rgba(127, 196, 255, 0.24);
-  --card-bg: rgba(12, 28, 46, 0.92);
-  --border: rgba(127, 196, 255, 0.2);
-  --shadow: 0 28px 52px rgba(2, 10, 22, 0.68);
-  --shadow-hover: 0 32px 58px rgba(4, 16, 32, 0.78);
-  --scanline: rgba(8, 20, 36, 0.62);
-  --scanline-highlight: rgba(22, 42, 66, 0.48);
-  --accent-rgb: 127, 196, 255;
-  --noise-strength: 0.15;
-  --tone-warm-h: 28deg;
-  --tone-warm-s: 72%;
-  --tone-warm-l: 62%;
-  --tone-cool-h: 202deg;
-  --tone-cool-s: 68%;
-  --tone-cool-l: 58%;
+  --bg: #0b0d0f;
+  --fg: #e8e6d8;
+  --muted: rgba(218, 216, 198, 0.72);
+  --accent: #a6b38a;
+  --accent-soft: rgba(166, 179, 138, 0.24);
+  --card-bg: rgba(19, 21, 22, 0.94);
+  --border: rgba(166, 179, 138, 0.26);
+  --shadow: 0 28px 52px rgba(4, 6, 8, 0.72);
+  --shadow-hover: 0 32px 58px rgba(6, 8, 10, 0.82);
+  --scanline: rgba(26, 30, 26, 0.6);
+  --scanline-highlight: rgba(78, 82, 70, 0.38);
+  --accent-rgb: 166, 179, 138;
+  --noise-strength: 0.18;
+  --tone-warm-h: 48deg;
+  --tone-warm-s: 32%;
+  --tone-warm-l: 60%;
+  --tone-cool-h: 112deg;
+  --tone-cool-s: 28%;
+  --tone-cool-l: 54%;
   --cursor-width: 0.55ch;
   --cursor-height: 1.1em;
   --bracket-thickness: 2px;
@@ -60,7 +60,7 @@ body {
   --ambient-shadow-l: calc(var(--ambient-l) - 18%);
   --ambient-strength: 0.26;
   /* === Custom tactical cursor === */
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg stroke='%237fc4ff' stroke-width='1.4' stroke-linecap='square'%3E%3Cpath d='M12 1v6M12 17v6M1 12h6M17 12h6'/%3E%3Ccircle cx='12' cy='12' r='2.3' fill='none'/%3E%3C/g%3E%3C/svg%3E") 12 12, crosshair;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg stroke='%23a6b38a' stroke-width='1.4' stroke-linecap='square'%3E%3Cpath d='M12 1v6M12 17v6M1 12h6M17 12h6'/%3E%3Ccircle cx='12' cy='12' r='2.3' fill='none'/%3E%3C/g%3E%3C/svg%3E") 12 12, crosshair;
 }
 
 body:has(.post-card[data-tone='cool'].in-view) {
