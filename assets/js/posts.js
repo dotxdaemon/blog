@@ -15,7 +15,7 @@ Marty Supreme
 
 Wicked: For Good
 
-A House of Dynamite
+A House of Dynamite - quite good! loved it.
 
 Jay Kelly
 
