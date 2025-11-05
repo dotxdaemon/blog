@@ -1,25 +1,25 @@
 /* === Root theme tokens (NieR:Automata-inspired palette) === */
 :root {
   color-scheme: dark;
-  --bg: #0b0d0f;
-  --fg: #e8e6d8;
-  --muted: rgba(218, 216, 198, 0.72);
-  --accent: #a6b38a;
-  --accent-soft: rgba(166, 179, 138, 0.24);
-  --card-bg: rgba(19, 21, 22, 0.94);
-  --border: rgba(166, 179, 138, 0.26);
-  --shadow: 0 28px 52px rgba(4, 6, 8, 0.72);
-  --shadow-hover: 0 32px 58px rgba(6, 8, 10, 0.82);
-  --scanline: rgba(26, 30, 26, 0.6);
-  --scanline-highlight: rgba(78, 82, 70, 0.38);
-  --accent-rgb: 166, 179, 138;
+  --bg: #050d05;
+  --fg: #c9ffe1;
+  --muted: rgba(160, 255, 202, 0.65);
+  --accent: #00ff9a;
+  --accent-soft: rgba(0, 255, 154, 0.22);
+  --card-bg: rgba(8, 28, 18, 0.94);
+  --border: rgba(0, 255, 154, 0.28);
+  --shadow: 0 28px 52px rgba(0, 36, 20, 0.72);
+  --shadow-hover: 0 32px 58px rgba(0, 42, 24, 0.82);
+  --scanline: rgba(0, 40, 24, 0.58);
+  --scanline-highlight: rgba(0, 255, 154, 0.28);
+  --accent-rgb: 0, 255, 154;
   --noise-strength: 0.18;
-  --tone-warm-h: 48deg;
-  --tone-warm-s: 32%;
-  --tone-warm-l: 60%;
-  --tone-cool-h: 112deg;
-  --tone-cool-s: 28%;
-  --tone-cool-l: 54%;
+  --tone-warm-h: 128deg;
+  --tone-warm-s: 78%;
+  --tone-warm-l: 56%;
+  --tone-cool-h: 156deg;
+  --tone-cool-s: 82%;
+  --tone-cool-l: 52%;
   --cursor-width: 0.55ch;
   --cursor-height: 1.1em;
   --bracket-thickness: 2px;
@@ -183,9 +183,9 @@ body::after {
 html::before {
   background: radial-gradient(
     circle at center,
-    rgba(16, 24, 36, 0) 45%,
-    rgba(6, 14, 26, 0.3) 70%,
-    rgba(4, 12, 24, 0.55) 100%
+    color-mix(in srgb, var(--bg) 45%, transparent) 45%,
+    color-mix(in srgb, var(--bg) 65%, rgba(var(--accent-rgb), 0.14)) 70%,
+    color-mix(in srgb, var(--bg) 82%, rgba(0, 0, 0, 0.85)) 100%
   );
   mix-blend-mode: multiply;
   opacity: 0.85;
@@ -246,7 +246,7 @@ main {
   max-width: 48ch;
   font-size: clamp(1.05rem, 2.6vw, 1.25rem);
   line-height: 1.7;
-  color: rgba(233, 228, 214, 0.82);
+  color: color-mix(in srgb, var(--fg) 82%, transparent);
 }
 
 .page-hero__cta {
@@ -276,7 +276,11 @@ main {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  box-shadow: 0 12px 24px rgba(4, 12, 24, 0.48);
+  box-shadow: 0 12px 24px color-mix(
+      in srgb,
+      var(--bg) 72%,
+      rgba(var(--accent-rgb), 0.32)
+    );
   animation: cta-pulse 9s ease-in-out infinite;
   animation-delay: 1.4s;
 }
@@ -316,7 +320,12 @@ main {
 .page-hero__cta:hover,
 .page-hero__cta:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 20px 36px rgba(4, 12, 24, 0.6),
+  box-shadow:
+    0 20px 36px color-mix(
+      in srgb,
+      var(--bg) 70%,
+      rgba(var(--accent-rgb), 0.4)
+    ),
     0 0 32px hsl(var(--cta-hue) 84% 68% / 0.32);
   filter: saturate(1.05);
 }
@@ -484,10 +493,14 @@ main {
       rgba(var(--accent-rgb), 0.25),
       rgba(var(--accent-rgb), 0.08)
     )
-    rgba(16, 28, 44, 0.6);
+    color-mix(in srgb, var(--bg) 76%, rgba(var(--accent-rgb), 0.2));
   border: 1px solid rgba(var(--accent-rgb), 0.32);
   color: var(--fg);
-  box-shadow: 0 10px 24px rgba(4, 12, 24, 0.35);
+  box-shadow: 0 10px 24px color-mix(
+      in srgb,
+      var(--bg) 68%,
+      rgba(var(--accent-rgb), 0.26)
+    );
 }
 
 .timeline__rail:not([data-year-first='true']) .timeline__year {
@@ -587,7 +600,11 @@ main {
     var(--card-bg);
   border: 1px solid var(--border);
   box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    inset 0 -6px 24px rgba(8, 18, 32, 0.42);
+    inset 0 -6px 24px color-mix(
+      in srgb,
+      var(--bg) 72%,
+      rgba(var(--accent-rgb), 0.3)
+    );
   transform: translateY(28px);
   opacity: 0;
   transition: transform 0.6s ease, box-shadow 0.45s ease,
@@ -619,10 +636,14 @@ main {
         hsl(var(--sheen-h) var(--sheen-s) calc(var(--sheen-l) + 18%) / 0.32),
         hsl(var(--sheen-h) var(--sheen-s) calc(var(--sheen-l) - 14%) / 0.18)
       )
-      rgba(16, 28, 44, 0.78);
+      color-mix(in srgb, var(--bg) 74%, rgba(var(--accent-rgb), 0.26));
   border: 1px solid rgba(var(--accent-rgb), 0.28);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 16px 28px rgba(6, 14, 28, 0.42);
+    0 16px 28px color-mix(
+      in srgb,
+      var(--bg) 70%,
+      rgba(var(--accent-rgb), 0.32)
+    );
   overflow: hidden;
 }
 
@@ -698,7 +719,11 @@ body.has-js .post-card.in-view {
 .post-card:focus-visible {
   transform: translateY(18px);
   box-shadow: var(--shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    inset 0 -8px 26px rgba(6, 16, 28, 0.5);
+    inset 0 -8px 26px color-mix(
+      in srgb,
+      var(--bg) 68%,
+      rgba(var(--accent-rgb), 0.34)
+    );
   border-color: rgba(var(--accent-rgb), 0.32);
   --focus-sheen: 0.35;
 }
@@ -815,16 +840,20 @@ body.has-js .post-card.in-view {
       rgba(var(--accent-rgb), 0.32),
       rgba(var(--accent-rgb), 0.12)
     )
-    rgba(32, 26, 22, 0.78);
+    color-mix(in srgb, var(--bg) 78%, rgba(var(--accent-rgb), 0.18));
   border: 1px solid rgba(var(--accent-rgb), 0.42);
-  box-shadow: 0 12px 22px rgba(4, 12, 24, 0.35);
+  box-shadow: 0 12px 22px color-mix(
+      in srgb,
+      var(--bg) 70%,
+      rgba(var(--accent-rgb), 0.28)
+    );
 }
 
 .excerpt {
   margin: 0 0 1.25rem;
   font-size: 1.05rem;
   line-height: 1.7;
-  color: rgba(233, 228, 214, 0.84);
+  color: color-mix(in srgb, var(--fg) 84%, transparent);
 }
 
 .body p {
@@ -839,7 +868,7 @@ body.has-js .post-card.in-view {
 .body code {
   font-family: var(--mono);
   font-size: 0.95rem;
-  background: rgba(245, 207, 135, 0.1);
+  background: rgba(var(--accent-rgb), 0.12);
   border-radius: 6px;
   padding: 0.2rem 0.4rem;
 }
@@ -959,7 +988,11 @@ h1,
   border-top: 1px solid rgba(var(--accent-rgb), 0.18);
   margin-top: clamp(3rem, 5vw, 4rem);
   padding: clamp(2rem, 4vw, 3rem) 0;
-  background: rgba(6, 16, 28, 0.35);
+  background: color-mix(
+    in srgb,
+    var(--bg) 68%,
+    rgba(var(--accent-rgb), 0.22)
+  );
   position: relative;
   z-index: 1;
 }
@@ -1073,7 +1106,7 @@ h1,
 /* === Custom selection styling === */
 ::selection {
   background: var(--fg);
-  color: #020b14;
+  color: var(--bg);
   text-shadow: none;
 }
 
@@ -1162,26 +1195,49 @@ h1,
   0%,
   18% {
     --cta-hue: 32deg;
-    box-shadow: 0 12px 24px rgba(4, 12, 24, 0.48);
+    box-shadow: 0 12px 24px color-mix(
+      in srgb,
+      var(--bg) 72%,
+      rgba(var(--accent-rgb), 0.32)
+    );
   }
   38% {
     --cta-hue: 210deg;
-    box-shadow: 0 14px 28px rgba(4, 12, 24, 0.52),
+    box-shadow:
+      0 14px 28px color-mix(
+        in srgb,
+        var(--bg) 70%,
+        rgba(var(--accent-rgb), 0.36)
+      ),
       0 0 18px hsl(var(--cta-hue) 86% 70% / 0.28);
   }
   55% {
     --cta-hue: 290deg;
-    box-shadow: 0 22px 38px rgba(4, 12, 24, 0.6),
+    box-shadow:
+      0 22px 38px color-mix(
+        in srgb,
+        var(--bg) 68%,
+        rgba(var(--accent-rgb), 0.42)
+      ),
       0 0 28px hsl(var(--cta-hue) 88% 72% / 0.38);
   }
   72% {
     --cta-hue: 140deg;
-    box-shadow: 0 14px 30px rgba(4, 12, 24, 0.5),
+    box-shadow:
+      0 14px 30px color-mix(
+        in srgb,
+        var(--bg) 70%,
+        rgba(var(--accent-rgb), 0.34)
+      ),
       0 0 18px hsl(var(--cta-hue) 86% 68% / 0.3);
   }
   100% {
     --cta-hue: 32deg;
-    box-shadow: 0 12px 24px rgba(4, 12, 24, 0.48);
+    box-shadow: 0 12px 24px color-mix(
+      in srgb,
+      var(--bg) 72%,
+      rgba(var(--accent-rgb), 0.32)
+    );
   }
 }
 
