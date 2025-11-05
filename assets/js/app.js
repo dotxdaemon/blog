@@ -105,10 +105,11 @@ if (!posts.length) {
 
       card.appendChild(header);
 
-      if (post.excerpt) {
+      const excerptText = deriveExcerptText(post);
+      if (excerptText) {
         const excerpt = document.createElement('p');
         excerpt.className = 'excerpt cursor-target-block';
-        excerpt.textContent = post.excerpt;
+        excerpt.textContent = excerptText;
         card.appendChild(excerpt);
       }
 
@@ -323,6 +324,47 @@ function extractYear(isoString) {
   }
 
   return '—';
+}
+
+function deriveExcerptText(post) {
+  if (!post || typeof post !== 'object') {
+    return '';
+  }
+
+  if (typeof post.excerpt === 'string') {
+    const trimmedExcerpt = post.excerpt.trim();
+    if (trimmedExcerpt) {
+      return trimmedExcerpt;
+    }
+  }
+
+  if (!post.body) {
+    return '';
+  }
+
+  const paragraphs = String(post.body)
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  if (!paragraphs.length) {
+    return '';
+  }
+
+  const temp = document.createElement('div');
+  // Fall back to the first paragraph of the body so cards stay consistent.
+  temp.innerHTML = applyFormatting(paragraphs[0]);
+  const plainText = (temp.textContent || '').replace(/\s+/g, ' ').trim();
+  const maxLength = 150;
+
+  if (plainText.length <= maxLength) {
+    return plainText;
+  }
+
+  const truncated = plainText.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  const safeCut = lastSpace > 80 ? truncated.slice(0, lastSpace) : truncated;
+  return `${safeCut.replace(/[.,;:!?]+$/u, '')}…`;
 }
 function renderBody(raw) {
   const paragraphs = String(raw)
