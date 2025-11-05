@@ -341,10 +341,35 @@ function applyFormatting(text) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
-  return escaped
+  const withInlineFormatting = escaped
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/\n/g, '<br />');
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+  const withLinks = linkifyExcludingCode(withInlineFormatting);
+  return withLinks.replace(/\n/g, '<br />');
+}
+
+function linkifyExcludingCode(html) {
+  const codePattern = /<code>[\s\S]*?<\/code>/g;
+  let result = '';
+  let lastIndex = 0;
+  let match = codePattern.exec(html);
+  while (match) {
+    result += replaceUrls(html.slice(lastIndex, match.index));
+    result += match[0]; // Preserve existing code blocks so we don't double-link them.
+    lastIndex = match.index + match[0].length;
+    match = codePattern.exec(html);
+  }
+  result += replaceUrls(html.slice(lastIndex));
+  return result;
+}
+
+function replaceUrls(segment) {
+  const urlPattern = /(https?:\/\/[^\s<]+)/g;
+  return segment.replace(
+    urlPattern,
+    (match) =>
+      `<a href="${match}" rel="noreferrer noopener" target="_blank">${match}</a>`
+  );
 }
 // Fancy hover effect for post cards.
 const cards = document.querySelectorAll('.post-card');
