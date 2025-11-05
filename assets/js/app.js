@@ -133,6 +133,131 @@ if (!posts.length) {
     });
 }
 
+function createMatrixRain() {
+  if (!document.body) {
+    return { destroy() {} };
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'matrix-rain';
+  const context = canvas.getContext('2d');
+
+  if (!context) {
+    return {
+      destroy() {},
+    };
+  }
+
+  document.body.appendChild(canvas);
+
+  const glyphs = 'アァカサタナハマヤャラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const glyphCount = glyphs.length;
+  const fontSize = 16;
+  const fontFamily =
+    getComputedStyle(document.documentElement).getPropertyValue('--mono').trim() ||
+    'monospace';
+
+  let width = 0;
+  let height = 0;
+  let columnCount = 0;
+  let drops = [];
+  let frameId = null;
+
+  const updateCanvasSize = () => {
+    width = window.innerWidth || document.documentElement.clientWidth || 0;
+    height = window.innerHeight || document.documentElement.clientHeight || 0;
+    canvas.width = width;
+    canvas.height = height;
+    columnCount = Math.max(Math.floor(width / fontSize), 1);
+    drops = Array.from({ length: columnCount }, () => Math.random() * -20);
+    context.font = `${fontSize}px ${fontFamily}`;
+    context.textBaseline = 'top';
+  };
+
+  const step = () => {
+    frameId = requestAnimationFrame(step);
+    if (!width || !height) {
+      return;
+    }
+
+    context.fillStyle = 'rgba(0, 0, 0, 0.08)';
+    context.fillRect(0, 0, width, height);
+
+    context.fillStyle = 'rgba(166, 179, 138, 0.72)';
+
+    for (let column = 0; column < columnCount; column += 1) {
+      const glyph = glyphs.charAt(Math.floor(Math.random() * glyphCount));
+      const x = column * fontSize;
+      const y = drops[column] * fontSize;
+      context.fillText(glyph, x, y);
+
+      if (y > height && Math.random() > 0.965) {
+        drops[column] = Math.random() * -20;
+      } else {
+        drops[column] += 1;
+      }
+    }
+  };
+
+  const handleResize = () => {
+    updateCanvasSize();
+  };
+
+  window.addEventListener('resize', handleResize);
+
+  updateCanvasSize();
+  step();
+
+  return {
+    destroy() {
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+        frameId = null;
+      }
+      window.removeEventListener('resize', handleResize);
+      canvas.remove();
+    },
+  };
+}
+
+let matrixRainController = null;
+const matrixReduceMotionQuery = window.matchMedia
+  ? window.matchMedia('(prefers-reduced-motion: reduce)')
+  : null;
+
+function enableMatrixRain() {
+  if (!matrixRainController) {
+    matrixRainController = createMatrixRain();
+  }
+}
+
+function disableMatrixRain() {
+  if (matrixRainController) {
+    matrixRainController.destroy();
+    matrixRainController = null;
+  }
+}
+
+if (matrixReduceMotionQuery) {
+  const applyMatrixPreference = (event) => {
+    if (event.matches) {
+      disableMatrixRain();
+    } else {
+      enableMatrixRain();
+    }
+  };
+
+  matrixReduceMotionQuery.addEventListener
+    ? matrixReduceMotionQuery.addEventListener('change', applyMatrixPreference)
+    : matrixReduceMotionQuery.addListener(applyMatrixPreference);
+
+  if (!matrixReduceMotionQuery.matches) {
+    enableMatrixRain();
+  }
+} else {
+  enableMatrixRain();
+}
+
 function normalizeTone(rawTone) {
   if (typeof rawTone === 'string') {
     const normalized = rawTone.trim().toLowerCase();
