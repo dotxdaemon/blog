@@ -104,6 +104,17 @@ html::before {
   mix-blend-mode: screen;
 }
 
+.matrix-rain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: 0.28;
+}
+
 /* === CRT scanlines overlay with subtle flicker === */
 body::before {
   background-image:
