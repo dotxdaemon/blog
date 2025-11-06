@@ -164,6 +164,8 @@ function createMatrixRain() {
   let drops = [];
   let frameId = null;
 
+  const dropSpeed = 0.5;
+
   const updateCanvasSize = () => {
     width = window.innerWidth || document.documentElement.clientWidth || 0;
     height = window.innerHeight || document.documentElement.clientHeight || 0;
@@ -184,7 +186,7 @@ function createMatrixRain() {
     context.fillStyle = 'rgba(0, 0, 0, 0.08)';
     context.fillRect(0, 0, width, height);
 
-    context.fillStyle = 'rgba(166, 179, 138, 0.72)';
+    context.fillStyle = 'rgba(139, 92, 246, 0.7)';
 
     for (let column = 0; column < columnCount; column += 1) {
       const glyph = glyphs.charAt(Math.floor(Math.random() * glyphCount));
@@ -195,7 +197,7 @@ function createMatrixRain() {
       if (y > height && Math.random() > 0.965) {
         drops[column] = Math.random() * -20;
       } else {
-        drops[column] += 1;
+        drops[column] += dropSpeed;
       }
     }
   };
