@@ -164,7 +164,7 @@ function createMatrixRain() {
   let drops = [];
   let frameId = null;
 
-  const dropSpeed = 0.5;
+  const dropSpeed = 0.35;
 
   const updateCanvasSize = () => {
     width = window.innerWidth || document.documentElement.clientWidth || 0;
