@@ -32,7 +32,7 @@ if (document.body) {
 }
 
 if (!posts.length) {
-  postList.innerHTML = `<article class="post-card" data-ambient-tone="cool"><h2 class="glitch" data-glitch="No posts yet">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span></article>`;
+  postList.innerHTML = `<article class="post-card" data-ambient-tone="cool"><h2 class="glitch" data-glitch="No posts yet">No posts yet</h2><p class="excerpt cursor-target-block">Add your first story by editing <code>assets/js/posts.js</code>.</p><span class="post-card__brackets" aria-hidden="true"></span><div class="post-card__matrix" aria-hidden="true"></div></article>`;
 } else {
   postList.innerHTML = '';
   const timeline = document.createElement('ol');
@@ -124,6 +124,11 @@ if (!posts.length) {
       brackets.className = 'post-card__brackets';
       brackets.setAttribute('aria-hidden', 'true');
       card.appendChild(brackets);
+
+      const matrixOverlay = document.createElement('div');
+      matrixOverlay.className = 'post-card__matrix';
+      matrixOverlay.setAttribute('aria-hidden', 'true');
+      card.appendChild(matrixOverlay);
 
       card.tabIndex = 0;
 
