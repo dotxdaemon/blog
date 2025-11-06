@@ -136,7 +136,10 @@ if (!posts.length) {
 
 function createMatrixRain() {
   if (!document.body) {
-    return { destroy() {} };
+    return {
+      destroy() {},
+      updatePalette() {},
+    };
   }
 
   const canvas = document.createElement('canvas');
@@ -146,6 +149,7 @@ function createMatrixRain() {
   if (!context) {
     return {
       destroy() {},
+      updatePalette() {},
     };
   }
 
@@ -157,6 +161,13 @@ function createMatrixRain() {
   const fontFamily =
     getComputedStyle(document.documentElement).getPropertyValue('--mono').trim() ||
     'monospace';
+  const tailLength = 18;
+  const headGlow = 8;
+  const fallbackPalette = {
+    base: '#00ff88',
+    highlight: '#caff7a',
+  };
+  let palette = { ...fallbackPalette };
 
   let width = 0;
   let height = 0;
@@ -165,6 +176,21 @@ function createMatrixRain() {
   let frameId = null;
 
   const dropSpeed = 0.35;
+
+  const refreshPalette = () => {
+    if (!document.body) {
+      palette = { ...fallbackPalette };
+      return palette;
+    }
+    const styles = getComputedStyle(document.body);
+    const base = styles.getPropertyValue('--matrix-rain-base').trim();
+    const highlight = styles.getPropertyValue('--matrix-rain-highlight').trim();
+    palette = {
+      base: base || fallbackPalette.base,
+      highlight: highlight || fallbackPalette.highlight,
+    };
+    return palette;
+  };
 
   const updateCanvasSize = () => {
     width = window.innerWidth || document.documentElement.clientWidth || 0;
@@ -185,16 +211,46 @@ function createMatrixRain() {
 
     context.fillStyle = 'rgba(0, 0, 0, 0.08)';
     context.fillRect(0, 0, width, height);
-
-    context.fillStyle = 'rgba(139, 92, 246, 0.7)';
+    context.globalAlpha = 1;
+    context.shadowBlur = 0;
+    context.shadowColor = 'transparent';
 
     for (let column = 0; column < columnCount; column += 1) {
-      const glyph = glyphs.charAt(Math.floor(Math.random() * glyphCount));
+      const headPosition = drops[column];
       const x = column * fontSize;
-      const y = drops[column] * fontSize;
-      context.fillText(glyph, x, y);
 
-      if (y > height && Math.random() > 0.965) {
+      for (let offset = 0; offset < tailLength; offset += 1) {
+        const glyphY = (headPosition - offset) * fontSize;
+        if (glyphY < -fontSize) {
+          break;
+        }
+        if (glyphY > height) {
+          continue;
+        }
+
+        const glyph = glyphs.charAt(Math.floor(Math.random() * glyphCount));
+        if (offset === 0) {
+          context.globalAlpha = 1;
+          context.shadowBlur = headGlow;
+          context.shadowColor = palette.highlight;
+          context.fillStyle = palette.highlight;
+        } else {
+          const alphaScale = (tailLength - offset) / tailLength;
+          context.shadowBlur = 0;
+          context.shadowColor = 'transparent';
+          context.fillStyle = palette.base;
+          context.globalAlpha = Math.max(alphaScale * 0.75, 0);
+        }
+
+        context.fillText(glyph, x, glyphY);
+      }
+
+      context.shadowBlur = 0;
+      context.shadowColor = 'transparent';
+      context.globalAlpha = 1;
+
+      const headY = headPosition * fontSize;
+      if (headY > height && Math.random() > 0.965) {
         drops[column] = Math.random() * -20;
       } else {
         drops[column] += dropSpeed;
@@ -208,10 +264,14 @@ function createMatrixRain() {
 
   window.addEventListener('resize', handleResize);
 
+  refreshPalette();
   updateCanvasSize();
   step();
 
   return {
+    updatePalette() {
+      refreshPalette();
+    },
     destroy() {
       if (frameId !== null) {
         cancelAnimationFrame(frameId);
@@ -594,6 +654,9 @@ function setBodyAmbient(tone, ambient) {
   const railStrength = clampNumber(values.strength * 1.8, 0.12, 0.65);
   document.body.style.setProperty('--ambient-rail-strength', railStrength.toFixed(3));
   document.body.dataset.activeTone = resolvedTone;
+  if (matrixRainController && typeof matrixRainController.updatePalette === 'function') {
+    matrixRainController.updatePalette();
+  }
 }
 
 function setAmbientFromCard(card) {
