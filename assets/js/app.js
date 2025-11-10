@@ -166,7 +166,7 @@ function createMatrixRain() {
   const fontFamily =
     getComputedStyle(document.documentElement).getPropertyValue('--mono').trim() ||
     'monospace';
-  const tailLength = 18;
+  const tailLength = 12;
   const headGlow = 8;
   const fallbackPalette = {
     base: '#00ff88',
@@ -179,8 +179,11 @@ function createMatrixRain() {
   let columnCount = 0;
   let drops = [];
   let frameId = null;
+  let lastFrameTime = 0;
 
   const dropSpeed = 0.35;
+  const frameInterval = 1000 / 24;
+  const columnWidth = fontSize * 1.6;
 
   const refreshPalette = () => {
     if (!document.body) {
@@ -202,17 +205,29 @@ function createMatrixRain() {
     height = window.innerHeight || document.documentElement.clientHeight || 0;
     canvas.width = width;
     canvas.height = height;
-    columnCount = Math.max(Math.floor(width / fontSize), 1);
+    columnCount = Math.max(Math.floor(width / columnWidth), 1);
     drops = Array.from({ length: columnCount }, () => Math.random() * -20);
     context.font = `${fontSize}px ${fontFamily}`;
     context.textBaseline = 'top';
   };
 
-  const step = () => {
+  const step = (timestamp) => {
     frameId = requestAnimationFrame(step);
     if (!width || !height) {
       return;
     }
+
+    if (!lastFrameTime) {
+      lastFrameTime = timestamp - frameInterval;
+    }
+
+    const delta = timestamp - lastFrameTime;
+    if (delta < frameInterval) {
+      return;
+    }
+
+    lastFrameTime = timestamp;
+    const speedFactor = Math.min(delta / frameInterval, 2);
 
     context.fillStyle = 'rgba(0, 0, 0, 0.08)';
     context.fillRect(0, 0, width, height);
@@ -258,7 +273,7 @@ function createMatrixRain() {
       if (headY > height && Math.random() > 0.965) {
         drops[column] = Math.random() * -20;
       } else {
-        drops[column] += dropSpeed;
+        drops[column] += dropSpeed * speedFactor;
       }
     }
   };
@@ -271,7 +286,7 @@ function createMatrixRain() {
 
   refreshPalette();
   updateCanvasSize();
-  step();
+  frameId = requestAnimationFrame(step);
 
   return {
     updatePalette() {
@@ -523,6 +538,9 @@ function deriveExcerptText(post) {
     return '';
   }
 
+  const normalizeText = (value) =>
+    typeof value === 'string' ? value.replace(/\s+/g, ' ').trim().toLowerCase() : '';
+
   if (typeof post.excerpt === 'string') {
     const trimmedExcerpt = post.excerpt.trim();
     if (trimmedExcerpt) {
@@ -548,6 +566,20 @@ function deriveExcerptText(post) {
   temp.innerHTML = applyFormatting(paragraphs[0]);
   const plainText = (temp.textContent || '').replace(/\s+/g, ' ').trim();
   const maxLength = 150;
+
+  if (!post.excerpt && paragraphs.length === 1) {
+    const normalizedPlainText = normalizeText(plainText);
+    if (normalizedPlainText) {
+      const normalizedParagraph = normalizeText(paragraphs[0]);
+      const normalizedTitle = normalizeText(post.title);
+      if (
+        normalizedPlainText === normalizedParagraph ||
+        (normalizedTitle && normalizedPlainText === normalizedTitle)
+      ) {
+        return '';
+      }
+    }
+  }
 
   if (plainText.length <= maxLength) {
     return plainText;
@@ -631,9 +663,6 @@ cards.forEach((card) => {
   if (glitchElement && !glitchElement.dataset.glitch) {
     glitchElement.dataset.glitch = glitchElement.textContent || '';
   }
-  card.style.setProperty('--pointer-x', '50%');
-  card.style.setProperty('--pointer-y', '50%');
-  card.style.setProperty('--pointer-opacity', '0');
 });
 
 let activeAmbientCard = null;
@@ -733,143 +762,7 @@ cards.forEach((card) => {
   if (!card.hasAttribute('tabindex')) {
     card.tabIndex = 0;
   }
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-  const updateFromPoint = (event) => {
-    const rect = card.getBoundingClientRect();
-    if (!rect.width || !rect.height) {
-      return;
-    }
-    const x = clamp((event.clientX - rect.left) / rect.width, 0, 1);
-    const y = clamp((event.clientY - rect.top) / rect.height, 0, 1);
-    card.style.setProperty('--pointer-x', `${(x * 100).toFixed(2)}%`);
-    card.style.setProperty('--pointer-y', `${(y * 100).toFixed(2)}%`);
-  };
-  const enableSheen = () => {
-    card.style.setProperty('--pointer-opacity', '0.55');
-  };
-  const disableSheen = () => {
-    card.style.setProperty('--pointer-opacity', '0');
-    card.style.setProperty('--pointer-x', '50%');
-    card.style.setProperty('--pointer-y', '50%');
-  };
-  card.addEventListener('pointerenter', (event) => {
-    enableSheen();
-    updateFromPoint(event);
-  });
-  card.addEventListener('pointermove', updateFromPoint);
-  card.addEventListener('pointerleave', disableSheen);
-  card.addEventListener('focusin', () => {
-    card.style.setProperty('--pointer-x', '50%');
-    card.style.setProperty('--pointer-y', '46%');
-    card.style.setProperty('--pointer-opacity', '0.4');
-  });
-  card.addEventListener('focusout', disableSheen);
 });
-
-const pointerState = {
-  x: 50,
-  y: 50,
-  strength: 0,
-  frame: null,
-  enabled: true,
-};
-
-const reduceMotionQuery = window.matchMedia
-  ? window.matchMedia('(prefers-reduced-motion: reduce)')
-  : null;
-
-if (reduceMotionQuery) {
-  const updateFromPreference = (event) => {
-    pointerState.enabled = !event.matches;
-    if (!pointerState.enabled) {
-      resetPointerPosition();
-    }
-  };
-  reduceMotionQuery.addEventListener
-    ? reduceMotionQuery.addEventListener('change', updateFromPreference)
-    : reduceMotionQuery.addListener(updateFromPreference);
-  pointerState.enabled = !reduceMotionQuery.matches;
-}
-
-function schedulePointerUpdate() {
-  if (pointerState.frame !== null) {
-    return;
-  }
-  pointerState.frame = requestAnimationFrame(updateAmbientPointerVars);
-}
-
-function updateAmbientPointerVars() {
-  pointerState.frame = null;
-  if (!document.body) {
-    return;
-  }
-  const focusA = computeFocusPosition(50, 18, 0.3, 0.24);
-  const focusB = computeFocusPosition(52, 86, 0.22, 0.18);
-  document.body.style.setProperty(
-    '--ambient-focus-a',
-    `${focusA.x.toFixed(2)}% ${focusA.y.toFixed(2)}%`
-  );
-  document.body.style.setProperty(
-    '--ambient-focus-b',
-    `${focusB.x.toFixed(2)}% ${focusB.y.toFixed(2)}%`
-  );
-  document.body.style.setProperty(
-    '--ambient-pointer-strength',
-    pointerState.strength.toFixed(3)
-  );
-}
-
-function computeFocusPosition(baseX, baseY, spreadX, spreadY) {
-  const deltaX = pointerState.x - 50;
-  const deltaY = pointerState.y - 50;
-  return {
-    x: clampNumber(baseX + deltaX * spreadX, 0, 100),
-    y: clampNumber(baseY + deltaY * spreadY, 0, 100),
-  };
-}
-
-function handlePointerMove(event) {
-  if (!pointerState.enabled) {
-    return;
-  }
-  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-  const viewportHeight =
-    window.innerHeight || document.documentElement.clientHeight;
-  if (!viewportWidth || !viewportHeight) {
-    return;
-  }
-  pointerState.x = clampNumber((event.clientX / viewportWidth) * 100, 0, 100);
-  pointerState.y = clampNumber((event.clientY / viewportHeight) * 100, 0, 100);
-  pointerState.strength = 0.75;
-  schedulePointerUpdate();
-}
-
-function resetPointerPosition() {
-  pointerState.x = 50;
-  pointerState.y = 50;
-  pointerState.strength = 0;
-  schedulePointerUpdate();
-}
-
-document.addEventListener('pointermove', handlePointerMove, { passive: true });
-
-window.addEventListener('mouseout', (event) => {
-  if (!pointerState.enabled) {
-    return;
-  }
-  if (!event.relatedTarget && event.target === document.documentElement) {
-    resetPointerPosition();
-  }
-});
-
-window.addEventListener('blur', () => {
-  if (!pointerState.enabled) {
-    return;
-  }
-  resetPointerPosition();
-});
-
-resetPointerPosition();
 
 const currentYearEl = document.getElementById('current-year');
 if (currentYearEl) {

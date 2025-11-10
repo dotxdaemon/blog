@@ -64,7 +64,6 @@ body {
   --ambient-rail-strength: 0.32;
   --ambient-focus-a: 50% 18%;
   --ambient-focus-b: 52% 86%;
-  --ambient-pointer-strength: 0;
   --matrix-rain-base: #00ff88;
   --matrix-rain-highlight: #caff7a;
   /* === Custom tactical cursor === */
@@ -153,7 +152,7 @@ body::before {
       rgba(0, 0, 0, 0) 3px
     );
   background-blend-mode: screen, multiply, normal;
-  opacity: calc(0.22 + var(--ambient-strength) + (var(--ambient-pointer-strength) * 0.08));
+  opacity: calc(0.22 + var(--ambient-strength));
   animation: scanline-flicker 11s linear infinite;
   mix-blend-mode: screen;
 }
@@ -178,7 +177,7 @@ body::after {
     ),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='3' seed='12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='%23000' opacity='0.4'/%3E%3C/svg%3E");
   background-blend-mode: screen, color-dodge, soft-light;
-  opacity: calc(0.45 + (var(--ambient-strength) * 0.8) + (var(--ambient-pointer-strength) * 0.12));
+  opacity: calc(0.45 + (var(--ambient-strength) * 0.8));
   mix-blend-mode: soft-light;
   animation: noise-shift 16s linear infinite;
 }
@@ -574,9 +573,6 @@ main {
 /* === Post card styling with ambient glow & hover lift === */
 .post-card {
   --card-delay: 0s;
-  --pointer-x: 50%;
-  --pointer-y: 50%;
-  --pointer-opacity: 0;
   --focus-sheen: 0;
   --sheen-h: var(--tone-cool-h);
   --sheen-s: var(--tone-cool-s);
@@ -727,12 +723,12 @@ body.has-js .post-card.in-view {
 
 .post-card::after {
   background: radial-gradient(
-    200px 200px at var(--pointer-x) var(--pointer-y),
+    160% 180% at 50% 45%,
     hsl(var(--sheen-h) var(--sheen-s) calc(var(--sheen-l) + 22%) / 0.55) 0%,
-    hsl(var(--sheen-h) var(--sheen-s) calc(var(--sheen-l) + 6%) / 0) 55%
+    hsl(var(--sheen-h) var(--sheen-s) calc(var(--sheen-l) + 6%) / 0) 60%
   );
   mix-blend-mode: screen;
-  opacity: calc(var(--focus-sheen) + var(--pointer-opacity));
+  opacity: var(--focus-sheen);
   transition: opacity 0.35s ease, transform 0.6s ease;
   transform: translate3d(0, 0, 0);
   z-index: 0;
