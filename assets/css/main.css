@@ -19,7 +19,7 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: transparent;
   color: var(--fg);
   font-family: var(--serif);
   min-height: 100vh;
@@ -27,16 +27,26 @@ body {
   flex-direction: column;
 }
 
+html {
+  background: var(--bg);
+}
+
 .matrix-canvas {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   background: radial-gradient(circle at 20% 20%, rgba(61, 72, 90, 0.08), transparent 35%),
     radial-gradient(circle at 80% 10%, rgba(90, 104, 126, 0.08), transparent 35%),
     var(--bg);
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 main {
