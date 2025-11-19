@@ -45,6 +45,31 @@ html {
   opacity: 0.9;
 }
 
+.matrix-fallback {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 20%, rgba(39, 74, 59, 0.18), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(52, 98, 71, 0.18), transparent 42%),
+    var(--bg);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.matrix-fallback__label {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  background: rgba(22, 26, 31, 0.8);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+}
+
 main,
 footer {
   position: relative;
