@@ -217,6 +217,13 @@ if (currentYearEl) {
 initializeMatrixRain();
 
 function initializeMatrixRain() {
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  );
+  if (prefersReducedMotion.matches) {
+    return;
+  }
+
   const canvas = document.createElement('canvas');
   canvas.className = 'matrix-canvas';
   document.body.prepend(canvas);
@@ -226,47 +233,57 @@ function initializeMatrixRain() {
     return;
   }
 
-  const glyphs = Array.from('アィゥエオカキクケコサシスセソタチツテトナニヌネノ0123456789');
-  const trailLength = 7;
+  const glyphs = Array.from(
+    'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ0123456789'
+  );
+  const trailLength = 10;
 
   let width = 0;
   let height = 0;
   let fontSize = 20;
-  let trailSpacing = fontSize * 1.8;
+  let trailSpacing = fontSize * 1.6;
   let columns = 0;
   let drops = [];
+  let deviceScale = 1;
+  let animationFrameId = 0;
   let lastTimestamp = performance.now();
 
-  function createDrop(startY = Math.random() * -height - trailSpacing * trailLength) {
+  function createDrop(
+    startY = Math.random() * -height - trailSpacing * trailLength * 1.1
+  ) {
     return {
       y: startY,
-      speed: fontSize * (0.75 + Math.random() * 0.35),
+      speed: fontSize * (0.8 + Math.random() * 0.6),
     };
   }
 
   function resize() {
     width = window.innerWidth;
     height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-    fontSize = Math.max(16, Math.min(24, Math.round(height / 40)));
-    trailSpacing = fontSize * 1.8;
-    columns = Math.floor(width / (fontSize * 0.92));
+    deviceScale = Math.min(2, window.devicePixelRatio || 1);
+
+    canvas.width = Math.floor(width * deviceScale);
+    canvas.height = Math.floor(height * deviceScale);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    context.setTransform(deviceScale, 0, 0, deviceScale, 0, 0);
+
+    fontSize = Math.max(14, Math.min(24, Math.round(height / 42)));
+    trailSpacing = fontSize * 1.55;
+    columns = Math.max(1, Math.ceil(width / (fontSize * 0.9)));
     drops = new Array(columns).fill(null).map(() => createDrop());
+    context.font = `${fontSize}px "Source Code Pro", monospace`;
   }
 
   function draw(now) {
     const delta = Math.min(1000, now - lastTimestamp);
     lastTimestamp = now;
 
-    context.fillStyle = 'rgba(15, 17, 21, 0.12)';
+    context.fillStyle = 'rgba(9, 12, 14, 0.2)';
     context.fillRect(0, 0, width, height);
-    context.font = `${fontSize}px "Source Code Pro", monospace`;
-
-    const baselineSpeed = fontSize * 0.85; // intentionally slow
 
     for (let i = 0; i < drops.length; i += 1) {
-      const x = i * fontSize * 0.92;
+      const x = i * fontSize * 0.9;
       const drop = drops[i];
       const y = drop.y;
 
@@ -276,25 +293,42 @@ function initializeMatrixRain() {
           continue;
         }
 
-        const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
-        const opacity = Math.max(0, 0.72 - j * 0.1);
-        context.fillStyle = `rgba(205, 213, 255, ${opacity.toFixed(2)})`;
+        const glyph = glyphs[(Math.random() * glyphs.length) | 0];
+        const opacity = Math.max(0, 0.9 - j * 0.09);
+        context.fillStyle = `rgba(120, 255, 180, ${opacity.toFixed(2)})`;
         context.fillText(glyph, x, glyphY);
       }
 
-      if (y - trailSpacing * trailLength > height) {
-        drops[i] = createDrop(-Math.random() * height * 0.4);
-      } else {
-        const speed = (baselineSpeed + drop.speed) * 0.5;
-        const step = (speed * delta) / 1000;
-        drop.y = y + step;
+      const baselineSpeed = fontSize * 0.75;
+      const step = ((baselineSpeed + drop.speed) * delta) / 1000;
+      drop.y = y + step;
+
+      if (drop.y - trailSpacing * trailLength > height) {
+        drops[i] = createDrop(-Math.random() * height * 0.35);
       }
     }
 
-    window.requestAnimationFrame(draw);
+    animationFrameId = window.requestAnimationFrame(draw);
+  }
+
+  function teardown() {
+    window.cancelAnimationFrame(animationFrameId);
+    context.clearRect(0, 0, width, height);
+    canvas.remove();
   }
 
   resize();
   window.addEventListener('resize', resize);
-  window.requestAnimationFrame(draw);
+  prefersReducedMotion.addEventListener('change', (event) => {
+    if (event.matches) {
+      teardown();
+    } else {
+      document.body.prepend(canvas);
+      resize();
+      lastTimestamp = performance.now();
+      animationFrameId = window.requestAnimationFrame(draw);
+    }
+  });
+
+  animationFrameId = window.requestAnimationFrame(draw);
 }
