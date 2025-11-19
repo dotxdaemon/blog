@@ -59,8 +59,10 @@ function createPostCard(post) {
 
   card.appendChild(header);
 
-  const excerpt = deriveExcerptText(post);
-  if (excerpt) {
+  const { text: excerpt, isFromBody } = deriveExcerpt(post);
+  const shouldRenderExcerpt = Boolean(excerpt) && (!isFromBody || !post.body);
+
+  if (shouldRenderExcerpt) {
     const excerptEl = document.createElement('p');
     excerptEl.className = 'excerpt';
     excerptEl.textContent = excerpt;
@@ -116,17 +118,17 @@ function formatDate(isoString) {
   }).format(date);
 }
 
-function deriveExcerptText(post) {
+function deriveExcerpt(post) {
   if (!post || typeof post !== 'object') {
-    return '';
+    return { text: '', isFromBody: false };
   }
 
   if (typeof post.excerpt === 'string' && post.excerpt.trim()) {
-    return post.excerpt.trim();
+    return { text: post.excerpt.trim(), isFromBody: false };
   }
 
   if (!post.body) {
-    return '';
+    return { text: '', isFromBody: false };
   }
 
   const paragraphs = String(post.body)
@@ -135,7 +137,7 @@ function deriveExcerptText(post) {
     .filter(Boolean);
 
   if (!paragraphs.length) {
-    return '';
+    return { text: '', isFromBody: true };
   }
 
   const previewParagraph = paragraphs[0];
@@ -145,13 +147,13 @@ function deriveExcerptText(post) {
 
   const maxLength = 160;
   if (plainText.length <= maxLength) {
-    return plainText;
+    return { text: plainText, isFromBody: true };
   }
 
   const truncated = plainText.slice(0, maxLength);
   const lastSpace = truncated.lastIndexOf(' ');
   const safeCut = lastSpace > 80 ? truncated.slice(0, lastSpace) : truncated;
-  return `${safeCut.replace(/[.,;:!?]+$/u, '')}…`;
+  return { text: `${safeCut.replace(/[.,;:!?]+$/u, '')}…`, isFromBody: true };
 }
 
 function renderBody(raw) {
@@ -210,4 +212,83 @@ function replaceUrls(segment) {
 const currentYearEl = document.getElementById('current-year');
 if (currentYearEl) {
   currentYearEl.textContent = String(new Date().getFullYear());
+}
+
+initializeMatrixRain();
+
+function initializeMatrixRain() {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'matrix-canvas';
+  document.body.prepend(canvas);
+
+  const context = canvas.getContext('2d');
+  if (!context) {
+    return;
+  }
+
+  const glyphs = Array.from('アィゥエオカキクケコサシスセソタチツテトナニヌネノ0123456789');
+  let width = 0;
+  let height = 0;
+  let fontSize = 20;
+  let columns = 0;
+  let drops = [];
+  let lastTimestamp = performance.now();
+  const verticalSpacing = 1.4;
+  const trailLength = 8;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    fontSize = Math.max(16, Math.min(24, Math.round(height / 40)));
+    columns = Math.floor(width / fontSize);
+    const dropSpacing = fontSize * verticalSpacing;
+    drops = new Array(columns).fill(0).map(() => Math.random() * -height * verticalSpacing - dropSpacing);
+  }
+
+  function draw(now) {
+    const delta = Math.min(1000, now - lastTimestamp);
+    lastTimestamp = now;
+
+    context.fillStyle = 'rgba(15, 17, 21, 0.12)';
+    context.fillRect(0, 0, width, height);
+    context.font = `${fontSize}px "Source Code Pro", monospace`;
+
+    const dropSpacing = fontSize * verticalSpacing;
+    const pixelsPerSecond = dropSpacing * 0.6; // intentionally slow
+    const step = (pixelsPerSecond * delta) / 1000;
+
+    for (let i = 0; i < drops.length; i += 1) {
+      const x = i * fontSize;
+      const y = drops[i];
+
+      const headGlyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+      context.fillStyle = 'rgba(205, 213, 255, 0.9)';
+      context.fillText(headGlyph, x, y);
+
+      for (let t = 1; t < trailLength; t += 1) {
+        const trailY = y - t * dropSpacing;
+        if (trailY < -dropSpacing * 2) {
+          break;
+        }
+        const opacity = Math.max(0.12, 0.7 - t * 0.1);
+        context.fillStyle = `rgba(205, 213, 255, ${opacity})`;
+        const trailGlyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+        context.fillText(trailGlyph, x, trailY);
+      }
+
+      if (y > height + dropSpacing * trailLength) {
+        drops[i] = Math.random() * -height * verticalSpacing - dropSpacing;
+      } else {
+        drops[i] = y + step;
+      }
+    }
+
+    window.requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  window.requestAnimationFrame(draw);
 }
