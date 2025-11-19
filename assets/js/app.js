@@ -227,9 +227,12 @@ function initializeMatrixRain() {
   }
 
   const glyphs = Array.from('アィゥエオカキクケコサシスセソタチツテトナニヌネノ0123456789');
+  const trailLength = 7;
+
   let width = 0;
   let height = 0;
   let fontSize = 20;
+  let trailSpacing = fontSize * 1.35;
   let columns = 0;
   let drops = [];
   let lastTimestamp = performance.now();
@@ -240,8 +243,11 @@ function initializeMatrixRain() {
     canvas.width = width;
     canvas.height = height;
     fontSize = Math.max(16, Math.min(24, Math.round(height / 40)));
+    trailSpacing = fontSize * 1.35;
     columns = Math.floor(width / fontSize);
-    drops = new Array(columns).fill(0).map(() => Math.random() * -height);
+    drops = new Array(columns)
+      .fill(0)
+      .map(() => Math.random() * -height - trailSpacing * trailLength);
   }
 
   function draw(now) {
@@ -251,20 +257,28 @@ function initializeMatrixRain() {
     context.fillStyle = 'rgba(15, 17, 21, 0.12)';
     context.fillRect(0, 0, width, height);
     context.font = `${fontSize}px "Source Code Pro", monospace`;
-    context.fillStyle = 'rgba(205, 213, 255, 0.6)';
 
-    const pixelsPerSecond = fontSize * 0.9; // intentionally slow
+    const pixelsPerSecond = fontSize * 0.85; // intentionally slow
     const step = (pixelsPerSecond * delta) / 1000;
 
     for (let i = 0; i < drops.length; i += 1) {
       const x = i * fontSize;
       const y = drops[i];
 
-      const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
-      context.fillText(glyph, x, y);
+      for (let j = 0; j < trailLength; j += 1) {
+        const glyphY = y - j * trailSpacing;
+        if (glyphY < -fontSize || glyphY > height + fontSize) {
+          continue;
+        }
 
-      if (y > height + fontSize * 2) {
-        drops[i] = Math.random() * -height * 0.4;
+        const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+        const opacity = Math.max(0, 0.72 - j * 0.12);
+        context.fillStyle = `rgba(205, 213, 255, ${opacity.toFixed(2)})`;
+        context.fillText(glyph, x, glyphY);
+      }
+
+      if (y - trailSpacing * trailLength > height) {
+        drops[i] = Math.random() * -height * 0.5 - trailSpacing * trailLength;
       } else {
         drops[i] = y + step;
       }
