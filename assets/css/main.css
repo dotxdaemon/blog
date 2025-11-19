@@ -39,8 +39,8 @@ html {
   z-index: 0;
   pointer-events: none;
   mix-blend-mode: screen;
-  background: radial-gradient(circle at 20% 20%, rgba(39, 74, 59, 0.18), transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(52, 98, 71, 0.18), transparent 42%),
+  background: radial-gradient(circle at 20% 20%, rgba(70, 45, 102, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(98, 60, 132, 0.2), transparent 42%),
     var(--bg);
   opacity: 0.9;
 }
@@ -50,8 +50,8 @@ html {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 20% 20%, rgba(39, 74, 59, 0.18), transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(52, 98, 71, 0.18), transparent 42%),
+  background: radial-gradient(circle at 20% 20%, rgba(70, 45, 102, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(98, 60, 132, 0.2), transparent 42%),
     var(--bg);
   display: flex;
   justify-content: flex-end;

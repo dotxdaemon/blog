@@ -214,7 +214,11 @@ if (currentYearEl) {
   currentYearEl.textContent = String(new Date().getFullYear());
 }
 
-initializeMatrixRain();
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', initializeMatrixRain);
+} else {
+  initializeMatrixRain();
+}
 
 function initializeMatrixRain() {
   const prefersReducedMotion = window.matchMedia(
@@ -277,7 +281,7 @@ function initializeMatrixRain() {
   ) {
     return {
       y: startY,
-      speed: fontSize * (0.8 + Math.random() * 0.6),
+      speed: fontSize * (0.5 + Math.random() * 0.45),
     };
   }
 
@@ -303,7 +307,7 @@ function initializeMatrixRain() {
     const delta = Math.min(1000, now - lastTimestamp);
     lastTimestamp = now;
 
-    context.fillStyle = 'rgba(9, 12, 14, 0.2)';
+    context.fillStyle = 'rgba(9, 6, 16, 0.22)';
     context.fillRect(0, 0, width, height);
 
     for (let i = 0; i < drops.length; i += 1) {
@@ -319,11 +323,11 @@ function initializeMatrixRain() {
 
         const glyph = glyphs[(Math.random() * glyphs.length) | 0];
         const opacity = Math.max(0, 0.9 - j * 0.09);
-        context.fillStyle = `rgba(120, 255, 180, ${opacity.toFixed(2)})`;
+        context.fillStyle = `rgba(204, 153, 255, ${opacity.toFixed(2)})`;
         context.fillText(glyph, x, glyphY);
       }
 
-      const baselineSpeed = fontSize * 0.75;
+      const baselineSpeed = fontSize * 0.45;
       const step = ((baselineSpeed + drop.speed) * delta) / 1000;
       drop.y = y + step;
 
