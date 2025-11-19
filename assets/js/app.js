@@ -232,10 +232,17 @@ function initializeMatrixRain() {
   let width = 0;
   let height = 0;
   let fontSize = 20;
-  let trailSpacing = fontSize * 1.35;
+  let trailSpacing = fontSize * 1.8;
   let columns = 0;
   let drops = [];
   let lastTimestamp = performance.now();
+
+  function createDrop(startY = Math.random() * -height - trailSpacing * trailLength) {
+    return {
+      y: startY,
+      speed: fontSize * (0.75 + Math.random() * 0.35),
+    };
+  }
 
   function resize() {
     width = window.innerWidth;
@@ -243,11 +250,9 @@ function initializeMatrixRain() {
     canvas.width = width;
     canvas.height = height;
     fontSize = Math.max(16, Math.min(24, Math.round(height / 40)));
-    trailSpacing = fontSize * 1.35;
-    columns = Math.floor(width / fontSize);
-    drops = new Array(columns)
-      .fill(0)
-      .map(() => Math.random() * -height - trailSpacing * trailLength);
+    trailSpacing = fontSize * 1.8;
+    columns = Math.floor(width / (fontSize * 0.92));
+    drops = new Array(columns).fill(null).map(() => createDrop());
   }
 
   function draw(now) {
@@ -258,12 +263,12 @@ function initializeMatrixRain() {
     context.fillRect(0, 0, width, height);
     context.font = `${fontSize}px "Source Code Pro", monospace`;
 
-    const pixelsPerSecond = fontSize * 0.85; // intentionally slow
-    const step = (pixelsPerSecond * delta) / 1000;
+    const baselineSpeed = fontSize * 0.85; // intentionally slow
 
     for (let i = 0; i < drops.length; i += 1) {
-      const x = i * fontSize;
-      const y = drops[i];
+      const x = i * fontSize * 0.92;
+      const drop = drops[i];
+      const y = drop.y;
 
       for (let j = 0; j < trailLength; j += 1) {
         const glyphY = y - j * trailSpacing;
@@ -272,15 +277,17 @@ function initializeMatrixRain() {
         }
 
         const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
-        const opacity = Math.max(0, 0.72 - j * 0.12);
+        const opacity = Math.max(0, 0.72 - j * 0.1);
         context.fillStyle = `rgba(205, 213, 255, ${opacity.toFixed(2)})`;
         context.fillText(glyph, x, glyphY);
       }
 
       if (y - trailSpacing * trailLength > height) {
-        drops[i] = Math.random() * -height * 0.5 - trailSpacing * trailLength;
+        drops[i] = createDrop(-Math.random() * height * 0.4);
       } else {
-        drops[i] = y + step;
+        const speed = (baselineSpeed + drop.speed) * 0.5;
+        const step = (speed * delta) / 1000;
+        drop.y = y + step;
       }
     }
 
