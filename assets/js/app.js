@@ -220,18 +220,19 @@ function initializeMatrixRain() {
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   );
-  if (prefersReducedMotion.matches) {
-    return;
-  }
 
   const canvas = document.createElement('canvas');
   canvas.className = 'matrix-canvas';
-  document.body.prepend(canvas);
 
   const context = canvas.getContext('2d');
   if (!context) {
     return;
   }
+
+  const fallback = document.createElement('div');
+  fallback.className = 'matrix-fallback';
+  fallback.innerHTML =
+    '<span class="matrix-fallback__label" role="status" aria-live="polite">Motion effect paused to respect your reduced motion preference.</span>';
 
   const glyphs = Array.from(
     'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ0123456789'
@@ -247,6 +248,29 @@ function initializeMatrixRain() {
   let deviceScale = 1;
   let animationFrameId = 0;
   let lastTimestamp = performance.now();
+
+  function showFallback() {
+    teardown();
+    if (!fallback.isConnected) {
+      document.body.prepend(fallback);
+    }
+  }
+
+  function hideFallback() {
+    if (fallback.isConnected) {
+      fallback.remove();
+    }
+  }
+
+  function startAnimation() {
+    hideFallback();
+    if (!canvas.isConnected) {
+      document.body.prepend(canvas);
+    }
+    resize();
+    lastTimestamp = performance.now();
+    animationFrameId = window.requestAnimationFrame(draw);
+  }
 
   function createDrop(
     startY = Math.random() * -height - trailSpacing * trailLength * 1.1
@@ -314,21 +338,25 @@ function initializeMatrixRain() {
   function teardown() {
     window.cancelAnimationFrame(animationFrameId);
     context.clearRect(0, 0, width, height);
-    canvas.remove();
+    if (canvas.isConnected) {
+      canvas.remove();
+    }
   }
 
   resize();
   window.addEventListener('resize', resize);
   prefersReducedMotion.addEventListener('change', (event) => {
     if (event.matches) {
-      teardown();
+      showFallback();
     } else {
-      document.body.prepend(canvas);
-      resize();
-      lastTimestamp = performance.now();
-      animationFrameId = window.requestAnimationFrame(draw);
+      startAnimation();
     }
   });
 
-  animationFrameId = window.requestAnimationFrame(draw);
+  if (prefersReducedMotion.matches) {
+    showFallback();
+    return;
+  }
+
+  startAnimation();
 }
