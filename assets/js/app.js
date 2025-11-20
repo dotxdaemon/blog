@@ -217,10 +217,6 @@ if (currentYearEl) {
 initializeMatrixRain();
 
 function initializeMatrixRain() {
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  );
-
   const canvas = document.createElement('canvas');
   canvas.className = 'matrix-canvas';
 
@@ -228,11 +224,6 @@ function initializeMatrixRain() {
   if (!context) {
     return;
   }
-
-  const fallback = document.createElement('div');
-  fallback.className = 'matrix-fallback';
-  fallback.innerHTML =
-    '<span class="matrix-fallback__label" role="status" aria-live="polite">Motion effect paused to respect your reduced motion preference.</span>';
 
   const glyphs = Array.from(
     'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ0123456789'
@@ -249,21 +240,7 @@ function initializeMatrixRain() {
   let animationFrameId = 0;
   let lastTimestamp = performance.now();
 
-  function showFallback() {
-    teardown();
-    if (!fallback.isConnected) {
-      document.body.prepend(fallback);
-    }
-  }
-
-  function hideFallback() {
-    if (fallback.isConnected) {
-      fallback.remove();
-    }
-  }
-
   function startAnimation() {
-    hideFallback();
     if (!canvas.isConnected) {
       document.body.prepend(canvas);
     }
@@ -345,18 +322,5 @@ function initializeMatrixRain() {
 
   resize();
   window.addEventListener('resize', resize);
-  prefersReducedMotion.addEventListener('change', (event) => {
-    if (event.matches) {
-      showFallback();
-    } else {
-      startAnimation();
-    }
-  });
-
-  if (prefersReducedMotion.matches) {
-    showFallback();
-    return;
-  }
-
   startAnimation();
 }
