@@ -249,11 +249,7 @@ function initializeMatrixRain() {
     animationFrameId = window.requestAnimationFrame(draw);
   }
 
-  function createDrop(
-    startY =
-      Math.random() * (height + trailSpacing * trailLength) -
-      trailSpacing * trailLength
-  ) {
+  function createDrop(startY = Math.random() * height) {
     return {
       y: startY,
       speed: fontSize * (0.5 + Math.random() * 0.45),
