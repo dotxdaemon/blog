@@ -214,11 +214,7 @@ if (currentYearEl) {
   currentYearEl.textContent = String(new Date().getFullYear());
 }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', initializeMatrixRain);
-} else {
-  initializeMatrixRain();
-}
+initializeMatrixRain();
 
 function initializeMatrixRain() {
   const prefersReducedMotion = window.matchMedia(
