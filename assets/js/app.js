@@ -250,7 +250,9 @@ function initializeMatrixRain() {
   }
 
   function createDrop(
-    startY = Math.random() * -height - trailSpacing * trailLength * 1.1
+    startY =
+      Math.random() * (height + trailSpacing * trailLength) -
+      trailSpacing * trailLength
   ) {
     return {
       y: startY,
