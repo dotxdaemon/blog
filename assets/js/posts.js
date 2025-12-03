@@ -18,7 +18,7 @@ window.BLOG_POSTS = [
     date: "2025-09-26",
     body: `Hamnet
 
-Sentimental Value
+Sentimental Value - ok
 
 Marty Supreme
 
@@ -28,11 +28,11 @@ A House of Dynamite - quite good! loved it.
 
 Jay Kelly
 
-Bugonia
+Bugonia - ok
 
 No Other Choice
 
-If I Had Legs I'd Kick You
+If I Had Legs I'd Kick You - 
 
 Die, My Love
 
