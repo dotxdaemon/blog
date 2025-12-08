@@ -226,9 +226,16 @@ function initializeMatrixRain() {
   }
 
   const glyphs = Array.from(
-    'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ0123456789'
+    'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789<>{}[]=/\\*+-~^!?@#$%&'
   );
-  const trailLength = 10;
+
+  // Color palettes for variety
+  const colors = {
+    purple: { r: 204, g: 153, b: 255 },
+    cyan: { r: 100, g: 220, b: 255 },
+    white: { r: 255, g: 255, b: 255 },
+    pink: { r: 255, g: 150, b: 200 },
+  };
 
   let width = 0;
   let height = 0;
@@ -239,6 +246,7 @@ function initializeMatrixRain() {
   let deviceScale = 1;
   let animationFrameId = 0;
   let lastTimestamp = performance.now();
+  let elapsed = 0;
 
   function startAnimation() {
     if (!canvas.isConnected) {
@@ -249,10 +257,25 @@ function initializeMatrixRain() {
     animationFrameId = window.requestAnimationFrame(draw);
   }
 
+  function pickColor() {
+    const rand = Math.random();
+    if (rand < 0.6) return colors.purple;
+    if (rand < 0.85) return colors.cyan;
+    if (rand < 0.95) return colors.pink;
+    return colors.white;
+  }
+
   function createDrop(startY = Math.random() * height) {
+    const isBright = Math.random() < 0.08; // 8% chance of super bright drop
     return {
       y: startY,
-      speed: fontSize * (0.5 + Math.random() * 0.45),
+      speed: fontSize * (isBright ? (1.2 + Math.random() * 0.8) : (0.3 + Math.random() * 0.6)),
+      trailLength: isBright ? Math.floor(15 + Math.random() * 10) : Math.floor(6 + Math.random() * 10),
+      color: isBright ? colors.white : pickColor(),
+      isBright,
+      phase: Math.random() * Math.PI * 2, // For wave motion
+      waveAmp: Math.random() * 2, // Wave amplitude
+      glyphSeed: Math.floor(Math.random() * 1000), // For consistent glyph selection
     };
   }
 
@@ -272,19 +295,26 @@ function initializeMatrixRain() {
     columns = Math.max(1, Math.ceil(width / (fontSize * 0.9)));
     drops = new Array(columns).fill(null).map(() => createDrop());
     context.font = `${fontSize}px "Source Code Pro", monospace`;
+    context.textBaseline = 'top';
   }
 
   function draw(now) {
     const delta = Math.min(1000, now - lastTimestamp);
     lastTimestamp = now;
+    elapsed += delta;
 
-    context.fillStyle = 'rgba(9, 6, 16, 0.22)';
+    // Slightly darker fade for longer trails
+    context.fillStyle = 'rgba(9, 6, 16, 0.18)';
     context.fillRect(0, 0, width, height);
 
     for (let i = 0; i < drops.length; i += 1) {
-      const x = i * fontSize * 0.9;
+      const baseX = i * fontSize * 0.9;
       const drop = drops[i];
       const y = drop.y;
+      const { color, trailLength, isBright, phase, waveAmp, glyphSeed } = drop;
+
+      // Subtle wave motion
+      const waveOffset = Math.sin(elapsed * 0.001 + phase) * waveAmp;
 
       for (let j = 0; j < trailLength; j += 1) {
         const glyphY = y - j * trailSpacing;
@@ -292,18 +322,50 @@ function initializeMatrixRain() {
           continue;
         }
 
-        const glyph = glyphs[(Math.random() * glyphs.length) | 0];
-        const opacity = Math.max(0, 0.9 - j * 0.09);
-        context.fillStyle = `rgba(204, 153, 255, ${opacity.toFixed(2)})`;
-        context.fillText(glyph, x, glyphY);
+        // Use seeded random for more stable glyphs (change less frequently)
+        const glyphIndex = (glyphSeed + j * 7 + Math.floor(elapsed * 0.003)) % glyphs.length;
+        const glyph = glyphs[glyphIndex];
+
+        // Calculate opacity with exponential falloff
+        const baseOpacity = Math.max(0, 1 - (j / trailLength) * 1.1);
+        const flickerMod = j === 0 ? 1 : (0.85 + Math.random() * 0.15); // Slight flicker
+        const opacity = baseOpacity * flickerMod;
+
+        const x = baseX + (j === 0 ? 0 : waveOffset); // Only trail waves, not head
+
+        if (j === 0) {
+          // Lead character - bright glow effect
+          context.save();
+          if (isBright) {
+            context.shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.9)`;
+            context.shadowBlur = 20;
+          } else {
+            context.shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.6)`;
+            context.shadowBlur = 12;
+          }
+          context.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity.toFixed(2)})`;
+          context.fillText(glyph, x, glyphY);
+          context.restore();
+
+          // Extra bright core for lead
+          if (isBright) {
+            context.fillStyle = `rgba(255, 255, 255, ${(opacity * 0.7).toFixed(2)})`;
+            context.fillText(glyph, x, glyphY);
+          }
+        } else {
+          // Trail characters - gradient fade
+          const trailOpacity = opacity * (isBright ? 0.7 : 0.55);
+          context.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${trailOpacity.toFixed(2)})`;
+          context.fillText(glyph, x, glyphY);
+        }
       }
 
-      const baselineSpeed = fontSize * 0.45;
+      const baselineSpeed = fontSize * 0.35;
       const step = ((baselineSpeed + drop.speed) * delta) / 1000;
       drop.y = y + step;
 
       if (drop.y - trailSpacing * trailLength > height) {
-        drops[i] = createDrop(-Math.random() * height * 0.35);
+        drops[i] = createDrop(-Math.random() * height * 0.4);
       }
     }
 
