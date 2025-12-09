@@ -26,7 +26,7 @@ Wicked: For Good
 
 A House of Dynamite - quite good! loved it.
 
-Jay Kelly
+Jay Kelly - liked it. the ending is good.
 
 Bugonia - ok
 
