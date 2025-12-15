@@ -38,7 +38,7 @@ Die, My Love
 
 The Testament of Ann Lee
 
-Wake Up Dead Man
+Wake Up Dead Man - pretty good.
 
 https://letterboxd.com/000_leo/list/oscars-2026-1/`,
     ambientTone: "warm",
