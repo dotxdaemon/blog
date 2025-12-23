@@ -253,12 +253,11 @@ function initializeMatrixRain() {
     'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789<>{}[]=/\\*+-~^!?@#$%&'
   );
 
-  // Color palettes for variety
   const colors = {
-    purple: { r: 204, g: 153, b: 255 },
-    cyan: { r: 100, g: 220, b: 255 },
-    white: { r: 255, g: 255, b: 255 },
-    pink: { r: 255, g: 150, b: 200 },
+    dark: { r: 24, g: 24, b: 24 },
+    medium: { r: 90, g: 90, b: 90 },
+    light: { r: 170, g: 170, b: 170 },
+    white: { r: 235, g: 235, b: 235 },
   };
 
   let width = 0;
@@ -283,9 +282,9 @@ function initializeMatrixRain() {
 
   function pickColor() {
     const rand = Math.random();
-    if (rand < 0.6) return colors.purple;
-    if (rand < 0.85) return colors.cyan;
-    if (rand < 0.95) return colors.pink;
+    if (rand < 0.55) return colors.medium;
+    if (rand < 0.85) return colors.light;
+    if (rand < 0.95) return colors.dark;
     return colors.white;
   }
 
@@ -327,8 +326,7 @@ function initializeMatrixRain() {
     lastTimestamp = now;
     elapsed += delta;
 
-    // Slightly darker fade for longer trails
-    context.fillStyle = 'rgba(9, 6, 16, 0.18)';
+    context.fillStyle = 'rgba(0, 0, 0, 0.12)';
     context.fillRect(0, 0, width, height);
 
     for (let i = 0; i < drops.length; i += 1) {
@@ -430,32 +428,32 @@ function initializeMatrixRain() {
 }
 
 function applyAmbientEffect(card, ambient) {
-  const { hue, saturation, lightness, strength, highlightOffset, shadowOffset } = ambient;
-
-  // Create custom ambient glow for this card
-  const highlightHue = (hue + highlightOffset) % 360;
-  const shadowHue = (hue + shadowOffset) % 360;
+  const { lightness = 55, strength = 0.2 } = ambient;
+  const clampedLightness = Math.min(90, Math.max(20, lightness));
+  const safeStrength = Math.min(1, Math.max(0, strength));
+  const highlightLightness = Math.min(98, clampedLightness + 10);
+  const shadowLightness = Math.max(12, clampedLightness - 18);
 
   card.style.setProperty(
     '--card-ambient-highlight',
-    `hsla(${highlightHue}, ${saturation}%, ${lightness}%, ${strength})`
+    `hsla(0, 0%, ${highlightLightness}%, ${safeStrength})`
   );
   card.style.setProperty(
     '--card-ambient-shadow',
-    `hsla(${shadowHue}, ${saturation}%, ${lightness - 20}%, ${strength * 0.6})`
+    `hsla(0, 0%, ${shadowLightness}%, ${safeStrength * 0.6})`
   );
 
   card.style.boxShadow = `
     0 10px 30px var(--card-ambient-shadow),
     0 0 60px var(--card-ambient-highlight),
-    0 0 0 1px rgba(205, 213, 255, 0.03)
+    0 0 0 1px rgba(0, 0, 0, 0.03)
   `;
 
   card.addEventListener('mouseenter', () => {
     card.style.boxShadow = `
       0 14px 40px var(--card-ambient-shadow),
       0 0 80px var(--card-ambient-highlight),
-      0 0 120px hsla(${hue}, ${saturation}%, ${lightness}%, ${strength * 0.3})
+      0 0 120px hsla(0, 0%, ${clampedLightness}%, ${safeStrength * 0.3})
     `;
   });
 
@@ -463,7 +461,7 @@ function applyAmbientEffect(card, ambient) {
     card.style.boxShadow = `
       0 10px 30px var(--card-ambient-shadow),
       0 0 60px var(--card-ambient-highlight),
-      0 0 0 1px rgba(205, 213, 255, 0.03)
+      0 0 0 1px rgba(0, 0, 0, 0.03)
     `;
   });
 }
@@ -519,9 +517,9 @@ function initializeCursorTrail() {
   const particleInterval = 50; // ms between particles
 
   const colors = [
-    'rgba(204, 153, 255, 0.8)', // purple
-    'rgba(100, 220, 255, 0.8)', // cyan
-    'rgba(255, 150, 200, 0.8)', // pink
+    'rgba(0, 0, 0, 0.75)',
+    'rgba(40, 40, 40, 0.75)',
+    'rgba(90, 90, 90, 0.75)',
   ];
 
   document.addEventListener('mousemove', (e) => {
