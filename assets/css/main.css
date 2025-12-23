@@ -274,21 +274,6 @@ main {
   line-height: 1.7;
 }
 
-/* Drop cap for first paragraph */
-.body p:first-of-type::first-letter {
-  font-family: var(--display);
-  font-size: 3.5em;
-  line-height: 0.8;
-  float: left;
-  margin: 0.1em 0.15em 0 0;
-  background: linear-gradient(135deg, var(--glow-purple), var(--glow-cyan));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 30px var(--glow-purple);
-  font-weight: 600;
-}
-
 .body strong {
   color: var(--fg);
   font-weight: 600;
@@ -558,9 +543,5 @@ footer {
     right: 1rem;
     width: 45px;
     height: 45px;
-  }
-
-  .body p:first-of-type::first-letter {
-    font-size: 2.8em;
   }
 }
