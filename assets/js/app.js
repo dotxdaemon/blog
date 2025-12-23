@@ -103,6 +103,15 @@ function formatDate(isoString) {
       return isoString;
     }
     date = new Date(year, month - 1, day);
+
+    // Validate that the date didn't roll over (e.g., Feb 30 -> Mar 2)
+    if (
+      date.getFullYear() !== year ||
+      date.getMonth() !== month - 1 ||
+      date.getDate() !== day
+    ) {
+      return '';
+    }
   } else {
     date = new Date(isoString);
   }
