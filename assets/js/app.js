@@ -223,7 +223,22 @@ if (currentYearEl) {
   currentYearEl.textContent = String(new Date().getFullYear());
 }
 
+// Apply ambient effects to post cards based on post data
+orderedPosts.forEach((post, index) => {
+  if (post.ambient) {
+    const card = postList.children[index];
+    if (card) {
+      applyAmbientEffect(card, post.ambient);
+    }
+  }
+});
+
 initializeMatrixRain();
+initializeReadingProgress();
+initializeBackToTop();
+initializeCursorTrail();
+initializeParallax();
+initializeScanlineOverlay();
 
 function initializeMatrixRain() {
   const canvas = document.createElement('canvas');
@@ -392,4 +407,179 @@ function initializeMatrixRain() {
   resize();
   window.addEventListener('resize', resize);
   startAnimation();
+
+  // Make matrix reactive to mouse movement
+  let mouseX = 0;
+  let mouseY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Find nearby columns and intensify them
+    const colIndex = Math.floor((mouseX / width) * columns);
+    for (let offset = -2; offset <= 2; offset++) {
+      const targetIndex = colIndex + offset;
+      if (targetIndex >= 0 && targetIndex < drops.length) {
+        if (Math.random() < 0.3) {
+          drops[targetIndex].speed = fontSize * (1.5 + Math.random() * 1.5);
+        }
+      }
+    }
+  });
+}
+
+function applyAmbientEffect(card, ambient) {
+  const { hue, saturation, lightness, strength, highlightOffset, shadowOffset } = ambient;
+
+  // Create custom ambient glow for this card
+  const highlightHue = (hue + highlightOffset) % 360;
+  const shadowHue = (hue + shadowOffset) % 360;
+
+  card.style.setProperty(
+    '--card-ambient-highlight',
+    `hsla(${highlightHue}, ${saturation}%, ${lightness}%, ${strength})`
+  );
+  card.style.setProperty(
+    '--card-ambient-shadow',
+    `hsla(${shadowHue}, ${saturation}%, ${lightness - 20}%, ${strength * 0.6})`
+  );
+
+  card.style.boxShadow = `
+    0 10px 30px var(--card-ambient-shadow),
+    0 0 60px var(--card-ambient-highlight),
+    0 0 0 1px rgba(205, 213, 255, 0.03)
+  `;
+
+  card.addEventListener('mouseenter', () => {
+    card.style.boxShadow = `
+      0 14px 40px var(--card-ambient-shadow),
+      0 0 80px var(--card-ambient-highlight),
+      0 0 120px hsla(${hue}, ${saturation}%, ${lightness}%, ${strength * 0.3})
+    `;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.boxShadow = `
+      0 10px 30px var(--card-ambient-shadow),
+      0 0 60px var(--card-ambient-highlight),
+      0 0 0 1px rgba(205, 213, 255, 0.03)
+    `;
+  });
+}
+
+function initializeReadingProgress() {
+  const progressBar = document.createElement('div');
+  progressBar.className = 'reading-progress';
+  document.body.appendChild(progressBar);
+
+  function updateProgress() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+    const clampedPercent = Math.min(100, Math.max(0, scrollPercent));
+
+    progressBar.style.width = `${clampedPercent}%`;
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+}
+
+function initializeBackToTop() {
+  const button = document.createElement('button');
+  button.className = 'back-to-top';
+  button.setAttribute('aria-label', 'Back to top');
+  document.body.appendChild(button);
+
+  function toggleVisibility() {
+    if (window.pageYOffset > 300) {
+      button.classList.add('visible');
+    } else {
+      button.classList.remove('visible');
+    }
+  }
+
+  button.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+  toggleVisibility();
+}
+
+function initializeCursorTrail() {
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  let lastParticleTime = 0;
+  const particleInterval = 50; // ms between particles
+
+  const colors = [
+    'rgba(204, 153, 255, 0.8)', // purple
+    'rgba(100, 220, 255, 0.8)', // cyan
+    'rgba(255, 150, 200, 0.8)', // pink
+  ];
+
+  document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if (now - lastParticleTime < particleInterval) return;
+    lastParticleTime = now;
+
+    // Only create particles when moving over post cards
+    const target = e.target.closest('.post-card');
+    if (!target) return;
+
+    const particle = document.createElement('div');
+    particle.className = 'cursor-particle';
+    particle.style.left = `${e.clientX}px`;
+    particle.style.top = `${e.clientY}px`;
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.boxShadow = `0 0 10px ${colors[Math.floor(Math.random() * colors.length)]}`;
+
+    document.body.appendChild(particle);
+
+    setTimeout(() => {
+      particle.remove();
+    }, 1000);
+  });
+}
+
+function initializeParallax() {
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  const cards = document.querySelectorAll('.post-card');
+
+  function updateParallax() {
+    const scrollY = window.pageYOffset;
+
+    cards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const distance = cardCenter - viewportCenter;
+
+      // Subtle parallax effect
+      const parallaxAmount = distance * 0.05;
+      card.style.transform = `translateY(${parallaxAmount}px)`;
+    });
+  }
+
+  window.addEventListener('scroll', updateParallax, { passive: true });
+  updateParallax();
+}
+
+function initializeScanlineOverlay() {
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'scanline-overlay';
+  document.body.appendChild(overlay);
 }
