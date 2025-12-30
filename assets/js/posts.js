@@ -55,7 +55,7 @@ https://letterboxd.com/000_leo/list/oscars-2026-1/`,
   },
   {
     title: "cooking recipes",
-    date: "2025-10-03",
+    date: "2025-12-30",
     excerpt: "Three weeknight recipes built from pantry staples and bright herbs.",
     body: `Pantry pasta with garlic, olive oil, and roasted cherry tomatoes. Toss cooked noodles with chili flakes, lemon zest, and a spoon of the starchy water for gloss.
 
