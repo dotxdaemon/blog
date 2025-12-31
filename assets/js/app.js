@@ -15,7 +15,7 @@ if (!orderedPosts.length) {
   postList.appendChild(createEmptyCard());
 } else {
   orderedPosts.forEach((post) => {
-    postList.appendChild(createPostCard(post));
+    postList.appendChild(createTimelineItem(post));
   });
 }
 
@@ -34,6 +34,79 @@ function createEmptyCard() {
   card.appendChild(prompt);
 
   return card;
+}
+
+function createTimelineItem(post) {
+  const item = document.createElement('div');
+  item.className = 'timeline-item';
+
+  // Create timeline node (date marker on the line)
+  const node = document.createElement('div');
+  node.className = 'timeline-node';
+
+  const dot = document.createElement('div');
+  dot.className = 'timeline-node__dot';
+  node.appendChild(dot);
+
+  const dateLabel = document.createElement('span');
+  dateLabel.className = 'timeline-node__date';
+  dateLabel.textContent = formatShortDate(post.date);
+  node.appendChild(dateLabel);
+
+  item.appendChild(node);
+
+  // Create the post card
+  const card = createPostCard(post);
+  item.appendChild(card);
+
+  return item;
+}
+
+function formatShortDate(isoString) {
+  if (!isoString) {
+    return '';
+  }
+
+  const basicMatch =
+    typeof isoString === 'string' && isoString.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  let date;
+
+  if (isoString instanceof Date) {
+    date = isoString;
+  } else if (basicMatch) {
+    const [, yearStr, monthStr, dayStr] = basicMatch;
+    const year = Number(yearStr);
+    const month = Number(monthStr);
+    const day = Number(dayStr);
+    if (
+      Number.isNaN(year) ||
+      Number.isNaN(month) ||
+      Number.isNaN(day)
+    ) {
+      return isoString;
+    }
+    date = new Date(year, month - 1, day);
+
+    if (
+      date.getFullYear() !== year ||
+      date.getMonth() !== month - 1 ||
+      date.getDate() !== day
+    ) {
+      return '';
+    }
+  } else {
+    date = new Date(isoString);
+  }
+
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  // Short format: "Dec 30"
+  return new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
 }
 
 function createPostCard(post) {
@@ -226,7 +299,8 @@ if (currentYearEl) {
 // Apply ambient effects to post cards based on post data
 orderedPosts.forEach((post, index) => {
   if (post.ambient) {
-    const card = postList.children[index];
+    const timelineItem = postList.children[index];
+    const card = timelineItem?.querySelector('.post-card');
     if (card) {
       applyAmbientEffect(card, post.ambient);
     }
