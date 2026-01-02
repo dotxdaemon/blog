@@ -22,7 +22,7 @@ window.BLOG_POSTS = [
 
 Sentimental Value - ok
 
-Marty Supreme
+Marty Supreme - liked it. cohesion of main character vs other characters throws it off a bit
 
 Wicked: For Good
 
