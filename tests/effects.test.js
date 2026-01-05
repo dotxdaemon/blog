@@ -29,7 +29,8 @@ assert.strictEqual(
 
 const appPath = path.join(__dirname, '..', 'assets', 'js', 'app.js');
 const appSource = fs.readFileSync(appPath, 'utf8');
+// Reading time is now a feature - verify it's implemented
 assert.ok(
-  !/min read/i.test(appSource),
-  'Expected posts to avoid auto-generated reading time comments.'
+  /reading.?time/i.test(appSource),
+  'Expected reading time feature to be present.'
 );
