@@ -32,3 +32,32 @@ assert.ok(
   cookingPost.ambient && typeof cookingPost.ambient.hue === 'number',
   'Expected "cooking recipes" post to include ambient styling.'
 );
+
+const moviesPost = posts.find(
+  (post) => post && typeof post.title === 'string' && post.title === 'movies I want to watch'
+);
+
+assert.ok(moviesPost, 'Expected a post titled "movies I want to watch".');
+assert.strictEqual(
+  moviesPost.date,
+  '2025-09-26',
+  'Expected "movies I want to watch" post to have date 2025-09-26.'
+);
+assert.ok(
+  moviesPost.excerpt &&
+    typeof moviesPost.excerpt === 'string' &&
+    moviesPost.excerpt.toLowerCase().includes('movies'),
+  'Expected "movies I want to watch" post to include an excerpt about the movies list.'
+);
+assert.ok(
+  moviesPost.body &&
+    typeof moviesPost.body === 'string' &&
+    moviesPost.body.includes('Hamnet'),
+  'Expected "movies I want to watch" post to include the film list.'
+);
+assert.ok(
+  !posts.some(
+    (post) => post && typeof post.title === 'string' && post.title === 'Field Log: Desert Recon Unit'
+  ),
+  'Did not expect a Field Log post to remain.'
+);
