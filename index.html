@@ -1,3 +1,5 @@
+<!-- ABOUTME: Builds the homepage shell for the blog. -->
+<!-- ABOUTME: Anchors the hero, navigation, and matrix rain canvas. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,30 +9,107 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Spectral:wght@400;500;600&family=Source+Code+Pro:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
   <body>
-    <main>
-      <section class="post-list" id="posts" aria-live="polite"></section>
+    <div class="matrix-fallback" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="container site-nav">
+        <a class="brand-mark" href="#hero">velvetdaemon</a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a class="nav-link" href="#posts">Posts</a>
+          <a class="nav-link" href="#hero">About</a>
+          <a
+            class="nav-link"
+            href="https://github.com/dotxdaemon"
+            rel="noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero container" id="hero" data-hero>
+        <div class="hero__portrait" aria-hidden="true">
+          <span class="hero__initial">v</span>
+        </div>
+        <div class="hero__content">
+          <p class="eyebrow">Builder, writer, daydreamer</p>
+          <h1 class="hero__title">Hi, I'm velvetdaemon.</h1>
+          <p class="hero__lede">
+            I keep a log of experiments, recipes, and films while the matrix rain hums in the
+            background.
+          </p>
+          <div class="hero__meta">
+            <span class="meta-chip">Signal over noise</span>
+            <span class="meta-chip">No ads, no popups</span>
+            <span class="meta-chip">Always dark mode</span>
+          </div>
+          <div class="hero__actions">
+            <a class="pill-link" href="#posts">Read the latest</a>
+            <a
+              class="pill-link pill-link--ghost"
+              href="mailto:dotxdaemon@gmail.com"
+              rel="noreferrer"
+            >
+              Say hello
+            </a>
+          </div>
+          <div class="hero__social" aria-label="Social links">
+            <a class="social-link" href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <span aria-hidden="true">·</span>
+            <a class="social-link" href="https://letterboxd.com/000_leo/" target="_blank" rel="noreferrer">
+              Letterboxd
+            </a>
+            <span aria-hidden="true">·</span>
+            <a class="social-link" href="mailto:dotxdaemon@gmail.com">Email</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="post-feed container" aria-label="Post feed">
+        <div class="section-header">
+          <p class="eyebrow">Archive</p>
+          <div>
+            <h2 class="section-title">Recent writing</h2>
+            <p class="section-subtitle">
+              A running list of notes, ideas, and essays that ship as soon as they're useful.
+            </p>
+          </div>
+        </div>
+        <ul class="post-list" id="posts" aria-live="polite"></ul>
+      </section>
     </main>
+
     <footer class="site-footer" aria-label="Site footer">
       <div class="container site-footer__inner">
         <p>
-          © <span id="current-year"></span> velvetdaemon
+          © <span id="current-year"></span> velvetdaemon — built under matrix rain
         </p>
-        <ul class="site-footer__links">
-          <li><a href="#posts">Archive</a></li>
-          <li>
-            <a href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer"
-              >GitHub</a
-            >
-          </li>
-        </ul>
+        <div class="site-footer__links">
+          <a class="nav-link" href="#hero">About</a>
+          <a class="nav-link" href="#posts">Archive</a>
+          <a
+            class="nav-link"
+            href="https://github.com/dotxdaemon"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
     </footer>
+
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/app.js" type="module"></script>
   </body>

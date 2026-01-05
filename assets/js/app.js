@@ -1,3 +1,5 @@
+/* ABOUTME: Renders the homepage layout, posts, and ambient interactions. */
+/* ABOUTME: Keeps matrix rain, scroll helpers, and post visuals in sync. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const postList = document.getElementById('posts');
 
@@ -15,51 +17,135 @@ if (!orderedPosts.length) {
   postList.appendChild(createEmptyCard());
 } else {
   orderedPosts.forEach((post) => {
-    postList.appendChild(createTimelineItem(post));
+    postList.appendChild(createPostEntry(post));
   });
 }
 
+const currentYearEl = document.getElementById('current-year');
+if (currentYearEl) {
+  currentYearEl.textContent = String(new Date().getFullYear());
+}
+
+orderedPosts.forEach((post, index) => {
+  if (post.ambient) {
+    const listItem = postList.children[index];
+    const card = listItem?.querySelector('.post-card');
+    if (card) {
+      applyAmbientEffect(card, post.ambient);
+    }
+  }
+});
+
+initializeMatrixRain();
+initializeReadingProgress();
+initializeBackToTop();
+initializeCursorTrail();
+initializeParallax();
+initializeScanlineOverlay();
+
 function createEmptyCard() {
+  const item = document.createElement('li');
+  item.className = 'post-entry';
+
   const card = document.createElement('article');
   card.className = 'post-card';
 
-  const title = document.createElement('h2');
+  const title = document.createElement('h3');
   title.className = 'post-card__title';
-  title.textContent = 'No posts yet';
+  title.textContent = 'Nothing yet';
+
+  const detail = document.createElement('p');
+  detail.className = 'excerpt';
+  detail.textContent = 'Add your first post in assets/js/posts.js.';
+
   card.appendChild(title);
-
-  const prompt = document.createElement('p');
-  prompt.className = 'excerpt';
-  prompt.textContent = 'Add your first story by editing assets/js/posts.js.';
-  card.appendChild(prompt);
-
-  return card;
+  card.appendChild(detail);
+  item.appendChild(card);
+  return item;
 }
 
-function createTimelineItem(post) {
-  const item = document.createElement('div');
-  item.className = 'timeline-item';
+function createPostEntry(post) {
+  const item = document.createElement('li');
+  item.className = 'post-entry';
 
-  // Create timeline node (date marker on the line)
-  const node = document.createElement('div');
-  node.className = 'timeline-node';
+  const card = document.createElement('article');
+  card.className = 'post-card';
 
-  const dot = document.createElement('div');
-  dot.className = 'timeline-node__dot';
-  node.appendChild(dot);
+  const meta = document.createElement('div');
+  meta.className = 'post-card__meta';
 
-  const dateLabel = document.createElement('span');
-  dateLabel.className = 'timeline-node__date';
-  dateLabel.textContent = formatShortDate(post.date);
-  node.appendChild(dateLabel);
+  const formattedDate = formatDate(post.date);
+  const metaNodes = [];
 
-  item.appendChild(node);
+  if (formattedDate) {
+    const time = document.createElement('time');
+    time.className = 'post-card__date';
+    time.dateTime = post.date;
+    time.textContent = formattedDate;
+    metaNodes.push(time);
+  }
 
-  // Create the post card
-  const card = createPostCard(post);
+  const readingTime = estimateReadingTime(post);
+  if (readingTime) {
+    const duration = document.createElement('span');
+    duration.textContent = readingTime;
+    metaNodes.push(duration);
+  }
+
+  if (post.ambientTone) {
+    const tone = document.createElement('span');
+    tone.textContent = `Mood: ${post.ambientTone}`;
+    metaNodes.push(tone);
+  }
+
+  appendMetaSegments(meta, metaNodes);
+  card.appendChild(meta);
+
+  const title = document.createElement('h3');
+  title.className = 'post-card__title';
+  title.textContent = post.title;
+  card.appendChild(title);
+
+  const { text: excerpt, isFromBody } = deriveExcerpt(post);
+  const shouldRenderExcerpt = Boolean(excerpt) && (!isFromBody || !post.body);
+
+  if (shouldRenderExcerpt) {
+    const excerptEl = document.createElement('p');
+    excerptEl.className = 'excerpt';
+    excerptEl.textContent = excerpt;
+    card.appendChild(excerptEl);
+  }
+
+  if (post.body) {
+    const body = document.createElement('div');
+    body.className = 'body';
+    body.innerHTML = renderBody(post.body);
+    card.appendChild(body);
+  }
+
   item.appendChild(card);
-
   return item;
+}
+
+function appendMetaSegments(container, nodes) {
+  const validNodes = nodes.filter(Boolean);
+  validNodes.forEach((node, index) => {
+    if (index > 0) {
+      const divider = document.createElement('span');
+      divider.className = 'meta-divider';
+      divider.textContent = '•';
+      container.appendChild(divider);
+    }
+    container.appendChild(node);
+  });
+}
+
+function estimateReadingTime(post) {
+  const source = [post.body, post.excerpt, post.title].filter(Boolean).join(' ');
+  const words = source.trim() ? source.trim().split(/\s+/).length : 0;
+  if (!words) return '';
+  const minutes = Math.max(1, Math.ceil(words / 180));
+  return `${minutes} min read`;
 }
 
 function formatShortDate(isoString) {
@@ -102,54 +188,10 @@ function formatShortDate(isoString) {
     return '';
   }
 
-  // Short format: "Dec 30"
   return new Intl.DateTimeFormat(undefined, {
     month: 'short',
     day: 'numeric',
   }).format(date);
-}
-
-function createPostCard(post) {
-  const card = document.createElement('article');
-  card.className = 'post-card';
-
-  const header = document.createElement('header');
-  header.className = 'post-card__header';
-
-  const title = document.createElement('h2');
-  title.className = 'post-card__title';
-  title.textContent = post.title;
-  header.appendChild(title);
-
-  const formattedDate = formatDate(post.date);
-  if (formattedDate) {
-    const meta = document.createElement('time');
-    meta.dateTime = post.date;
-    meta.textContent = formattedDate;
-    meta.className = 'post-card__date';
-    header.appendChild(meta);
-  }
-
-  card.appendChild(header);
-
-  const { text: excerpt, isFromBody } = deriveExcerpt(post);
-  const shouldRenderExcerpt = Boolean(excerpt) && (!isFromBody || !post.body);
-
-  if (shouldRenderExcerpt) {
-    const excerptEl = document.createElement('p');
-    excerptEl.className = 'excerpt';
-    excerptEl.textContent = excerpt;
-    card.appendChild(excerptEl);
-  }
-
-  if (post.body) {
-    const body = document.createElement('div');
-    body.className = 'body';
-    body.innerHTML = renderBody(post.body);
-    card.appendChild(body);
-  }
-
-  return card;
 }
 
 function formatDate(isoString) {
@@ -177,7 +219,6 @@ function formatDate(isoString) {
     }
     date = new Date(year, month - 1, day);
 
-    // Validate that the date didn't roll over (e.g., Feb 30 -> Mar 2)
     if (
       date.getFullYear() !== year ||
       date.getMonth() !== month - 1 ||
@@ -291,29 +332,6 @@ function replaceUrls(segment) {
   );
 }
 
-const currentYearEl = document.getElementById('current-year');
-if (currentYearEl) {
-  currentYearEl.textContent = String(new Date().getFullYear());
-}
-
-// Apply ambient effects to post cards based on post data
-orderedPosts.forEach((post, index) => {
-  if (post.ambient) {
-    const timelineItem = postList.children[index];
-    const card = timelineItem?.querySelector('.post-card');
-    if (card) {
-      applyAmbientEffect(card, post.ambient);
-    }
-  }
-});
-
-initializeMatrixRain();
-initializeReadingProgress();
-initializeBackToTop();
-initializeCursorTrail();
-initializeParallax();
-initializeScanlineOverlay();
-
 function initializeMatrixRain() {
   const canvas = document.createElement('canvas');
   canvas.className = 'matrix-canvas';
@@ -349,6 +367,7 @@ function initializeMatrixRain() {
     if (!canvas.isConnected) {
       document.body.prepend(canvas);
     }
+    canvas.style.zIndex = '1';
     resize();
     lastTimestamp = performance.now();
     animationFrameId = window.requestAnimationFrame(draw);
@@ -363,16 +382,16 @@ function initializeMatrixRain() {
   }
 
   function createDrop(startY = Math.random() * height) {
-    const isBright = Math.random() < 0.08; // 8% chance of super bright drop
+    const isBright = Math.random() < 0.08;
     return {
       y: startY,
       speed: fontSize * (isBright ? (1.2 + Math.random() * 0.8) : (0.3 + Math.random() * 0.6)),
       trailLength: isBright ? Math.floor(15 + Math.random() * 10) : Math.floor(6 + Math.random() * 10),
       color: isBright ? colors.white : pickColor(),
       isBright,
-      phase: Math.random() * Math.PI * 2, // For wave motion
-      waveAmp: Math.random() * 2, // Wave amplitude
-      glyphSeed: Math.floor(Math.random() * 1000), // For consistent glyph selection
+      phase: Math.random() * Math.PI * 2,
+      waveAmp: Math.random() * 2,
+      glyphSeed: Math.floor(Math.random() * 1000),
     };
   }
 
@@ -391,7 +410,7 @@ function initializeMatrixRain() {
     trailSpacing = fontSize * 1.55;
     columns = Math.max(1, Math.ceil(width / (fontSize * 0.9)));
     drops = new Array(columns).fill(null).map(() => createDrop());
-    context.font = `${fontSize}px "Source Code Pro", monospace`;
+    context.font = `${fontSize}px "Space Mono", monospace`;
     context.textBaseline = 'top';
   }
 
@@ -409,7 +428,6 @@ function initializeMatrixRain() {
       const y = drop.y;
       const { color, trailLength, isBright, phase, waveAmp, glyphSeed } = drop;
 
-      // Subtle wave motion
       const waveOffset = Math.sin(elapsed * 0.001 + phase) * waveAmp;
 
       for (let j = 0; j < trailLength; j += 1) {
@@ -418,19 +436,16 @@ function initializeMatrixRain() {
           continue;
         }
 
-        // Use seeded random for more stable glyphs (change less frequently)
         const glyphIndex = (glyphSeed + j * 7 + Math.floor(elapsed * 0.003)) % glyphs.length;
         const glyph = glyphs[glyphIndex];
 
-        // Calculate opacity with exponential falloff
         const baseOpacity = Math.max(0, 1 - (j / trailLength) * 1.1);
-        const flickerMod = j === 0 ? 1 : (0.85 + Math.random() * 0.15); // Slight flicker
+        const flickerMod = j === 0 ? 1 : (0.85 + Math.random() * 0.15);
         const opacity = baseOpacity * flickerMod;
 
-        const x = baseX + (j === 0 ? 0 : waveOffset); // Only trail waves, not head
+        const x = baseX + (j === 0 ? 0 : waveOffset);
 
         if (j === 0) {
-          // Lead character - bright glow effect
           context.save();
           if (isBright) {
             context.shadowColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.9)`;
@@ -443,13 +458,11 @@ function initializeMatrixRain() {
           context.fillText(glyph, x, glyphY);
           context.restore();
 
-          // Extra bright core for lead
           if (isBright) {
             context.fillStyle = `rgba(255, 255, 255, ${(opacity * 0.7).toFixed(2)})`;
             context.fillText(glyph, x, glyphY);
           }
         } else {
-          // Trail characters - gradient fade
           const trailOpacity = opacity * (isBright ? 0.7 : 0.55);
           context.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${trailOpacity.toFixed(2)})`;
           context.fillText(glyph, x, glyphY);
@@ -480,7 +493,6 @@ function initializeMatrixRain() {
   window.addEventListener('resize', resize);
   startAnimation();
 
-  // Make matrix reactive to mouse movement
   let mouseX = 0;
   let mouseY = 0;
 
@@ -488,7 +500,6 @@ function initializeMatrixRain() {
     mouseX = e.clientX;
     mouseY = e.clientY;
 
-    // Find nearby columns and intensify them
     const colIndex = Math.floor((mouseX / width) * columns);
     for (let offset = -2; offset <= 2; offset++) {
       const targetIndex = colIndex + offset;
@@ -583,12 +594,11 @@ function initializeBackToTop() {
 }
 
 function initializeCursorTrail() {
-  // Check if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
   let lastParticleTime = 0;
-  const particleInterval = 50; // ms between particles
+  const particleInterval = 50;
 
   const colors = [
     'rgba(0, 0, 0, 0.75)',
@@ -601,7 +611,6 @@ function initializeCursorTrail() {
     if (now - lastParticleTime < particleInterval) return;
     lastParticleTime = now;
 
-    // Only create particles when moving over post cards
     const target = e.target.closest('.post-card');
     if (!target) return;
 
@@ -609,8 +618,9 @@ function initializeCursorTrail() {
     particle.className = 'cursor-particle';
     particle.style.left = `${e.clientX}px`;
     particle.style.top = `${e.clientY}px`;
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-    particle.style.boxShadow = `0 0 10px ${colors[Math.floor(Math.random() * colors.length)]}`;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.background = color;
+    particle.style.boxShadow = `0 0 10px ${color}`;
 
     document.body.appendChild(particle);
 
@@ -621,24 +631,20 @@ function initializeCursorTrail() {
 }
 
 function initializeParallax() {
-  // Check if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
   const cards = document.querySelectorAll('.post-card');
 
   function updateParallax() {
-    const scrollY = window.pageYOffset;
+    const viewportCenter = window.innerHeight / 2;
 
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
       const rect = card.getBoundingClientRect();
       const cardCenter = rect.top + rect.height / 2;
-      const viewportCenter = window.innerHeight / 2;
       const distance = cardCenter - viewportCenter;
-
-      // Subtle parallax effect
-      const parallaxAmount = distance * 0.05;
-      card.style.transform = `translateY(${parallaxAmount}px)`;
+      const parallaxAmount = Math.max(-12, Math.min(12, distance * 0.04));
+      card.style.setProperty('--parallax-offset', `${parallaxAmount}px`);
     });
   }
 
@@ -647,7 +653,6 @@ function initializeParallax() {
 }
 
 function initializeScanlineOverlay() {
-  // Check if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
