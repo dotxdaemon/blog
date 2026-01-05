@@ -28,6 +28,7 @@ if (currentYearEl) {
 
 setupNavToggle();
 setupThemeToggle();
+setupMatrixRain();
 
 function createEmptyCard() {
   const item = document.createElement('li');
@@ -69,13 +70,6 @@ function createPostEntry(post) {
     time.dateTime = post.date;
     time.textContent = formattedDate;
     metaNodes.push(time);
-  }
-
-  const readingTime = estimateReadingTime(post);
-  if (readingTime) {
-    const duration = document.createElement('span');
-    duration.textContent = readingTime;
-    metaNodes.push(duration);
   }
 
   appendMetaSegments(meta, metaNodes);
@@ -120,14 +114,6 @@ function appendMetaSegments(container, nodes) {
     }
     container.appendChild(node);
   });
-}
-
-function estimateReadingTime(post) {
-  const source = [post.body, post.excerpt, post.title].filter(Boolean).join(' ');
-  const words = source.trim() ? source.trim().split(/\s+/).length : 0;
-  if (!words) return '';
-  const minutes = Math.max(1, Math.ceil(words / 180));
-  return `${minutes} min read`;
 }
 
 function formatDate(isoString) {
@@ -307,4 +293,10 @@ function setupThemeToggle() {
     themeButton.setAttribute('aria-pressed', safeTheme === 'dark' ? 'true' : 'false');
     localStorage.setItem('vd-theme', safeTheme);
   }
+}
+
+function setupMatrixRain() {
+  const canvas = document.getElementById('matrix-rain');
+  if (!canvas || typeof window.startMatrixRain !== 'function') return;
+  window.startMatrixRain(canvas);
 }
