@@ -1,5 +1,5 @@
-<!-- ABOUTME: Builds the homepage shell for the blog. -->
-<!-- ABOUTME: Anchors the hero, navigation, and matrix rain canvas. -->
+<!-- ABOUTME: Builds the reference-inspired homepage shell for the blog. -->
+<!-- ABOUTME: Anchors the hero, navigation, and theming controls. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,59 +9,50 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
-  <body>
-    <div class="matrix-fallback" aria-hidden="true"></div>
+  <body data-theme="light">
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
-      <div class="container site-nav">
-        <a class="brand-mark" href="#hero">velvetdaemon</a>
-        <nav class="nav-links" aria-label="Primary navigation">
+      <div class="container nav-shell">
+        <a class="site-title" href="#hero">velvetdaemon</a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+        >
+          Menu
+        </button>
+        <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
           <a class="nav-link" href="#posts">Posts</a>
           <a class="nav-link" href="#hero">About</a>
-          <a
-            class="nav-link"
-            href="https://github.com/dotxdaemon"
-            rel="noreferrer"
-            target="_blank"
-          >
-            GitHub
-          </a>
+          <a class="nav-link" href="mailto:dotxdaemon@gmail.com">Contact</a>
+          <button class="theme-toggle" type="button" aria-pressed="false">
+            <span class="theme-toggle__icon" aria-hidden="true">◐</span>
+            <span class="sr-only">Toggle theme</span>
+          </button>
         </nav>
       </div>
+      <div class="divider container" aria-hidden="true"></div>
     </header>
 
-    <main class="page">
+    <main class="page" id="main-content" data-layout="index">
       <section class="hero container" id="hero" data-hero>
-        <div class="hero__portrait" aria-hidden="true">
-          <span class="hero__initial">v</span>
+        <div class="hero__media" aria-hidden="true">
+          <div class="hero__avatar">v</div>
         </div>
         <div class="hero__content">
-          <p class="eyebrow">Builder, writer, daydreamer</p>
+          <p class="eyebrow">Steady notes, curious builds</p>
           <h1 class="hero__title">Hi, I'm velvetdaemon.</h1>
           <p class="hero__lede">
-            I keep a log of experiments, recipes, and films while the matrix rain hums in the
-            background.
+            This is a calm log of experiments, recipes, and film notes—kept tidy and always ready
+            to share.
           </p>
-          <div class="hero__meta">
-            <span class="meta-chip">Signal over noise</span>
-            <span class="meta-chip">No ads, no popups</span>
-            <span class="meta-chip">Always dark mode</span>
-          </div>
-          <div class="hero__actions">
-            <a class="pill-link" href="#posts">Read the latest</a>
-            <a
-              class="pill-link pill-link--ghost"
-              href="mailto:dotxdaemon@gmail.com"
-              rel="noreferrer"
-            >
-              Say hello
-            </a>
-          </div>
           <div class="hero__social" aria-label="Social links">
             <a class="social-link" href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer">
               GitHub
@@ -80,9 +71,9 @@
         <div class="section-header">
           <p class="eyebrow">Archive</p>
           <div>
-            <h2 class="section-title">Recent writing</h2>
+            <h2 class="section-title">Latest writing</h2>
             <p class="section-subtitle">
-              A running list of notes, ideas, and essays that ship as soon as they're useful.
+              A running list of notes, ideas, and essays that stay close to the metal.
             </p>
           </div>
         </div>
@@ -91,10 +82,9 @@
     </main>
 
     <footer class="site-footer" aria-label="Site footer">
+      <div class="divider container" aria-hidden="true"></div>
       <div class="container site-footer__inner">
-        <p>
-          © <span id="current-year"></span> velvetdaemon — built under matrix rain
-        </p>
+        <p>© <span id="current-year"></span> velvetdaemon — built for reading</p>
         <div class="site-footer__links">
           <a class="nav-link" href="#hero">About</a>
           <a class="nav-link" href="#posts">Archive</a>
