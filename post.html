@@ -1,0 +1,159 @@
+<!-- ABOUTME: Individual post page with full article view and navigation. -->
+<!-- ABOUTME: Includes progress bar, copy buttons, heading anchors, and share links. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Post - velvetdaemon</title>
+    <meta name="description" id="page-description" content="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="alternate" type="application/rss+xml" title="velvetdaemon RSS" href="rss.xml" />
+  </head>
+  <body data-theme="light">
+    <div class="progress-container" id="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <canvas id="matrix-rain" class="matrix-canvas" aria-hidden="true"></canvas>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a class="site-title" href="index.html">velvetdaemon</a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+        >
+          Menu
+        </button>
+        <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
+          <a class="nav-link" href="index.html#posts">Posts</a>
+          <a class="nav-link" href="archives.html">Archives</a>
+          <a class="nav-link" href="search.html">Search</a>
+          <a class="nav-link" href="index.html#hero">About</a>
+          <button class="theme-toggle" type="button" aria-pressed="false">
+            <span class="theme-toggle__icon" aria-hidden="true">&#9680;</span>
+            <span class="sr-only">Toggle theme</span>
+          </button>
+        </nav>
+      </div>
+      <div class="divider container" aria-hidden="true"></div>
+    </header>
+
+    <main class="page" id="main-content" data-layout="post">
+      <div class="container">
+        <a href="index.html" class="back-button" id="back-button">
+          <span aria-hidden="true">&larr;</span> Back
+        </a>
+      </div>
+
+      <article class="post-detail container" id="post-detail">
+        <header class="post-header">
+          <h1 class="post-title" id="post-title">Loading...</h1>
+          <div class="post-meta-row">
+            <div class="post-meta">
+              <time id="post-date" datetime=""></time>
+              <span class="meta-divider">&#8226;</span>
+              <span id="reading-time"></span>
+            </div>
+            <a href="#" class="edit-link" id="edit-link" target="_blank" rel="noopener">
+              Edit on GitHub
+            </a>
+          </div>
+        </header>
+
+        <div class="post-content prose" id="post-content">
+          <!-- Content rendered here -->
+        </div>
+
+        <div class="newsletter-form" id="newsletter-form">
+          <h3>Stay updated</h3>
+          <p>Get notified when I publish something new.</p>
+          <form id="newsletter-subscribe" action="#" method="post">
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+            />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+
+        <hr class="post-divider" />
+
+        <div class="post-tags" id="post-tags">
+          <!-- Tags rendered here -->
+        </div>
+
+        <div class="post-footer">
+          <div class="share-links" id="share-links">
+            <span class="share-label">Share:</span>
+            <a href="#" class="share-link" id="share-twitter" target="_blank" rel="noopener" title="Share on Twitter">
+              Twitter
+            </a>
+            <a href="#" class="share-link" id="share-linkedin" target="_blank" rel="noopener" title="Share on LinkedIn">
+              LinkedIn
+            </a>
+            <a href="#" class="share-link" id="share-email" title="Share via Email">
+              Email
+            </a>
+            <button class="share-link" id="copy-link" title="Copy link">
+              Copy Link
+            </button>
+          </div>
+
+          <button id="back-to-top" class="back-to-top">
+            <span aria-hidden="true">&uarr;</span> Back to Top
+          </button>
+        </div>
+
+        <hr class="post-divider" />
+
+        <nav class="post-navigation" id="post-navigation" aria-label="Post navigation">
+          <a href="#" class="nav-prev" id="nav-prev">
+            <span class="nav-label">Previous Post</span>
+            <span class="nav-title" id="prev-title"></span>
+          </a>
+          <a href="#" class="nav-next" id="nav-next">
+            <span class="nav-label">Next Post</span>
+            <span class="nav-title" id="next-title"></span>
+          </a>
+        </nav>
+      </article>
+    </main>
+
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="divider container" aria-hidden="true"></div>
+      <div class="container site-footer__inner">
+        <p>&copy; <span id="current-year"></span> velvetdaemon &mdash; built for reading</p>
+        <div class="site-footer__links">
+          <a class="nav-link" href="index.html#hero">About</a>
+          <a class="nav-link" href="archives.html">Archives</a>
+          <a class="nav-link" href="rss.xml" target="_blank">RSS</a>
+          <a
+            class="nav-link"
+            href="https://github.com/dotxdaemon"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/matrix.js"></script>
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/post-detail.js"></script>
+  </body>
+</html>

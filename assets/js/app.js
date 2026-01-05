@@ -56,7 +56,23 @@ function createPostEntry(post) {
   item.className = 'post-entry';
 
   const card = document.createElement('article');
-  card.className = 'post-card';
+  card.className = 'post-card post-card--clickable';
+
+  // Make card clickable
+  const slug = slugify(post.title);
+  card.addEventListener('click', (e) => {
+    // Don't navigate if clicking a link inside the card
+    if (e.target.tagName === 'A') return;
+    window.location.href = `post.html?slug=${slug}`;
+  });
+  card.setAttribute('role', 'link');
+  card.setAttribute('tabindex', '0');
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      window.location.href = `post.html?slug=${slug}`;
+    }
+  });
 
   const meta = document.createElement('div');
   meta.className = 'post-card__meta';
@@ -72,19 +88,30 @@ function createPostEntry(post) {
     metaNodes.push(time);
   }
 
+  // Add reading time
+  if (post.body) {
+    const readingTime = document.createElement('span');
+    readingTime.className = 'post-card__reading-time';
+    const words = post.body.split(/\s+/).length;
+    const mins = Math.max(1, Math.ceil(words / 200));
+    readingTime.textContent = `${mins} min read`;
+    metaNodes.push(readingTime);
+  }
+
   appendMetaSegments(meta, metaNodes);
   card.appendChild(meta);
 
   const titleWrapper = document.createElement('h3');
   titleWrapper.className = 'post-card__title';
-  const titleText = document.createElement('span');
-  titleText.className = 'post-card__title-link';
-  titleText.textContent = post.title;
-  titleWrapper.appendChild(titleText);
+  const titleLink = document.createElement('a');
+  titleLink.className = 'post-card__title-link';
+  titleLink.href = `post.html?slug=${slug}`;
+  titleLink.textContent = post.title;
+  titleWrapper.appendChild(titleLink);
   card.appendChild(titleWrapper);
 
   const { text: excerpt, isFromBody } = deriveExcerpt(post);
-  const shouldRenderExcerpt = Boolean(excerpt) && (!isFromBody || !post.body);
+  const shouldRenderExcerpt = Boolean(excerpt);
 
   if (shouldRenderExcerpt) {
     const excerptEl = document.createElement('p');
@@ -93,15 +120,15 @@ function createPostEntry(post) {
     card.appendChild(excerptEl);
   }
 
-  if (post.body) {
-    const body = document.createElement('div');
-    body.className = 'body';
-    body.innerHTML = renderBody(post.body);
-    card.appendChild(body);
-  }
-
   item.appendChild(card);
   return item;
+}
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
 function appendMetaSegments(container, nodes) {

@@ -60,3 +60,83 @@ All tests pass without errors. The layout matches the reference steipete.me stru
 - Posts section with id="posts"
 - Latest writing section header
 - Post card structure matches reference Card.astro pattern
+
+## New features implemented (2026-01-05)
+
+### Full Post Pages (`post.html`)
+- Individual post detail pages with URL-based routing (`?slug=post-title`)
+- Reading progress bar at top of page
+- Back button navigation
+- Full prose content rendering with heading anchors
+- Copy buttons on code blocks
+- Edit on GitHub link
+- Newsletter subscription form
+- Share links (Twitter, LinkedIn, Email, Copy Link)
+- Previous/Next post navigation
+- Keyboard navigation (J/K keys for next/prev)
+- Back to top button
+
+### Archives Page (`archives.html`)
+- Posts grouped by year and month
+- Post counts per year/month
+- Tag filtering via URL parameter (`?tag=tagname`)
+- Clear filter option
+
+### Search Page (`search.html`)
+- Full-text search across all posts
+- Instant results as you type
+- Search highlights in results
+- URL persistence for search queries
+- Keyboard shortcuts (/ to focus, Escape to clear)
+- Weighted scoring (title > excerpt > body > tags)
+
+### RSS Feed
+- Auto-generated RSS 2.0 feed (`rss.xml`)
+- Generated via Node.js script (`scripts/generate-rss.js`)
+- Atom self-link for compatibility
+- RSS auto-discovery in HTML head
+
+### Enhanced Matrix Rain Background
+- Multiple character sets (binary + katakana + symbols)
+- Matrix green + cyan color scheme
+- Variable column speeds
+- Fading trails with gradient colors
+- Glitch effects (random column glitches)
+- Mouse interaction (brightens near cursor)
+- Glow effect on leading characters
+- Optional rainbow mode
+
+### Updated Navigation
+- Archives link in header and footer
+- Search link in header
+- RSS link in footer
+- Clickable post cards on index page
+- Reading time display on cards
+
+## File structure
+```
+blog/
+├── index.html          # Homepage with hero and post list
+├── post.html           # Individual post detail page
+├── archives.html       # Archives grouped by year/month
+├── search.html         # Full-text search page
+├── rss.xml             # RSS feed (generated)
+├── assets/
+│   ├── css/
+│   │   └── main.css    # All styles (1160+ lines)
+│   └── js/
+│       ├── app.js      # Homepage rendering and navigation
+│       ├── posts.js    # Blog post data
+│       ├── post-detail.js  # Post page features
+│       ├── archives.js     # Archives page rendering
+│       ├── search.js       # Search functionality
+│       └── matrix.js       # Enhanced matrix rain animation
+├── scripts/
+│   └── generate-rss.js # RSS generation script
+├── tests/
+│   ├── layout.test.js
+│   ├── posts.test.js
+│   └── effects.test.js
+└── docs/
+    └── layout-port.md  # This file
+```
