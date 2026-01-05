@@ -16,8 +16,9 @@ window.BLOG_POSTS = [
     },
   },
   {
-    title: "movies I'm looking forward to",
+    title: "movies I want to watch",
     date: "2025-09-26",
+    excerpt: "A running list of movies I want to watch soon.",
     body: `Hamnet
 
 Sentimental Value - ok
