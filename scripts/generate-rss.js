@@ -22,7 +22,7 @@ const posts = eval(match[1]);
 // Site config
 const SITE_URL = 'https://dotxdaemon.github.io/blog';
 const SITE_TITLE = 'velvetdaemon';
-const SITE_DESCRIPTION = 'Steady notes, curious builds';
+const SITE_DESCRIPTION = 'Quiet notes and careful builds.';
 
 // Sort posts by date (newest first)
 const sortedPosts = posts

@@ -34,3 +34,13 @@ assert.ok(
   /reading.?time/i.test(appSource),
   'Expected reading time feature to be present.'
 );
+
+const matrixSource = fs.readFileSync(matrixPath, 'utf8');
+assert.ok(
+  /minSpeed:\s*options\.minSpeed\s*\|\|\s*0\.17/.test(matrixSource),
+  'Expected matrix rain to default to a slower minimum speed.'
+);
+assert.ok(
+  /maxSpeed:\s*options\.maxSpeed\s*\|\|\s*0\.5/.test(matrixSource),
+  'Expected matrix rain to default to a slower maximum speed.'
+);

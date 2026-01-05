@@ -2,14 +2,14 @@
 /* ABOUTME: Defines typography, spacing, and responsive navigation behavior. */
 :root {
   color-scheme: light;
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --muted: #e6e6e6;
-  --border: #ece9e9;
-  --muted-strong: #606978;
-  --surface: rgba(253, 253, 253, 0.92);
-  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.08);
+  --background: #f6f5f2;
+  --foreground: #1f1f1c;
+  --accent: #6f6759;
+  --muted: #e4e0d8;
+  --border: #d6d2c8;
+  --muted-strong: #595347;
+  --surface: rgba(246, 245, 242, 0.94);
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.07);
   --container-width: 48rem;
   --gutter: 1rem;
   --font-sans: 'Atkinson Hyperlegible', 'Inter', system-ui, -apple-system, 'Segoe UI',
@@ -20,14 +20,14 @@
 
 body[data-theme='dark'] {
   color-scheme: dark;
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --muted: #343f60bf;
-  --border: #ab4b08;
-  --muted-strong: #d5dae5;
-  --surface: rgba(33, 39, 55, 0.92);
-  --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.36);
+  --background: #171819;
+  --foreground: #e2ded2;
+  --accent: #a39b8d;
+  --muted: #2a2c2f;
+  --border: #4a4d50;
+  --muted-strong: #c7c1b3;
+  --surface: rgba(23, 24, 25, 0.94);
+  --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.45);
 }
 
 * {

@@ -26,8 +26,8 @@ function startMatrixRain(canvas, options = {}) {
     enableRainbow: options.enableRainbow || false,
     enableMouseInteraction: options.enableMouseInteraction !== false,
     // Speed variation
-    minSpeed: options.minSpeed || 0.5,
-    maxSpeed: options.maxSpeed || 1.5,
+    minSpeed: options.minSpeed || 0.17,
+    maxSpeed: options.maxSpeed || 0.5,
   };
 
   let animationId = null;
