@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>velvetdaemon</title>
-    <description>Steady notes, curious builds</description>
+    <description>Quiet notes and careful builds.</description>
     <link>https://dotxdaemon.github.io/blog</link>
     <atom:link href="https://dotxdaemon.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Jan 2026 20:37:07 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Jan 2026 21:30:16 GMT</lastBuildDate>
     <item>
       <title>cooking recipes</title>
       <link>https://dotxdaemon.github.io/blog/post.html?slug=cooking-recipes</link>
