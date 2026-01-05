@@ -8,7 +8,7 @@
   const postSlug = urlParams.get('slug');
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { renderFullContent };
+    module.exports = { renderFullContent, formatDate };
     return;
   }
 
@@ -79,9 +79,43 @@
   }
 
   function formatDate(isoString) {
-    if (!isoString) return '';
-    const date = new Date(isoString);
-    if (isNaN(date.getTime())) return isoString;
+    if (!isoString) {
+      return '';
+    }
+
+    const basicMatch =
+      typeof isoString === 'string' && isoString.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    let date;
+
+    if (isoString instanceof Date) {
+      date = isoString;
+    } else if (basicMatch) {
+      const [, yearStr, monthStr, dayStr] = basicMatch;
+      const year = Number(yearStr);
+      const month = Number(monthStr);
+      const day = Number(dayStr);
+
+      if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) {
+        return isoString;
+      }
+
+      date = new Date(year, month - 1, day);
+
+      if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== month - 1 ||
+        date.getDate() !== day
+      ) {
+        return '';
+      }
+    } else {
+      date = new Date(isoString);
+    }
+
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+      return '';
+    }
+
     return new Intl.DateTimeFormat(undefined, {
       year: 'numeric',
       month: 'long',

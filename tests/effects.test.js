@@ -44,3 +44,27 @@ assert.ok(
   /maxSpeed:\s*options\.maxSpeed\s*\|\|\s*0\.5/.test(matrixSource),
   'Expected matrix rain to default to a slower maximum speed.'
 );
+
+assert.ok(
+  /primaryColor:\s*options\.primaryColor\s*\|\|\s*{\s*h:\s*0,\s*s:\s*0,\s*l:\s*\d+/.test(
+    matrixSource
+  ),
+  'Expected the primary color to default to a monochrome palette.'
+);
+
+assert.ok(
+  /secondaryColor:\s*options\.secondaryColor\s*\|\|\s*{\s*h:\s*0,\s*s:\s*0,\s*l:\s*\d+/.test(
+    matrixSource
+  ),
+  'Expected the secondary color to default to a monochrome palette.'
+);
+
+assert.ok(
+  /enableGlow:\s*options\.enableGlow\s*===\s*true/.test(matrixSource),
+  'Expected glow to remain off unless explicitly enabled.'
+);
+
+assert.ok(
+  /characters:\s*options\.characters\s*\|\|[^\\n]*雨[^\\n]*夢/.test(matrixSource),
+  'Expected the character stream to emphasize kanji glyphs.'
+);

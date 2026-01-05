@@ -12,17 +12,19 @@ function startMatrixRain(canvas, options = {}) {
 
   // Configuration with defaults
   const config = {
-    // Character sets - mix of binary, katakana, and symbols
-    characters: options.characters || '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン<>{}[]|/\\',
+    // Character sets - mix of kanji and symbols for richer trails
+    characters:
+      options.characters ||
+      '雨雷夢電光心界空海風星月山川雲霧影夜流線点滴刻道音語舞雪炎森波01<>[]|/\\',
     fontSize: options.fontSize || 14,
     fadeStrength: options.fadeStrength || 0.05,
     // Color configuration
-    primaryColor: options.primaryColor || { h: 120, s: 100, l: 50 }, // Matrix green
-    secondaryColor: options.secondaryColor || { h: 180, s: 100, l: 50 }, // Cyan
-    accentColor: options.accentColor || { h: 0, s: 0, l: 100 }, // White for highlights
+    primaryColor: options.primaryColor || { h: 0, s: 0, l: 82 },
+    secondaryColor: options.secondaryColor || { h: 0, s: 0, l: 64 },
+    accentColor: options.accentColor || { h: 0, s: 0, l: 96 },
     // Visual effects
     enableGlitch: options.enableGlitch !== false,
-    enableGlow: options.enableGlow !== false,
+    enableGlow: options.enableGlow === true,
     enableRainbow: options.enableRainbow || false,
     enableMouseInteraction: options.enableMouseInteraction !== false,
     // Speed variation
@@ -112,6 +114,8 @@ function startMatrixRain(canvas, options = {}) {
     // Semi-transparent black to create fade effect
     context.fillStyle = `rgba(0, 0, 0, ${config.fadeStrength})`;
     context.fillRect(0, 0, canvas.width, canvas.height);
+    context.shadowBlur = 0;
+    context.shadowColor = 'transparent';
 
     // Update hue offset for rainbow mode
     if (config.enableRainbow) {
@@ -140,12 +144,8 @@ function startMatrixRain(canvas, options = {}) {
       // Check if column is glitching
       if (state.glitching && Date.now() < state.glitchEnd) {
         // Glitch: random bright colors and positions
-        const glitchColor = hslToString(
-          Math.random() * 360,
-          100,
-          70 + Math.random() * 30
-        );
-        context.fillStyle = glitchColor;
+        const glitchShade = 55 + Math.random() * 25;
+        context.fillStyle = hslToString(0, 0, glitchShade);
         const offsetX = (Math.random() - 0.5) * 10;
         context.fillText(character, x + offsetX, y);
       } else {
@@ -176,14 +176,14 @@ function startMatrixRain(canvas, options = {}) {
           const trailY = (drops[i] - t) * config.fontSize;
           if (trailY < 0) continue;
 
-          const trailBrightness = state.brightness * (1 - t / (trailLength + 5));
+          const trailBrightness = Math.max(0.35, state.brightness * (1 - t / (trailLength + 5)));
           const trailColor = getColumnColor(i, drops[i] - t);
 
           context.fillStyle = hslToString(
             trailColor.h,
             trailColor.s,
-            Math.max(20, trailColor.l * trailBrightness),
-            trailBrightness * 0.8
+            Math.max(18, trailColor.l * trailBrightness),
+            Math.min(1, trailBrightness)
           );
 
           const trailChar = config.characters.charAt(
@@ -224,7 +224,7 @@ function startMatrixRain(canvas, options = {}) {
 
     // Occasional screen-wide glitch
     if (Math.random() < 0.1) {
-      context.fillStyle = `rgba(0, 255, 100, 0.03)`;
+      context.fillStyle = `rgba(255, 255, 255, 0.05)`;
       context.fillRect(0, 0, canvas.width, canvas.height);
     }
   }

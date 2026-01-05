@@ -54,3 +54,13 @@ assert.ok(
   /id="posts"/i.test(html),
   'Expected an element with id "posts" for the archive.'
 );
+
+assert.ok(
+  html.includes('https://letterboxd.com/velvetdaemon/'),
+  'Expected the Letterboxd link to point to the velvetdaemon profile.'
+);
+
+assert.ok(
+  html.includes('mailto:seaneukim@gmail.com'),
+  'Expected the email link to use seaneukim@gmail.com.'
+);
