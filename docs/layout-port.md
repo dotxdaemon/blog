@@ -45,5 +45,18 @@
 - [x] No iOS text-input zoom: enforced 16px font size on text inputs.
 
 ## Tests/checks run
-- `node tests/layout.test.js`
-- `node tests/posts.test.js`
+- `node tests/layout.test.js` ✓ passed
+- `node tests/posts.test.js` ✓ passed
+- `node tests/effects.test.js` ✓ passed
+
+## Test results (2026-01-05)
+All tests pass without errors. The layout matches the reference steipete.me structure:
+- Skip link present targeting #main-content
+- Nav toggle controlling #primary-nav with aria-expanded
+- Nav links for Posts and About present
+- Main content with data-layout="index"
+- Hero section with data-hero marker
+- Theme toggle control in header
+- Posts section with id="posts"
+- Latest writing section header
+- Post card structure matches reference Card.astro pattern
