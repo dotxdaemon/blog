@@ -1,35 +1,30 @@
 /* ABOUTME: Renders individual post pages with full article content and features. */
 /* ABOUTME: Includes progress bar, copy buttons, heading anchors, navigation, and sharing. */
-
-(function () {
+(function (globalScope) {
   'use strict';
 
-  const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
-  const orderedPosts = posts
-    .filter((post) => post && post.title && post.date)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  // Get post slug from URL
-  const urlParams = new URLSearchParams(window.location.search);
+  const orderedPosts = getOrderedPosts();
+  const urlParams = new URLSearchParams((globalScope.location && globalScope.location.search) || '');
   const postSlug = urlParams.get('slug');
 
-  if (!postSlug) {
-    window.location.href = 'index.html';
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { renderFullContent };
     return;
   }
 
-  // Find current post
-  const currentIndex = orderedPosts.findIndex(
-    (p) => slugify(p.title) === postSlug
-  );
+  if (!postSlug) {
+    globalScope.location.href = 'index.html';
+    return;
+  }
+
+  const currentIndex = orderedPosts.findIndex((p) => slugify(p.title) === postSlug);
   const post = orderedPosts[currentIndex];
 
   if (!post) {
-    window.location.href = 'index.html';
+    globalScope.location.href = 'index.html';
     return;
   }
 
-  // Initialize page
   initPost(post, currentIndex);
   setupProgressBar();
   setupBackToTop();
@@ -39,33 +34,32 @@
   setupKeyboardNavigation(currentIndex);
   setCurrentYear();
 
+  function getOrderedPosts() {
+    const posts = Array.isArray(globalScope.BLOG_POSTS) ? [...globalScope.BLOG_POSTS] : [];
+    return posts
+      .filter((post) => post && post.title && post.date)
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }
+
   function initPost(post, index) {
-    // Set page title and meta
     document.getElementById('page-title').textContent = `${post.title} - velvetdaemon`;
     document.getElementById('page-description').content =
       post.excerpt || deriveExcerpt(post.body);
 
-    // Set post header
     document.getElementById('post-title').textContent = post.title;
     document.getElementById('post-date').textContent = formatDate(post.date);
     document.getElementById('post-date').dateTime = post.date;
     document.getElementById('reading-time').textContent = calculateReadingTime(post.body);
 
-    // Set edit link
     const editLink = document.getElementById('edit-link');
     editLink.href = `https://github.com/dotxdaemon/blog/edit/main/assets/js/posts.js`;
 
-    // Render content
     const contentEl = document.getElementById('post-content');
     contentEl.innerHTML = renderFullContent(post.body);
 
-    // Add heading anchors
     addHeadingAnchors(contentEl);
-
-    // Add copy buttons to code blocks
     addCopyButtons(contentEl);
 
-    // Render tags
     if (post.tags && post.tags.length > 0) {
       const tagsEl = document.getElementById('post-tags');
       tagsEl.innerHTML = post.tags
@@ -73,10 +67,7 @@
         .join('');
     }
 
-    // Setup share links
     setupShareLinks(post);
-
-    // Setup prev/next navigation
     setupNavigation(index);
   }
 
@@ -122,7 +113,6 @@
 
     return paragraphs
       .map((paragraph) => {
-        // Check if it's a code block (starts with spaces/tabs or ```)
         if (paragraph.startsWith('```')) {
           const lines = paragraph.split('\n');
           const lang = lines[0].replace('```', '').trim();
@@ -130,7 +120,6 @@
           return `<pre><code class="language-${lang || 'plaintext'}">${escapeHtml(code)}</code></pre>`;
         }
 
-        // Check if it's a heading
         const headingMatch = paragraph.match(/^(#{1,6})\s+(.+)$/);
         if (headingMatch) {
           const level = headingMatch[1].length;
@@ -139,17 +128,6 @@
           return `<h${level} id="${id}">${applyInlineFormatting(text)}</h${level}>`;
         }
 
-        // Check if it's a list
-        if (paragraph.match(/^[-*]\s/m)) {
-          const items = paragraph
-            .split(/\n/)
-            .filter((line) => line.match(/^[-*]\s/))
-            .map((line) => `<li>${applyInlineFormatting(line.replace(/^[-*]\s/, ''))}</li>`)
-            .join('');
-          return `<ul>${items}</ul>`;
-        }
-
-        // Check if it's a blockquote
         if (paragraph.startsWith('>')) {
           const content = paragraph
             .split('\n')
@@ -158,7 +136,57 @@
           return `<blockquote><p>${applyInlineFormatting(content)}</p></blockquote>`;
         }
 
-        // Regular paragraph
+        const lines = paragraph.split('\n');
+        const isListLine = (line) => /^[-*]\s/.test(line.trim());
+        const hasListLine = lines.some((line) => isListLine(line));
+
+        if (hasListLine) {
+          const segments = [];
+          let textBuffer = [];
+          let listBuffer = [];
+
+          const flushText = () => {
+            if (!textBuffer.length) return;
+            segments.push({ type: 'text', value: textBuffer.join('\n') });
+            textBuffer = [];
+          };
+
+          const flushList = () => {
+            if (!listBuffer.length) return;
+            segments.push({ type: 'list', value: [...listBuffer] });
+            listBuffer = [];
+          };
+
+          lines.forEach((line) => {
+            if (isListLine(line)) {
+              flushText();
+              listBuffer.push(line.replace(/^[-*]\s/, '').trim());
+            } else {
+              flushList();
+              textBuffer.push(line);
+            }
+          });
+
+          flushText();
+          flushList();
+
+          return segments
+            .map((segment) => {
+              if (segment.type === 'list') {
+                const items = segment.value
+                  .filter(Boolean)
+                  .map((item) => `<li>${applyInlineFormatting(item)}</li>`)
+                  .join('');
+                return `<ul>${items}</ul>`;
+              }
+
+              const trimmedText = segment.value.trim();
+              return trimmedText ? `<p>${applyInlineFormatting(trimmedText)}</p>` : '';
+            })
+            .filter(Boolean)
+            .join('\n');
+        }
+
         return `<p>${applyInlineFormatting(paragraph)}</p>`;
       })
       .join('\n');
@@ -174,25 +202,15 @@
   function applyInlineFormatting(text) {
     let result = escapeHtml(text);
 
-    // Bold
     result = result.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-
-    // Italic
     result = result.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-    // Inline code
     result = result.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-    // Links
     result = result.replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
       '<a href="$2" target="_blank" rel="noopener">$1</a>'
     );
 
-    // Auto-link URLs (not inside code)
     result = linkifyUrls(result);
-
-    // Line breaks
     result = result.replace(/\n/g, '<br />');
 
     return result;
@@ -201,29 +219,27 @@
   function linkifyUrls(html) {
     const codePattern = /<code>[\s\S]*?<\/code>/g;
     const linkPattern = /<a[^>]*>[\s\S]*?<\/a>/g;
-    let result = '';
-    let lastIndex = 0;
 
-    // Protect existing code and links
-    const protected = [];
+    const protectedSegments = [];
     let protectedHtml = html.replace(codePattern, (match) => {
-      protected.push(match);
-      return `__PROTECTED_${protected.length - 1}__`;
+      protectedSegments.push(match);
+      return `__PROTECTED_${protectedSegments.length - 1}__`;
     });
     protectedHtml = protectedHtml.replace(linkPattern, (match) => {
-      protected.push(match);
-      return `__PROTECTED_${protected.length - 1}__`;
+      protectedSegments.push(match);
+      return `__PROTECTED_${protectedSegments.length - 1}__`;
     });
 
-    // Linkify URLs
     const urlPattern = /(https?:\/\/[^\s<]+)/g;
     protectedHtml = protectedHtml.replace(
       urlPattern,
       '<a href="$1" target="_blank" rel="noopener">$1</a>'
     );
 
-    // Restore protected content
-    protectedHtml = protectedHtml.replace(/__PROTECTED_(\d+)__/g, (_, i) => protected[i]);
+    protectedHtml = protectedHtml.replace(
+      /__PROTECTED_(\d+)__/g,
+      (_, i) => protectedSegments[i]
+    );
 
     return protectedHtml;
   }
@@ -283,7 +299,7 @@
   }
 
   function setupShareLinks(post) {
-    const url = encodeURIComponent(window.location.href);
+    const url = encodeURIComponent(globalScope.location.href);
     const title = encodeURIComponent(post.title);
     const text = encodeURIComponent(post.excerpt || deriveExcerpt(post.body));
 
@@ -298,7 +314,7 @@
 
     document.getElementById('copy-link').addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(window.location.href);
+        await navigator.clipboard.writeText(globalScope.location.href);
         const btn = document.getElementById('copy-link');
         const originalText = btn.textContent;
         btn.textContent = 'Copied!';
@@ -312,8 +328,8 @@
   }
 
   function setupNavigation(currentIndex) {
-    const prevPost = orderedPosts[currentIndex + 1]; // Older post
-    const nextPost = orderedPosts[currentIndex - 1]; // Newer post
+    const prevPost = orderedPosts[currentIndex + 1];
+    const nextPost = orderedPosts[currentIndex - 1];
 
     const prevEl = document.getElementById('nav-prev');
     const nextEl = document.getElementById('nav-next');
@@ -339,9 +355,9 @@
     const progressBar = document.getElementById('progress-bar');
     if (!progressBar) return;
 
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    globalScope.addEventListener('scroll', () => {
+      const scrollTop = globalScope.scrollY;
+      const docHeight = document.documentElement.scrollHeight - globalScope.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       progressBar.style.width = `${progress}%`;
     });
@@ -352,7 +368,7 @@
     if (!btn) return;
 
     btn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      globalScope.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
@@ -361,36 +377,35 @@
     const nextPost = orderedPosts[currentIndex - 1];
 
     document.addEventListener('keydown', (e) => {
-      // Ignore if typing in input
       if (e.target.matches('input, textarea, [contenteditable="true"]')) return;
 
       if (e.key === 'j' && prevPost) {
-        window.location.href = `post.html?slug=${slugify(prevPost.title)}`;
+        globalScope.location.href = `post.html?slug=${slugify(prevPost.title)}`;
       } else if (e.key === 'k' && nextPost) {
-        window.location.href = `post.html?slug=${slugify(nextPost.title)}`;
+        globalScope.location.href = `post.html?slug=${slugify(nextPost.title)}`;
       }
     });
   }
 
   function setupNavToggle() {
     const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.getElementById('primary-nav');
-  if (!navToggle || !navMenu) return;
+    const navMenu = document.getElementById('primary-nav');
+    if (!navToggle || !navMenu) return;
 
-  navToggle.addEventListener('click', () => {
-    const open = navMenu.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  navMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (navMenu.classList.contains('is-open')) {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
+    navToggle.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-  });
-}
+
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (navMenu.classList.contains('is-open')) {
+          navMenu.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
 
   function setupThemeToggle() {
     const themeButton = document.querySelector('.theme-toggle');
@@ -398,8 +413,8 @@
     if (!themeButton || !root) return;
 
     const prefersDark =
-      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const storedTheme = localStorage.getItem('vd-theme');
+      globalScope.matchMedia && globalScope.matchMedia('(prefers-color-scheme: dark)').matches;
+    const storedTheme = globalScope.localStorage.getItem('vd-theme');
     const startingTheme = storedTheme || (prefersDark ? 'dark' : 'light');
 
     applyTheme(startingTheme);
@@ -413,18 +428,18 @@
       const safeTheme = theme === 'dark' ? 'dark' : 'light';
       root.dataset.theme = safeTheme;
       themeButton.setAttribute('aria-pressed', safeTheme === 'dark' ? 'true' : 'false');
-      localStorage.setItem('vd-theme', safeTheme);
+      globalScope.localStorage.setItem('vd-theme', safeTheme);
     }
   }
 
   function setupMatrixRain() {
     const canvas = document.getElementById('matrix-rain');
-    if (!canvas || typeof window.startMatrixRain !== 'function') return;
-    window.startMatrixRain(canvas);
+    if (!canvas || typeof globalScope.startMatrixRain !== 'function') return;
+    globalScope.startMatrixRain(canvas);
   }
 
   function setCurrentYear() {
     const el = document.getElementById('current-year');
     if (el) el.textContent = new Date().getFullYear();
   }
-})();
+})(typeof window !== 'undefined' ? window : globalThis);
