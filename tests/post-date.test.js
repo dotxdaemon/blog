@@ -13,12 +13,12 @@ assert.strictEqual(
   'Expected formatDate to be exported for date handling.'
 );
 
-const formatted = postDetail.formatDate('2025-10-03');
+const formatted = postDetail.formatDate('2025-12-30');
 const expected = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
-}).format(new Date(2025, 9, 3));
+}).format(new Date(2025, 11, 30));
 
 assert.strictEqual(
   formatted,
