@@ -21,8 +21,8 @@ const cookingPost = posts.find(
 assert.ok(cookingPost, 'Expected a post titled "cooking recipes".');
 assert.strictEqual(
   cookingPost.date,
-  '2025-10-03',
-  'Expected "cooking recipes" post to have date 2025-10-03.'
+  '2025-12-30',
+  'Expected "cooking recipes" post to have date 2025-12-30.'
 );
 assert.ok(
   typeof cookingPost.body === 'string' && cookingPost.body.toLowerCase().includes('pantry'),
