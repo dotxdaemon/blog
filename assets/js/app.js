@@ -32,17 +32,17 @@ setupMatrixRain();
 
 function createEmptyCard() {
   const item = document.createElement('li');
-  item.className = 'post-entry';
+  item.className = 'post-list__item';
 
   const card = document.createElement('article');
-  card.className = 'post-card';
+  card.className = 'post-snippet';
 
   const title = document.createElement('h3');
-  title.className = 'post-card__title';
+  title.className = 'post-snippet__title';
   title.textContent = 'Nothing yet';
 
   const detail = document.createElement('p');
-  detail.className = 'excerpt';
+  detail.className = 'post-snippet__excerpt';
   detail.textContent = 'Add your first post in assets/js/posts.js.';
 
   card.appendChild(title);
@@ -53,10 +53,10 @@ function createEmptyCard() {
 
 function createPostEntry(post) {
   const item = document.createElement('li');
-  item.className = 'post-entry';
+  item.className = 'post-list__item';
 
   const card = document.createElement('article');
-  card.className = 'post-card post-card--clickable';
+  card.className = 'post-snippet';
 
   // Make card clickable
   const slug = slugify(post.title);
@@ -75,14 +75,14 @@ function createPostEntry(post) {
   });
 
   const meta = document.createElement('div');
-  meta.className = 'post-card__meta';
+  meta.className = 'post-snippet__meta';
 
   const formattedDate = formatDate(post.date);
   const metaNodes = [];
 
   if (formattedDate) {
     const time = document.createElement('time');
-    time.className = 'post-card__date';
+    time.className = 'post-snippet__date';
     time.dateTime = post.date;
     time.textContent = formattedDate;
     metaNodes.push(time);
@@ -91,7 +91,7 @@ function createPostEntry(post) {
   // Add reading time
   if (post.body) {
     const readingTime = document.createElement('span');
-    readingTime.className = 'post-card__reading-time';
+    readingTime.className = 'post-snippet__reading-time';
     const words = post.body.split(/\s+/).length;
     const mins = Math.max(1, Math.ceil(words / 200));
     readingTime.textContent = `${mins} min read`;
@@ -102,9 +102,9 @@ function createPostEntry(post) {
   card.appendChild(meta);
 
   const titleWrapper = document.createElement('h3');
-  titleWrapper.className = 'post-card__title';
+  titleWrapper.className = 'post-snippet__title';
   const titleLink = document.createElement('a');
-  titleLink.className = 'post-card__title-link';
+  titleLink.className = 'post-snippet__link';
   titleLink.href = `post.html?slug=${slug}`;
   titleLink.textContent = post.title;
   titleWrapper.appendChild(titleLink);
@@ -115,7 +115,7 @@ function createPostEntry(post) {
 
   if (shouldRenderExcerpt) {
     const excerptEl = document.createElement('p');
-    excerptEl.className = 'excerpt';
+    excerptEl.className = 'post-snippet__excerpt';
     excerptEl.textContent = excerpt;
     card.appendChild(excerptEl);
   }

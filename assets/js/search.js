@@ -73,7 +73,7 @@
 
     resultsContainer.innerHTML = `
       <p class="search-count">${results.length} result${results.length === 1 ? '' : 's'} for "${escapeHtml(query)}"</p>
-      <ul class="search-results">
+      <ul class="post-list search-results">
         ${results.map((result) => renderResult(result, query)).join('')}
       </ul>
     `;
@@ -119,12 +119,19 @@
 
   function renderResult(post, query) {
     const excerpt = getHighlightedExcerpt(post, query);
+    const formattedDate = formatDate(post.date);
+    const readingTime = calculateReadingTime(post.body);
+    const meta = [formattedDate, readingTime].filter(Boolean).join(' • ');
+    const href = `post.html?slug=${slugify(post.title)}`;
 
     return `
-      <li class="search-result-item">
-        <a href="post.html?slug=${slugify(post.title)}">
-          <h3 class="search-result-title">${highlightMatches(escapeHtml(post.title), query)}</h3>
-          <p class="search-result-excerpt">${excerpt}</p>
+      <li class="post-list__item">
+        <a class="post-snippet" href="${href}">
+          <h3 class="post-snippet__title">
+            <span class="post-snippet__link">${highlightMatches(escapeHtml(post.title), query)}</span>
+          </h3>
+          ${meta ? `<div class="post-snippet__meta"><span>${meta}</span></div>` : ''}
+          <p class="post-snippet__excerpt">${excerpt}</p>
         </a>
       </li>
     `;
@@ -173,6 +180,24 @@
     return result;
   }
 
+  function formatDate(isoString) {
+    if (!isoString) return '';
+    const date = new Date(isoString);
+    if (Number.isNaN(date.getTime())) return '';
+    return new Intl.DateTimeFormat(undefined, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date);
+  }
+
+  function calculateReadingTime(text) {
+    if (!text) return '';
+    const words = String(text).split(/\s+/).length;
+    const minutes = Math.max(1, Math.ceil(words / 200));
+    return `${minutes} min read`;
+  }
+
   function escapeRegex(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
@@ -203,23 +228,23 @@
 
   function setupNavToggle() {
     const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.getElementById('primary-nav');
-  if (!navToggle || !navMenu) return;
+    const navMenu = document.getElementById('primary-nav');
+    if (!navToggle || !navMenu) return;
 
-  navToggle.addEventListener('click', () => {
-    const open = navMenu.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  navMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (navMenu.classList.contains('is-open')) {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
+    navToggle.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-  });
-}
+
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (navMenu.classList.contains('is-open')) {
+          navMenu.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
 
   function setupThemeToggle() {
     const themeButton = document.querySelector('.theme-toggle');
