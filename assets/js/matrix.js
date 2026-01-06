@@ -1,5 +1,5 @@
-/* ABOUTME: Golden matrix rain animation with layered glow. */
-/* ABOUTME: Streams glyphs with gold and emerald trails across the viewport. */
+/* ABOUTME: Lavender matrix rain animation with layered glow. */
+/* ABOUTME: Streams glyphs with lavender and emerald trails across the viewport. */
 
 function startMatrixRain(canvas) {
   const globalWindow = typeof window !== 'undefined' ? window : null;
@@ -12,7 +12,7 @@ function startMatrixRain(canvas) {
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
   const fadeFill = 'rgba(13, 13, 13, 0.05)';
-  const gold = { r: 255, g: 215, b: 0, hex: '#ffd700' };
+  const lavender = { r: 230, g: 230, b: 250, hex: '#e6e6fa' };
   const emerald = { r: 16, g: 194, b: 107 };
   const layers = [
     { fontSize: 14, speedMin: 0.6, speedMax: 1.2, tail: 18, glow: 6, opacity: 0.6 },
@@ -52,7 +52,7 @@ function startMatrixRain(canvas) {
 
   function drawTrail(x, y, layer, columnIndex, layerIndex) {
     context.shadowBlur = layer.glow;
-    context.shadowColor = 'rgba(255, 215, 0, 0.35)';
+    context.shadowColor = 'rgba(230, 230, 250, 0.35)';
 
     const headChar = characters[Math.floor(Math.random() * characters.length)];
     context.fillStyle = 'rgba(249, 249, 249, 0.95)';
@@ -63,7 +63,7 @@ function startMatrixRain(canvas) {
       if (trailY < -layer.fontSize) break;
 
       const fade = 1 - depth / (layer.tail + 2);
-      const colorMix = blendColor(gold, emerald, fade);
+      const colorMix = blendColor(lavender, emerald, fade);
       const alpha = 0.15 + layer.opacity * fade * 0.75;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
       const trailChar = characters[Math.floor(Math.random() * characters.length)];

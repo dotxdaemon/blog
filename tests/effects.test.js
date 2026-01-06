@@ -1,5 +1,5 @@
 // ABOUTME: Guards against stray generated text and verifies the matrix rain background asset.
-// ABOUTME: Confirms the golden matrix styling and startMatrixRain export shape.
+// ABOUTME: Confirms the lavender matrix styling and startMatrixRain export shape.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -33,5 +33,5 @@ assert.ok(/reading.?time/i.test(appSource), 'Expected reading time feature to be
 
 const matrixSource = fs.readFileSync(matrixPath, 'utf8');
 assert.ok(/const\s+layers\s*=\s*\[/i.test(matrixSource), 'Expected layered streams.');
-assert.ok(/ffd700/i.test(matrixSource), 'Expected the gold palette to be defined.');
-assert.ok(/golden/i.test(matrixSource), 'Expected golden styling references in the effect.');
+assert.ok(/e6e6fa/i.test(matrixSource), 'Expected the lavender palette to be defined.');
+assert.ok(/lavender/i.test(matrixSource), 'Expected lavender styling references in the effect.');
