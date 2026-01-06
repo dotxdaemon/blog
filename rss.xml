@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- ABOUTME: Provides the site's RSS channel metadata and posts. -->
+<!-- ABOUTME: Mirrors output from the RSS generator script. -->
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>velvetdaemon</title>
-    <description>Deliberate notes and measured builds.</description>
+    <description></description>
     <link>https://dotxdaemon.github.io/blog</link>
     <atom:link href="https://dotxdaemon.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
