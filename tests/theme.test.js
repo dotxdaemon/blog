@@ -8,14 +8,14 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 const lightPalette = [
-  ['--background', '#f6f5f2'],
-  ['--foreground', '#1f1f1c'],
-  ['--accent', '#6f6759'],
-  ['--muted', '#e4e0d8'],
-  ['--border', '#d6d2c8'],
-  ['--muted-strong', '#595347'],
-  ['--surface', 'rgba(246, 245, 242, 0.94)'],
-  ['--shadow-soft', '0 20px 60px rgba(0, 0, 0, 0.07)'],
+  ['--background', '#fdfdfc'],
+  ['--foreground', '#282728'],
+  ['--accent', '#3f6db5'],
+  ['--muted', '#f1f2f4'],
+  ['--border', '#e6e7eb'],
+  ['--muted-strong', '#4e5766'],
+  ['--surface', 'rgba(253, 253, 252, 0.9)'],
+  ['--shadow-soft', '0 12px 36px rgba(0, 0, 0, 0.04)'],
 ];
 
 const darkStart = css.indexOf("body[data-theme='dark']");
@@ -26,14 +26,14 @@ const closeBrace = darkSlice.indexOf('}', openBrace);
 const darkBlock = darkSlice.slice(openBrace + 1, closeBrace);
 
 const darkPalette = [
-  ['--background', '#171819'],
-  ['--foreground', '#e2ded2'],
-  ['--accent', '#a39b8d'],
-  ['--muted', '#2a2c2f'],
-  ['--border', '#4a4d50'],
-  ['--muted-strong', '#c7c1b3'],
-  ['--surface', 'rgba(23, 24, 25, 0.94)'],
-  ['--shadow-soft', '0 22px 60px rgba(0, 0, 0, 0.45)'],
+  ['--background', '#212737'],
+  ['--foreground', '#eaedf3'],
+  ['--accent', '#9bb7ff'],
+  ['--muted', '#2b3245'],
+  ['--border', '#3c4357'],
+  ['--muted-strong', '#c5ccda'],
+  ['--surface', 'rgba(33, 39, 55, 0.9)'],
+  ['--shadow-soft', '0 16px 44px rgba(0, 0, 0, 0.35)'],
 ];
 
 lightPalette.forEach(([token, value]) => {

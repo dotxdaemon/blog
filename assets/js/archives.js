@@ -90,7 +90,10 @@
 
         return `
           <div class="month-group">
-            <h3 class="month-heading">${MONTHS[month]}<sup>${monthPosts.length}</sup></h3>
+            <div class="month-heading">
+              <span class="month-name">${MONTHS[month]}</span>
+              <span class="month-count">${monthPosts.length}</span>
+            </div>
             <ul class="archive-list">${postsHtml}</ul>
           </div>
         `;
@@ -98,7 +101,7 @@
 
       return `
         <div class="year-group">
-          <h2 class="year-heading">${year}<sup>${totalYearPosts}</sup></h2>
+          <h2 class="year-heading">${year}<span class="year-count">${totalYearPosts}</span></h2>
           ${monthsHtml}
         </div>
       `;
@@ -130,23 +133,23 @@
 
   function setupNavToggle() {
     const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.getElementById('primary-nav');
-  if (!navToggle || !navMenu) return;
+    const navMenu = document.getElementById('primary-nav');
+    if (!navToggle || !navMenu) return;
 
-  navToggle.addEventListener('click', () => {
-    const open = navMenu.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  navMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (navMenu.classList.contains('is-open')) {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
+    navToggle.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-  });
-}
+
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (navMenu.classList.contains('is-open')) {
+          navMenu.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
 
   function setupThemeToggle() {
     const themeButton = document.querySelector('.theme-toggle');
