@@ -1,7 +1,7 @@
-/* ABOUTME: Enhanced matrix rain animation with visual flair. */
-/* ABOUTME: Features: color gradients, varying speeds, glitch effects, mouse interaction. */
+/* ABOUTME: Golden matrix rain animation with layered glow. */
+/* ABOUTME: Streams glyphs with gold and emerald trails across the viewport. */
 
-function startMatrixRain(canvas, options = {}) {
+function startMatrixRain(canvas) {
   const globalWindow = typeof window !== 'undefined' ? window : null;
 
   if (!canvas || typeof canvas.getContext !== 'function' || !globalWindow) {
@@ -9,264 +9,102 @@ function startMatrixRain(canvas, options = {}) {
   }
 
   const context = canvas.getContext('2d');
+  const characters =
+    'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
+  const fadeFill = 'rgba(13, 13, 13, 0.05)';
+  const gold = { r: 255, g: 215, b: 0, hex: '#ffd700' };
+  const emerald = { r: 16, g: 194, b: 107 };
+  const layers = [
+    { fontSize: 14, speedMin: 0.6, speedMax: 1.2, tail: 18, glow: 6, opacity: 0.6 },
+    { fontSize: 18, speedMin: 0.9, speedMax: 1.5, tail: 16, glow: 9, opacity: 0.75 },
+    { fontSize: 24, speedMin: 1.2, speedMax: 1.9, tail: 14, glow: 11, opacity: 0.9 },
+  ];
 
-  // Configuration with defaults
-  const config = {
-    // Character sets - mix of kanji and symbols for richer trails
-    characters:
-      options.characters ||
-      '雨雷夢電光心界空海風星月山川雲霧影夜流線点滴刻道音語舞雪炎森波01<>[]|/\\',
-    fontSize: options.fontSize || 14,
-    fadeStrength: options.fadeStrength || 0.05,
-    // Color configuration
-    primaryColor: options.primaryColor || { h: 0, s: 0, l: 82 },
-    secondaryColor: options.secondaryColor || { h: 0, s: 0, l: 64 },
-    accentColor: options.accentColor || { h: 0, s: 0, l: 96 },
-    // Visual effects
-    enableGlitch: options.enableGlitch !== false,
-    enableGlow: options.enableGlow === true,
-    enableRainbow: options.enableRainbow || false,
-    enableMouseInteraction: options.enableMouseInteraction !== false,
-    // Speed variation
-    minSpeed: options.minSpeed || 0.17,
-    maxSpeed: options.maxSpeed || 0.5,
-  };
-
+  let streams = [];
   let animationId = null;
-  let columns = 0;
-  let drops = [];
-  let speeds = [];
-  let colors = [];
-  let glitchTimer = 0;
-  let mouseX = -1000;
-  let mouseY = -1000;
-  let hueOffset = 0;
+  let running = false;
 
-  // Column state for more complex effects
-  let columnStates = [];
+  function blendColor(a, b, weight) {
+    const inverse = 1 - weight;
+    return {
+      r: Math.round(a.r * weight + b.r * inverse),
+      g: Math.round(a.g * weight + b.g * inverse),
+      b: Math.round(a.b * weight + b.b * inverse),
+    };
+  }
 
-  function resizeCanvas() {
+  function setup() {
     canvas.width = globalWindow.innerWidth;
     canvas.height = globalWindow.innerHeight;
-    initColumns();
-  }
+    streams = layers.map((layer) => {
+      const columnCount = Math.ceil(canvas.width / layer.fontSize) + 1;
+      return Array.from({ length: columnCount }, () => ({
+        y: Math.random() * canvas.height,
+        speed: layer.speedMin + Math.random() * (layer.speedMax - layer.speedMin),
+      }));
+    });
 
-  function initColumns() {
-    columns = Math.max(1, Math.floor(canvas.width / config.fontSize));
-    drops = [];
-    speeds = [];
-    colors = [];
-    columnStates = [];
-
-    for (let i = 0; i < columns; i++) {
-      drops.push(Math.random() * (canvas.height / config.fontSize));
-      speeds.push(config.minSpeed + Math.random() * (config.maxSpeed - config.minSpeed));
-      colors.push(Math.random() < 0.7 ? 'primary' : 'secondary');
-      columnStates.push({
-        brightness: 0.6 + Math.random() * 0.4,
-        glitching: false,
-        glitchEnd: 0,
-        trail: [],
-      });
+    if (!running) {
+      running = true;
+      animationId = globalWindow.requestAnimationFrame(draw);
     }
   }
 
-  function hslToString(h, s, l, a = 1) {
-    return `hsla(${h}, ${s}%, ${l}%, ${a})`;
-  }
+  function drawTrail(x, y, layer, columnIndex, layerIndex) {
+    context.shadowBlur = layer.glow;
+    context.shadowColor = 'rgba(255, 215, 0, 0.35)';
 
-  function getColumnColor(index, yPos) {
-    const state = columnStates[index];
-    let color;
+    const headChar = characters[Math.floor(Math.random() * characters.length)];
+    context.fillStyle = 'rgba(249, 249, 249, 0.95)';
+    context.fillText(headChar, x, y);
 
-    if (config.enableRainbow) {
-      // Rainbow mode - color shifts based on position
-      const h = (hueOffset + index * 2 + yPos * 0.5) % 360;
-      color = { h, s: 100, l: 50 };
-    } else if (colors[index] === 'primary') {
-      color = config.primaryColor;
-    } else {
-      color = config.secondaryColor;
+    for (let depth = 1; depth <= layer.tail; depth += 1) {
+      const trailY = y - depth * layer.fontSize;
+      if (trailY < -layer.fontSize) break;
+
+      const fade = 1 - depth / (layer.tail + 2);
+      const colorMix = blendColor(gold, emerald, fade);
+      const alpha = 0.15 + layer.opacity * fade * 0.75;
+      context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
+      const trailChar = characters[Math.floor(Math.random() * characters.length)];
+      context.fillText(trailChar, x, trailY);
     }
 
-    // Mouse proximity effect
-    if (config.enableMouseInteraction) {
-      const colX = index * config.fontSize;
-      const colY = yPos * config.fontSize;
-      const dist = Math.sqrt((colX - mouseX) ** 2 + (colY - mouseY) ** 2);
-      const maxDist = 150;
-
-      if (dist < maxDist) {
-        // Brighten and shift color near mouse
-        const factor = 1 - (dist / maxDist);
-        color = {
-          h: color.h,
-          s: color.s,
-          l: Math.min(90, color.l + factor * 40),
-        };
-      }
+    const stream = streams[layerIndex][columnIndex];
+    stream.y += stream.speed;
+    if (stream.y > canvas.height + layer.fontSize) {
+      stream.y = Math.random() * -200;
     }
-
-    return color;
   }
 
   function draw() {
-    // Semi-transparent black to create fade effect
-    context.fillStyle = `rgba(0, 0, 0, ${config.fadeStrength})`;
+    context.fillStyle = fadeFill;
     context.fillRect(0, 0, canvas.width, canvas.height);
-    context.shadowBlur = 0;
-    context.shadowColor = 'transparent';
 
-    // Update hue offset for rainbow mode
-    if (config.enableRainbow) {
-      hueOffset = (hueOffset + 0.5) % 360;
-    }
-
-    // Glitch effect timer
-    if (config.enableGlitch) {
-      glitchTimer++;
-      if (glitchTimer > 60 && Math.random() < 0.02) {
-        triggerGlitch();
-        glitchTimer = 0;
-      }
-    }
-
-    context.font = `${config.fontSize}px 'IBM Plex Mono', monospace`;
-
-    for (let i = 0; i < drops.length; i++) {
-      const state = columnStates[i];
-      const character = config.characters.charAt(
-        Math.floor(Math.random() * config.characters.length)
-      );
-      const x = i * config.fontSize;
-      const y = drops[i] * config.fontSize;
-
-      // Check if column is glitching
-      if (state.glitching && Date.now() < state.glitchEnd) {
-        // Glitch: random bright colors and positions
-        const glitchShade = 55 + Math.random() * 25;
-        context.fillStyle = hslToString(0, 0, glitchShade);
-        const offsetX = (Math.random() - 0.5) * 10;
-        context.fillText(character, x + offsetX, y);
-      } else {
-        state.glitching = false;
-
-        // Get color for this position
-        const color = getColumnColor(i, drops[i]);
-
-        // Draw the leading (brightest) character
-        if (config.enableGlow) {
-          // Glow effect
-          context.shadowBlur = 10;
-          context.shadowColor = hslToString(color.h, color.s, color.l, 0.8);
-        }
-
-        // Head of the stream - brightest
-        context.fillStyle = hslToString(
-          config.accentColor.h,
-          config.accentColor.s,
-          config.accentColor.l,
-          state.brightness
-        );
-        context.fillText(character, x, y);
-
-        // Draw trailing characters with decreasing brightness
-        const trailLength = 15;
-        for (let t = 1; t <= trailLength; t++) {
-          const trailY = (drops[i] - t) * config.fontSize;
-          if (trailY < 0) continue;
-
-          const trailBrightness = Math.max(0.35, state.brightness * (1 - t / (trailLength + 5)));
-          const trailColor = getColumnColor(i, drops[i] - t);
-
-          context.fillStyle = hslToString(
-            trailColor.h,
-            trailColor.s,
-            Math.max(18, trailColor.l * trailBrightness),
-            Math.min(1, trailBrightness)
-          );
-
-          const trailChar = config.characters.charAt(
-            Math.floor(Math.random() * config.characters.length)
-          );
-          context.fillText(trailChar, x, trailY);
-        }
-
-        if (config.enableGlow) {
-          context.shadowBlur = 0;
-        }
-      }
-
-      // Move drop down
-      drops[i] += speeds[i];
-
-      // Reset drop when it goes off screen
-      if (y > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-        speeds[i] = config.minSpeed + Math.random() * (config.maxSpeed - config.minSpeed);
-        columnStates[i].brightness = 0.6 + Math.random() * 0.4;
-      }
-    }
+    layers.forEach((layer, layerIndex) => {
+      context.font = `bold ${layer.fontSize}px 'Courier New', monospace`;
+      const columns = streams[layerIndex];
+      columns.forEach((stream, columnIndex) => {
+        const x = columnIndex * layer.fontSize;
+        drawTrail(x, stream.y, layer, columnIndex, layerIndex);
+      });
+    });
 
     animationId = globalWindow.requestAnimationFrame(draw);
   }
 
-  function triggerGlitch() {
-    // Randomly glitch some columns
-    const numGlitched = Math.floor(Math.random() * 10) + 3;
-    const duration = 100 + Math.random() * 200;
+  globalWindow.addEventListener('resize', setup);
+  setup();
 
-    for (let i = 0; i < numGlitched; i++) {
-      const idx = Math.floor(Math.random() * columns);
-      columnStates[idx].glitching = true;
-      columnStates[idx].glitchEnd = Date.now() + duration;
-    }
-
-    // Occasional screen-wide glitch
-    if (Math.random() < 0.1) {
-      context.fillStyle = `rgba(255, 255, 255, 0.05)`;
-      context.fillRect(0, 0, canvas.width, canvas.height);
-    }
-  }
-
-  function handleMouseMove(e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  }
-
-  function handleMouseLeave() {
-    mouseX = -1000;
-    mouseY = -1000;
-  }
-
-  // Initialize
-  resizeCanvas();
-  draw();
-
-  // Event listeners
-  globalWindow.addEventListener('resize', resizeCanvas);
-
-  if (config.enableMouseInteraction) {
-    canvas.style.pointerEvents = 'auto';
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
-  }
-
-  // Return cleanup function
   return () => {
     if (animationId) {
       globalWindow.cancelAnimationFrame(animationId);
     }
-    globalWindow.removeEventListener('resize', resizeCanvas);
-    if (config.enableMouseInteraction) {
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
-    }
+    globalWindow.removeEventListener('resize', setup);
     context.clearRect(0, 0, canvas.width, canvas.height);
   };
 }
 
-// Export for both browser and Node
 if (typeof window !== 'undefined') {
   window.startMatrixRain = startMatrixRain;
 }

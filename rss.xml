@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>velvetdaemon</title>
-    <description>Quiet notes and careful builds.</description>
+    <description>Deliberate notes and measured builds.</description>
     <link>https://dotxdaemon.github.io/blog</link>
     <atom:link href="https://dotxdaemon.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
