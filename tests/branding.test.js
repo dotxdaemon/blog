@@ -13,16 +13,16 @@ const rssXml = fs.readFileSync(rssPath, 'utf8');
 const rssGenerator = fs.readFileSync(generatorPath, 'utf8');
 
 assert.ok(
-  indexHtml.includes('Quiet notes and careful builds.'),
-  'Expected hero eyebrow to highlight the quiet notes branding.'
+  indexHtml.includes('Deliberate notes and measured builds.'),
+  'Expected hero eyebrow to highlight the deliberate builds branding.'
 );
 assert.ok(
-  indexHtml.includes('Code, film, and food—kept tidy for quick reading.'),
+  indexHtml.includes('Code, film, and food written for clear reading.'),
   'Expected hero lede to feature the concise description.'
 );
 assert.ok(
-  indexHtml.includes('Fresh notes and essays from the desk.'),
-  'Expected archive subtitle to mention the refreshed framing.'
+  indexHtml.includes('Recent notes and essays to browse.'),
+  'Expected archive subtitle to mention the updated framing.'
 );
 
 assert.ok(
@@ -41,8 +41,8 @@ assert.ok(
 );
 
 assert.ok(
-  rssXml.includes('<description>Quiet notes and careful builds.</description>'),
-  'Expected RSS description to match the quiet notes branding.'
+  rssXml.includes('<description>Deliberate notes and measured builds.</description>'),
+  'Expected RSS description to match the deliberate branding.'
 );
 assert.ok(
   !rssXml.includes('Steady notes, curious builds'),
@@ -50,6 +50,6 @@ assert.ok(
 );
 
 assert.ok(
-  rssGenerator.includes("const SITE_DESCRIPTION = 'Quiet notes and careful builds.';"),
-  'Expected RSS generator to use the quiet notes description.'
+  rssGenerator.includes("const SITE_DESCRIPTION = 'Deliberate notes and measured builds.';"),
+  'Expected RSS generator to use the deliberate description.'
 );

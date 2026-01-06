@@ -1,5 +1,5 @@
-// ABOUTME: Guards against stray generated text by ensuring only authored content renders.
-// ABOUTME: Verifies the matrix rain background asset exists and exports its initializer.
+// ABOUTME: Guards against stray generated text and verifies the matrix rain background asset.
+// ABOUTME: Confirms the golden matrix styling and startMatrixRain export shape.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -29,42 +29,9 @@ assert.strictEqual(
 
 const appPath = path.join(__dirname, '..', 'assets', 'js', 'app.js');
 const appSource = fs.readFileSync(appPath, 'utf8');
-// Reading time is now a feature - verify it's implemented
-assert.ok(
-  /reading.?time/i.test(appSource),
-  'Expected reading time feature to be present.'
-);
+assert.ok(/reading.?time/i.test(appSource), 'Expected reading time feature to be present.');
 
 const matrixSource = fs.readFileSync(matrixPath, 'utf8');
-assert.ok(
-  /minSpeed:\s*options\.minSpeed\s*\|\|\s*0\.17/.test(matrixSource),
-  'Expected matrix rain to default to a slower minimum speed.'
-);
-assert.ok(
-  /maxSpeed:\s*options\.maxSpeed\s*\|\|\s*0\.5/.test(matrixSource),
-  'Expected matrix rain to default to a slower maximum speed.'
-);
-
-assert.ok(
-  /primaryColor:\s*options\.primaryColor\s*\|\|\s*{\s*h:\s*0,\s*s:\s*0,\s*l:\s*\d+/.test(
-    matrixSource
-  ),
-  'Expected the primary color to default to a monochrome palette.'
-);
-
-assert.ok(
-  /secondaryColor:\s*options\.secondaryColor\s*\|\|\s*{\s*h:\s*0,\s*s:\s*0,\s*l:\s*\d+/.test(
-    matrixSource
-  ),
-  'Expected the secondary color to default to a monochrome palette.'
-);
-
-assert.ok(
-  /enableGlow:\s*options\.enableGlow\s*===\s*true/.test(matrixSource),
-  'Expected glow to remain off unless explicitly enabled.'
-);
-
-assert.ok(
-  /characters:\s*options\.characters\s*\|\|[^\\n]*雨[^\\n]*夢/.test(matrixSource),
-  'Expected the character stream to emphasize kanji glyphs.'
-);
+assert.ok(/const\s+layers\s*=\s*\[/i.test(matrixSource), 'Expected layered streams.');
+assert.ok(/ffd700/i.test(matrixSource), 'Expected the gold palette to be defined.');
+assert.ok(/golden/i.test(matrixSource), 'Expected golden styling references in the effect.');
