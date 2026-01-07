@@ -37,11 +37,13 @@ No Other Choice
 
 If I Had Legs I'd Kick You - 
 
-Die, My Love
+Die, My Love - 
 
 The Testament of Ann Lee
 
 Wake Up Dead Man - pretty good.
+
+Eternity - good movie. goes a little off at the end.
 
 https://letterboxd.com/000_leo/list/oscars-2026-1/`,
     ambientTone: "warm",
