@@ -44,8 +44,8 @@ assert.strictEqual(
   'Expected "movies I want to watch" post to have date 2025-09-26.'
 );
 assert.ok(
-  typeof moviesPost.excerpt === 'string' && moviesPost.excerpt.length > 0,
-  'Expected "movies I want to watch" post to include an excerpt.'
+  !Object.prototype.hasOwnProperty.call(moviesPost, 'excerpt'),
+  'Expected "movies I want to watch" post to omit an excerpt.'
 );
 assert.ok(
   Array.isArray(moviesPost.tags) && moviesPost.tags.length > 0,
@@ -59,8 +59,8 @@ assert.ok(
 );
 
 assert.ok(
-  typeof cookingPost.excerpt === 'string' && cookingPost.excerpt.length > 0,
-  'Expected "cooking recipes" post to include an excerpt.'
+  !Object.prototype.hasOwnProperty.call(cookingPost, 'excerpt'),
+  'Expected "cooking recipes" post to omit an excerpt.'
 );
 assert.ok(
   Array.isArray(cookingPost.tags) && cookingPost.tags.length > 0,

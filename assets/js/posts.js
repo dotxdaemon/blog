@@ -4,7 +4,6 @@ window.BLOG_POSTS = [
   {
     title: "hi everybody",
     date: "2025-09-19",
-    excerpt: "A short hello to kick off the blog and share the vibe for what’s ahead.",
     tags: ["intro", "notes"],
     body: "hi everybody",
     ambientTone: "cool",
@@ -20,7 +19,6 @@ window.BLOG_POSTS = [
   {
     title: "movies I want to watch",
     date: "2025-09-26",
-    excerpt: "A running watchlist of upcoming releases and a few notes on what I’m excited to revisit.",
     tags: ["movies", "watchlist"],
     body: `Hamnet
 
@@ -62,7 +60,6 @@ https://letterboxd.com/000_leo/list/oscars-2026-1/`,
   {
     title: "cooking recipes",
     date: "2025-12-30",
-    excerpt: "Quick pantry-friendly meals: pasta with roasted tomatoes, coconut lentil stew, and mustardy chicken thighs.",
     tags: ["cooking", "recipes"],
     body: `Pantry pasta with garlic, olive oil, and roasted cherry tomatoes. Toss cooked noodles with chili flakes, lemon zest, and a spoon of the starchy water for gloss.
 
