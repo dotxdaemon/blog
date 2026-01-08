@@ -1,5 +1,5 @@
 /* ABOUTME: Renders individual post pages with full article content and features. */
-/* ABOUTME: Includes progress bar, copy buttons, heading anchors, navigation, and sharing. */
+/* ABOUTME: Includes progress bar, copy buttons, heading anchors, and navigation. */
 (function (globalScope) {
   'use strict';
 
@@ -67,7 +67,6 @@
         .join('');
     }
 
-    setupShareLinks(post);
     setupNavigation(index);
   }
 
@@ -329,35 +328,6 @@
       pre.parentNode.insertBefore(wrapper, pre);
       wrapper.appendChild(pre);
       wrapper.appendChild(button);
-    });
-  }
-
-  function setupShareLinks(post) {
-    const url = encodeURIComponent(globalScope.location.href);
-    const title = encodeURIComponent(post.title);
-    const text = encodeURIComponent(post.excerpt || deriveExcerpt(post.body));
-
-    document.getElementById('share-twitter').href =
-      `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
-
-    document.getElementById('share-linkedin').href =
-      `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-
-    document.getElementById('share-email').href =
-      `mailto:?subject=${title}&body=${text}%0A%0A${url}`;
-
-    document.getElementById('copy-link').addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(globalScope.location.href);
-        const btn = document.getElementById('copy-link');
-        const originalText = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(() => {
-          btn.textContent = originalText;
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy link');
-      }
     });
   }
 
