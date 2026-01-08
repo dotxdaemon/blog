@@ -11,14 +11,16 @@
 
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('search-results');
+  const searchParams = new URLSearchParams(window.location.search);
+  const initialQuery = searchParams.get('q');
+  const tagFilter = normalizeTag(searchParams.get('tag'));
 
   if (searchInput && resultsContainer) {
-    // Check for initial query in URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialQuery = urlParams.get('q');
     if (initialQuery) {
       searchInput.value = initialQuery;
-      performSearch(initialQuery);
+      performSearch(initialQuery, tagFilter);
+    } else {
+      performSearch('', tagFilter);
     }
 
     // Debounced search
@@ -27,8 +29,8 @@
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         const query = e.target.value.trim();
-        performSearch(query);
-        updateUrl(query);
+        performSearch(query, tagFilter);
+        updateUrl(query, tagFilter);
       }, 150);
     });
 
@@ -54,16 +56,31 @@
   setupMatrixRain();
   setCurrentYear();
 
-  function performSearch(query) {
-    if (!query) {
+  function performSearch(query, activeTag) {
+    const normalizedTag = normalizeTag(activeTag);
+    const filteredPosts = normalizedTag
+      ? orderedPosts.filter((post) =>
+          (post.tags || []).map((tag) => normalizeTag(tag)).includes(normalizedTag)
+        )
+      : orderedPosts;
+
+    const tagNotice = normalizedTag ? renderTagNotice(normalizedTag) : '';
+
+    if (!query && !normalizedTag) {
       resultsContainer.innerHTML = '<p class="search-hint">Type to search through all posts...</p>';
       return;
     }
 
-    const results = searchPosts(query);
+    if (!query && normalizedTag) {
+      renderResults(filteredPosts, '', tagNotice, normalizedTag);
+      return;
+    }
+
+    const results = searchPosts(query, filteredPosts);
 
     if (results.length === 0) {
       resultsContainer.innerHTML = `
+        ${tagNotice}
         <div class="no-results">
           <p>No posts found for "${escapeHtml(query)}"</p>
         </div>
@@ -71,19 +88,37 @@
       return;
     }
 
+    renderResults(results, query, tagNotice, normalizedTag);
+  }
+
+  function renderResults(results, query, tagNotice, normalizedTag) {
+    const countLabel = query
+      ? `${results.length} result${results.length === 1 ? '' : 's'} for "${escapeHtml(query)}"`
+      : `${results.length} post${results.length === 1 ? '' : 's'} tagged "${escapeHtml(normalizedTag)}"`;
+
     resultsContainer.innerHTML = `
-      <p class="search-count">${results.length} result${results.length === 1 ? '' : 's'} for "${escapeHtml(query)}"</p>
+      ${tagNotice}
+      <p class="search-count">${countLabel}</p>
       <ul class="post-list search-results">
         ${results.map((result) => renderResult(result, query)).join('')}
       </ul>
     `;
   }
 
-  function searchPosts(query) {
+  function renderTagNotice(tag) {
+    return `
+      <div class="tag-filter-notice">
+        <p>Showing posts tagged with <strong>"${escapeHtml(tag)}"</strong></p>
+        <a href="search.html" class="clear-filter">Clear filter</a>
+      </div>
+    `;
+  }
+
+  function searchPosts(query, pool) {
     const lowerQuery = query.toLowerCase();
     const terms = lowerQuery.split(/\s+/).filter(Boolean);
 
-    return orderedPosts
+    return pool
       .map((post) => {
         const titleLower = (post.title || '').toLowerCase();
         const bodyLower = (post.body || '').toLowerCase();
@@ -202,6 +237,13 @@
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  function normalizeTag(tag) {
+    if (!tag) {
+      return '';
+    }
+    return String(tag).trim().toLowerCase();
+  }
+
   function slugify(text) {
     return text
       .toLowerCase()
@@ -216,12 +258,17 @@
       .replace(/>/g, '&gt;');
   }
 
-  function updateUrl(query) {
+  function updateUrl(query, activeTag) {
     const url = new URL(window.location);
     if (query) {
       url.searchParams.set('q', query);
     } else {
       url.searchParams.delete('q');
+    }
+    if (activeTag) {
+      url.searchParams.set('tag', activeTag);
+    } else {
+      url.searchParams.delete('tag');
     }
     window.history.replaceState({}, '', url);
   }
@@ -273,8 +320,50 @@
 
   function setupMatrixRain() {
     const canvas = document.getElementById('matrix-rain');
+    const toggle = document.getElementById('matrix-toggle');
     if (!canvas || typeof window.startMatrixRain !== 'function') return;
-    window.startMatrixRain(canvas);
+
+    const prefersReduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const storedPreference = localStorage.getItem('matrixEnabled');
+    const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
+    let isEnabled = hasStoredPreference ? storedPreference === 'true' : !prefersReduced;
+    let stopAnimation = null;
+
+    if (prefersReduced) {
+      isEnabled = false;
+    }
+
+    applyMatrixState(isEnabled);
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        if (prefersReduced) {
+          applyMatrixState(false);
+          return;
+        }
+        applyMatrixState(!isEnabled);
+      });
+    }
+
+    function applyMatrixState(nextState) {
+      isEnabled = Boolean(nextState);
+      document.body.classList.toggle('matrix-disabled', !isEnabled);
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        toggle.disabled = prefersReduced;
+      }
+      localStorage.setItem('matrixEnabled', String(isEnabled));
+
+      if (isEnabled) {
+        if (!stopAnimation) {
+          stopAnimation = window.startMatrixRain(canvas);
+        }
+      } else if (stopAnimation) {
+        stopAnimation();
+        stopAnimation = null;
+      }
+    }
   }
 
   function setCurrentYear() {

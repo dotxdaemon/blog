@@ -16,10 +16,13 @@
 
   // Check for tag filter
   const urlParams = new URLSearchParams(window.location.search);
-  const tagFilter = urlParams.get('tag');
+  const tagFilter = normalizeTag(urlParams.get('tag'));
 
   const filteredPosts = tagFilter
-    ? orderedPosts.filter((post) => post.tags && post.tags.includes(tagFilter))
+    ? orderedPosts.filter(
+        (post) =>
+          post.tags && post.tags.map((tag) => normalizeTag(tag)).includes(tagFilter)
+      )
     : orderedPosts;
 
   // Group posts by year and month
@@ -131,6 +134,13 @@
       .replace(/>/g, '&gt;');
   }
 
+  function normalizeTag(tag) {
+    if (!tag) {
+      return '';
+    }
+    return String(tag).trim().toLowerCase();
+  }
+
   function setupNavToggle() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.getElementById('primary-nav');
@@ -178,8 +188,50 @@
 
   function setupMatrixRain() {
     const canvas = document.getElementById('matrix-rain');
+    const toggle = document.getElementById('matrix-toggle');
     if (!canvas || typeof window.startMatrixRain !== 'function') return;
-    window.startMatrixRain(canvas);
+
+    const prefersReduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const storedPreference = localStorage.getItem('matrixEnabled');
+    const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
+    let isEnabled = hasStoredPreference ? storedPreference === 'true' : !prefersReduced;
+    let stopAnimation = null;
+
+    if (prefersReduced) {
+      isEnabled = false;
+    }
+
+    applyMatrixState(isEnabled);
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        if (prefersReduced) {
+          applyMatrixState(false);
+          return;
+        }
+        applyMatrixState(!isEnabled);
+      });
+    }
+
+    function applyMatrixState(nextState) {
+      isEnabled = Boolean(nextState);
+      document.body.classList.toggle('matrix-disabled', !isEnabled);
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        toggle.disabled = prefersReduced;
+      }
+      localStorage.setItem('matrixEnabled', String(isEnabled));
+
+      if (isEnabled) {
+        if (!stopAnimation) {
+          stopAnimation = window.startMatrixRain(canvas);
+        }
+      } else if (stopAnimation) {
+        stopAnimation();
+        stopAnimation = null;
+      }
+    }
   }
 
   function setCurrentYear() {

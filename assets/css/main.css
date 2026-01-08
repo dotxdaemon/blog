@@ -10,12 +10,14 @@
   --muted-strong: #4e5766;
   --surface: rgba(253, 253, 252, 0.9);
   --shadow-soft: 0 12px 36px rgba(0, 0, 0, 0.04);
-  --container-width: 48rem;
+  --container-width: 72ch;
   --gutter: 1rem;
   --font-sans: 'Atkinson Hyperlegible', 'Inter', system-ui, -apple-system, 'Segoe UI',
     sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
     'Liberation Mono', 'Courier New', monospace;
+  --font-size-base: clamp(17px, 0.9vw + 14px, 20px);
+  --line-height-base: 1.65;
   --space-1: 0.5rem;
   --space-2: 0.75rem;
   --space-3: 1rem;
@@ -48,7 +50,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  line-height: 1.75;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
   min-height: 100vh;
   position: relative;
 }
@@ -78,6 +81,10 @@ body::before {
     animation: none;
     opacity: 0;
   }
+
+  .matrix-canvas {
+    display: none;
+  }
 }
 
 .matrix-canvas {
@@ -86,11 +93,19 @@ body::before {
   width: 100%;
   height: 100%;
   background: transparent;
-  opacity: 0.04;
+  opacity: 0.02;
   filter: none;
   pointer-events: none;
   z-index: 0;
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
+}
+
+body[data-theme='dark'] .matrix-canvas {
+  opacity: 0.015;
+}
+
+body.matrix-disabled .matrix-canvas {
+  display: none;
 }
 
 .site-header,
@@ -114,6 +129,15 @@ a:hover {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-color: var(--accent);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 button {
@@ -263,8 +287,33 @@ select {
   font-size: 1rem;
 }
 
+.matrix-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+.matrix-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.matrix-toggle__icon {
+  font-size: 1rem;
+}
+
 @media (min-width: 640px) {
   .theme-toggle {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .matrix-toggle {
     width: 2.25rem;
     height: 2.25rem;
   }
@@ -616,7 +665,8 @@ pre {
 
 /* ========== Prose Content ========== */
 .prose {
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: var(--line-height-base);
   letter-spacing: 0.01em;
 }
 
@@ -625,7 +675,7 @@ pre {
 }
 
 .prose h2 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 2.25rem 0 1rem;
   padding-bottom: 0;
@@ -633,13 +683,13 @@ pre {
 }
 
 .prose h3 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin: 1.8rem 0 0.75rem;
 }
 
 .prose h4, .prose h5, .prose h6 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   margin: 1.5rem 0 0.5rem;
 }
@@ -687,6 +737,17 @@ pre {
   border: 1px solid var(--border);
   margin: 1.25rem auto;
   display: block;
+}
+
+.prose figure {
+  margin: 1.5rem 0;
+}
+
+.prose figcaption {
+  margin-top: 0.5rem;
+  color: var(--muted-strong);
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .prose hr {
@@ -769,6 +830,56 @@ pre {
   color: var(--background);
 }
 
+/* ========== Table of Contents ========== */
+.post-toc {
+  margin: 0 0 var(--space-4);
+}
+
+.toc {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: var(--space-2) var(--space-3);
+  background: var(--muted);
+}
+
+.toc summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.toc summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc ul {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.toc a {
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.toc a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.toc-item--nested {
+  padding-left: 1rem;
+  font-size: 0.95rem;
+  color: var(--muted-strong);
+}
+
+.toc-item--nested a {
+  color: inherit;
+}
+
 /* ========== Newsletter Form ========== */
 .newsletter-form {
   background: transparent;
@@ -788,6 +899,11 @@ pre {
 .newsletter-form p {
   margin: 0 0 var(--space-2);
   color: var(--muted-strong);
+}
+
+.newsletter-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .newsletter-form form {
