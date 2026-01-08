@@ -39,9 +39,19 @@
           <a class="nav-link" href="archives.html">Archives</a>
           <a class="nav-link" href="search.html">Search</a>
           <a class="nav-link" href="index.html#hero">About</a>
-          <button class="theme-toggle" type="button" aria-pressed="false">
+          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle theme">
             <span class="theme-toggle__icon" aria-hidden="true">&#9680;</span>
             <span class="sr-only">Toggle theme</span>
+          </button>
+          <button
+            class="matrix-toggle"
+            id="matrix-toggle"
+            type="button"
+            aria-pressed="true"
+            aria-label="Toggle background animation"
+          >
+            <span class="matrix-toggle__icon" aria-hidden="true">▦</span>
+            <span class="sr-only">Toggle background animation</span>
           </button>
         </nav>
       </div>
@@ -70,20 +80,25 @@
           </div>
         </header>
 
+        <div class="post-toc" id="post-toc"></div>
+
         <div class="post-content prose" id="post-content">
           <!-- Content rendered here -->
         </div>
 
         <div class="newsletter-form" id="newsletter-form">
           <h3>Stay updated</h3>
-          <p>Get notified when I publish something new.</p>
+          <p>Get new posts by email. No spam. Unsubscribe anytime.</p>
           <form id="newsletter-subscribe" action="#" method="post">
+            <label for="newsletter-email">Email address</label>
             <input
+              id="newsletter-email"
               type="email"
               name="email"
               placeholder="your@email.com"
               required
               autocomplete="email"
+              inputmode="email"
             />
             <button type="submit">Subscribe</button>
           </form>

@@ -58,12 +58,16 @@
     contentEl.innerHTML = renderFullContent(post.body);
 
     addHeadingAnchors(contentEl);
+    renderTableOfContents(contentEl);
     addCopyButtons(contentEl);
 
     if (post.tags && post.tags.length > 0) {
       const tagsEl = document.getElementById('post-tags');
       tagsEl.innerHTML = post.tags
-        .map((tag) => `<a href="archives.html?tag=${encodeURIComponent(tag)}" class="tag">${tag}</a>`)
+        .map((tag) => {
+          const normalizedTag = String(tag).toLowerCase();
+          return `<a href="search.html?tag=${encodeURIComponent(normalizedTag)}" class="tag">${tag}</a>`;
+        })
         .join('');
     }
 
@@ -151,6 +155,17 @@
           const lang = lines[0].replace('```', '').trim();
           const code = lines.slice(1, -1).join('\n');
           return `<pre><code class="language-${lang || 'plaintext'}">${escapeHtml(code)}</code></pre>`;
+        }
+
+        const imageMatch = paragraph.match(/^!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]+)")?\)$/);
+        if (imageMatch) {
+          const altText = escapeHtml(imageMatch[1] || '');
+          const src = escapeHtml(imageMatch[2] || '');
+          const caption = imageMatch[3] ? escapeHtml(imageMatch[3]) : '';
+          if (caption) {
+            return `<figure><img src="${src}" alt="${altText}" loading="lazy" /><figcaption>${caption}</figcaption></figure>`;
+          }
+          return `<p><img src="${src}" alt="${altText}" loading="lazy" /></p>`;
         }
 
         const headingMatch = paragraph.match(/^(#{1,6})\s+(.+)$/);
@@ -279,17 +294,26 @@
 
   function addHeadingAnchors(container) {
     const headings = container.querySelectorAll('h2, h3, h4, h5, h6');
+    const usedIds = new Set();
     headings.forEach((heading) => {
-      if (!heading.id) {
-        heading.id = slugify(heading.textContent);
+      const headingText = heading.textContent || '';
+      const baseId = heading.id ? heading.id : slugify(headingText);
+      let uniqueId = baseId;
+      let counter = 2;
+      while (!uniqueId || usedIds.has(uniqueId)) {
+        uniqueId = `${baseId || 'section'}-${counter}`;
+        counter += 1;
       }
+      heading.id = uniqueId;
+      usedIds.add(uniqueId);
       heading.classList.add('heading-anchor');
+      heading.dataset.tocText = headingText;
 
       const link = document.createElement('a');
       link.href = `#${heading.id}`;
       link.className = 'anchor-link';
       link.innerHTML = '<span aria-hidden="true">#</span>';
-      link.setAttribute('aria-label', `Link to ${heading.textContent}`);
+      link.setAttribute('aria-label', `Link to ${headingText}`);
       heading.appendChild(link);
     });
   }
@@ -303,7 +327,9 @@
       const button = document.createElement('button');
       button.className = 'copy-button';
       button.textContent = 'Copy';
+      button.type = 'button';
       button.setAttribute('aria-label', 'Copy code to clipboard');
+      button.setAttribute('aria-live', 'polite');
 
       button.addEventListener('click', async () => {
         const code = pre.querySelector('code');
@@ -329,6 +355,47 @@
       wrapper.appendChild(pre);
       wrapper.appendChild(button);
     });
+  }
+
+  function renderTableOfContents(container) {
+    const tocRoot = document.getElementById('post-toc');
+    if (!tocRoot || !container) return;
+
+    const headings = Array.from(container.querySelectorAll('h2, h3'));
+    tocRoot.innerHTML = '';
+
+    if (headings.length < 3) {
+      return;
+    }
+
+    const details = document.createElement('details');
+    details.className = 'toc';
+    details.open = true;
+
+    const summary = document.createElement('summary');
+    summary.textContent = 'Contents';
+
+    const nav = document.createElement('nav');
+    nav.setAttribute('aria-label', 'Table of contents');
+
+    const list = document.createElement('ul');
+    headings.forEach((heading) => {
+      const item = document.createElement('li');
+      if (heading.tagName.toLowerCase() === 'h3') {
+        item.classList.add('toc-item--nested');
+      }
+
+      const link = document.createElement('a');
+      link.href = `#${heading.id}`;
+      link.textContent = heading.dataset.tocText || heading.textContent || '';
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+
+    nav.appendChild(list);
+    details.appendChild(summary);
+    details.appendChild(nav);
+    tocRoot.appendChild(details);
   }
 
   function setupNavigation(currentIndex) {
@@ -438,8 +505,51 @@
 
   function setupMatrixRain() {
     const canvas = document.getElementById('matrix-rain');
+    const toggle = document.getElementById('matrix-toggle');
     if (!canvas || typeof globalScope.startMatrixRain !== 'function') return;
-    globalScope.startMatrixRain(canvas);
+
+    const prefersReduced =
+      globalScope.matchMedia &&
+      globalScope.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const storedPreference = globalScope.localStorage.getItem('matrixEnabled');
+    const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
+    let isEnabled = hasStoredPreference ? storedPreference === 'true' : !prefersReduced;
+    let stopAnimation = null;
+
+    if (prefersReduced) {
+      isEnabled = false;
+    }
+
+    applyMatrixState(isEnabled);
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        if (prefersReduced) {
+          applyMatrixState(false);
+          return;
+        }
+        applyMatrixState(!isEnabled);
+      });
+    }
+
+    function applyMatrixState(nextState) {
+      isEnabled = Boolean(nextState);
+      document.body.classList.toggle('matrix-disabled', !isEnabled);
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        toggle.disabled = prefersReduced;
+      }
+      globalScope.localStorage.setItem('matrixEnabled', String(isEnabled));
+
+      if (isEnabled) {
+        if (!stopAnimation) {
+          stopAnimation = globalScope.startMatrixRain(canvas);
+        }
+      } else if (stopAnimation) {
+        stopAnimation();
+        stopAnimation = null;
+      }
+    }
   }
 
   function setCurrentYear() {

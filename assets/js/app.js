@@ -328,6 +328,48 @@ function setupThemeToggle() {
 
 function setupMatrixRain() {
   const canvas = document.getElementById('matrix-rain');
+  const toggle = document.getElementById('matrix-toggle');
   if (!canvas || typeof window.startMatrixRain !== 'function') return;
-  window.startMatrixRain(canvas);
+
+  const prefersReduced =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const storedPreference = localStorage.getItem('matrixEnabled');
+  const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
+  let isEnabled = hasStoredPreference ? storedPreference === 'true' : !prefersReduced;
+  let stopAnimation = null;
+
+  if (prefersReduced) {
+    isEnabled = false;
+  }
+
+  applyMatrixState(isEnabled);
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      if (prefersReduced) {
+        applyMatrixState(false);
+        return;
+      }
+      applyMatrixState(!isEnabled);
+    });
+  }
+
+  function applyMatrixState(nextState) {
+    isEnabled = Boolean(nextState);
+    document.body.classList.toggle('matrix-disabled', !isEnabled);
+    if (toggle) {
+      toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+      toggle.disabled = prefersReduced;
+    }
+    localStorage.setItem('matrixEnabled', String(isEnabled));
+
+    if (isEnabled) {
+      if (!stopAnimation) {
+        stopAnimation = window.startMatrixRain(canvas);
+      }
+    } else if (stopAnimation) {
+      stopAnimation();
+      stopAnimation = null;
+    }
+  }
 }

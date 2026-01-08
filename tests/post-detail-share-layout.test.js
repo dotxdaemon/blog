@@ -44,3 +44,18 @@ assert.ok(
   /\.newsletter-form button\[type="submit"\][\s\S]*?font-size: 0\.95rem;/.test(css),
   'Expected the newsletter submit button to use a smaller font size.'
 );
+
+assert.ok(
+  /class="newsletter-form"[\s\S]*<label[^>]*for="newsletter-email"/i.test(postHtml),
+  'Expected the newsletter form to include a visible label for the email input.'
+);
+
+assert.ok(
+  /id="newsletter-email"/i.test(postHtml),
+  'Expected the newsletter email input to have an id for label association.'
+);
+
+assert.ok(
+  /inputmode="email"/i.test(postHtml),
+  'Expected the newsletter email input to declare inputmode="email".'
+);

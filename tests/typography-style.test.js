@@ -21,6 +21,31 @@ assert.ok(
   'Expected the active nav underline to have a defined offset.'
 );
 
+assert.ok(
+  /--font-size-base:/i.test(css),
+  'Expected a base font size variable to be defined.'
+);
+
+assert.ok(
+  /--line-height-base:/i.test(css),
+  'Expected a base line-height variable to be defined.'
+);
+
+assert.ok(
+  /body[\s\S]*?font-size:\s*var\(--font-size-base\)/i.test(css),
+  'Expected the body font size to use the base font size variable.'
+);
+
+assert.ok(
+  /body[\s\S]*?line-height:\s*var\(--line-height-base\)/i.test(css),
+  'Expected the body line height to use the base line height variable.'
+);
+
+assert.ok(
+  /:focus-visible[\s\S]*outline:/i.test(css),
+  'Expected focus-visible styling to be defined.'
+);
+
 const appSource = fs.readFileSync(appJsPath, 'utf8');
 ['post-snippet', 'post-snippet__meta', 'post-snippet__title', 'post-snippet__excerpt'].forEach(
   (className) => {
