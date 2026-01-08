@@ -393,7 +393,6 @@ select {
   list-style: none;
   padding: 0;
   margin: var(--space-4) 0 0;
-  border-top: 1px solid var(--border);
 }
 
 .post-list__item {
@@ -407,7 +406,6 @@ select {
   display: block;
   width: 100%;
   padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--border);
   cursor: pointer;
 }
 
