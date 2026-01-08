@@ -44,16 +44,27 @@ assert.strictEqual(
   'Expected "movies I want to watch" post to have date 2025-09-26.'
 );
 assert.ok(
-  moviesPost.excerpt &&
-    typeof moviesPost.excerpt === 'string' &&
-    moviesPost.excerpt.toLowerCase().includes('movies'),
-  'Expected "movies I want to watch" post to include an excerpt about the movies list.'
+  moviesPost.showExcerpt === false,
+  'Expected "movies I want to watch" post to hide the homepage excerpt.'
+);
+assert.ok(
+  !moviesPost.excerpt,
+  'Expected "movies I want to watch" post to omit an explicit excerpt.'
 );
 assert.ok(
   moviesPost.body &&
     typeof moviesPost.body === 'string' &&
     moviesPost.body.includes('Hamnet'),
   'Expected "movies I want to watch" post to include the film list.'
+);
+
+assert.ok(
+  cookingPost.showExcerpt === false,
+  'Expected "cooking recipes" post to hide the homepage excerpt.'
+);
+assert.ok(
+  !cookingPost.excerpt,
+  'Expected "cooking recipes" post to omit an explicit excerpt.'
 );
 assert.ok(
   !posts.some(

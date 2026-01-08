@@ -191,6 +191,10 @@ function deriveExcerpt(post) {
     return { text: '', isFromBody: false };
   }
 
+  if (post.showExcerpt === false) {
+    return { text: '', isFromBody: false };
+  }
+
   if (typeof post.excerpt === 'string' && post.excerpt.trim()) {
     return { text: post.excerpt.trim(), isFromBody: false };
   }
