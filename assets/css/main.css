@@ -2,20 +2,18 @@
 /* ABOUTME: Defines typography, spacing, and responsive navigation behavior. */
 :root {
   color-scheme: dark;
-  --background: #060c14;
-  --foreground: #c8dac8;
-  --accent: #00ff87;
+  --background: #0D110F;
+  --foreground: #B6D6CC;
+  --accent: #4AF626;
   --muted: #0f161f;
-  --border: #1b2631;
+  --border: #1F3A29;
   --muted-strong: #7fa87f;
-  --surface: rgba(6, 12, 20, 0.9);
+  --surface: rgba(13, 17, 15, 0.9);
   --shadow-soft: 0 16px 44px rgba(0, 0, 0, 0.45);
   --container-width: 72ch;
   --gutter: 1rem;
-  --font-sans: 'Atkinson Hyperlegible', 'Inter', system-ui, -apple-system, 'Segoe UI',
-    sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  --font-sans: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   --font-size-base: clamp(17px, 0.9vw + 14px, 20px);
   --line-height-base: 1.65;
   --space-1: 0.5rem;
@@ -39,13 +37,13 @@ body[data-theme='light'] {
 
 body[data-theme='dark'] {
   color-scheme: dark;
-  --background: #060c14;
-  --foreground: #c8dac8;
-  --accent: #00ff87;
+  --background: #0D110F;
+  --foreground: #B6D6CC;
+  --accent: #4AF626;
   --muted: #0f161f;
-  --border: #1b2631;
+  --border: #1F3A29;
   --muted-strong: #7fa87f;
-  --surface: rgba(6, 12, 20, 0.9);
+  --surface: rgba(13, 17, 15, 0.9);
   --shadow-soft: 0 16px 44px rgba(0, 0, 0, 0.45);
 }
 
@@ -84,6 +82,27 @@ body::before {
     opacity: 1;
   }
   to {
+    opacity: 0;
+  }
+}
+
+@keyframes decrypt-entry {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
     opacity: 0;
   }
 }
@@ -449,6 +468,13 @@ select {
   line-height: 1.2;
 }
 
+.hero__title::after {
+  content: '█';
+  margin-left: 5px;
+  color: #4AF626;
+  animation: blink 1s step-end infinite;
+}
+
 @media (min-width: 640px) {
   .hero__title {
     font-size: 1.875rem;
@@ -520,6 +546,18 @@ select {
   width: 100%;
   padding: var(--space-4) 0;
   cursor: pointer;
+}
+
+.post-card {
+  background: var(--surface);
+  border: 1px solid rgba(51, 255, 51, 0.3);
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  border-color: #4AF626;
+  box-shadow: 0 0 8px rgba(74, 246, 38, 0.2);
 }
 
 .post-snippet:last-child {
