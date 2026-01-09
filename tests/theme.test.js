@@ -1,4 +1,4 @@
-// ABOUTME: Validates the monochrome palette values in the shared stylesheet.
+// ABOUTME: Validates the matrix-inspired palette values in the shared stylesheet.
 // ABOUTME: Protects the light and dark theme variables from accidental regressions.
 const assert = require('assert');
 const fs = require('fs');
@@ -6,6 +6,17 @@ const path = require('path');
 
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
+
+const matrixPalette = [
+  ['--background', '#060c14'],
+  ['--foreground', '#c8dac8'],
+  ['--accent', '#00ff87'],
+  ['--muted', '#0f161f'],
+  ['--border', '#1b2631'],
+  ['--muted-strong', '#7fa87f'],
+  ['--surface', 'rgba(6, 12, 20, 0.9)'],
+  ['--shadow-soft', '0 16px 44px rgba(0, 0, 0, 0.45)'],
+];
 
 const lightPalette = [
   ['--background', '#fdfdfc'],
@@ -18,32 +29,34 @@ const lightPalette = [
   ['--shadow-soft', '0 12px 36px rgba(0, 0, 0, 0.04)'],
 ];
 
-const darkStart = css.indexOf("body[data-theme='dark']");
-assert.ok(darkStart >= 0, 'Expected to find a dark theme block in the stylesheet.');
-const darkSlice = css.slice(darkStart);
-const openBrace = darkSlice.indexOf('{');
-const closeBrace = darkSlice.indexOf('}', openBrace);
-const darkBlock = darkSlice.slice(openBrace + 1, closeBrace);
+function getBlock(selector) {
+  const start = css.indexOf(selector);
+  assert.ok(start >= 0, `Expected to find ${selector} in the stylesheet.`);
+  const slice = css.slice(start);
+  const openBrace = slice.indexOf('{');
+  const closeBrace = slice.indexOf('}', openBrace);
+  return slice.slice(openBrace + 1, closeBrace);
+}
 
-const darkPalette = [
-  ['--background', '#212737'],
-  ['--foreground', '#eaedf3'],
-  ['--accent', '#9bb7ff'],
-  ['--muted', '#2b3245'],
-  ['--border', '#3c4357'],
-  ['--muted-strong', '#c5ccda'],
-  ['--surface', 'rgba(33, 39, 55, 0.9)'],
-  ['--shadow-soft', '0 16px 44px rgba(0, 0, 0, 0.35)'],
-];
+const rootBlock = getBlock(':root');
+const lightBlock = getBlock("body[data-theme='light']");
+const darkBlock = getBlock("body[data-theme='dark']");
+
+matrixPalette.forEach(([token, value]) => {
+  assert.ok(
+    rootBlock.includes(`${token}: ${value};`),
+    `Expected base palette to set ${token} to ${value}.`
+  );
+});
 
 lightPalette.forEach(([token, value]) => {
   assert.ok(
-    css.includes(`${token}: ${value};`),
+    lightBlock.includes(`${token}: ${value};`),
     `Expected light palette to set ${token} to ${value}.`
   );
 });
 
-darkPalette.forEach(([token, value]) => {
+matrixPalette.forEach(([token, value]) => {
   assert.ok(
     darkBlock.includes(`${token}: ${value};`),
     `Expected dark palette to set ${token} to ${value}.`

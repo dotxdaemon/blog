@@ -1,5 +1,5 @@
-/* ABOUTME: Lavender matrix rain animation with layered glow. */
-/* ABOUTME: Streams glyphs with lavender and emerald trails across the viewport. */
+/* ABOUTME: Matrix rain animation with layered glow. */
+/* ABOUTME: Streams glyphs with green trails across the viewport. */
 
 function startMatrixRain(canvas) {
   const globalWindow = typeof window !== 'undefined' ? window : null;
@@ -11,9 +11,9 @@ function startMatrixRain(canvas) {
   const context = canvas.getContext('2d');
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-  const fadeFill = 'rgba(13, 13, 13, 0.05)';
-  const lavender = { r: 230, g: 230, b: 250, hex: '#e6e6fa' };
-  const emerald = { r: 16, g: 194, b: 107 };
+  const fadeFill = 'rgba(0, 15, 5, 0.08)';
+  const brightGreen = { r: 0, g: 255, b: 0, hex: '#00ff00' };
+  const deepGreen = { r: 0, g: 150, b: 0 };
   const layers = [
     { fontSize: 14, speedMin: 0.6, speedMax: 1.2, tail: 18, glow: 6, opacity: 0.6 },
     { fontSize: 18, speedMin: 0.9, speedMax: 1.5, tail: 16, glow: 9, opacity: 0.75 },
@@ -52,10 +52,10 @@ function startMatrixRain(canvas) {
 
   function drawTrail(x, y, layer, columnIndex, layerIndex) {
     context.shadowBlur = layer.glow;
-    context.shadowColor = 'rgba(230, 230, 250, 0.35)';
+    context.shadowColor = 'rgba(0, 255, 0, 0.35)';
 
     const headChar = characters[Math.floor(Math.random() * characters.length)];
-    context.fillStyle = 'rgba(249, 249, 249, 0.95)';
+    context.fillStyle = 'rgba(0, 255, 0, 0.9)';
     context.fillText(headChar, x, y);
 
     for (let depth = 1; depth <= layer.tail; depth += 1) {
@@ -63,7 +63,7 @@ function startMatrixRain(canvas) {
       if (trailY < -layer.fontSize) break;
 
       const fade = 1 - depth / (layer.tail + 2);
-      const colorMix = blendColor(lavender, emerald, fade);
+      const colorMix = blendColor(brightGreen, deepGreen, fade);
       const alpha = 0.15 + layer.opacity * fade * 0.75;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
       const trailChar = characters[Math.floor(Math.random() * characters.length)];

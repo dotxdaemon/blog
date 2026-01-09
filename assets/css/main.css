@@ -1,15 +1,15 @@
 /* ABOUTME: Styles the reference-inspired blog shell, hero, and post feed. */
 /* ABOUTME: Defines typography, spacing, and responsive navigation behavior. */
 :root {
-  color-scheme: light;
-  --background: #fdfdfc;
-  --foreground: #282728;
-  --accent: #3f6db5;
-  --muted: #f1f2f4;
-  --border: #e6e7eb;
-  --muted-strong: #4e5766;
-  --surface: rgba(253, 253, 252, 0.9);
-  --shadow-soft: 0 12px 36px rgba(0, 0, 0, 0.04);
+  color-scheme: dark;
+  --background: #060c14;
+  --foreground: #c8dac8;
+  --accent: #00ff87;
+  --muted: #0f161f;
+  --border: #1b2631;
+  --muted-strong: #7fa87f;
+  --surface: rgba(6, 12, 20, 0.9);
+  --shadow-soft: 0 16px 44px rgba(0, 0, 0, 0.45);
   --container-width: 72ch;
   --gutter: 1rem;
   --font-sans: 'Atkinson Hyperlegible', 'Inter', system-ui, -apple-system, 'Segoe UI',
@@ -25,16 +25,28 @@
   --space-5: 2.25rem;
 }
 
+body[data-theme='light'] {
+  color-scheme: light;
+  --background: #fdfdfc;
+  --foreground: #282728;
+  --accent: #3f6db5;
+  --muted: #f1f2f4;
+  --border: #e6e7eb;
+  --muted-strong: #4e5766;
+  --surface: rgba(253, 253, 252, 0.9);
+  --shadow-soft: 0 12px 36px rgba(0, 0, 0, 0.04);
+}
+
 body[data-theme='dark'] {
   color-scheme: dark;
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #9bb7ff;
-  --muted: #2b3245;
-  --border: #3c4357;
-  --muted-strong: #c5ccda;
-  --surface: rgba(33, 39, 55, 0.9);
-  --shadow-soft: 0 16px 44px rgba(0, 0, 0, 0.35);
+  --background: #060c14;
+  --foreground: #c8dac8;
+  --accent: #00ff87;
+  --muted: #0f161f;
+  --border: #1b2631;
+  --muted-strong: #7fa87f;
+  --surface: rgba(6, 12, 20, 0.9);
+  --shadow-soft: 0 16px 44px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -93,7 +105,7 @@ body::before {
   width: 100%;
   height: 100%;
   background: transparent;
-  opacity: 0.02;
+  opacity: 0.04;
   filter: none;
   pointer-events: none;
   z-index: 0;
@@ -101,7 +113,7 @@ body::before {
 }
 
 body[data-theme='dark'] .matrix-canvas {
-  opacity: 0.015;
+  opacity: 0.03;
 }
 
 body.matrix-disabled .matrix-canvas {
@@ -191,6 +203,7 @@ select {
 
 .site-title {
   font-weight: 700;
+  font-family: var(--font-mono);
   letter-spacing: -0.01em;
   font-size: 1.15rem;
   text-decoration: none;
@@ -474,6 +487,7 @@ select {
   font-size: 1.35rem;
   line-height: 1.3;
   font-weight: 700;
+  font-family: var(--font-mono);
 }
 
 @media (min-width: 640px) {
@@ -671,6 +685,7 @@ pre {
   color: var(--foreground);
   margin: 0 0 var(--space-2);
   line-height: 1.2;
+  font-family: var(--font-mono);
 }
 
 @media (min-width: 640px) {

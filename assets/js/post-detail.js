@@ -513,7 +513,8 @@
       globalScope.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const storedPreference = globalScope.localStorage.getItem('matrixEnabled');
     const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
-    let isEnabled = hasStoredPreference ? storedPreference === 'true' : !prefersReduced;
+    const defaultMatrixEnabled = false;
+    let isEnabled = hasStoredPreference ? storedPreference === 'true' : defaultMatrixEnabled;
     let stopAnimation = null;
 
     if (prefersReduced) {
