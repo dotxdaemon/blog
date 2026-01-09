@@ -13,7 +13,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="alternate" type="application/rss+xml" title="velvetdaemon RSS" href="rss.xml" />
   </head>
   <body data-theme="dark">
     <canvas id="matrix-rain" class="matrix-canvas" aria-hidden="true"></canvas>
@@ -32,7 +31,6 @@
         </button>
         <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
           <a class="nav-link" href="#posts">Posts</a>
-          <a class="nav-link" href="archives.html">Archives</a>
           <a class="nav-link" href="search.html">Search</a>
           <a class="nav-link" href="#hero">About</a>
           <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle theme">
@@ -75,6 +73,30 @@
         </div>
       </section>
 
+      <section class="now-playing container" id="last-played" data-last-played>
+        <div class="section-header">
+          <p class="eyebrow">Apple Music</p>
+          <div>
+            <h2 class="section-title">Last played</h2>
+            <p class="section-subtitle" data-last-played-status>Loading your latest play…</p>
+          </div>
+        </div>
+        <div class="now-playing__card" data-last-played-card>
+          <div class="now-playing__artwork" data-last-played-artwork aria-hidden="true">♪</div>
+          <div class="now-playing__details">
+            <p class="now-playing__title" data-last-played-title>Fetching track…</p>
+            <p class="now-playing__artist" data-last-played-artist></p>
+            <p class="now-playing__meta">
+              <span data-last-played-album></span>
+              <span data-last-played-time></span>
+            </p>
+          </div>
+          <a class="now-playing__link" data-last-played-link href="#" target="_blank" rel="noreferrer">
+            Open in Apple Music
+          </a>
+        </div>
+      </section>
+
       <section class="post-feed container" aria-label="Post feed">
         <div class="section-header">
           <p class="eyebrow">Archive</p>
@@ -92,8 +114,6 @@
         <p>© <span id="current-year"></span> velvetdaemon — built for reading</p>
         <div class="site-footer__links">
           <a class="nav-link" href="#hero">About</a>
-          <a class="nav-link" href="archives.html">Archives</a>
-          <a class="nav-link" href="rss.xml" target="_blank">RSS</a>
           <a
             class="nav-link"
             href="https://github.com/dotxdaemon"

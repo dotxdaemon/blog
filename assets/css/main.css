@@ -225,14 +225,14 @@ select {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: var(--space-4) 0 var(--space-2);
+  padding: var(--space-3) 0 var(--space-1);
 }
 
 .site-title {
   font-weight: 700;
   font-family: var(--font-mono);
   letter-spacing: -0.01em;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   text-decoration: none;
 }
 
@@ -245,7 +245,7 @@ select {
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  padding: 0.45rem 0.85rem;
+  padding: 0.35rem 0.7rem;
   border: 1px solid var(--border);
   border-radius: 0.5rem;
   background: var(--background);
@@ -416,7 +416,7 @@ select {
 .divider {
   border-bottom: 1px solid var(--border);
   height: 1px;
-  margin: 0.5rem auto 0;
+  margin: 0.35rem auto 0;
 }
 
 .hero {
@@ -504,6 +504,83 @@ select {
   gap: 0.75rem;
   flex-wrap: wrap;
   font-weight: 500;
+}
+
+.now-playing {
+  padding: var(--space-3) 0 var(--space-4);
+}
+
+.now-playing .section-header {
+  margin-bottom: var(--space-3);
+}
+
+.now-playing__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.now-playing__artwork {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  background: var(--muted);
+  color: var(--accent);
+}
+
+.now-playing__details {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.now-playing__title {
+  font-weight: 600;
+  margin: 0;
+}
+
+.now-playing__artist,
+.now-playing__meta {
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 0.95rem;
+}
+
+.now-playing__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.now-playing__link {
+  align-self: flex-start;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-weight: 500;
+}
+
+.now-playing__link:hover {
+  border-color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .now-playing__card {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .now-playing__details {
+    flex: 1;
+  }
 }
 
 .social-link:hover {
