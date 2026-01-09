@@ -556,7 +556,7 @@ select {
 .post-snippet {
   display: block;
   width: 100%;
-  padding: var(--space-4) 0;
+  padding: var(--space-4) var(--space-4);
   cursor: pointer;
 }
 
