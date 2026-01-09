@@ -3,8 +3,8 @@
 :root {
   color-scheme: dark;
   --background: #0D110F;
-  --foreground: #B6D6CC;
-  --accent: #4AF626;
+  --foreground: #C8B4FF;
+  --accent: #C8B4FF;
   --muted: #0f161f;
   --border: #1F3A29;
   --muted-strong: #7fa87f;
@@ -26,8 +26,8 @@
 body[data-theme='light'] {
   color-scheme: light;
   --background: #fdfdfc;
-  --foreground: #282728;
-  --accent: #3f6db5;
+  --foreground: #C8B4FF;
+  --accent: #C8B4FF;
   --muted: #f1f2f4;
   --border: #e6e7eb;
   --muted-strong: #4e5766;
@@ -38,8 +38,8 @@ body[data-theme='light'] {
 body[data-theme='dark'] {
   color-scheme: dark;
   --background: #0D110F;
-  --foreground: #B6D6CC;
-  --accent: #4AF626;
+  --foreground: #C8B4FF;
+  --accent: #C8B4FF;
   --muted: #0f161f;
   --border: #1F3A29;
   --muted-strong: #7fa87f;
