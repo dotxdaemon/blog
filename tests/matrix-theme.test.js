@@ -32,8 +32,8 @@ assert.ok(css.includes('box-shadow: none;'), 'Expected post card hover glow to b
 assert.ok(css.includes('@keyframes decrypt-entry'), 'Expected decrypt-entry keyframes.');
 assert.ok(css.includes('@keyframes blink'), 'Expected blink keyframes.');
 assert.ok(
-  /hero__title::after[\s\S]*color:\s*var\(--accent\)/.test(css),
-  'Expected the cursor to match the accent color.'
+  /hero__title::after[\s\S]*color:\s*#e6e6fa/i.test(css),
+  'Expected the cursor to use a lavender color.'
 );
 assert.ok(indexHtml.includes('JetBrains+Mono'), 'Expected JetBrains Mono font link.');
 assert.ok(indexHtml.includes('Fira+Code'), 'Expected Fira Code font link.');

@@ -46,6 +46,11 @@ assert.ok(
   'Expected focus-visible styling to be defined.'
 );
 
+assert.ok(
+  /\.matrix-toggle:focus-visible[\s\S]*outline:\s*none/i.test(css),
+  'Expected the matrix toggle to remove its focus outline.'
+);
+
 ['site-title', 'section-title', 'post-title'].forEach((className) => {
   const pattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-mono\\)`, 'i');
   assert.ok(
