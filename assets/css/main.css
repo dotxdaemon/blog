@@ -136,11 +136,11 @@ body[data-theme='dark'] .matrix-canvas {
 }
 
 body.matrix-enabled .matrix-canvas {
-  opacity: 0.08;
+  opacity: 0.18;
 }
 
 body[data-theme='dark'].matrix-enabled .matrix-canvas {
-  opacity: 0.07;
+  opacity: 0.16;
 }
 
 body.matrix-disabled .matrix-canvas {
@@ -393,6 +393,10 @@ select {
   color: var(--accent);
 }
 
+.matrix-toggle:focus-visible {
+  outline: none;
+}
+
 .matrix-toggle__icon {
   font-size: 1rem;
 }
@@ -479,7 +483,7 @@ select {
 .hero__title::after {
   content: '█';
   margin-left: 5px;
-  color: var(--accent);
+  color: #e6e6fa;
   animation: blink 1s step-end infinite;
 }
 
