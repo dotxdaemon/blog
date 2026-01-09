@@ -31,6 +31,7 @@ if (currentYearEl) {
 setupNavToggle();
 setupThemeToggle();
 setupMatrixRain();
+setupLastPlayed();
 
 function createEmptyCard() {
   const item = document.createElement('li');
@@ -382,4 +383,109 @@ function setupMatrixRain() {
       stopAnimation = null;
     }
   }
+}
+
+function setupLastPlayed() {
+  const section = document.querySelector('[data-last-played]');
+  if (!section || typeof window.fetch !== 'function') return;
+
+  const status = section.querySelector('[data-last-played-status]');
+  const card = section.querySelector('[data-last-played-card]');
+  const artwork = section.querySelector('[data-last-played-artwork]');
+  const title = section.querySelector('[data-last-played-title]');
+  const artist = section.querySelector('[data-last-played-artist]');
+  const album = section.querySelector('[data-last-played-album]');
+  const time = section.querySelector('[data-last-played-time]');
+  const link = section.querySelector('[data-last-played-link]');
+
+  fetch('assets/data/last-played.json', { cache: 'no-store' })
+    .then((response) => (response.ok ? response.json() : null))
+    .then((data) => {
+      if (!data || !data.title || !title) {
+        renderEmptyState();
+        return;
+      }
+
+      title.textContent = data.title;
+
+      if (artist) {
+        artist.textContent = data.artist ? `by ${data.artist}` : '';
+      }
+
+      if (album) {
+        album.textContent = data.album ? data.album : '';
+      }
+
+      if (time) {
+        const formattedTime = formatPlayedAt(data.playedAt);
+        time.textContent = formattedTime ? `· ${formattedTime}` : '';
+      }
+
+      if (artwork) {
+        if (data.artworkUrl) {
+          artwork.textContent = '';
+          artwork.style.backgroundImage = `url("${data.artworkUrl}")`;
+          artwork.style.backgroundSize = 'cover';
+          artwork.style.backgroundPosition = 'center';
+        } else {
+          artwork.textContent = '♪';
+          artwork.style.backgroundImage = '';
+        }
+      }
+
+      if (link) {
+        if (data.url) {
+          link.href = data.url;
+          link.style.display = '';
+        } else {
+          link.style.display = 'none';
+        }
+      }
+
+      if (status) {
+        status.textContent = 'Most recent play on Apple Music';
+      }
+    })
+    .catch(() => {
+      renderEmptyState();
+    });
+
+  function renderEmptyState() {
+    if (status) {
+      status.textContent = 'No recent plays available yet.';
+    }
+    if (title) {
+      title.textContent = 'Nothing queued';
+    }
+    if (artist) {
+      artist.textContent = '';
+    }
+    if (album) {
+      album.textContent = '';
+    }
+    if (time) {
+      time.textContent = '';
+    }
+    if (link) {
+      link.style.display = 'none';
+    }
+  }
+}
+
+function formatPlayedAt(isoString) {
+  if (!isoString) {
+    return '';
+  }
+
+  const date = new Date(isoString);
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  return new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  }).format(date);
 }
