@@ -46,6 +46,14 @@ assert.ok(
   'Expected focus-visible styling to be defined.'
 );
 
+['site-title', 'section-title', 'post-title'].forEach((className) => {
+  const pattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-mono\\)`, 'i');
+  assert.ok(
+    pattern.test(css),
+    `Expected ${className} to use the monospace font family.`
+  );
+});
+
 const appSource = fs.readFileSync(appJsPath, 'utf8');
 ['post-snippet', 'post-snippet__meta', 'post-snippet__title', 'post-snippet__excerpt'].forEach(
   (className) => {

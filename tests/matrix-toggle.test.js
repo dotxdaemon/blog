@@ -21,6 +21,10 @@ scriptFiles.forEach((file) => {
     `Expected ${file} to reference the matrixEnabled preference.`
   );
   assert.ok(
+    /defaultMatrixEnabled\s*=\s*false/i.test(source),
+    `Expected ${file} to default matrixEnabled to false.`
+  );
+  assert.ok(
     /prefers-reduced-motion/i.test(source),
     `Expected ${file} to respect prefers-reduced-motion.`
   );
