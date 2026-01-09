@@ -2,6 +2,8 @@
 /* ABOUTME: Handles post formatting, theme toggling, and responsive menu interactions. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const postList = document.getElementById('posts');
+const prefersReducedMotion =
+  window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (!postList) {
   throw new Error('Expected an element with the id "posts" to render posts.');
@@ -16,8 +18,8 @@ postList.innerHTML = '';
 if (!orderedPosts.length) {
   postList.appendChild(createEmptyCard());
 } else {
-  orderedPosts.forEach((post) => {
-    postList.appendChild(createPostEntry(post));
+  orderedPosts.forEach((post, index) => {
+    postList.appendChild(createPostEntry(post, index, prefersReducedMotion));
   });
 }
 
@@ -35,7 +37,7 @@ function createEmptyCard() {
   item.className = 'post-list__item';
 
   const card = document.createElement('article');
-  card.className = 'post-snippet';
+  card.className = 'post-snippet post-card';
 
   const title = document.createElement('h3');
   title.className = 'post-snippet__title';
@@ -51,12 +53,18 @@ function createEmptyCard() {
   return item;
 }
 
-function createPostEntry(post) {
+function createPostEntry(post, index, shouldReduceMotion) {
   const item = document.createElement('li');
   item.className = 'post-list__item';
 
   const card = document.createElement('article');
-  card.className = 'post-snippet';
+  card.className = 'post-snippet post-card';
+
+  if (!shouldReduceMotion) {
+    const delay = Number.isFinite(index) ? index * 100 : 0;
+    card.style.animation = 'decrypt-entry 240ms ease forwards';
+    card.style.animationDelay = `${delay}ms`;
+  }
 
   // Make card clickable
   const slug = slugify(post.title);
