@@ -12,8 +12,8 @@ function startMatrixRain(canvas) {
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
   const fadeFill = 'rgba(16, 18, 6, 0.08)';
-  const brightAccent = { r: 200, g: 255, b: 96, hex: '#c8ff60' };
-  const deepAccent = { r: 110, g: 160, b: 40 };
+  const brightAccent = { r: 203, g: 183, b: 255, hex: '#cbb7ff' };
+  const deepAccent = { r: 203, g: 183, b: 255 };
   const layers = [
     { fontSize: 14, speedMin: 0.6, speedMax: 1.2, tail: 18, glow: 6, opacity: 0.6 },
     { fontSize: 18, speedMin: 0.9, speedMax: 1.5, tail: 16, glow: 9, opacity: 0.75 },
