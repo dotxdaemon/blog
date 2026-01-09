@@ -135,6 +135,14 @@ body[data-theme='dark'] .matrix-canvas {
   opacity: 0.03;
 }
 
+body.matrix-enabled .matrix-canvas {
+  opacity: 0.08;
+}
+
+body[data-theme='dark'].matrix-enabled .matrix-canvas {
+  opacity: 0.07;
+}
+
 body.matrix-disabled .matrix-canvas {
   display: none;
 }
@@ -471,7 +479,7 @@ select {
 .hero__title::after {
   content: '█';
   margin-left: 5px;
-  color: #4AF626;
+  color: var(--accent);
   animation: blink 1s step-end infinite;
 }
 
@@ -551,13 +559,13 @@ select {
 .post-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: none;
+  transition: border-color 0.2s ease;
 }
 
 .post-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.12);
+  border-color: var(--border);
+  box-shadow: none;
 }
 
 .post-snippet:last-child {

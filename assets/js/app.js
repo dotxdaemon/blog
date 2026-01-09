@@ -366,6 +366,7 @@ function setupMatrixRain() {
   function applyMatrixState(nextState) {
     isEnabled = Boolean(nextState);
     document.body.classList.toggle('matrix-disabled', !isEnabled);
+    document.body.classList.toggle('matrix-enabled', isEnabled);
     if (toggle) {
       toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
       toggle.disabled = prefersReduced;

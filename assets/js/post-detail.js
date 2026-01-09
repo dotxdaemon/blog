@@ -534,12 +534,13 @@
     }
 
     function applyMatrixState(nextState) {
-      isEnabled = Boolean(nextState);
-      document.body.classList.toggle('matrix-disabled', !isEnabled);
-      if (toggle) {
-        toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
-        toggle.disabled = prefersReduced;
-      }
+    isEnabled = Boolean(nextState);
+    document.body.classList.toggle('matrix-disabled', !isEnabled);
+    document.body.classList.toggle('matrix-enabled', isEnabled);
+    if (toggle) {
+      toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+      toggle.disabled = prefersReduced;
+    }
       globalScope.localStorage.setItem('matrixEnabled', String(isEnabled));
 
       if (isEnabled) {
