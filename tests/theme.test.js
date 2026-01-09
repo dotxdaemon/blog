@@ -8,24 +8,24 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 const matrixPalette = [
-  ['--background', '#060c14'],
-  ['--foreground', '#c8dac8'],
-  ['--accent', '#00ff87'],
+  ['--background', '#0D110F'],
+  ['--foreground', '#CBB7FF'],
+  ['--accent', '#CBB7FF'],
   ['--muted', '#0f161f'],
-  ['--border', '#1b2631'],
-  ['--muted-strong', '#7fa87f'],
-  ['--surface', 'rgba(6, 12, 20, 0.9)'],
+  ['--border', '#CBB7FF'],
+  ['--muted-strong', '#CBB7FF'],
+  ['--surface', 'rgba(13, 17, 15, 0.9)'],
   ['--shadow-soft', '0 16px 44px rgba(0, 0, 0, 0.45)'],
 ];
 
 const lightPalette = [
   ['--background', '#fdfdfc'],
-  ['--foreground', '#282728'],
-  ['--accent', '#3f6db5'],
+  ['--foreground', '#CBB7FF'],
+  ['--accent', '#CBB7FF'],
   ['--muted', '#f1f2f4'],
-  ['--border', '#e6e7eb'],
-  ['--muted-strong', '#4e5766'],
-  ['--surface', 'rgba(253, 253, 252, 0.9)'],
+  ['--border', '#CBB7FF'],
+  ['--muted-strong', '#CBB7FF'],
+  ['--surface', 'rgba(243, 244, 246, 0.95)'],
   ['--shadow-soft', '0 12px 36px rgba(0, 0, 0, 0.04)'],
 ];
 

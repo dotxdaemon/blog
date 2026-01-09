@@ -9,9 +9,9 @@
     <style>
       :root {
         --matrix-background: #0d0d0d;
-        --matrix-primary: #e6e6fa;
-        --matrix-emerald: #10c26b;
-        --matrix-head: #f9f9f9;
+        --matrix-primary: #CBB7FF;
+        --matrix-emerald: #CBB7FF;
+        --matrix-head: #CBB7FF;
       }
 
       * {
@@ -38,17 +38,17 @@
         height: 100%;
         display: block;
         background: var(--matrix-background);
-        filter: drop-shadow(0 0 12px rgba(230, 230, 250, 0.24));
+        filter: drop-shadow(0 0 12px rgba(203, 183, 255, 0.24));
       }
 
       .hud {
         position: relative;
         z-index: 1;
         padding: 14px 18px;
-        border: 1px solid rgba(230, 230, 250, 0.35);
+        border: 1px solid rgba(203, 183, 255, 0.35);
         border-radius: 10px;
         background: rgba(13, 13, 13, 0.35);
-        box-shadow: 0 0 18px rgba(230, 230, 250, 0.18);
+        box-shadow: 0 0 18px rgba(203, 183, 255, 0.18);
         backdrop-filter: blur(4px);
         text-align: center;
         letter-spacing: 0.08em;
@@ -62,7 +62,7 @@
       .hud__subtitle {
         margin: 6px 0 0;
         font-size: 0.85rem;
-        color: rgba(230, 230, 250, 0.8);
+        color: rgba(203, 183, 255, 0.8);
       }
     </style>
   </head>
@@ -117,13 +117,13 @@
         }
 
         function drawTrail(x, y, layer, columnIndex, layerIndex) {
-          const emerald = { r: 16, g: 194, b: 107 };
-          const lavender = { r: 230, g: 230, b: 250 };
+          const emerald = { r: 203, g: 183, b: 255 };
+          const lavender = { r: 203, g: 183, b: 255 };
           context.shadowBlur = layer.glow;
-          context.shadowColor = 'rgba(230, 230, 250, 0.35)';
+          context.shadowColor = 'rgba(203, 183, 255, 0.35)';
 
           const headChar = characters[Math.floor(Math.random() * characters.length)];
-          context.fillStyle = 'rgba(249, 249, 249, 0.95)';
+          context.fillStyle = 'rgba(203, 183, 255, 0.95)';
           context.fillText(headChar, x, y);
 
           for (let depth = 1; depth <= layer.tail; depth += 1) {
