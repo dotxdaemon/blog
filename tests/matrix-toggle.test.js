@@ -32,4 +32,8 @@ scriptFiles.forEach((file) => {
     /matrix-disabled/i.test(source),
     `Expected ${file} to toggle the matrix-disabled class.`
   );
+  assert.ok(
+    /matrix-enabled/i.test(source),
+    `Expected ${file} to toggle the matrix-enabled class.`
+  );
 });

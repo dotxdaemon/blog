@@ -46,3 +46,7 @@ assert.ok(
   /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.03/i.test(css),
   'Expected the matrix canvas opacity to be increased for dark mode.'
 );
+assert.ok(
+  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.08/i.test(css),
+  'Expected the matrix canvas opacity to intensify when enabled.'
+);
