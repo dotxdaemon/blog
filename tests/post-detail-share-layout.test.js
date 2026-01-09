@@ -1,5 +1,5 @@
 // ABOUTME: Ensures the post detail page omits the share links and label block.
-// ABOUTME: Verifies the newsletter input and submit button sizing is toned down.
+// ABOUTME: Verifies the post detail page no longer renders the newsletter section.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -21,41 +21,11 @@ assert.ok(
 );
 
 assert.ok(
-  /\.newsletter-form input\[type="email"\][\s\S]*?padding: 0\.6rem 0\.9rem;/.test(css),
-  'Expected the newsletter email input to use tighter padding.'
+  !/\.newsletter-form/.test(css),
+  'Expected the newsletter form styles to be removed.'
 );
 
 assert.ok(
-  /\.newsletter-form h3\s*\{[^}]*?font-size: 0\.8rem;/.test(css),
-  'Expected the newsletter heading to use a smaller font size.'
-);
-
-assert.ok(
-  /\.newsletter-form input\[type="email"\][\s\S]*?font-size: 0\.95rem;/.test(css),
-  'Expected the newsletter email input to use a smaller font size.'
-);
-
-assert.ok(
-  /\.newsletter-form button\[type="submit"\][\s\S]*?padding: 0\.6rem 1rem;/.test(css),
-  'Expected the newsletter submit button to use tighter padding.'
-);
-
-assert.ok(
-  /\.newsletter-form button\[type="submit"\][\s\S]*?font-size: 0\.95rem;/.test(css),
-  'Expected the newsletter submit button to use a smaller font size.'
-);
-
-assert.ok(
-  /class="newsletter-form"[\s\S]*<label[^>]*for="newsletter-email"/i.test(postHtml),
-  'Expected the newsletter form to include a visible label for the email input.'
-);
-
-assert.ok(
-  /id="newsletter-email"/i.test(postHtml),
-  'Expected the newsletter email input to have an id for label association.'
-);
-
-assert.ok(
-  /inputmode="email"/i.test(postHtml),
-  'Expected the newsletter email input to declare inputmode="email".'
+  !/class="newsletter-form"/i.test(postHtml),
+  'Expected the newsletter form markup to be removed.'
 );
