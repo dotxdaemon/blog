@@ -12,7 +12,7 @@
   --shadow-soft: 0 16px 44px rgba(0, 0, 0, 0.45);
   --container-width: 72ch;
   --gutter: 1rem;
-  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Merriweather', 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   --font-size-base: clamp(17px, 0.9vw + 14px, 20px);
   --line-height-base: 1.65;
