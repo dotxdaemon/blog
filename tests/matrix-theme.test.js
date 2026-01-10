@@ -21,7 +21,7 @@ assert.ok(
 );
 assert.ok(css.includes('--border: #CBB7FF;'), 'Expected Matrix Lite border color.');
 assert.ok(
-  css.includes("--font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;"),
+  css.includes("--font-sans: 'Merriweather', 'Times New Roman', serif;"),
   'Expected Matrix Lite font stack.'
 );
 assert.ok(
