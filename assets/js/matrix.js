@@ -11,18 +11,20 @@ function startMatrixRain(canvas) {
   const context = canvas.getContext('2d');
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-  const fadeFill = 'rgba(16, 18, 6, 0.08)';
+  const fadeFill = 'rgba(13, 17, 15, 0.14)';
+  const glyphChangeInterval = 3;
   const brightAccent = { r: 203, g: 183, b: 255, hex: '#cbb7ff' };
   const deepAccent = { r: 203, g: 183, b: 255 };
   const layers = [
-    { fontSize: 14, speedMin: 0.6, speedMax: 1.2, tail: 18, glow: 6, opacity: 0.6 },
-    { fontSize: 18, speedMin: 0.9, speedMax: 1.5, tail: 16, glow: 9, opacity: 0.75 },
-    { fontSize: 24, speedMin: 1.2, speedMax: 1.9, tail: 14, glow: 11, opacity: 0.9 },
+    { fontSize: 14, speedMin: 0.2, speedMax: 0.4, tail: 18, glow: 3, opacity: 0.6 },
+    { fontSize: 18, speedMin: 0.3, speedMax: 0.5, tail: 16, glow: 4, opacity: 0.75 },
+    { fontSize: 24, speedMin: 0.4, speedMax: 0.63, tail: 14, glow: 5, opacity: 0.9 },
   ];
 
   let streams = [];
   let animationId = null;
   let running = false;
+  let frameCount = 0;
 
   function blendColor(a, b, weight) {
     const inverse = 1 - weight;
@@ -33,6 +35,10 @@ function startMatrixRain(canvas) {
     };
   }
 
+  function randomChar() {
+    return characters[Math.floor(Math.random() * characters.length)];
+  }
+
   function setup() {
     canvas.width = globalWindow.innerWidth;
     canvas.height = globalWindow.innerHeight;
@@ -41,6 +47,8 @@ function startMatrixRain(canvas) {
       return Array.from({ length: columnCount }, () => ({
         y: Math.random() * canvas.height,
         speed: layer.speedMin + Math.random() * (layer.speedMax - layer.speedMin),
+        glyphOffset: Math.floor(Math.random() * glyphChangeInterval),
+        glyphs: Array.from({ length: layer.tail + 1 }, randomChar),
       }));
     });
 
@@ -52,9 +60,14 @@ function startMatrixRain(canvas) {
 
   function drawTrail(x, y, layer, columnIndex, layerIndex) {
     context.shadowBlur = layer.glow;
-    context.shadowColor = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.35)`;
+    context.shadowColor = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.2)`;
 
-    const headChar = characters[Math.floor(Math.random() * characters.length)];
+    const stream = streams[layerIndex][columnIndex];
+    if ((frameCount + stream.glyphOffset) % glyphChangeInterval === 0) {
+      stream.glyphs = stream.glyphs.map(randomChar);
+    }
+
+    const headChar = stream.glyphs[0];
     context.fillStyle = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.9)`;
     context.fillText(headChar, x, y);
 
@@ -64,13 +77,12 @@ function startMatrixRain(canvas) {
 
       const fade = 1 - depth / (layer.tail + 2);
       const colorMix = blendColor(brightAccent, deepAccent, fade);
-      const alpha = 0.15 + layer.opacity * fade * 0.75;
+      const alpha = 0.2 + layer.opacity * fade * 0.7;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
-      const trailChar = characters[Math.floor(Math.random() * characters.length)];
+      const trailChar = stream.glyphs[depth] ?? randomChar();
       context.fillText(trailChar, x, trailY);
     }
 
-    const stream = streams[layerIndex][columnIndex];
     stream.y += stream.speed;
     if (stream.y > canvas.height + layer.fontSize) {
       stream.y = Math.random() * -200;
@@ -78,6 +90,7 @@ function startMatrixRain(canvas) {
   }
 
   function draw() {
+    frameCount += 1;
     context.fillStyle = fadeFill;
     context.fillRect(0, 0, canvas.width, canvas.height);
 
