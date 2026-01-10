@@ -1,5 +1,5 @@
 // ABOUTME: Guards against stray generated text and verifies the matrix rain background asset.
-// ABOUTME: Confirms the green matrix styling and startMatrixRain export shape.
+// ABOUTME: Confirms the lavender matrix styling and startMatrixRain export shape.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -33,8 +33,15 @@ assert.ok(/reading.?time/i.test(appSource), 'Expected reading time feature to be
 
 const matrixSource = fs.readFileSync(matrixPath, 'utf8');
 assert.ok(/const\s+layers\s*=\s*\[/i.test(matrixSource), 'Expected layered streams.');
-assert.ok(/00ff00/i.test(matrixSource), 'Expected the green palette to be defined.');
-assert.ok(/rgba\(0,\s*15,\s*5,\s*0\.08\)/i.test(matrixSource), 'Expected the green fade fill.');
+assert.ok(/#cbb7ff/i.test(matrixSource), 'Expected the lavender palette to be defined.');
+assert.ok(
+  /rgba\(13,\s*17,\s*15,\s*0\.14\)/i.test(matrixSource),
+  'Expected the lavender fade fill.'
+);
+assert.ok(
+  /const\s+glyphChangeInterval\s*=\s*3/.test(matrixSource),
+  'Expected the glyph change interval to slow down the animation.'
+);
 
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
