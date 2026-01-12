@@ -12,7 +12,7 @@ function startMatrixRain(canvas) {
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
   const fadeFill = 'rgba(13, 17, 15, 0.14)';
-  const glyphChangeInterval = 8;
+  const glyphChangeInterval = 16;
   const columnSpacingRatio = 1.8;
   const brightAccent = { r: 203, g: 183, b: 255, hex: '#cbb7ff' };
   const deepAccent = { r: 203, g: 183, b: 255 };
