@@ -87,7 +87,8 @@
         const characters =
           'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
         const fadeFill = 'rgba(13, 13, 13, 0.12)';
-        const glyphChangeInterval = 3;
+        const glyphChangeInterval = 8;
+        const columnSpacingRatio = 1.8;
 
         const layers = [
           { fontSize: 14, speedMin: 0.2, speedMax: 0.4, tail: 18, glow: 3, opacity: 0.6 },
@@ -116,7 +117,8 @@
           canvas.width = window.innerWidth;
           canvas.height = window.innerHeight;
           streams = layers.map((layer) => {
-            const columnCount = Math.ceil(canvas.width / layer.fontSize) + 1;
+            const columnSpacing = layer.fontSize * columnSpacingRatio;
+            const columnCount = Math.ceil(canvas.width / columnSpacing) + 1;
             return Array.from({ length: columnCount }, () => ({
               y: Math.random() * canvas.height,
               speed: layer.speedMin + Math.random() * (layer.speedMax - layer.speedMin),
@@ -172,7 +174,7 @@
             context.font = `bold ${layer.fontSize}px 'Courier New', monospace`;
             const columns = streams[layerIndex];
             columns.forEach((stream, columnIndex) => {
-              const x = columnIndex * layer.fontSize;
+              const x = columnIndex * layer.fontSize * columnSpacingRatio;
               drawTrail(x, stream.y, layer, columnIndex, layerIndex);
             });
           });

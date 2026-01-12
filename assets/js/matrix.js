@@ -12,7 +12,8 @@ function startMatrixRain(canvas) {
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
   const fadeFill = 'rgba(13, 17, 15, 0.14)';
-  const glyphChangeInterval = 3;
+  const glyphChangeInterval = 8;
+  const columnSpacingRatio = 1.8;
   const brightAccent = { r: 203, g: 183, b: 255, hex: '#cbb7ff' };
   const deepAccent = { r: 203, g: 183, b: 255 };
   const layers = [
@@ -43,7 +44,8 @@ function startMatrixRain(canvas) {
     canvas.width = globalWindow.innerWidth;
     canvas.height = globalWindow.innerHeight;
     streams = layers.map((layer) => {
-      const columnCount = Math.ceil(canvas.width / layer.fontSize) + 1;
+      const columnSpacing = layer.fontSize * columnSpacingRatio;
+      const columnCount = Math.ceil(canvas.width / columnSpacing) + 1;
       return Array.from({ length: columnCount }, () => ({
         y: Math.random() * canvas.height,
         speed: layer.speedMin + Math.random() * (layer.speedMax - layer.speedMin),
@@ -98,7 +100,7 @@ function startMatrixRain(canvas) {
       context.font = `bold ${layer.fontSize}px 'Courier New', monospace`;
       const columns = streams[layerIndex];
       columns.forEach((stream, columnIndex) => {
-        const x = columnIndex * layer.fontSize;
+        const x = columnIndex * layer.fontSize * columnSpacingRatio;
         drawTrail(x, stream.y, layer, columnIndex, layerIndex);
       });
     });

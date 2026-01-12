@@ -39,8 +39,12 @@ assert.ok(
   'Expected the lavender fade fill.'
 );
 assert.ok(
-  /const\s+glyphChangeInterval\s*=\s*3/.test(matrixSource),
+  /const\s+glyphChangeInterval\s*=\s*8/.test(matrixSource),
   'Expected the glyph change interval to slow down the animation.'
+);
+assert.ok(
+  /const\s+columnSpacingRatio\s*=\s*1\.8/.test(matrixSource),
+  'Expected wider spacing for matrix rain columns.'
 );
 
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
