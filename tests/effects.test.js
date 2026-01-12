@@ -39,7 +39,7 @@ assert.ok(
   'Expected the lavender fade fill.'
 );
 assert.ok(
-  /const\s+glyphChangeInterval\s*=\s*8/.test(matrixSource),
+  /const\s+glyphChangeInterval\s*=\s*16/.test(matrixSource),
   'Expected the glyph change interval to slow down the animation.'
 );
 assert.ok(
