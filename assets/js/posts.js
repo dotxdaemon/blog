@@ -26,7 +26,7 @@ Sentimental Value - ok
 
 Marty Supreme - liked it. cohesion of main character vs other characters throws it off a bit
 
-Wicked: For Good
+Wicked: For Good - last 30 min are really good. why is the first 1 hr 45 min even there?
 
 A House of Dynamite - quite good! loved it.
 
