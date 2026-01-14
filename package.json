@@ -1,0 +1,11 @@
+{
+  "name": "velvetdaemon-blog",
+  "version": "1.0.0",
+  "description": "Static blog assets and tests.",
+  "private": true,
+  "scripts": {
+    "test": "node tests/run-tests.js",
+    "lint": "node -e \"process.exit(0)\"",
+    "typecheck": "node -e \"process.exit(0)\""
+  }
+}

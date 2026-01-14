@@ -13,6 +13,94 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+      .listening-widget {
+        background: #111;
+        color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        max-width: 600px;
+      }
+      .listening-widget .header {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #888;
+        margin-bottom: 15px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .track-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+      .track-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #1a1a1a;
+        padding: 10px;
+        border-radius: 8px;
+        transition: background 0.2s ease;
+        text-decoration: none;
+      }
+      .track-card:hover {
+        background: #252525;
+      }
+      .album-art {
+        width: 50px;
+        height: 50px;
+        border-radius: 4px;
+        object-fit: cover;
+        background: #333;
+      }
+      .track-info {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        min-width: 0;
+      }
+      .song-title {
+        font-weight: 600;
+        color: #1db954;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 2px;
+      }
+      .artist-name {
+        color: #ccc;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .loading {
+        font-size: 0.8rem;
+        color: #666;
+        font-style: italic;
+      }
+      .now-playing-icon {
+        animation: pulse 2s infinite;
+        color: #1db954;
+      }
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
   <body data-theme="dark">
     <canvas id="matrix-rain" class="matrix-canvas" aria-hidden="true"></canvas>
@@ -97,6 +185,15 @@
         </div>
       </section>
 
+      <section class="listening-widget container" id="music-widget">
+        <div class="header">
+          <span class="icon" aria-hidden="true">🎵</span> LISTENING TO
+        </div>
+        <div class="track-grid" id="track-grid">
+          <div class="loading">Loading tracks...</div>
+        </div>
+      </section>
+
       <section class="post-feed container" aria-label="Post feed">
         <div class="section-header">
           <p class="eyebrow">Archive</p>
@@ -126,6 +223,57 @@
       </div>
     </footer>
 
+    <script>
+      const USERNAME = 'velvetdaemon';
+      const API_KEY = '2bbf4ee9e1f771ed5887745e562d499c';
+
+      const url =
+        'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks' +
+        `&user=${USERNAME}&api_key=${API_KEY}&format=json&limit=4`;
+
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          const tracks = data.recenttracks.track;
+          const container = document.getElementById('track-grid');
+
+          container.innerHTML = '';
+
+          tracks.forEach((track) => {
+            const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+            const image =
+              (track.image && track.image[2] && track.image[2]['#text']) ||
+              'https://via.placeholder.com/50';
+
+            const card = document.createElement('a');
+            card.className = 'track-card';
+            card.href = track.url;
+            card.target = '_blank';
+            card.rel = 'noreferrer';
+
+            card.innerHTML = `
+                <img src="${image}" alt="${track.name}" class="album-art">
+                <div class="track-info">
+                  <div class="song-title">${track.name}</div>
+                  <div class="artist-name">${track.artist['#text']}</div>
+                </div>
+              `;
+
+            if (isPlaying) {
+              card.querySelector('.song-title').innerHTML = `
+                  <span class="now-playing-icon">▶</span> ${track.name}
+                `;
+            }
+
+            container.appendChild(card);
+          });
+        })
+        .catch((error) => {
+          console.error('Error fetching Last.fm data:', error);
+          document.getElementById('track-grid').innerHTML =
+            '<div class="loading">Error loading music.</div>';
+        });
+    </script>
     <script src="assets/js/matrix.js"></script>
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/app.js" type="module"></script>
