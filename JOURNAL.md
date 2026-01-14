@@ -15,3 +15,6 @@
 - Date: 2026-01-15
   Task: Restyled the Last.fm section and removed post card borders.
   Notes: Updated artwork selection and added coverage for Last.fm styling and image handling.
+- Date: 2026-02-14
+  Task: Allowed the matrix rain toggle to stay clickable with reduced motion defaults.
+  Notes: Added aria-disabled updates and extended matrix toggle coverage in tests.
