@@ -36,4 +36,8 @@ scriptFiles.forEach((file) => {
     /matrix-enabled/i.test(source),
     `Expected ${file} to toggle the matrix-enabled class.`
   );
+  assert.ok(
+    /aria-disabled/i.test(source),
+    `Expected ${file} to update the aria-disabled state for reduced motion.`
+  );
 });

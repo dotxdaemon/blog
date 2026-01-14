@@ -339,10 +339,6 @@
 
     if (toggle) {
       toggle.addEventListener('click', () => {
-        if (prefersReduced) {
-          applyMatrixState(false);
-          return;
-        }
         applyMatrixState(!isEnabled);
       });
     }
@@ -353,7 +349,7 @@
       document.body.classList.toggle('matrix-enabled', isEnabled);
       if (toggle) {
         toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
-        toggle.disabled = prefersReduced;
+        toggle.setAttribute('aria-disabled', prefersReduced ? 'true' : 'false');
       }
       localStorage.setItem('matrixEnabled', String(isEnabled));
 
