@@ -433,7 +433,9 @@ function setupListeningWidgets() {
 
       const image = document.createElement('img');
       image.className = 'album-art';
-      image.src = imageUrl || 'https://via.placeholder.com/50';
+      if (imageUrl) {
+        image.src = imageUrl;
+      }
       image.alt = track.name || 'Track artwork';
       cardLink.appendChild(image);
 
@@ -481,12 +483,17 @@ function setupListeningWidgets() {
       return '';
     }
 
-    const preferred = track.image.find((image) => image && image.size === 'extralarge');
-    if (preferred && preferred['#text']) {
+    const sizePreference = ['extralarge', 'large', 'medium', 'small'];
+    const preferred = sizePreference
+      .map((size) =>
+        track.image.find((image) => image && image.size === size && image['#text'])
+      )
+      .find((image) => image);
+    if (preferred) {
       return preferred['#text'];
     }
 
-    const fallback = track.image[2] && track.image[2]['#text'];
-    return fallback || '';
+    const fallback = track.image.find((image) => image && image['#text']);
+    return fallback ? fallback['#text'] : '';
   }
 }

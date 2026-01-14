@@ -572,6 +572,57 @@ select {
   border-color: var(--accent);
 }
 
+.track-grid {
+  margin-top: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.track-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--surface);
+  border-radius: 0.75rem;
+  border: none;
+  text-decoration: none;
+  color: inherit;
+  font-family: var(--font-sans);
+}
+
+.track-card:hover {
+  color: var(--accent);
+}
+
+.album-art {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.6rem;
+  background: var(--muted);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.track-info {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.song-title {
+  font-weight: 600;
+}
+
+.artist-name {
+  color: var(--muted-strong);
+  font-size: 0.95rem;
+}
+
+.now-playing-icon {
+  color: var(--accent);
+  margin-right: 0.35rem;
+}
+
 @media (min-width: 640px) {
   .now-playing__card {
     flex-direction: row;
@@ -641,13 +692,12 @@ select {
 
 .post-card {
   background: var(--surface);
-  border: 1px solid rgba(203, 183, 255, 0.25);
+  border: none;
   box-shadow: none;
   transition: border-color 0.2s ease;
 }
 
 .post-card:hover {
-  border-color: rgba(203, 183, 255, 0.4);
   box-shadow: none;
 }
 
