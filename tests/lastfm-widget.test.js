@@ -15,6 +15,11 @@ assert.ok(
 );
 
 assert.ok(
+  !/Last\.fm/.test(html),
+  'Expected the last played header to omit Last.fm text.'
+);
+
+assert.ok(
   /id="track-grid"/i.test(html),
   'Expected the last played section to include a track grid container.'
 );
@@ -27,6 +32,16 @@ assert.ok(
 assert.ok(
   /ws\.audioscrobbler\.com/i.test(appSource),
   'Expected the Last.fm API to be handled in assets/js/app.js.'
+);
+
+assert.ok(
+  /Last 4 plays/.test(appSource),
+  'Expected the last played status to describe the recent plays.'
+);
+
+assert.ok(
+  !/Last 4 plays on Last\.fm/.test(appSource),
+  'Expected the last played status to avoid referencing Last.fm.'
 );
 
 assert.ok(

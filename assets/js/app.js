@@ -406,7 +406,7 @@ function setupListeningWidgets() {
       updateTrackGrid(tracks);
 
       if (status) {
-        status.textContent = 'Last 4 plays on Last.fm';
+        status.textContent = 'Last 4 plays';
       }
     })
     .catch(() => {
