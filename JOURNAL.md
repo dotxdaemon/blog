@@ -6,3 +6,9 @@
 - Date: 2026-01-14
   Task: Added a Last.fm listening widget to the homepage with coverage in tests.
   Notes: Created a minimal npm test runner and documented the change.
+- Date: 2026-01-14
+  Task: Combined the Last.fm last-played and listening widgets into a single client fetch flow.
+  Notes: Moved the Last.fm fetch into the main app script and updated the homepage labels.
+- Date: 2026-01-14
+  Task: Updated the Last.fm section to show the last four plays in a single grid.
+  Notes: Removed the standalone listening widget and simplified the Last.fm rendering flow.

@@ -31,7 +31,7 @@ if (currentYearEl) {
 setupNavToggle();
 setupThemeToggle();
 setupMatrixRain();
-setupLastPlayed();
+setupListeningWidgets();
 
 function createEmptyCard() {
   const item = document.createElement('li');
@@ -385,107 +385,108 @@ function setupMatrixRain() {
   }
 }
 
-function setupLastPlayed() {
+function setupListeningWidgets() {
   const section = document.querySelector('[data-last-played]');
-  if (!section || typeof window.fetch !== 'function') return;
+  const trackGrid = document.getElementById('track-grid');
+  if ((!section && !trackGrid) || typeof window.fetch !== 'function') return;
 
-  const status = section.querySelector('[data-last-played-status]');
-  const card = section.querySelector('[data-last-played-card]');
-  const artwork = section.querySelector('[data-last-played-artwork]');
-  const title = section.querySelector('[data-last-played-title]');
-  const artist = section.querySelector('[data-last-played-artist]');
-  const album = section.querySelector('[data-last-played-album]');
-  const time = section.querySelector('[data-last-played-time]');
-  const link = section.querySelector('[data-last-played-link]');
+  const status = section ? section.querySelector('[data-last-played-status]') : null;
 
-  fetch('assets/data/last-played.json', { cache: 'no-store' })
+  const username = 'velvetdaemon';
+  const apiKey = '2bbf4ee9e1f771ed5887745e562d499c';
+  const url =
+    'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks' +
+    `&user=${username}&api_key=${apiKey}&format=json&limit=4`;
+
+  fetch(url)
     .then((response) => (response.ok ? response.json() : null))
     .then((data) => {
-      if (!data || !data.title || !title) {
-        renderEmptyState();
+      const tracks = data && data.recenttracks && data.recenttracks.track;
+      if (!Array.isArray(tracks) || tracks.length === 0) {
+        renderEmptyState('No recent plays available yet.');
         return;
       }
 
-      title.textContent = data.title;
-
-      if (artist) {
-        artist.textContent = data.artist ? `by ${data.artist}` : '';
-      }
-
-      if (album) {
-        album.textContent = data.album ? data.album : '';
-      }
-
-      if (time) {
-        const formattedTime = formatPlayedAt(data.playedAt);
-        time.textContent = formattedTime ? `· ${formattedTime}` : '';
-      }
-
-      if (artwork) {
-        if (data.artworkUrl) {
-          artwork.textContent = '';
-          artwork.style.backgroundImage = `url("${data.artworkUrl}")`;
-          artwork.style.backgroundSize = 'cover';
-          artwork.style.backgroundPosition = 'center';
-        } else {
-          artwork.textContent = '♪';
-          artwork.style.backgroundImage = '';
-        }
-      }
-
-      if (link) {
-        if (data.url) {
-          link.href = data.url;
-          link.style.display = '';
-        } else {
-          link.style.display = 'none';
-        }
-      }
+      updateTrackGrid(tracks);
 
       if (status) {
-        status.textContent = 'Most recent play on Apple Music';
+        status.textContent = 'Last 4 plays on Last.fm';
       }
     })
     .catch(() => {
-      renderEmptyState();
+      renderEmptyState('Error loading music.');
     });
 
-  function renderEmptyState() {
+  function updateTrackGrid(tracks) {
+    if (!trackGrid) return;
+
+    trackGrid.innerHTML = '';
+    tracks.slice(0, 4).forEach((track) => {
+      const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+      const imageUrl = getTrackImage(track);
+
+      const cardLink = document.createElement('a');
+      cardLink.className = 'track-card';
+      cardLink.href = track.url || '#';
+      cardLink.target = '_blank';
+      cardLink.rel = 'noreferrer';
+
+      const image = document.createElement('img');
+      image.className = 'album-art';
+      image.src = imageUrl || 'https://via.placeholder.com/50';
+      image.alt = track.name || 'Track artwork';
+      cardLink.appendChild(image);
+
+      const info = document.createElement('div');
+      info.className = 'track-info';
+
+      const songTitle = document.createElement('div');
+      songTitle.className = 'song-title';
+      if (isPlaying) {
+        songTitle.innerHTML = `<span class="now-playing-icon">▶</span> ${track.name || ''}`;
+      } else {
+        songTitle.textContent = track.name || '';
+      }
+
+      const artistName = document.createElement('div');
+      artistName.className = 'artist-name';
+      artistName.textContent = track.artist && track.artist['#text'] ? track.artist['#text'] : '';
+
+      info.appendChild(songTitle);
+      info.appendChild(artistName);
+      cardLink.appendChild(info);
+
+      trackGrid.appendChild(cardLink);
+    });
+  }
+
+  function renderLastPlayedEmpty() {
     if (status) {
       status.textContent = 'No recent plays available yet.';
     }
-    if (title) {
-      title.textContent = 'Nothing queued';
-    }
-    if (artist) {
-      artist.textContent = '';
-    }
-    if (album) {
-      album.textContent = '';
-    }
-    if (time) {
-      time.textContent = '';
-    }
-    if (link) {
-      link.style.display = 'none';
-    }
-  }
-}
-
-function formatPlayedAt(isoString) {
-  if (!isoString) {
-    return '';
   }
 
-  const date = new Date(isoString);
-  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
-    return '';
+  function renderTrackGridEmpty(message) {
+    if (!trackGrid) return;
+    trackGrid.innerHTML = `<div class="loading">${message}</div>`;
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-  }).format(date);
+  function renderEmptyState(message) {
+    renderLastPlayedEmpty();
+    renderTrackGridEmpty(message);
+  }
+
+  function getTrackImage(track) {
+    if (!track || !Array.isArray(track.image)) {
+      return '';
+    }
+
+    const preferred = track.image.find((image) => image && image.size === 'extralarge');
+    if (preferred && preferred['#text']) {
+      return preferred['#text'];
+    }
+
+    const fallback = track.image[2] && track.image[2]['#text'];
+    return fallback || '';
+  }
 }
