@@ -5,19 +5,31 @@ const fs = require('fs');
 const path = require('path');
 
 const indexPath = path.join(__dirname, '..', 'index.html');
+const appPath = path.join(__dirname, '..', 'assets', 'js', 'app.js');
 const html = fs.readFileSync(indexPath, 'utf8');
+const appSource = fs.readFileSync(appPath, 'utf8');
 
 assert.ok(
-  /id="music-widget"/i.test(html),
-  'Expected a music widget container with id="music-widget".'
-);
-
-assert.ok(
-  /class="[^"]*listening-widget/i.test(html),
-  'Expected the listening widget class on the music widget container.'
+  /data-last-played[\s\S]*id="track-grid"/i.test(html),
+  'Expected the last played section to include the track grid container.'
 );
 
 assert.ok(
   /id="track-grid"/i.test(html),
-  'Expected the listening widget to include a track grid container.'
+  'Expected the last played section to include a track grid container.'
+);
+
+assert.ok(
+  !/id="music-widget"/i.test(html),
+  'Expected the standalone music widget container to be removed.'
+);
+
+assert.ok(
+  /ws\.audioscrobbler\.com/i.test(appSource),
+  'Expected the Last.fm API to be handled in assets/js/app.js.'
+);
+
+assert.ok(
+  !/ws\.audioscrobbler\.com/i.test(html),
+  'Expected the Last.fm API to not be embedded inline in index.html.'
 );
