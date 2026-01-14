@@ -33,3 +33,13 @@ assert.ok(
   !/ws\.audioscrobbler\.com/i.test(html),
   'Expected the Last.fm API to not be embedded inline in index.html.'
 );
+
+assert.ok(
+  !/via\.placeholder\.com/i.test(appSource),
+  'Expected the Last.fm artwork handling to avoid placeholder URLs.'
+);
+
+assert.ok(
+  /image\) => image && image\['#text'\]/.test(appSource),
+  'Expected the Last.fm artwork handler to prefer the first populated image.'
+);

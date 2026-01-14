@@ -12,3 +12,6 @@
 - Date: 2026-01-14
   Task: Updated the Last.fm section to show the last four plays in a single grid.
   Notes: Removed the standalone listening widget and simplified the Last.fm rendering flow.
+- Date: 2026-01-15
+  Task: Restyled the Last.fm section and removed post card borders.
+  Notes: Updated artwork selection and added coverage for Last.fm styling and image handling.
