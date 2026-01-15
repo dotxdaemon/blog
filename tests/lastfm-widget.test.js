@@ -35,13 +35,18 @@ assert.ok(
 );
 
 assert.ok(
-  /Last 4 plays/.test(appSource),
+  /Recent plays/.test(appSource),
   'Expected the last played status to describe the recent plays.'
 );
 
 assert.ok(
   !/Last 4 plays on Last\.fm/.test(appSource),
   'Expected the last played status to avoid referencing Last.fm.'
+);
+
+assert.ok(
+  !/Last 4 plays/.test(appSource),
+  'Expected the last played status to avoid mentioning the count.'
 );
 
 assert.ok(

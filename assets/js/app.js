@@ -406,7 +406,7 @@ function setupListeningWidgets() {
       updateTrackGrid(tracks);
 
       if (status) {
-        status.textContent = 'Last 4 plays';
+        status.textContent = 'Recent plays';
       }
     })
     .catch(() => {

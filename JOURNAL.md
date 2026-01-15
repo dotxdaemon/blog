@@ -21,3 +21,6 @@
 - Date: 2026-02-14
   Task: Allowed the matrix rain toggle to stay clickable with reduced motion defaults.
   Notes: Added aria-disabled updates and extended matrix toggle coverage in tests.
+- Date: 2026-01-15
+  Task: Updated the Last.fm widget status copy and aligned widget styling with theme.
+  Notes: Removed inline styles, moved missing styles into the main stylesheet, and adjusted Last.fm tests.
