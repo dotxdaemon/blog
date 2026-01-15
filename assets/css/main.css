@@ -107,6 +107,18 @@ body::before {
   }
 }
 
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body::before {
     animation: none;
@@ -575,6 +587,7 @@ select {
 .track-grid {
   margin-top: var(--space-3);
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--space-3);
 }
 
@@ -607,20 +620,34 @@ select {
 .track-info {
   display: grid;
   gap: 0.25rem;
+  min-width: 0;
 }
 
 .song-title {
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .artist-name {
   color: var(--muted-strong);
   font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .now-playing-icon {
   color: var(--accent);
   margin-right: 0.35rem;
+  animation: pulse 2s infinite;
+}
+
+.loading {
+  color: var(--muted-strong);
+  font-size: 0.95rem;
+  font-style: italic;
 }
 
 @media (min-width: 640px) {
