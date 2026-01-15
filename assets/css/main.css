@@ -128,6 +128,10 @@ body::before {
   .matrix-canvas {
     display: none;
   }
+
+  body.matrix-enabled .matrix-canvas {
+    display: block;
+  }
 }
 
 .matrix-canvas {

@@ -61,3 +61,28 @@ assert.ok(
   /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.18/i.test(css),
   'Expected the matrix canvas opacity to intensify when enabled.'
 );
+const reducedMotionStart = css.indexOf('@media (prefers-reduced-motion: reduce)');
+assert.ok(reducedMotionStart !== -1, 'Expected reduced-motion styles to exist.');
+const reducedMotionOpen = css.indexOf('{', reducedMotionStart);
+assert.ok(reducedMotionOpen !== -1, 'Expected reduced-motion styles to open a block.');
+let reducedMotionClose = -1;
+let reducedMotionDepth = 0;
+for (let i = reducedMotionOpen; i < css.length; i += 1) {
+  if (css[i] === '{') {
+    reducedMotionDepth += 1;
+  } else if (css[i] === '}') {
+    reducedMotionDepth -= 1;
+  }
+  if (reducedMotionDepth === 0) {
+    reducedMotionClose = i;
+    break;
+  }
+}
+assert.ok(reducedMotionClose !== -1, 'Expected reduced-motion styles to close the block.');
+const reducedMotionBlock = css.slice(reducedMotionOpen, reducedMotionClose);
+assert.ok(
+  /body\.matrix-enabled[\s\S]*\.matrix-canvas[\s\S]*display:\s*block/i.test(
+    reducedMotionBlock
+  ),
+  'Expected reduced-motion styles to allow the matrix canvas when enabled.'
+);

@@ -24,3 +24,6 @@
 - Date: 2026-01-15
   Task: Updated the Last.fm widget status copy and aligned widget styling with theme.
   Notes: Removed inline styles, moved missing styles into the main stylesheet, and adjusted Last.fm tests.
+- Date: 2026-01-15
+  Task: Let the matrix rain animation appear when enabled under reduced motion.
+  Notes: Added reduced-motion CSS override coverage for the matrix canvas.
