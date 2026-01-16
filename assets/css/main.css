@@ -66,6 +66,12 @@ body {
   position: relative;
 }
 
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
 body::before {
   content: '';
   position: fixed;
@@ -75,6 +81,15 @@ body::before {
   pointer-events: none;
   z-index: 2;
   animation: page-fade-out 220ms ease-out forwards;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes page-fade-out {
@@ -352,8 +367,11 @@ select {
   gap: 0.35rem;
   padding: 0.1rem 0.25rem;
   border: none;
+  font-family: var(--font-mono);
   font-weight: 500;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .nav-link:hover {
@@ -494,6 +512,7 @@ select {
   margin: 0 0 0.35rem;
   font-size: 1.5rem;
   line-height: 1.2;
+  font-family: var(--font-sans);
 }
 
 .hero__title::after {
@@ -591,18 +610,18 @@ select {
 .track-grid {
   margin-top: var(--space-3);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-3);
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .track-card {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3);
-  background: var(--surface);
-  border-radius: 0.75rem;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  background: transparent;
   border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   text-decoration: none;
   color: inherit;
   font-family: var(--font-sans);
@@ -612,31 +631,40 @@ select {
   color: var(--accent);
 }
 
+.track-card:last-child {
+  border-bottom: none;
+}
+
 .album-art {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 0.6rem;
+  width: 2.25rem;
+  height: 2.25rem;
   background: var(--muted);
   object-fit: cover;
   flex-shrink: 0;
 }
 
 .track-info {
-  display: grid;
-  gap: 0.25rem;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
   min-width: 0;
 }
 
 .song-title {
   font-weight: 600;
+  font-family: var(--font-sans);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .artist-name {
   color: var(--muted-strong);
   font-size: 0.95rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -718,11 +746,13 @@ select {
   display: block;
   width: 100%;
   padding: var(--space-4) var(--space-4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
   cursor: pointer;
 }
 
 .post-card {
-  background: var(--surface);
+  background: transparent;
   border: none;
   box-shadow: none;
   transition: border-color 0.2s ease;
@@ -769,6 +799,9 @@ select {
   font-size: 1rem;
   color: var(--muted-strong);
   margin: 0 0 var(--space-1);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .post-snippet__excerpt {
@@ -896,7 +929,7 @@ pre {
   color: var(--foreground);
   margin: 0 0 var(--space-2);
   line-height: 1.2;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 
 @media (min-width: 640px) {
@@ -919,6 +952,9 @@ pre {
   gap: 0.55rem;
   color: var(--muted-strong);
   font-size: 0.95rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .meta-divider {
