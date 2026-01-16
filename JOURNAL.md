@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-01-16
+  Task: Shifted the blog UI to a digital gothic aesthetic with sharper geometry and typography.
+  Notes: Added CSS and test coverage for square geometry, metadata styling, overlays, and log-style music layout.
 - Date: 2025-01-05
   Task: Adjusted post list spacing and hierarchy, added CSS style test, and captured UI screenshot.
   Notes: Applied TDD for CSS changes and validated styling via node test.

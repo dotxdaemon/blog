@@ -10,8 +10,8 @@ const css = fs.readFileSync(cssPath, 'utf8');
 assert.ok(css.includes('.track-grid {'), 'Expected track grid styles to be defined.');
 assert.ok(css.includes('.track-card {'), 'Expected track card styles to be defined.');
 assert.ok(
-  css.includes('grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));'),
-  'Expected the track grid to define responsive columns.'
+  css.includes('grid-template-columns: 1fr;'),
+  'Expected the track grid to render as a single-column log.'
 );
 assert.ok(
   css.includes('font-family: var(--font-sans);'),

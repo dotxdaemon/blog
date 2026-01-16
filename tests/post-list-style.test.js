@@ -13,8 +13,8 @@ assert.ok(
   'Expected post list items to use vertical spacing via gap.'
 );
 assert.ok(
-  css.includes('.post-card {\n  background: var(--surface);\n  border: none;'),
-  'Expected post cards to avoid borders for a cleaner layout.'
+  css.includes('.post-card {\n  background: transparent;\n  border: none;'),
+  'Expected post cards to render without a filled background.'
 );
 assert.ok(
   css.includes('font-size: 1.35rem;'),
