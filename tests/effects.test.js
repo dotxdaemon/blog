@@ -35,11 +35,11 @@ const matrixSource = fs.readFileSync(matrixPath, 'utf8');
 assert.ok(/const\s+layers\s*=\s*\[/i.test(matrixSource), 'Expected layered streams.');
 assert.ok(/#cbb7ff/i.test(matrixSource), 'Expected the lavender palette to be defined.');
 assert.ok(
-  /rgba\(13,\s*17,\s*15,\s*0\.1\)/i.test(matrixSource),
+  /rgba\(13,\s*17,\s*15,\s*0\.06\)/i.test(matrixSource),
   'Expected the lavender fade fill.'
 );
 assert.ok(
-  /const\s+glyphChangeInterval\s*=\s*16/.test(matrixSource),
+  /const\s+glyphChangeInterval\s*=\s*24/.test(matrixSource),
   'Expected the glyph change interval to slow down the animation.'
 );
 assert.ok(
@@ -50,15 +50,15 @@ assert.ok(
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 assert.ok(
-  /\.matrix-canvas[\s\S]*opacity:\s*0\.06/i.test(css),
-  'Expected the matrix canvas opacity to be increased for light mode.'
+  /\.matrix-canvas[\s\S]*opacity:\s*0\.12/i.test(css),
+  'Expected the matrix canvas opacity to be more pronounced.'
 );
 assert.ok(
-  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.05/i.test(css),
-  'Expected the matrix canvas opacity to be increased for dark mode.'
+  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.1/i.test(css),
+  'Expected the matrix canvas opacity to be more pronounced in dark mode.'
 );
 assert.ok(
-  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.24/i.test(css),
+  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.4/i.test(css),
   'Expected the matrix canvas opacity to intensify when enabled.'
 );
 const reducedMotionStart = css.indexOf('@media (prefers-reduced-motion: reduce)');

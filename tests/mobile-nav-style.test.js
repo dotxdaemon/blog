@@ -17,6 +17,6 @@ assert.ok(
 );
 
 assert.ok(
-  /\.nav-menu\.is-open\s+\.theme-toggle\s*\{[^}]*width:\s*100%;[^}]*\}/s.test(css),
-  'Expected mobile theme toggle to span the full nav width.'
+  !/\.theme-toggle/i.test(css),
+  'Expected theme toggle styles to be removed.'
 );

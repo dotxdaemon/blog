@@ -44,7 +44,7 @@
         height: 100%;
         display: block;
         background: var(--matrix-background);
-        filter: drop-shadow(0 0 6px rgba(203, 183, 255, 0.14));
+        filter: drop-shadow(0 0 12px rgba(203, 183, 255, 0.25));
       }
 
       .hud {
@@ -76,7 +76,7 @@
     <canvas id="golden-matrix" aria-hidden="true"></canvas>
     <div class="hud" aria-hidden="true">
       <p class="hud__title">Lavender Matrix Rain</p>
-      <p class="hud__subtitle">Slow parallax streams with bright leading heads.</p>
+      <p class="hud__subtitle">Slow luminous streams with a velvet glow.</p>
     </div>
 
     <script>
@@ -86,14 +86,14 @@
 
         const characters =
           'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-        const fadeFill = 'rgba(13, 13, 13, 0.12)';
-        const glyphChangeInterval = 8;
+        const fadeFill = 'rgba(13, 13, 13, 0.08)';
+        const glyphChangeInterval = 24;
         const columnSpacingRatio = 1.8;
 
         const layers = [
-          { fontSize: 14, speedMin: 0.2, speedMax: 0.4, tail: 18, glow: 3, opacity: 0.6 },
-          { fontSize: 18, speedMin: 0.3, speedMax: 0.5, tail: 16, glow: 4, opacity: 0.75 },
-          { fontSize: 24, speedMin: 0.4, speedMax: 0.63, tail: 14, glow: 5, opacity: 0.9 },
+          { fontSize: 16, speedMin: 0.05, speedMax: 0.12, tail: 28, glow: 6, opacity: 0.85 },
+          { fontSize: 22, speedMin: 0.08, speedMax: 0.16, tail: 24, glow: 7, opacity: 0.95 },
+          { fontSize: 30, speedMin: 0.1, speedMax: 0.2, tail: 20, glow: 8, opacity: 1 },
         ];
 
         let streams = [];
@@ -136,7 +136,7 @@
           const emerald = { r: 203, g: 183, b: 255 };
           const lavender = { r: 203, g: 183, b: 255 };
           context.shadowBlur = layer.glow;
-          context.shadowColor = 'rgba(203, 183, 255, 0.2)';
+          context.shadowColor = 'rgba(203, 183, 255, 0.45)';
 
           const stream = streams[layerIndex][columnIndex];
           if ((frameCount + stream.glyphOffset) % glyphChangeInterval === 0) {
@@ -144,7 +144,7 @@
           }
 
           const headChar = stream.glyphs[0];
-          context.fillStyle = 'rgba(203, 183, 255, 0.95)';
+          context.fillStyle = 'rgba(203, 183, 255, 1)';
           context.fillText(headChar, x, y);
 
           for (let depth = 1; depth <= layer.tail; depth += 1) {
@@ -153,7 +153,7 @@
 
             const fade = 1 - depth / (layer.tail + 2);
             const colorMix = blendColor(lavender, emerald, fade);
-            const alpha = 0.2 + layer.opacity * fade * 0.7;
+            const alpha = 0.35 + layer.opacity * fade * 0.7;
             context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
             const trailChar = stream.glyphs[depth] ?? randomChar();
             context.fillText(trailChar, x, trailY);

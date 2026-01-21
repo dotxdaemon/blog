@@ -50,7 +50,6 @@
 
   // Setup common functionality
   setupNavToggle();
-  setupThemeToggle();
   setupMatrixRain();
   setCurrentYear();
 
@@ -159,31 +158,6 @@
         }
       });
     });
-  }
-
-  function setupThemeToggle() {
-    const themeButton = document.querySelector('.theme-toggle');
-    const root = document.body;
-    if (!themeButton || !root) return;
-
-    const prefersDark =
-      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const storedTheme = localStorage.getItem('vd-theme');
-    const startingTheme = storedTheme || (prefersDark ? 'dark' : 'light');
-
-    applyTheme(startingTheme);
-
-    themeButton.addEventListener('click', () => {
-      const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme);
-    });
-
-    function applyTheme(theme) {
-      const safeTheme = theme === 'dark' ? 'dark' : 'light';
-      root.dataset.theme = safeTheme;
-      themeButton.setAttribute('aria-pressed', safeTheme === 'dark' ? 'true' : 'false');
-      localStorage.setItem('vd-theme', safeTheme);
-    }
   }
 
   function setupMatrixRain() {

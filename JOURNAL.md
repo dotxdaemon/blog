@@ -33,3 +33,6 @@
 - Date: 2026-01-21
   Task: Made the matrix rain more visible and ensured theme overlays respond to light mode.
   Notes: Adjusted the matrix animation opacity and theme backdrop tokens with updated tests.
+- Date: 2026-02-16
+  Task: Slowed the matrix rain and removed theme toggling controls from the UI.
+  Notes: Increased rain visibility, refreshed demo settings, and updated tests and documentation.

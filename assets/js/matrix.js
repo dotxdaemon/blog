@@ -11,15 +11,15 @@ function startMatrixRain(canvas) {
   const context = canvas.getContext('2d');
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-  const fadeFill = 'rgba(13, 17, 15, 0.1)';
-  const glyphChangeInterval = 16;
+  const fadeFill = 'rgba(13, 17, 15, 0.06)';
+  const glyphChangeInterval = 24;
   const columnSpacingRatio = 1.8;
   const brightAccent = { r: 203, g: 183, b: 255, hex: '#cbb7ff' };
   const deepAccent = { r: 203, g: 183, b: 255 };
   const layers = [
-    { fontSize: 14, speedMin: 0.2, speedMax: 0.4, tail: 18, glow: 3, opacity: 0.6 },
-    { fontSize: 18, speedMin: 0.3, speedMax: 0.5, tail: 16, glow: 4, opacity: 0.75 },
-    { fontSize: 24, speedMin: 0.4, speedMax: 0.63, tail: 14, glow: 5, opacity: 0.9 },
+    { fontSize: 16, speedMin: 0.05, speedMax: 0.12, tail: 28, glow: 6, opacity: 0.85 },
+    { fontSize: 22, speedMin: 0.08, speedMax: 0.16, tail: 24, glow: 7, opacity: 0.95 },
+    { fontSize: 30, speedMin: 0.1, speedMax: 0.2, tail: 20, glow: 8, opacity: 1 },
   ];
 
   let streams = [];
@@ -62,7 +62,7 @@ function startMatrixRain(canvas) {
 
   function drawTrail(x, y, layer, columnIndex, layerIndex) {
     context.shadowBlur = layer.glow;
-    context.shadowColor = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.2)`;
+    context.shadowColor = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.45)`;
 
     const stream = streams[layerIndex][columnIndex];
     if ((frameCount + stream.glyphOffset) % glyphChangeInterval === 0) {
@@ -79,7 +79,7 @@ function startMatrixRain(canvas) {
 
       const fade = 1 - depth / (layer.tail + 2);
       const colorMix = blendColor(brightAccent, deepAccent, fade);
-      const alpha = 0.25 + layer.opacity * fade * 0.7;
+      const alpha = 0.35 + layer.opacity * fade * 0.7;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
       const trailChar = stream.glyphs[depth] ?? randomChar();
       context.fillText(trailChar, x, trailY);
