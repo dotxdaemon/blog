@@ -36,3 +36,6 @@
 - Date: 2026-02-16
   Task: Slowed the matrix rain and removed theme toggling controls from the UI.
   Notes: Increased rain visibility, refreshed demo settings, and updated tests and documentation.
+- Date: 2026-02-17
+  Task: Enabled the matrix rain by default across the site.
+  Notes: Updated toggle defaults in scripts, refreshed tests, and captured a screenshot of the active rain.
