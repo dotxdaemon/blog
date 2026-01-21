@@ -2,7 +2,7 @@
 
 ## Reference inventory
 - Layout shell lives in `src/layouts/Layout.astro` and sets the global HTML scaffold, meta tags, and applies `src/styles/global.css` plus view transitions.
-- Header/navigation comes from `src/components/Header.astro` with a skip link, collapsible menu, theme toggle, and menu grid on small viewports.
+- Header/navigation comes from `src/components/Header.astro` with a skip link, collapsible menu, and menu grid on small viewports.
 - Footer lives in `src/components/Footer.astro` with the shared `Hr.astro` divider and centered social/attribution links.
 - Post list cards are rendered by `src/components/Card.astro`; post detail pages use `src/layouts/BlogPostLayout.astro` (max width 3xl, accent title, metadata row, `prose` content).
 - Global styles are in `src/styles/global.css` (light/dark CSS variables, sections/footers use `max-w-3xl px-4`, body uses `font-mono`, accent colors) and `src/styles/typography.css` (Tailwind `prose` overrides: dashed link underlines, accent markers, bordered code blocks, rounded inline code). No custom Tailwind config beyond defaults.
@@ -11,7 +11,7 @@
 
 ## Reference -> target mapping
 - `src/layouts/Layout.astro` ➜ `index.html` shell (head tags, max-width sections, main content container).
-- `src/components/Header.astro` ➜ `index.html` header/nav structure with skip link, menu toggle, and theme button styling in `assets/css/main.css` plus behavior in `assets/js/app.js`.
+- `src/components/Header.astro` ➜ `index.html` header/nav structure with skip link and menu toggle styling in `assets/css/main.css` plus behavior in `assets/js/app.js`.
 - `src/components/Footer.astro`/`Hr.astro` ➜ footer block and dividers in `index.html` with matching spacing and link treatment in `assets/css/main.css`.
 - `src/components/Card.astro` ➜ post list markup emitted by `assets/js/app.js` and styled in `assets/css/main.css`.
 - `src/layouts/BlogPostLayout.astro`/`src/styles/typography.css` prose rules ➜ post body/excerpt styling, code blocks, and link treatments in `assets/css/main.css`.
@@ -30,7 +30,6 @@
 
 ## Header and mobile nav behavior
 - Skip link targets `#main-content`. Nav toggle controls `#primary-nav` and switches `aria-expanded`; on mobile the menu is a two-column grid, collapsing into a row on larger screens.
-- Theme toggle writes `data-theme` on `<body>` and stores the choice in `localStorage`, honoring `prefers-color-scheme` for the initial mode.
 - Footer carries a divider, mirrored link styling, and a centered/year badge similar to the reference footer’s stacked layout on small screens and row layout on larger ones.
 
 ## iOS Safari zoom guard
@@ -56,7 +55,6 @@ All tests pass without errors. The layout matches the reference steipete.me stru
 - Nav links for Posts and About present
 - Main content with data-layout="index"
 - Hero section with data-hero marker
-- Theme toggle control in header
 - Posts section with id="posts"
 - Latest writing section header
 - Post card structure matches reference Card.astro pattern

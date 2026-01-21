@@ -41,8 +41,8 @@ assert.ok(
 );
 
 assert.ok(
-  /class="theme-toggle"/i.test(html),
-  'Expected a theme toggle control in the header.'
+  !/class="theme-toggle"/i.test(html),
+  'Expected the theme toggle control to be removed from the header.'
 );
 
 assert.ok(

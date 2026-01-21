@@ -16,7 +16,7 @@ assert.ok(/#cbb7ff/i.test(html), 'Expected the primary lavender color to be defi
 assert.ok(/Courier\s+New/i.test(html), 'Expected the monospace font to be Courier New.');
 assert.ok(/shadowBlur/i.test(html), 'Expected glow or bloom styling via shadow blur.');
 assert.ok(
-  /rgba\(13,\s*13,\s*13,\s*0\.12\)/i.test(html),
+  /rgba\(13,\s*13,\s*13,\s*0\.08\)/i.test(html),
   'Expected smooth trails drawn with a translucent black overlay.'
 );
 assert.ok(/[\u30a0-\u30ff]/.test(html), 'Expected Katakana characters in the custom character set.');

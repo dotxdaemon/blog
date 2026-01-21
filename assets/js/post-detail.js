@@ -29,7 +29,6 @@
   setupProgressBar();
   setupBackToTop();
   setupNavToggle();
-  setupThemeToggle();
   setupMatrixRain();
   setupKeyboardNavigation(currentIndex);
   setCurrentYear();
@@ -476,31 +475,6 @@
         }
       });
     });
-  }
-
-  function setupThemeToggle() {
-    const themeButton = document.querySelector('.theme-toggle');
-    const root = document.body;
-    if (!themeButton || !root) return;
-
-    const prefersDark =
-      globalScope.matchMedia && globalScope.matchMedia('(prefers-color-scheme: dark)').matches;
-    const storedTheme = globalScope.localStorage.getItem('vd-theme');
-    const startingTheme = storedTheme || (prefersDark ? 'dark' : 'light');
-
-    applyTheme(startingTheme);
-
-    themeButton.addEventListener('click', () => {
-      const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme);
-    });
-
-    function applyTheme(theme) {
-      const safeTheme = theme === 'dark' ? 'dark' : 'light';
-      root.dataset.theme = safeTheme;
-      themeButton.setAttribute('aria-pressed', safeTheme === 'dark' ? 'true' : 'false');
-      globalScope.localStorage.setItem('vd-theme', safeTheme);
-    }
   }
 
   function setupMatrixRain() {
