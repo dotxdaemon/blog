@@ -30,3 +30,6 @@
 - Date: 2026-01-15
   Task: Let the matrix rain animation appear when enabled under reduced motion.
   Notes: Added reduced-motion CSS override coverage for the matrix canvas.
+- Date: 2026-01-21
+  Task: Made the matrix rain more visible and ensured theme overlays respond to light mode.
+  Notes: Adjusted the matrix animation opacity and theme backdrop tokens with updated tests.
