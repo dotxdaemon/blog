@@ -13,8 +13,8 @@ assert.ok(
 );
 
 assert.ok(
-  /body::after[\s\S]*?background:\s*rgba\(0,\s*0,\s*0,\s*0\.95\)/i.test(css),
-  'Expected a near-black overlay to soften the matrix rain background.'
+  /body::after[\s\S]*?background:\s*var\(--backdrop\)/i.test(css),
+  'Expected the overlay to use the backdrop theme variable.'
 );
 
 assert.ok(

@@ -11,7 +11,7 @@ function startMatrixRain(canvas) {
   const context = canvas.getContext('2d');
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-  const fadeFill = 'rgba(13, 17, 15, 0.14)';
+  const fadeFill = 'rgba(13, 17, 15, 0.1)';
   const glyphChangeInterval = 16;
   const columnSpacingRatio = 1.8;
   const brightAccent = { r: 203, g: 183, b: 255, hex: '#cbb7ff' };
@@ -70,7 +70,7 @@ function startMatrixRain(canvas) {
     }
 
     const headChar = stream.glyphs[0];
-    context.fillStyle = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.9)`;
+    context.fillStyle = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 1)`;
     context.fillText(headChar, x, y);
 
     for (let depth = 1; depth <= layer.tail; depth += 1) {
@@ -79,7 +79,7 @@ function startMatrixRain(canvas) {
 
       const fade = 1 - depth / (layer.tail + 2);
       const colorMix = blendColor(brightAccent, deepAccent, fade);
-      const alpha = 0.2 + layer.opacity * fade * 0.7;
+      const alpha = 0.25 + layer.opacity * fade * 0.7;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
       const trailChar = stream.glyphs[depth] ?? randomChar();
       context.fillText(trailChar, x, trailY);
