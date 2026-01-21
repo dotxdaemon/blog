@@ -487,7 +487,7 @@
       globalScope.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const storedPreference = globalScope.localStorage.getItem('matrixEnabled');
     const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
-    const defaultMatrixEnabled = false;
+    const defaultMatrixEnabled = true;
     let isEnabled = hasStoredPreference ? storedPreference === 'true' : defaultMatrixEnabled;
     let stopAnimation = null;
 
@@ -504,13 +504,13 @@
     }
 
     function applyMatrixState(nextState) {
-    isEnabled = Boolean(nextState);
-    document.body.classList.toggle('matrix-disabled', !isEnabled);
-    document.body.classList.toggle('matrix-enabled', isEnabled);
-    if (toggle) {
-      toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
-      toggle.setAttribute('aria-disabled', prefersReduced ? 'true' : 'false');
-    }
+      isEnabled = Boolean(nextState);
+      document.body.classList.toggle('matrix-disabled', !isEnabled);
+      document.body.classList.toggle('matrix-enabled', isEnabled);
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        toggle.setAttribute('aria-disabled', prefersReduced ? 'true' : 'false');
+      }
       globalScope.localStorage.setItem('matrixEnabled', String(isEnabled));
 
       if (isEnabled) {
