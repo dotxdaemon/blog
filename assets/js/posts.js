@@ -61,11 +61,7 @@ https://letterboxd.com/000_leo/list/oscars-2026-1/`,
     title: "cooking recipes",
     date: "2025-12-30",
     tags: ["cooking", "recipes"],
-    body: `Pantry pasta with garlic, olive oil, and roasted cherry tomatoes. Toss cooked noodles with chili flakes, lemon zest, and a spoon of the starchy water for gloss.
-
-Coconut lentil stew with ginger, spinach, and lime. Toast curry powder in the pot, simmer red lentils until thick, and finish with a ladle of coconut milk.
-
-Seared chicken thighs with mustard pan sauce. Sear until crisp, deglaze with stock, whisk in Dijon and herbs, and spoon over rice.`,
+    body: `chicken thighs`,
     ambientTone: "cozy",
     ambient: {
       hue: 26,
