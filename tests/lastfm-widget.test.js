@@ -35,8 +35,8 @@ assert.ok(
 );
 
 assert.ok(
-  /Recent plays/.test(appSource),
-  'Expected the last played status to describe the recent plays.'
+  !/Recent plays/.test(appSource),
+  'Expected the last played logic to avoid a Recent plays status label.'
 );
 
 assert.ok(

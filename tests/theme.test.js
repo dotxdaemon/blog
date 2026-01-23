@@ -8,26 +8,26 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 const matrixPalette = [
-  ['--background', '#0D110F'],
-  ['--foreground', '#CBB7FF'],
-  ['--accent', '#CBB7FF'],
-  ['--muted', '#0f161f'],
-  ['--border', '#CBB7FF'],
-  ['--muted-strong', '#CBB7FF'],
-  ['--surface', 'rgba(13, 17, 15, 0.9)'],
-  ['--backdrop', 'rgba(0, 0, 0, 0.95)'],
-  ['--shadow-soft', '0 16px 44px rgba(0, 0, 0, 0.45)'],
+  ['--background', '#050505'],
+  ['--foreground', '#E5E5E5'],
+  ['--accent', '#D8B4FE'],
+  ['--muted', '#0f0f0f'],
+  ['--border', 'rgba(255, 255, 255, 0.18)'],
+  ['--muted-strong', 'rgba(229, 229, 229, 0.7)'],
+  ['--surface', 'rgba(5, 5, 5, 0.9)'],
+  ['--backdrop', 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), #000000)'],
+  ['--shadow-soft', '0 16px 44px rgba(0, 0, 0, 0.6)'],
 ];
 
 const lightPalette = [
   ['--background', '#fdfdfc'],
-  ['--foreground', '#CBB7FF'],
-  ['--accent', '#CBB7FF'],
+  ['--foreground', '#1a1a1a'],
+  ['--accent', '#D8B4FE'],
   ['--muted', '#f1f2f4'],
-  ['--border', '#CBB7FF'],
-  ['--muted-strong', '#CBB7FF'],
+  ['--border', 'rgba(17, 17, 17, 0.15)'],
+  ['--muted-strong', '#4b5563'],
   ['--surface', 'rgba(243, 244, 246, 0.95)'],
-  ['--backdrop', 'rgba(255, 255, 255, 0.92)'],
+  ['--backdrop', 'linear-gradient(to bottom, rgba(255, 255, 255, 0.92), #ffffff)'],
   ['--shadow-soft', '0 12px 36px rgba(0, 0, 0, 0.04)'],
 ];
 

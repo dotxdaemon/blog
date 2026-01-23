@@ -378,10 +378,6 @@ function setupListeningWidgets() {
       }
 
       updateTrackGrid(tracks);
-
-      if (status) {
-        status.textContent = 'Recent plays';
-      }
     })
     .catch(() => {
       renderEmptyState('Error loading music.');

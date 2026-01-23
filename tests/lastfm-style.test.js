@@ -22,6 +22,14 @@ assert.ok(
   'Expected the track text to truncate overflowing titles.'
 );
 assert.ok(
+  /\.track-card[\s\S]*border-bottom:\s*1px solid rgba\(255, 255, 255, 0\.1\)/i.test(css),
+  'Expected track separators to use a soft 10% white border.'
+);
+assert.ok(
+  /\.album-art[\s\S]*width:\s*3rem;[\s\S]*height:\s*3rem;/i.test(css),
+  'Expected album art to render at 3rem square.'
+);
+assert.ok(
   css.includes('.loading {'),
   'Expected loading state styles to be defined for Last.fm tracks.'
 );
