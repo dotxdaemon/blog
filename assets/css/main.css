@@ -374,8 +374,7 @@ select {
 
 .nav-link.active {
   color: var(--accent);
-  text-decoration-line: underline;
-  text-decoration-style: wavy;
+  text-decoration: underline;
   text-decoration-color: var(--accent);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 0.35rem;

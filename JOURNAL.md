@@ -42,3 +42,6 @@
 - Date: 2026-02-17
   Task: Enabled the matrix rain by default across the site.
   Notes: Updated toggle defaults in scripts, refreshed tests, and captured a screenshot of the active rain.
+- Date: 2026-02-18
+  Task: Removed the wavy underline from the active search nav link to match the other top buttons.
+  Notes: Updated nav link styling and adjusted typography test coverage.
