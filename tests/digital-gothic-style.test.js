@@ -23,7 +23,7 @@ assert.ok(
 );
 
 assert.ok(
-  /\.post-snippet[\s\S]*?border-bottom:\s*1px\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.2\)/i.test(css),
+  /\.post-snippet[\s\S]*?border-bottom:\s*1px\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.1\)/i.test(css),
   'Expected post snippets to use a single divider line.'
 );
 
@@ -48,6 +48,6 @@ assert.ok(
 );
 
 assert.ok(
-  /\.track-card[\s\S]*?border-bottom:\s*1px\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.2\)/i.test(css),
+  /\.track-card[\s\S]*?border-bottom:\s*1px\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.1\)/i.test(css),
   'Expected track cards to use divider lines.'
 );

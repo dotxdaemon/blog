@@ -21,6 +21,10 @@ assert.ok(
   'Expected post titles to use a larger font size for hierarchy.'
 );
 assert.ok(
-  css.includes('color: rgba(203, 183, 255, 0.72);'),
+  css.includes('color: rgba(229, 229, 229, 0.72);'),
   'Expected post excerpts to use a softer text color.'
+);
+assert.ok(
+  /\.post-snippet__excerpt[\s\S]*line-height:\s*1\.6/i.test(css),
+  'Expected post excerpts to enforce a 1.6 line height.'
 );

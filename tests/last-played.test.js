@@ -21,3 +21,8 @@ assert.ok(
   /Last played/i.test(html),
   'Expected the last-played section to label the music status.'
 );
+
+assert.ok(
+  !/Recent plays/i.test(html),
+  'Expected the last-played header to omit the Recent plays subheader.'
+);

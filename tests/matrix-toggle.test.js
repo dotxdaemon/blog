@@ -1,4 +1,4 @@
-// ABOUTME: Checks that the matrix background toggle is available across pages.
+// ABOUTME: Checks that the matrix background toggle is absent from the header.
 // ABOUTME: Ensures reduced-motion and persistence hooks exist in the scripts.
 const assert = require('assert');
 const fs = require('fs');
@@ -8,8 +8,8 @@ const htmlFiles = ['index.html', 'post.html', 'search.html', 'archives.html'];
 htmlFiles.forEach((file) => {
   const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   assert.ok(
-    /id="matrix-toggle"/i.test(html),
-    `Expected ${file} to include a matrix toggle button.`
+    !/id="matrix-toggle"/i.test(html),
+    `Expected ${file} to omit the matrix toggle button.`
   );
 });
 

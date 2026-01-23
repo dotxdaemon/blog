@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-01-23
+  Task: Refined the homepage layout hierarchy, navigation, and typography for the brutalist refresh.
+  Notes: Updated the monospace typography, palette, Last Played layout, and post feed styling with refreshed tests.
 - Date: 2026-01-16
   Task: Shifted the blog UI to a digital gothic aesthetic with sharper geometry and typography.
   Notes: Added CSS and test coverage for square geometry, metadata styling, overlays, and log-style music layout.

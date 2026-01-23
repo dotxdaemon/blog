@@ -30,6 +30,29 @@ assert.ok(
   'Expected a nav link labeled About.'
 );
 
+const navBlockMatch = html.match(/<nav id="primary-nav"[^>]*>([\s\S]*?)<\/nav>/i);
+assert.ok(navBlockMatch, 'Expected primary navigation markup to exist.');
+const navBlockLinks = navBlockMatch
+  ? [...navBlockMatch[1].matchAll(/class="nav-link"[^>]*>([^<]+)/gi)].map((match) =>
+      (match[1] || '').trim().toLowerCase()
+    )
+  : [];
+assert.deepStrictEqual(
+  navBlockLinks,
+  ['posts', 'search', 'about'],
+  'Expected the primary navigation to list Posts, Search, and About only.'
+);
+
+assert.ok(
+  !/class="site-title"/i.test(html),
+  'Expected the header to omit the site title link.'
+);
+
+assert.ok(
+  !/id="matrix-toggle"/i.test(html),
+  'Expected the header to omit the matrix toggle control.'
+);
+
 assert.ok(
   /id="main-content"[^>]*data-layout="index"/i.test(html),
   'Expected the main content region to carry data-layout="index".'
@@ -48,6 +71,11 @@ assert.ok(
 assert.ok(
   /Latest writing/i.test(html),
   'Expected the posts section header to mention Latest writing.'
+);
+
+assert.ok(
+  !/class="eyebrow"[^>]*>Archive/i.test(html),
+  'Expected the Archive eyebrow label to be removed.'
 );
 
 assert.ok(

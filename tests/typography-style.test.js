@@ -63,7 +63,7 @@ assert.ok(
   const pattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-sans\\)`, 'i');
   assert.ok(
     pattern.test(css),
-    `Expected ${className} to use the serif font family.`
+    `Expected ${className} to use the monospace font family.`
   );
 });
 
