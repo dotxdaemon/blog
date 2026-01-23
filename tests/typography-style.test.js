@@ -10,10 +10,16 @@ const searchJsPath = path.join(__dirname, '..', 'assets', 'js', 'search.js');
 
 const css = fs.readFileSync(cssPath, 'utf8');
 
-const activeNavPattern = /\.nav-link\.active[\s\S]*?text-decoration-style:\s*wavy/i;
+const activeNavWavyPattern = /\.nav-link\.active[\s\S]*?text-decoration-style:\s*wavy/i;
+const activeNavUnderlinePattern =
+  /\.nav-link\.active[\s\S]*?(text-decoration:\s*underline|text-decoration-line:\s*underline)/i;
 assert.ok(
-  activeNavPattern.test(css),
-  'Expected the active nav link to use a wavy underline decoration.'
+  !activeNavWavyPattern.test(css),
+  'Expected the active nav link underline to avoid wavy decoration.'
+);
+assert.ok(
+  activeNavUnderlinePattern.test(css),
+  'Expected the active nav link to use a straight underline decoration.'
 );
 
 assert.ok(
