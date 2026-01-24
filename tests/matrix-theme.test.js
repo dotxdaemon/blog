@@ -14,7 +14,7 @@ const appJs = fs.readFileSync(appPath, 'utf8');
 
 assert.ok(css.includes('--background: #050505;'), 'Expected Matrix Lite background color.');
 assert.ok(css.includes('--foreground: #E5E5E5;'), 'Expected Matrix Lite foreground color.');
-assert.ok(css.includes('--accent: #D8B4FE;'), 'Expected Matrix Lite accent color.');
+assert.ok(css.includes('--accent: #E5E5E5;'), 'Expected Matrix Lite accent color.');
 assert.ok(css.includes('--surface: rgba(5, 5, 5, 0.9);'), 'Expected Matrix Lite surface color.');
 assert.ok(
   css.includes('--border: rgba(255, 255, 255, 0.18);'),

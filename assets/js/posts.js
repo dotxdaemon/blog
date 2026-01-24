@@ -61,7 +61,7 @@ https://letterboxd.com/000_leo/list/oscars-2026-1/`,
     title: "cooking recipes",
     date: "2025-12-30",
     tags: ["cooking", "recipes"],
-    body: `chicken thighs`,
+    body: `pantry chicken thighs`,
     ambientTone: "cozy",
     ambient: {
       hue: 26,

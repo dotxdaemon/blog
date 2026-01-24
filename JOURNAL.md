@@ -45,3 +45,6 @@
 - Date: 2026-02-18
   Task: Removed the wavy underline from the active search nav link to match the other top buttons.
   Notes: Updated nav link styling and adjusted typography test coverage.
+- Date: 2026-02-19
+  Task: Aligned the accent color with the primary text and refreshed the cooking post copy.
+  Notes: Updated palette tests and ensured the recipe entry mentions pantry-friendly dishes.
