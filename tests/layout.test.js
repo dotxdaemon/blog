@@ -69,14 +69,15 @@ assert.ok(
 );
 
 assert.ok(
-  /data-collage="checkerboard"/i.test(html),
-  'Expected a checkerboard collage layer for the landing page.'
+  !/data-collage="checkerboard"/i.test(html),
+  'Expected the landing page collage layer to be removed.'
 );
 
 const collageCells = [...html.matchAll(/class="collage-grid__cell"/gi)];
-assert.ok(
-  collageCells.length >= 24,
-  'Expected the collage grid to include at least 24 image slices.'
+assert.strictEqual(
+  collageCells.length,
+  0,
+  'Expected the collage grid slices to be removed.'
 );
 
 assert.ok(

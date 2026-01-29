@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-02-21
+  Task: Removed the homepage collage photo and balanced the landing layout spacing.
+  Notes: Dropped the collage grid markup and tightened the desktop grid to a two-column layout with larger gaps.
 - Date: 2026-02-20
   Task: Removed added landing page copy from the collage layout.
   Notes: Dropped the extra hero and panel text while keeping the grid structure.
