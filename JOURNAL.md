@@ -1,5 +1,11 @@
 # Journal
 
+- Date: 2026-02-20
+  Task: Removed added landing page copy from the collage layout.
+  Notes: Dropped the extra hero and panel text while keeping the grid structure.
+- Date: 2026-02-20
+  Task: Rebuilt the blog landing page into a Swiss grid and Dada collage layout.
+  Notes: Added checkerboard photo slicing, grid panels, and updated layout coverage.
 - Date: 2026-01-23
   Task: Refined the homepage layout hierarchy, navigation, and typography for the brutalist refresh.
   Notes: Updated the monospace typography, palette, Last Played layout, and post feed styling with refreshed tests.
