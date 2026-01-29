@@ -59,8 +59,49 @@ assert.ok(
 );
 
 assert.ok(
+  /class="page landing-grid"/i.test(html),
+  'Expected the main content to opt into the landing grid layout.'
+);
+
+assert.ok(
   /<section[^>]*id="hero"[^>]*data-hero/i.test(html),
   'Expected a hero section with data-hero marker.'
+);
+
+assert.ok(
+  /data-collage="checkerboard"/i.test(html),
+  'Expected a checkerboard collage layer for the landing page.'
+);
+
+const collageCells = [...html.matchAll(/class="collage-grid__cell"/gi)];
+assert.ok(
+  collageCells.length >= 24,
+  'Expected the collage grid to include at least 24 image slices.'
+);
+
+assert.ok(
+  !/Swiss grid \/ Dada collage/i.test(html),
+  'Expected the collage eyebrow copy to be removed.'
+);
+
+assert.ok(
+  !/Notes from a mirror-lit desk/i.test(html),
+  'Expected the hero lede copy to be removed.'
+);
+
+assert.ok(
+  !/Voyeur log/i.test(html),
+  'Expected the manifesto panel title to be removed.'
+);
+
+assert.ok(
+  !/Dispatches from behind the lens/i.test(html),
+  'Expected the manifesto panel copy to be removed.'
+);
+
+assert.ok(
+  !/Code fragments/i.test(html),
+  'Expected the index panel list copy to be removed.'
 );
 
 assert.ok(
