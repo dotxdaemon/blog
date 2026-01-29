@@ -13,18 +13,22 @@ assert.ok(
   'Expected post list items to use vertical spacing via gap.'
 );
 assert.ok(
-  css.includes('.post-card {\n  background: transparent;\n  border: none;'),
-  'Expected post cards to render without a filled background.'
+  css.includes('.post-card {\n  background: var(--surface-1);\n  border: 1px solid var(--border-subtle);'),
+  'Expected post cards to render on a subtle surface with a border.'
 );
 assert.ok(
-  css.includes('font-size: 1.35rem;'),
+  css.includes('font-size: 1.2rem;'),
   'Expected post titles to use a larger font size for hierarchy.'
 );
 assert.ok(
-  css.includes('color: rgba(229, 229, 229, 0.72);'),
-  'Expected post excerpts to use a softer text color.'
+  css.includes('color: var(--text-muted);'),
+  'Expected post excerpts to use a muted text color.'
 );
 assert.ok(
   /\.post-snippet__excerpt[\s\S]*line-height:\s*1\.6/i.test(css),
   'Expected post excerpts to enforce a 1.6 line height.'
+);
+assert.ok(
+  /\.post-snippet__excerpt[\s\S]*-webkit-line-clamp:\s*2/i.test(css),
+  'Expected post excerpts to line clamp to two lines.'
 );

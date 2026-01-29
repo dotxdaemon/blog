@@ -13,28 +13,27 @@ const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const appJs = fs.readFileSync(appPath, 'utf8');
 
 assert.ok(css.includes('--background: #050505;'), 'Expected Matrix Lite background color.');
-assert.ok(css.includes('--foreground: #E5E5E5;'), 'Expected Matrix Lite foreground color.');
-assert.ok(css.includes('--accent: #E5E5E5;'), 'Expected Matrix Lite accent color.');
-assert.ok(css.includes('--surface: rgba(5, 5, 5, 0.9);'), 'Expected Matrix Lite surface color.');
+assert.ok(css.includes('--foreground: #f5f5f5;'), 'Expected Matrix Lite foreground color.');
+assert.ok(css.includes('--accent: #ffffff;'), 'Expected Matrix Lite accent color.');
 assert.ok(
-  css.includes('--border: rgba(255, 255, 255, 0.18);'),
+  css.includes('--surface-1: rgba(255, 255, 255, 0.04);'),
+  'Expected Matrix Lite surface color.'
+);
+assert.ok(
+  css.includes('--border: rgba(255, 255, 255, 0.16);'),
   'Expected Matrix Lite border color.'
 );
 assert.ok(
-  css.includes("--font-sans: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Courier Prime', 'Courier New', monospace;"),
+  css.includes('--font-sans: -apple-system, BlinkMacSystemFont'),
   'Expected Matrix Lite font stack.'
 );
 assert.ok(
-  css.includes('border: 1px solid var(--border);'),
+  css.includes('border: 1px solid var(--border-subtle);'),
   'Expected post card border style.'
 );
 assert.ok(css.includes('box-shadow: none;'), 'Expected post card hover glow to be removed.');
 assert.ok(css.includes('@keyframes decrypt-entry'), 'Expected decrypt-entry keyframes.');
 assert.ok(css.includes('@keyframes blink'), 'Expected blink keyframes.');
-assert.ok(
-  /hero__title::after[\s\S]*color:\s*var\(--accent\)/i.test(css),
-  'Expected the cursor to use the accent color.'
-);
 assert.ok(indexHtml.includes('JetBrains+Mono'), 'Expected JetBrains Mono font link.');
 assert.ok(indexHtml.includes('Fira+Code'), 'Expected Fira Code font link.');
 assert.ok(appJs.includes('post-card'), 'Expected post-card class in renderer.');

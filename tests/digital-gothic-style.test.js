@@ -8,8 +8,8 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 assert.ok(
-  /\*,\s*\*::before,\s*\*::after[\s\S]*?border-radius:\s*0/i.test(css),
-  'Expected a global border-radius reset for all elements.'
+  /--radius-lg:\s*\d+px/i.test(css),
+  'Expected a large radius token for rounded surfaces.'
 );
 
 assert.ok(
@@ -18,16 +18,19 @@ assert.ok(
 );
 
 assert.ok(
-  /\.post-card[\s\S]*?background:\s*transparent/i.test(css),
-  'Expected post cards to use a transparent background.'
+  /\.grid-panel[\s\S]*?background:\s*var\(--surface-1\)/i.test(css),
+  'Expected panels to use the primary surface color.'
 );
 
 assert.ok(
-  /\.post-snippet[\s\S]*?border-bottom:\s*1px\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.1\)/i.test(css),
-  'Expected post snippets to use a single divider line.'
+  /\.grid-panel[\s\S]*?border:\s*1px\s+solid\s+var\(--border-subtle\)/i.test(css),
+  'Expected panels to use the subtle border color.'
 );
 
-['nav-link', 'post-snippet__meta', 'post-meta'].forEach((className) => {
+const navLinkSansPattern = /\.nav-link[\s\S]*?font-family:\s*var\(--font-sans\)/i;
+assert.ok(navLinkSansPattern.test(css), 'Expected nav links to use the sans-serif font.');
+
+['post-snippet__meta', 'post-meta'].forEach((className) => {
   const monoPattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-mono\\)`, 'i');
   const uppercasePattern = new RegExp(`\\.${className}[\\s\\S]*?text-transform:\\s*uppercase`, 'i');
   const spacingPattern = new RegExp(`\\.${className}[\\s\\S]*?letter-spacing:\\s*0\\.05em`, 'i');
@@ -43,11 +46,11 @@ assert.ok(
 );
 
 assert.ok(
-  /\.track-card[\s\S]*?background:\s*transparent/i.test(css),
-  'Expected track cards to remove heavy backgrounds.'
+  /\.track-card[\s\S]*?background:\s*var\(--surface-1\)/i.test(css),
+  'Expected track cards to use a subtle surface background.'
 );
 
 assert.ok(
-  /\.track-card[\s\S]*?border-bottom:\s*1px\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.1\)/i.test(css),
-  'Expected track cards to use divider lines.'
+  /\.track-card[\s\S]*?border:\s*1px\s+solid\s+var\(--border-subtle\)/i.test(css),
+  'Expected track cards to use the subtle border color.'
 );

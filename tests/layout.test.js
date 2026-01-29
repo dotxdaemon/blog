@@ -44,8 +44,8 @@ assert.deepStrictEqual(
 );
 
 assert.ok(
-  !/class="site-title"/i.test(html),
-  'Expected the header to omit the site title link.'
+  /class="site-brand"/i.test(html),
+  'Expected the header to include the site brand.'
 );
 
 assert.ok(
@@ -113,6 +113,18 @@ assert.ok(
 assert.ok(
   /Latest writing/i.test(html),
   'Expected the posts section header to mention Latest writing.'
+);
+
+assert.ok(
+  /Profile/i.test(html),
+  'Expected the profile section header to be present.'
+);
+
+const heroSectionMatch = html.match(/<section[^>]*data-hero[\s\S]*?<\/section>/i);
+assert.ok(heroSectionMatch, 'Expected the hero section markup to exist.');
+assert.ok(
+  heroSectionMatch ? !/·/.test(heroSectionMatch[0]) : false,
+  'Expected the profile links to avoid separator dots.'
 );
 
 assert.ok(
