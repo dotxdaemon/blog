@@ -12,6 +12,6 @@ assert.ok(
   'Expected the landing hero to align items to the start edge.'
 );
 assert.ok(
-  /\.hero__social[\s\S]*gap:\s*0\.75rem/i.test(css),
-  'Expected the hero social links to keep consistent spacing.'
+  /\.profile-links__list[\s\S]*gap:\s*0\.6rem/i.test(css),
+  'Expected the profile links to keep consistent spacing.'
 );

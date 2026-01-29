@@ -41,39 +41,50 @@
     </header>
 
     <main class="page landing-grid" id="main-content" data-layout="index">
-      <section class="hero grid-panel profile-card" id="hero" data-hero>
-        <h1 class="hero__title">velvetdaemon</h1>
-        <div class="hero__social" aria-label="Social links">
-          <a class="social-link" href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer">
-            GitHub
-          </a>
-          <span aria-hidden="true">·</span>
-          <a class="social-link" href="https://letterboxd.com/velvetdaemon/" target="_blank" rel="noreferrer">
-            Letterboxd
-          </a>
-          <span aria-hidden="true">·</span>
-          <a class="social-link" href="mailto:seaneukim@gmail.com">Email</a>
+      <section class="section-block" id="hero" data-hero>
+        <header class="section-header">
+          <h2 class="section-title">Profile</h2>
+        </header>
+        <div class="card grid-panel profile-card hero">
+          <h1 class="hero__title card-title">velvetdaemon</h1>
+          <nav class="profile-links" aria-label="Profile links">
+            <ul class="profile-links__list">
+              <li>
+                <a class="social-link" href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a class="social-link" href="https://letterboxd.com/velvetdaemon/" target="_blank" rel="noreferrer">
+                  Letterboxd
+                </a>
+              </li>
+              <li>
+                <a class="social-link" href="mailto:seaneukim@gmail.com">Email</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </section>
 
-      <section class="now-playing grid-panel" id="last-played" data-last-played>
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Last played</h2>
+      <section class="section-block" id="last-played" data-last-played>
+        <header class="section-header">
+          <h2 class="section-title">Last played</h2>
+        </header>
+        <div class="card grid-panel now-playing">
+          <div class="track-grid" id="track-grid">
+            <div class="loading">Loading tracks...</div>
           </div>
-        </div>
-        <div class="track-grid" id="track-grid">
-          <div class="loading">Loading tracks...</div>
         </div>
       </section>
 
-      <section class="post-feed grid-panel" aria-label="Post feed">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Latest writing</h2>
-          </div>
+      <section class="section-block post-feed" aria-label="Post feed">
+        <header class="section-header">
+          <h2 class="section-title">Latest writing</h2>
+        </header>
+        <div class="card grid-panel">
+          <ul class="post-list" id="posts" aria-live="polite"></ul>
         </div>
-        <ul class="post-list" id="posts" aria-live="polite"></ul>
       </section>
     </main>
 

@@ -279,7 +279,8 @@ select {
   z-index: 1;
 }
 
-.grid-panel {
+.grid-panel,
+.card {
   border: 1px solid var(--border-subtle);
   padding: var(--card-padding);
   background: var(--surface-1);
@@ -322,6 +323,12 @@ select {
   font-size: 0.95rem;
 }
 
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
 @media (min-width: 1024px) {
   .page.landing-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -329,12 +336,12 @@ select {
     gap: var(--grid-gap);
   }
 
-  .hero {
+  #hero {
     grid-column: 1 / span 5;
     grid-row: 1;
   }
 
-  .now-playing {
+  #last-played {
     grid-column: 6 / -1;
     grid-row: 1;
   }
@@ -534,7 +541,7 @@ select {
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-3);
-  padding: var(--space-4) 0 var(--space-3);
+  padding: 0;
 }
 
 .landing-grid .hero {
@@ -544,8 +551,8 @@ select {
 }
 
 .landing-grid .hero__title {
-  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(1.4rem, 1.8vw, 1.7rem);
+  letter-spacing: -0.01em;
 }
 
 .landing-grid .hero__lede {
@@ -607,7 +614,7 @@ select {
 
 .hero__title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.2;
   font-family: var(--font-sans);
   font-weight: 600;
@@ -615,7 +622,7 @@ select {
 
 @media (min-width: 640px) {
   .hero__title {
-    font-size: 1.875rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -633,17 +640,11 @@ select {
 }
 
 .now-playing {
-  padding: 0;
   margin: 0;
 }
 
 .landing-grid .now-playing {
-  padding: 0;
   margin: 0;
-}
-
-.now-playing .section-header {
-  margin-bottom: var(--space-3);
 }
 
 .now-playing__card {
@@ -825,8 +826,10 @@ select {
 
 .section-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   gap: 0.35rem;
+  min-height: 2rem;
 }
 
 .section-title {
@@ -849,12 +852,41 @@ select {
   max-width: 42ch;
 }
 
+.card-title {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.profile-links {
+  width: 100%;
+}
+
+.profile-links__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.profile-links__list li {
+  margin: 0;
+}
+
 .post-list {
   list-style: none;
   padding: 0;
   margin: var(--space-4) 0 0;
   display: grid;
   gap: var(--space-4);
+}
+
+.card .post-list {
+  margin: 0;
 }
 
 .post-list__item {

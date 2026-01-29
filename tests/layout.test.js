@@ -116,6 +116,18 @@ assert.ok(
 );
 
 assert.ok(
+  /Profile/i.test(html),
+  'Expected the profile section header to be present.'
+);
+
+const heroSectionMatch = html.match(/<section[^>]*data-hero[\s\S]*?<\/section>/i);
+assert.ok(heroSectionMatch, 'Expected the hero section markup to exist.');
+assert.ok(
+  heroSectionMatch ? !/·/.test(heroSectionMatch[0]) : false,
+  'Expected the profile links to avoid separator dots.'
+);
+
+assert.ok(
   !/class="eyebrow"[^>]*>Archive/i.test(html),
   'Expected the Archive eyebrow label to be removed.'
 );

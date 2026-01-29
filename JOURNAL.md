@@ -4,6 +4,9 @@
   Task: Refined the homepage layout to a modern card-based grid.
   Notes: Updated the homepage markup and styles to use a 12-column layout, surface cards, and refreshed navigation while aligning tests.
 - Date: 2026-01-29
+  Task: Balanced the homepage profile and last-played layout symmetry.
+  Notes: Restructured the profile and last-played sections with matched headers and card containers, plus updated spacing and tests.
+- Date: 2026-01-29
   Task: Aligned the homepage hero social links with the title baseline.
   Notes: Added a hero alignment style rule at the 640px breakpoint with coverage in a new CSS test.
 - Date: 2026-02-21
