@@ -44,8 +44,8 @@ assert.deepStrictEqual(
 );
 
 assert.ok(
-  !/class="site-title"/i.test(html),
-  'Expected the header to omit the site title link.'
+  /class="site-brand"/i.test(html),
+  'Expected the header to include the site brand.'
 );
 
 assert.ok(

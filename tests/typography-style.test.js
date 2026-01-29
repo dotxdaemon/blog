@@ -11,20 +11,13 @@ const searchJsPath = path.join(__dirname, '..', 'assets', 'js', 'search.js');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 const activeNavWavyPattern = /\.nav-link\.active[\s\S]*?text-decoration-style:\s*wavy/i;
-const activeNavUnderlinePattern =
-  /\.nav-link\.active[\s\S]*?(text-decoration:\s*underline|text-decoration-line:\s*underline)/i;
 assert.ok(
   !activeNavWavyPattern.test(css),
   'Expected the active nav link underline to avoid wavy decoration.'
 );
 assert.ok(
-  activeNavUnderlinePattern.test(css),
-  'Expected the active nav link to use a straight underline decoration.'
-);
-
-assert.ok(
-  /\.nav-link\.active[\s\S]*?text-underline-offset:/i.test(css),
-  'Expected the active nav underline to have a defined offset.'
+  /\.nav-link\.active[\s\S]*?background:\s*var\(--surface-2\)/i.test(css),
+  'Expected the active nav link to use the elevated surface background.'
 );
 
 assert.ok(
@@ -57,11 +50,11 @@ assert.ok(
   'Expected the matrix toggle to remove its focus outline.'
 );
 
-['site-title'].forEach((className) => {
-  const pattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-mono\\)`, 'i');
+['site-brand'].forEach((className) => {
+  const pattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-sans\\)`, 'i');
   assert.ok(
     pattern.test(css),
-    `Expected ${className} to use the monospace font family.`
+    `Expected ${className} to use the sans-serif font family.`
   );
 });
 

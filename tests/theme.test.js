@@ -9,26 +9,34 @@ const css = fs.readFileSync(cssPath, 'utf8');
 
 const matrixPalette = [
   ['--background', '#050505'],
-  ['--foreground', '#E5E5E5'],
-  ['--accent', '#E5E5E5'],
-  ['--muted', '#0f0f0f'],
-  ['--border', 'rgba(255, 255, 255, 0.18)'],
-  ['--muted-strong', 'rgba(229, 229, 229, 0.7)'],
-  ['--surface', 'rgba(5, 5, 5, 0.9)'],
-  ['--backdrop', 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), #000000)'],
-  ['--shadow-soft', '0 16px 44px rgba(0, 0, 0, 0.6)'],
+  ['--foreground', '#f5f5f5'],
+  ['--accent', '#ffffff'],
+  ['--muted', '#0d0d0d'],
+  ['--border', 'rgba(255, 255, 255, 0.16)'],
+  ['--border-subtle', 'rgba(255, 255, 255, 0.1)'],
+  ['--text-primary', 'rgba(255, 255, 255, 0.92)'],
+  ['--text-secondary', 'rgba(255, 255, 255, 0.7)'],
+  ['--text-muted', 'rgba(255, 255, 255, 0.55)'],
+  ['--surface-1', 'rgba(255, 255, 255, 0.04)'],
+  ['--surface-2', 'rgba(255, 255, 255, 0.06)'],
+  ['--backdrop', 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), #050505)'],
+  ['--shadow-soft', '0 18px 40px rgba(0, 0, 0, 0.45)'],
 ];
 
 const lightPalette = [
   ['--background', '#fdfdfc'],
   ['--foreground', '#1a1a1a'],
   ['--accent', '#1a1a1a'],
-  ['--muted', '#f1f2f4'],
-  ['--border', 'rgba(17, 17, 17, 0.15)'],
-  ['--muted-strong', '#4b5563'],
-  ['--surface', 'rgba(243, 244, 246, 0.95)'],
-  ['--backdrop', 'linear-gradient(to bottom, rgba(255, 255, 255, 0.92), #ffffff)'],
-  ['--shadow-soft', '0 12px 36px rgba(0, 0, 0, 0.04)'],
+  ['--muted', '#f1f1f3'],
+  ['--border', 'rgba(17, 17, 17, 0.12)'],
+  ['--border-subtle', 'rgba(17, 17, 17, 0.08)'],
+  ['--text-primary', 'rgba(17, 17, 17, 0.92)'],
+  ['--text-secondary', 'rgba(17, 17, 17, 0.7)'],
+  ['--text-muted', 'rgba(17, 17, 17, 0.55)'],
+  ['--surface-1', 'rgba(17, 17, 17, 0.03)'],
+  ['--surface-2', 'rgba(17, 17, 17, 0.05)'],
+  ['--backdrop', 'linear-gradient(to bottom, rgba(255, 255, 255, 0.88), #ffffff)'],
+  ['--shadow-soft', '0 14px 36px rgba(0, 0, 0, 0.08)'],
 ];
 
 function getBlock(selector) {

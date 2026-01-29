@@ -12,7 +12,7 @@ assert.ok(
 );
 
 assert.ok(
-  /\.nav-menu\.is-open\s+\.nav-link\s*\{[^}]*padding:\s*0\.6rem 0\.85rem;[^}]*\}/s.test(css),
+  /\.nav-menu\.is-open\s+\.nav-link\s*\{[^}]*padding:\s*0\.65rem 0\.95rem;[^}]*\}/s.test(css),
   'Expected mobile nav links to have larger tap targets.'
 );
 

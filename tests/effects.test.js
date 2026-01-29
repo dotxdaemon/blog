@@ -50,12 +50,12 @@ assert.ok(
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 assert.ok(
-  /\.matrix-canvas[\s\S]*opacity:\s*0\.12/i.test(css),
-  'Expected the matrix canvas opacity to be more pronounced.'
+  /\.matrix-canvas[\s\S]*opacity:\s*0\.08/i.test(css),
+  'Expected the matrix canvas opacity to be more subtle.'
 );
 assert.ok(
-  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.1/i.test(css),
-  'Expected the matrix canvas opacity to be more pronounced in dark mode.'
+  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.08/i.test(css),
+  'Expected the matrix canvas opacity to be consistent in dark mode.'
 );
 assert.ok(
   /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.4/i.test(css),
