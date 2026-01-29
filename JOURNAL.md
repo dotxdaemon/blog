@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-01-29
+  Task: Aligned the homepage hero social links with the title baseline.
+  Notes: Added a hero alignment style rule at the 640px breakpoint with coverage in a new CSS test.
 - Date: 2026-02-21
   Task: Removed the homepage collage photo and balanced the landing layout spacing.
   Notes: Dropped the collage grid markup and tightened the desktop grid to a two-column layout with larger gaps.
