@@ -71,7 +71,7 @@ assert.ok(
   'Expected the matrix canvas to use a soft blur.'
 );
 assert.ok(
-  /\.matrix-veil[\s\S]*background:\s*rgba\(5,\s*5,\s*5,\s*0\.6\)/i.test(css),
+  /\.matrix-veil[\s\S]*background:\s*rgba\(5,\s*5,\s*5,\s*0\.5\)/i.test(css),
   'Expected the matrix veil to provide a dark overlay.'
 );
 const reducedMotionStart = css.indexOf('@media (prefers-reduced-motion: reduce)');

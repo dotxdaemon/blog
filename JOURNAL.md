@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-02-22
+  Task: Reduced the matrix veil opacity for improved content contrast.
+  Notes: Adjusted the matrix veil background alpha and updated the related effect test.
 - Date: 2026-02-02
   Task: Updated RSS generation to support configured site URLs.
   Notes: Added coverage for SITE_URL overrides and regenerated the RSS feed.
