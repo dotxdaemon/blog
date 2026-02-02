@@ -8,7 +8,7 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 assert.ok(css.includes('.track-grid {'), 'Expected track list styles to be defined.');
-assert.ok(css.includes('.row-link {'), 'Expected row link styles to be defined.');
+assert.ok(css.includes('.list-row {'), 'Expected list row styles to be defined.');
 assert.ok(
   css.includes('grid-template-columns: 1fr;'),
   'Expected the recent track list to render as a single-column log.'
@@ -22,8 +22,8 @@ assert.ok(
   'Expected the track text to truncate overflowing titles.'
 );
 assert.ok(
-  /\.row-link[\s\S]*border-bottom:\s*var\(--borderWidth\) solid var\(--border-subtle\)/i.test(css),
-  'Expected row links to use the subtle divider border color.'
+  /\.list-row[\s\S]*text-overflow:\s*ellipsis/i.test(css),
+  'Expected list rows to truncate overflowing titles.'
 );
 assert.ok(
   /\.now-playing__artwork[\s\S]*width:\s*100%/i.test(css),

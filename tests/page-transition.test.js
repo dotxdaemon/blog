@@ -7,19 +7,8 @@ const path = require('path');
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
-const hasFadeKeyframes = /@keyframes\s+page-fade-out[\s\S]*?from\s*{[^}]*opacity:\s*1/i.test(css);
-assert.ok(hasFadeKeyframes, 'Expected a page fade-out keyframe starting at full opacity.');
+const scrimBackground = /body\s*::before[^{]*{[\s\S]*background:\s*var\(--scrim\)/i.test(css);
+assert.ok(scrimBackground, 'Expected the page overlay to use the scrim token.');
 
-const endsAtZeroOpacity = /@keyframes\s+page-fade-out[\s\S]*?to\s*{[^}]*opacity:\s*0/i.test(css);
-assert.ok(endsAtZeroOpacity, 'Expected the page fade-out animation to end at zero opacity.');
-
-const overlayAnimates = /body\s*::before[^{]*{[\s\S]*animation:[^;]*page-fade-out/i.test(css);
-assert.ok(overlayAnimates, 'Expected a page overlay to use the fade-out animation.');
-
-const respectsReducedMotion = /prefers-reduced-motion:\s*reduce[\s\S]*body\s*::before[^{]*{[\s\S]*animation:\s*none/i.test(
-  css
-);
-assert.ok(
-  respectsReducedMotion,
-  'Expected reduced motion preferences to disable the overlay fade animation.'
-);
+const scrimOpacity = /body\s*::before[^{]*{[\s\S]*opacity:\s*0\.55/i.test(css);
+assert.ok(scrimOpacity, 'Expected the page overlay to use a semi-opaque scrim.');

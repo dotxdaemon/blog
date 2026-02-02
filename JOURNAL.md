@@ -84,3 +84,6 @@
 - Date: 2026-02-02
   Task: Added extended system and workflow instructions to AGENTS.md.
   Notes: Appended the provided instruction block verbatim.
+- Date: 2026-02-23
+  Task: Unify homepage panels with shared component and spacing rules.
+  Notes: Restated requirements (panel component with shared tokens, list row reuse, background scrim overlay, typography sizing); planning to touch index.html, assets styles, and tests; will run npm test, npm run lint, npm run typecheck.

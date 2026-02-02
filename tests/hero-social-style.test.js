@@ -20,6 +20,6 @@ assert.ok(
 );
 
 assert.ok(
-  /\.row-link[\s\S]*padding:\s*var\(--space-1\)\s+0/i.test(css),
-  'Expected the homepage row links to keep a compact rhythm.'
+  /\.list-row[\s\S]*padding:\s*18px\s+var\(--space-2\)/i.test(css),
+  'Expected the homepage list rows to use the standard vertical padding.'
 );

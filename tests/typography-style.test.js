@@ -58,7 +58,7 @@ assert.ok(
   );
 });
 
-['section-title', 'post-title'].forEach((className) => {
+['panel-title', 'post-title'].forEach((className) => {
   const pattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-sans\\)`, 'i');
   assert.ok(
     pattern.test(css),
