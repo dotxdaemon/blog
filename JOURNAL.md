@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-02-02
+  Task: Simplified the homepage panels into a unified poster-clean layout.
+  Notes: Added homepage design tokens, stripped nested frames from homepage panels, unified row styling across posts and tracks, and rebalanced matrix rain visibility with updated tests.
 - Date: 2026-02-22
   Task: Reduced the matrix veil opacity for improved content contrast.
   Notes: Adjusted the matrix veil background alpha and updated the related effect test.

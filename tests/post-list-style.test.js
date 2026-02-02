@@ -17,6 +17,14 @@ assert.ok(
   'Expected post cards to render on a subtle surface with a border.'
 );
 assert.ok(
+  /\.landing-grid\s+\.post-card[\s\S]*background:\s*transparent/i.test(css),
+  'Expected landing page post cards to use a transparent surface.'
+);
+assert.ok(
+  /\.landing-grid\s+\.post-card[\s\S]*border:\s*none/i.test(css),
+  'Expected landing page post cards to remove the card border.'
+);
+assert.ok(
   css.includes('font-size: var(--type-card);'),
   'Expected post titles to use a larger font size for hierarchy.'
 );
@@ -34,11 +42,6 @@ assert.ok(
 );
 
 assert.ok(
-  /\.post-card--featured[\s\S]*border-color:\s*var\(--border\)/i.test(css),
-  'Expected the featured post card to reinforce the primary border color.'
-);
-
-assert.ok(
-  /\.post-card--featured::after[\s\S]*background:\s*var\(--accent\)/i.test(css),
-  'Expected the featured post card to include an accent corner marker.'
+  /\.landing-grid\s+\.post-card--featured::after[\s\S]*content:\s*none/i.test(css),
+  'Expected the landing featured post to avoid extra accent markers.'
 );

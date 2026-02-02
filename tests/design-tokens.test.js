@@ -13,6 +13,7 @@ const css = fs.readFileSync(cssPath, 'utf8');
   '--bg',
   '--veil',
   '--panel',
+  '--panelBg',
   '--card',
   '--text',
   '--muted',
@@ -43,8 +44,8 @@ assert.ok(
 );
 
 assert.ok(
-  /\.grid-panel[\s\S]*background:\s*var\(--panel\)/i.test(css),
-  'Expected panel surfaces to use the --panel token.'
+  /\.panel[\s\S]*background:\s*var\(--panelBg\)/i.test(css),
+  'Expected panel surfaces to use the --panelBg token.'
 );
 
 assert.ok(

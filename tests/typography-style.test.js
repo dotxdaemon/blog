@@ -75,6 +75,10 @@ const appSource = fs.readFileSync(appJsPath, 'utf8');
     );
   }
 );
+assert.ok(
+  appSource.includes('panel-row'),
+  'Expected homepage rendering to reuse the panel-row class for list entries.'
+);
 
 const searchSource = fs.readFileSync(searchJsPath, 'utf8');
 ['post-snippet__meta', 'post-snippet__title', 'post-snippet__excerpt'].forEach((className) => {
