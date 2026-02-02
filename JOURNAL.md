@@ -78,3 +78,6 @@
 - Date: 2026-02-19
   Task: Aligned the accent color with the primary text and refreshed the cooking post copy.
   Notes: Updated palette tests and ensured the recipe entry mentions pantry-friendly dishes.
+- Date: 2026-02-02
+  Task: Added extended system and workflow instructions to AGENTS.md.
+  Notes: Appended the provided instruction block verbatim.
