@@ -40,24 +40,28 @@
         aria-label="Latest writing"
       >
         <div class="panel">
-          <header class="section-header">
-            <h2 class="section-title">Latest writing</h2>
+          <header class="panel-header">
+            <h2 class="panel-title">Latest writing</h2>
           </header>
-          <ul class="post-list" id="posts" aria-live="polite"></ul>
+          <div class="panel-body">
+            <ul class="post-list" id="posts" aria-live="polite"></ul>
+          </div>
         </div>
       </section>
 
       <section class="section-block" id="last-played" data-last-played>
-        <div class="panel panel--poster">
-          <div class="now-playing">
-            <div class="now-playing__primary" id="now-playing-primary">
-              <div class="loading">Loading tracks...</div>
-            </div>
-            <div class="now-playing__rows">
-              <header class="section-header">
-                <h2 class="section-title">Last played</h2>
-              </header>
-              <ul class="track-grid" id="track-grid" aria-label="Recent tracks"></ul>
+        <div class="panel">
+          <header class="panel-header">
+            <h2 class="panel-title">Last played</h2>
+          </header>
+          <div class="panel-body">
+            <div class="now-playing">
+              <div class="now-playing__primary" id="now-playing-primary">
+                <div class="loading">Loading tracks...</div>
+              </div>
+              <div class="now-playing__rows">
+                <ul class="track-grid" id="track-grid" aria-label="Recent tracks"></ul>
+              </div>
             </div>
           </div>
         </div>

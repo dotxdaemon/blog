@@ -18,8 +18,8 @@ assert.ok(
 );
 
 assert.ok(
-  /\.grid-panel[\s\S]*?background:\s*var\(--panel\)/i.test(css),
-  'Expected panels to use the panel color.'
+  /\.grid-panel[\s\S]*?background:\s*var\(--panel-surface\)/i.test(css),
+  'Expected panels to use the panel surface color.'
 );
 
 assert.ok(
@@ -46,11 +46,11 @@ assert.ok(
 );
 
 assert.ok(
-  /\.row-link[\s\S]*?color:\s*var\(--text\)/i.test(css),
-  'Expected row links to use the primary text color.'
+  /\.list-row[\s\S]*?color:\s*var\(--text\)/i.test(css),
+  'Expected list rows to use the primary text color.'
 );
 
 assert.ok(
-  /\.row-link[\s\S]*?border-bottom:\s*var\(--borderWidth\)\s+solid\s+var\(--border-subtle\)/i.test(css),
-  'Expected row links to use the subtle divider border color.'
+  /\.list-row:hover[\s\S]*?background:\s*var\(--hover\)/i.test(css),
+  'Expected list rows to use the hover surface color.'
 );

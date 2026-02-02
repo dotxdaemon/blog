@@ -13,6 +13,11 @@ const css = fs.readFileSync(cssPath, 'utf8');
   '--bg',
   '--veil',
   '--panel',
+  '--panel-radius',
+  '--panel-border',
+  '--panel-surface',
+  '--panel-padding',
+  '--panel-header-spacing',
   '--card',
   '--text',
   '--muted',
@@ -43,8 +48,8 @@ assert.ok(
 );
 
 assert.ok(
-  /\.grid-panel[\s\S]*background:\s*var\(--panel\)/i.test(css),
-  'Expected panel surfaces to use the --panel token.'
+  /\.grid-panel[\s\S]*background:\s*var\(--panel-surface\)/i.test(css),
+  'Expected panel surfaces to use the panel surface token.'
 );
 
 assert.ok(

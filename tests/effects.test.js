@@ -67,8 +67,8 @@ assert.ok(
   'Expected the matrix canvas opacity to intensify when enabled.'
 );
 assert.ok(
-  /\.matrix-canvas[\s\S]*filter:\s*blur\(2\.5px\)/i.test(css),
-  'Expected the matrix canvas to use a soft blur.'
+  /\.panel[\s\S]*backdrop-filter:\s*blur\(6px\)/i.test(css),
+  'Expected the panels to apply a backdrop blur.'
 );
 assert.ok(
   /\.matrix-veil[\s\S]*background:\s*var\(--veil\)/i.test(css),

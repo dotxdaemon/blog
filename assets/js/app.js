@@ -132,7 +132,7 @@ function createPostLink(post) {
   item.className = 'post-list__item post-list__item--link';
 
   const link = document.createElement('a');
-  link.className = 'row-link';
+  link.className = 'list-row';
   link.href = `post.html?slug=${slugify(post.title)}`;
   link.textContent = post.title;
 
@@ -467,7 +467,7 @@ function setupListeningWidgets() {
 
       const item = document.createElement('li');
       const link = document.createElement('a');
-      link.className = 'row-link';
+      link.className = 'list-row';
       link.href = track.url || '#';
       link.target = '_blank';
       link.rel = 'noreferrer';
