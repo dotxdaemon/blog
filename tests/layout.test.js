@@ -44,6 +44,11 @@ assert.ok(
 );
 
 assert.ok(
+  /class="build-stamp"[^>]*>build:\s*[a-f0-9]{7}\s+\d{4}-\d{2}-\d{2}T/i.test(html),
+  'Expected the header to include a build stamp with a short hash and timestamp.'
+);
+
+assert.ok(
   !/id="matrix-toggle"/i.test(html),
   'Expected the header to omit the matrix toggle control.'
 );

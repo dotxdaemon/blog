@@ -67,7 +67,7 @@ assert.ok(
 });
 
 const appSource = fs.readFileSync(appJsPath, 'utf8');
-['post-snippet', 'post-snippet__meta', 'post-snippet__title', 'post-snippet__excerpt'].forEach(
+['post-feature', 'post-feature__meta', 'post-feature__title', 'post-feature__subtitle'].forEach(
   (className) => {
     assert.ok(
       appSource.includes(className),

@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-02-02
+  Task: Shifted the homepage into a poster-style split layout with a build stamp.
+  Notes: Replaced homepage card markup with typographic and poster blocks, unified row link styles, added build stamp rendering, and refreshed related tests.
 - Date: 2026-02-22
   Task: Reduced the matrix veil opacity for improved content contrast.
   Notes: Adjusted the matrix veil background alpha and updated the related effect test.

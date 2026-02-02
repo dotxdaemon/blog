@@ -16,7 +16,7 @@ assert.ok(css.includes('--bg: #07070b;'), 'Expected Matrix Lite background color
 assert.ok(css.includes('--text: rgba(245, 244, 255, 0.96);'), 'Expected Matrix Lite text color.');
 assert.ok(css.includes('--accent: #cbb7ff;'), 'Expected Matrix Lite accent color.');
 assert.ok(
-  css.includes('--panel: rgba(13, 13, 20, 0.88);'),
+  css.includes('--panelBg: rgba(13, 13, 20, 0.92);'),
   'Expected Matrix Lite panel color.'
 );
 assert.ok(
@@ -36,5 +36,5 @@ assert.ok(css.includes('@keyframes decrypt-entry'), 'Expected decrypt-entry keyf
 assert.ok(css.includes('@keyframes blink'), 'Expected blink keyframes.');
 assert.ok(indexHtml.includes('JetBrains+Mono'), 'Expected JetBrains Mono font link.');
 assert.ok(indexHtml.includes('Fira+Code'), 'Expected Fira Code font link.');
-assert.ok(appJs.includes('post-card'), 'Expected post-card class in renderer.');
+assert.ok(appJs.includes('post-feature'), 'Expected post-feature class in renderer.');
 assert.ok(appJs.includes('decrypt-entry'), 'Expected decrypt-entry animation in renderer.');

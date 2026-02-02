@@ -28,6 +28,7 @@
           <a class="nav-link" href="#latest-writing">Posts</a>
           <a class="nav-link" href="#site-footer">About</a>
         </nav>
+        <span class="build-stamp" id="build-stamp" data-build-sha="dee9f01">build: dee9f01 2026-02-02T20:18:30Z</span>
       </div>
       <div class="divider container" aria-hidden="true"></div>
     </header>
@@ -47,15 +48,17 @@
       </section>
 
       <section class="section-block" id="last-played" data-last-played>
-        <div class="panel">
-          <header class="section-header">
-            <h2 class="section-title">Last played</h2>
-          </header>
+        <div class="panel panel--poster">
           <div class="now-playing">
             <div class="now-playing__primary" id="now-playing-primary">
               <div class="loading">Loading tracks...</div>
             </div>
-            <ul class="track-grid" id="track-grid" aria-label="Recent tracks"></ul>
+            <div class="now-playing__rows">
+              <header class="section-header">
+                <h2 class="section-title">Last played</h2>
+              </header>
+              <ul class="track-grid" id="track-grid" aria-label="Recent tracks"></ul>
+            </div>
           </div>
         </div>
       </section>
