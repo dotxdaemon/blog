@@ -1,5 +1,5 @@
-// ABOUTME: Ensures the homepage hero aligns the social links with the title baseline.
-// ABOUTME: Confirms the landing hero alignment behavior at larger breakpoints.
+// ABOUTME: Ensures the homepage grid favors a two-column symmetry-first layout.
+// ABOUTME: Confirms the latest writing link list maintains compact spacing.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -8,10 +8,18 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 assert.ok(
-  /\.landing-grid\s+\.hero[\s\S]*align-items:\s*flex-start/i.test(css),
-  'Expected the landing hero to align items to the start edge.'
+  /\.page\.landing-grid[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\)/i.test(css),
+  'Expected the landing grid to define a single-column mobile baseline.'
 );
+
 assert.ok(
-  /\.profile-links__list[\s\S]*gap:\s*0\.6rem/i.test(css),
-  'Expected the profile links to keep consistent spacing.'
+  /@media\s*\(min-width:\s*960px\)[\s\S]*\.page\.landing-grid[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i.test(
+    css
+  ),
+  'Expected the landing grid to switch to a two-column layout on desktop.'
+);
+
+assert.ok(
+  /\.post-link[\s\S]*padding:\s*0\.35rem 0/i.test(css),
+  'Expected the latest writing links to keep a compact rhythm.'
 );

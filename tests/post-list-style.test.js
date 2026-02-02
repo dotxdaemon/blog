@@ -13,7 +13,7 @@ assert.ok(
   'Expected post list items to use vertical spacing via gap.'
 );
 assert.ok(
-  css.includes('.post-card {\n  background: var(--surface-1);\n  border: 1px solid var(--border-subtle);'),
+  css.includes('.post-card {\n  background: var(--surface-1);\n  border: var(--border-width) solid var(--border-subtle);'),
   'Expected post cards to render on a subtle surface with a border.'
 );
 assert.ok(
@@ -31,4 +31,14 @@ assert.ok(
 assert.ok(
   /\.post-snippet__excerpt[\s\S]*-webkit-line-clamp:\s*2/i.test(css),
   'Expected post excerpts to line clamp to two lines.'
+);
+
+assert.ok(
+  /\.post-card--featured[\s\S]*border-color:\s*var\(--border\)/i.test(css),
+  'Expected the featured post card to reinforce the primary border color.'
+);
+
+assert.ok(
+  /\.post-card--featured::after[\s\S]*background:\s*var\(--accent\)/i.test(css),
+  'Expected the featured post card to include an accent corner marker.'
 );

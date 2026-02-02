@@ -10,7 +10,7 @@ const css = fs.readFileSync(cssPath, 'utf8');
 const matrixPalette = [
   ['--background', '#050505'],
   ['--foreground', '#f5f5f5'],
-  ['--accent', '#ffffff'],
+  ['--accent', '#cbb7ff'],
   ['--muted', '#0d0d0d'],
   ['--border', 'rgba(255, 255, 255, 0.16)'],
   ['--border-subtle', 'rgba(255, 255, 255, 0.1)'],
@@ -26,7 +26,7 @@ const matrixPalette = [
 const lightPalette = [
   ['--background', '#fdfdfc'],
   ['--foreground', '#1a1a1a'],
-  ['--accent', '#1a1a1a'],
+  ['--accent', '#cbb7ff'],
   ['--muted', '#f1f1f3'],
   ['--border', 'rgba(17, 17, 17, 0.12)'],
   ['--border-subtle', 'rgba(17, 17, 17, 0.08)'],

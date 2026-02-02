@@ -18,52 +18,31 @@
   </head>
   <body data-theme="dark">
     <canvas id="matrix-rain" class="matrix-canvas" aria-hidden="true"></canvas>
+    <div class="matrix-veil" aria-hidden="true"></div>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
       <div class="container nav-shell">
-        <a class="site-brand" href="#hero">velvetdaemon</a>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="primary-nav"
-        >
-          Menu
-        </button>
+        <a class="site-brand" href="#main-content">velvetdaemon</a>
         <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
-          <a class="nav-link" href="#posts">Posts</a>
-          <a class="nav-link" href="search.html">Search</a>
-          <a class="nav-link" href="#hero">About</a>
+          <a class="nav-link" href="#latest-writing">Posts</a>
+          <a class="nav-link" href="#site-footer">About</a>
         </nav>
       </div>
       <div class="divider container" aria-hidden="true"></div>
     </header>
 
     <main class="page landing-grid" id="main-content" data-layout="index">
-      <section class="section-block" id="hero" data-hero>
+      <section
+        class="section-block post-feed"
+        id="latest-writing"
+        aria-label="Latest writing"
+      >
         <header class="section-header">
-          <h2 class="section-title">Profile</h2>
+          <h2 class="section-title">Latest writing</h2>
         </header>
-        <div class="card grid-panel profile-card hero">
-          <h1 class="hero__title card-title">velvetdaemon</h1>
-          <nav class="profile-links" aria-label="Profile links">
-            <ul class="profile-links__list">
-              <li>
-                <a class="social-link" href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a class="social-link" href="https://letterboxd.com/velvetdaemon/" target="_blank" rel="noreferrer">
-                  Letterboxd
-                </a>
-              </li>
-              <li>
-                <a class="social-link" href="mailto:seaneukim@gmail.com">Email</a>
-              </li>
-            </ul>
-          </nav>
+        <div class="card grid-panel">
+          <ul class="post-list" id="posts" aria-live="polite"></ul>
         </div>
       </section>
 
@@ -72,28 +51,20 @@
           <h2 class="section-title">Last played</h2>
         </header>
         <div class="card grid-panel now-playing">
-          <div class="track-grid" id="track-grid">
+          <div class="now-playing__primary" id="now-playing-primary">
             <div class="loading">Loading tracks...</div>
           </div>
-        </div>
-      </section>
-
-      <section class="section-block post-feed" aria-label="Post feed">
-        <header class="section-header">
-          <h2 class="section-title">Latest writing</h2>
-        </header>
-        <div class="card grid-panel">
-          <ul class="post-list" id="posts" aria-live="polite"></ul>
+          <ul class="track-grid" id="track-grid" aria-label="Recent tracks"></ul>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer" aria-label="Site footer">
+    <footer class="site-footer" id="site-footer" aria-label="Site footer">
       <div class="divider container" aria-hidden="true"></div>
       <div class="container site-footer__inner">
         <p>© <span id="current-year"></span> velvetdaemon</p>
         <div class="site-footer__links">
-          <a class="nav-link" href="#hero">About</a>
+          <a class="nav-link" href="#site-footer">About</a>
           <a
             class="nav-link"
             href="https://github.com/dotxdaemon"

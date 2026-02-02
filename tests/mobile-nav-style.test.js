@@ -7,13 +7,13 @@ const path = require('path');
 const css = fs.readFileSync(path.join(__dirname, '..', 'assets', 'css', 'main.css'), 'utf8');
 
 assert.ok(
-  /\.nav-menu\.is-open\s*\{[^}]*flex-direction:\s*column;[^}]*\}/s.test(css),
-  'Expected the open mobile nav menu to stack items in a column.'
+  /\.nav-menu\s*\{[^}]*display:\s*flex;[^}]*\}/s.test(css),
+  'Expected the navigation menu to render as a flex row.'
 );
 
 assert.ok(
-  /\.nav-menu\.is-open\s+\.nav-link\s*\{[^}]*padding:\s*0\.65rem 0\.95rem;[^}]*\}/s.test(css),
-  'Expected mobile nav links to have larger tap targets.'
+  /\.nav-link[\s\S]*border-radius:\s*var\(--radius-sm\)/i.test(css),
+  'Expected nav links to use the shared hard-edge radius token.'
 );
 
 assert.ok(

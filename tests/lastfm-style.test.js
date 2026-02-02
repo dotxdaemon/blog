@@ -7,11 +7,11 @@ const path = require('path');
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
-assert.ok(css.includes('.track-grid {'), 'Expected track grid styles to be defined.');
-assert.ok(css.includes('.track-card {'), 'Expected track card styles to be defined.');
+assert.ok(css.includes('.track-grid {'), 'Expected track list styles to be defined.');
+assert.ok(css.includes('.recent-track {'), 'Expected recent track link styles to be defined.');
 assert.ok(
   css.includes('grid-template-columns: 1fr;'),
-  'Expected the track grid to render as a single-column log.'
+  'Expected the recent track list to render as a single-column log.'
 );
 assert.ok(
   css.includes('font-family: var(--font-sans);'),
@@ -22,12 +22,12 @@ assert.ok(
   'Expected the track text to truncate overflowing titles.'
 );
 assert.ok(
-  /\.track-card[\s\S]*border:\s*1px solid var\(--border-subtle\)/i.test(css),
-  'Expected track cards to use the subtle border color.'
+  /\.recent-track[\s\S]*border-bottom:\s*var\(--border-width\) solid var\(--border-subtle\)/i.test(css),
+  'Expected recent tracks to use the subtle divider border color.'
 );
 assert.ok(
-  /\.album-art[\s\S]*width:\s*3rem;[\s\S]*height:\s*3rem;/i.test(css),
-  'Expected album art to render at 3rem square.'
+  /\.now-playing__artwork[\s\S]*width:\s*100%/i.test(css),
+  'Expected the primary album art to fill the panel width.'
 );
 assert.ok(
   css.includes('.loading {'),

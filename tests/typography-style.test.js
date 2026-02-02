@@ -16,8 +16,8 @@ assert.ok(
   'Expected the active nav link underline to avoid wavy decoration.'
 );
 assert.ok(
-  /\.nav-link\.active[\s\S]*?background:\s*var\(--surface-2\)/i.test(css),
-  'Expected the active nav link to use the elevated surface background.'
+  /\.nav-link\.active[\s\S]*?border-color:\s*var\(--accent\)/i.test(css),
+  'Expected the active nav link to use the accent border color.'
 );
 
 assert.ok(
@@ -62,7 +62,7 @@ assert.ok(
   const pattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-sans\\)`, 'i');
   assert.ok(
     pattern.test(css),
-    `Expected ${className} to use the monospace font family.`
+    `Expected ${className} to use the sans-serif font family.`
   );
 });
 
