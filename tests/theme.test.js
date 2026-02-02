@@ -10,7 +10,8 @@ const css = fs.readFileSync(cssPath, 'utf8');
 const matrixPalette = [
   ['--bg', '#07070b'],
   ['--veil', 'rgba(7, 7, 12, 0.66)'],
-  ['--panel', 'rgba(13, 13, 20, 0.88)'],
+  ['--panelBg', 'rgba(13, 13, 20, 0.92)'],
+  ['--panel', 'var(--panelBg)'],
   ['--card', 'rgba(22, 22, 32, 0.92)'],
   ['--text', 'rgba(245, 244, 255, 0.96)'],
   ['--muted', 'rgba(203, 200, 224, 0.72)'],
@@ -23,7 +24,8 @@ const matrixPalette = [
 const lightPalette = [
   ['--bg', '#f8f7fb'],
   ['--veil', 'rgba(248, 247, 251, 0.7)'],
-  ['--panel', 'rgba(252, 251, 255, 0.92)'],
+  ['--panelBg', 'rgba(252, 251, 255, 0.92)'],
+  ['--panel', 'var(--panelBg)'],
   ['--card', 'rgba(255, 255, 255, 0.96)'],
   ['--text', 'rgba(20, 20, 28, 0.92)'],
   ['--muted', 'rgba(45, 45, 58, 0.68)'],

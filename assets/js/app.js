@@ -16,7 +16,7 @@ const orderedPosts = posts
 postList.innerHTML = '';
 
 if (!orderedPosts.length) {
-  postList.appendChild(createEmptyCard());
+  postList.appendChild(createEmptyPost());
 } else {
   const [featuredPost, ...remainingPosts] = orderedPosts;
   postList.appendChild(createPostEntry(featuredPost, 0, prefersReducedMotion, true));
@@ -31,28 +31,35 @@ if (currentYearEl) {
   currentYearEl.textContent = String(new Date().getFullYear());
 }
 
+const buildStampEl = document.getElementById('build-stamp');
+if (buildStampEl) {
+  const buildSha = buildStampEl.dataset.buildSha || 'unknown';
+  const timestamp = new Date().toISOString();
+  buildStampEl.textContent = `build: ${buildSha} ${timestamp}`;
+}
+
 setupNavToggle();
 setupMatrixRain();
 setupListeningWidgets();
 
-function createEmptyCard() {
+function createEmptyPost() {
   const item = document.createElement('li');
   item.className = 'post-list__item post-list__item--featured';
 
-  const card = document.createElement('article');
-  card.className = 'post-snippet post-card post-card--featured';
+  const entry = document.createElement('article');
+  entry.className = 'post-feature';
+
+  const meta = document.createElement('p');
+  meta.className = 'post-feature__meta';
+  meta.textContent = 'Nothing yet';
 
   const title = document.createElement('h3');
-  title.className = 'post-snippet__title';
-  title.textContent = 'Nothing yet';
+  title.className = 'post-feature__title';
+  title.textContent = 'Add your first post in assets/js/posts.js.';
 
-  const detail = document.createElement('p');
-  detail.className = 'post-snippet__excerpt';
-  detail.textContent = 'Add your first post in assets/js/posts.js.';
-
-  card.appendChild(title);
-  card.appendChild(detail);
-  item.appendChild(card);
+  entry.appendChild(meta);
+  entry.appendChild(title);
+  item.appendChild(entry);
   return item;
 }
 
@@ -60,33 +67,18 @@ function createPostEntry(post, index, shouldReduceMotion, isFeatured) {
   const item = document.createElement('li');
   item.className = 'post-list__item post-list__item--featured';
 
-  const card = document.createElement('article');
-  card.className = `post-snippet post-card${isFeatured ? ' post-card--featured' : ''}`;
+  const entry = document.createElement('article');
+  entry.className = 'post-feature';
 
   if (!shouldReduceMotion) {
     const delay = Number.isFinite(index) ? index * 100 : 0;
-    card.style.animation = 'decrypt-entry 240ms ease forwards';
-    card.style.animationDelay = `${delay}ms`;
+    entry.style.animation = 'decrypt-entry 240ms ease forwards';
+    entry.style.animationDelay = `${delay}ms`;
   }
 
-  // Make card clickable
   const slug = slugify(post.title);
-  card.addEventListener('click', (e) => {
-    // Don't navigate if clicking a link inside the card
-    if (e.target.tagName === 'A') return;
-    window.location.href = `post.html?slug=${slug}`;
-  });
-  card.setAttribute('role', 'link');
-  card.setAttribute('tabindex', '0');
-  card.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      window.location.href = `post.html?slug=${slug}`;
-    }
-  });
-
-  const meta = document.createElement('div');
-  meta.className = 'post-snippet__meta';
+  const meta = document.createElement('p');
+  meta.className = 'post-feature__meta';
 
   const formattedDate = formatDate(post.date);
   const metaNodes = [];
@@ -110,28 +102,28 @@ function createPostEntry(post, index, shouldReduceMotion, isFeatured) {
   }
 
   appendMetaSegments(meta, metaNodes);
-  card.appendChild(meta);
+  entry.appendChild(meta);
 
-  const titleWrapper = document.createElement('h3');
-  titleWrapper.className = 'post-snippet__title';
+  const title = document.createElement('h3');
+  title.className = 'post-feature__title';
   const titleLink = document.createElement('a');
-  titleLink.className = 'post-snippet__link';
+  titleLink.className = 'post-feature__link';
   titleLink.href = `post.html?slug=${slug}`;
   titleLink.textContent = post.title;
-  titleWrapper.appendChild(titleLink);
-  card.appendChild(titleWrapper);
+  title.appendChild(titleLink);
+  entry.appendChild(title);
 
   const { text: excerpt, isFromBody } = deriveExcerpt(post);
   const shouldRenderExcerpt = Boolean(excerpt);
 
   if (shouldRenderExcerpt) {
     const excerptEl = document.createElement('p');
-    excerptEl.className = 'post-snippet__excerpt';
+    excerptEl.className = 'post-feature__subtitle';
     excerptEl.textContent = excerpt;
-    card.appendChild(excerptEl);
+    entry.appendChild(excerptEl);
   }
 
-  item.appendChild(card);
+  item.appendChild(entry);
   return item;
 }
 
@@ -140,7 +132,7 @@ function createPostLink(post) {
   item.className = 'post-list__item post-list__item--link';
 
   const link = document.createElement('a');
-  link.className = 'post-link';
+  link.className = 'row-link';
   link.href = `post.html?slug=${slugify(post.title)}`;
   link.textContent = post.title;
 
@@ -428,12 +420,12 @@ function setupListeningWidgets() {
     const imageUrl = getTrackImage(track);
     const artistText = track.artist && track.artist['#text'] ? track.artist['#text'] : '';
 
-    const artFrame = document.createElement(track.url ? 'a' : 'div');
-    artFrame.className = 'now-playing__artwork-frame';
+    const artLink = document.createElement(track.url ? 'a' : 'div');
+    artLink.className = 'now-playing__artwork-link';
     if (track.url) {
-      artFrame.href = track.url;
-      artFrame.target = '_blank';
-      artFrame.rel = 'noreferrer';
+      artLink.href = track.url;
+      artLink.target = '_blank';
+      artLink.rel = 'noreferrer';
     }
 
     const image = document.createElement('img');
@@ -442,10 +434,10 @@ function setupListeningWidgets() {
       image.src = imageUrl;
     }
     image.alt = track.name || 'Album art';
-    artFrame.appendChild(image);
+    artLink.appendChild(image);
 
     const details = document.createElement('div');
-    details.className = 'now-playing__details';
+    details.className = 'now-playing__caption';
 
     const title = document.createElement('p');
     title.className = 'now-playing__title';
@@ -461,7 +453,7 @@ function setupListeningWidgets() {
 
     details.appendChild(title);
     details.appendChild(artist);
-    primarySlot.appendChild(artFrame);
+    primarySlot.appendChild(artLink);
     primarySlot.appendChild(details);
   }
 
@@ -475,7 +467,7 @@ function setupListeningWidgets() {
 
       const item = document.createElement('li');
       const link = document.createElement('a');
-      link.className = 'recent-track';
+      link.className = 'row-link';
       link.href = track.url || '#';
       link.target = '_blank';
       link.rel = 'noreferrer';
