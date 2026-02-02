@@ -8,23 +8,23 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 assert.ok(
-  /--radius-lg:\s*\d+px/i.test(css),
-  'Expected a large radius token for rounded surfaces.'
+  /--radius:\s*\d+px/i.test(css),
+  'Expected a radius token for rounded surfaces.'
 );
 
 assert.ok(
-  /body::after[\s\S]*?background:\s*var\(--backdrop\)/i.test(css),
-  'Expected the overlay to use the backdrop theme variable.'
+  /body::after[\s\S]*?background:\s*transparent/i.test(css),
+  'Expected the overlay to avoid competing with the matrix veil.'
 );
 
 assert.ok(
-  /\.grid-panel[\s\S]*?background:\s*var\(--panel-surface\)/i.test(css),
-  'Expected panels to use the panel surface color.'
+  /\.grid-panel[\s\S]*?background:\s*var\(--panel\)/i.test(css),
+  'Expected panels to use the panel color.'
 );
 
 assert.ok(
-  /\.grid-panel[\s\S]*?border:\s*var\(--border-width\)\s+solid\s+var\(--border-subtle\)/i.test(css),
-  'Expected panels to use the subtle border color with a consistent weight.'
+  /\.grid-panel[\s\S]*?border:\s*var\(--borderWidth\)\s+solid\s+var\(--border\)/i.test(css),
+  'Expected panels to use the primary border color with a consistent weight.'
 );
 
 const navLinkSansPattern = /\.nav-link[\s\S]*?font-family:\s*var\(--font-sans\)/i;
@@ -32,12 +32,12 @@ assert.ok(navLinkSansPattern.test(css), 'Expected nav links to use the sans-seri
 
 ['post-snippet__meta', 'post-meta'].forEach((className) => {
   const monoPattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-mono\\)`, 'i');
-  const uppercasePattern = new RegExp(`\\.${className}[\\s\\S]*?text-transform:\\s*uppercase`, 'i');
-  const spacingPattern = new RegExp(`\\.${className}[\\s\\S]*?letter-spacing:\\s*0\\.05em`, 'i');
+  const uppercasePattern = new RegExp(`\\.${className}[\\s\\S]*?text-transform:\\s*none`, 'i');
+  const spacingPattern = new RegExp(`\\.${className}[\\s\\S]*?letter-spacing:\\s*0`, 'i');
 
   assert.ok(monoPattern.test(css), `Expected ${className} metadata to use the monospace font.`);
-  assert.ok(uppercasePattern.test(css), `Expected ${className} metadata to be uppercase.`);
-  assert.ok(spacingPattern.test(css), `Expected ${className} metadata to use wider letter spacing.`);
+  assert.ok(uppercasePattern.test(css), `Expected ${className} metadata to avoid uppercase.`);
+  assert.ok(spacingPattern.test(css), `Expected ${className} metadata to avoid wide letter spacing.`);
 });
 
 assert.ok(
@@ -46,11 +46,11 @@ assert.ok(
 );
 
 assert.ok(
-  /\.recent-track[\s\S]*?color:\s*var\(--text-primary\)/i.test(css),
+  /\.recent-track[\s\S]*?color:\s*var\(--text\)/i.test(css),
   'Expected recent tracks to use the primary text color.'
 );
 
 assert.ok(
-  /\.recent-track[\s\S]*?border-bottom:\s*var\(--border-width\)\s+solid\s+var\(--border-subtle\)/i.test(css),
+  /\.recent-track[\s\S]*?border-bottom:\s*var\(--borderWidth\)\s+solid\s+var\(--border-subtle\)/i.test(css),
   'Expected recent tracks to use the subtle divider border color.'
 );

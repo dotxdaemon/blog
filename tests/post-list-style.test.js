@@ -9,19 +9,19 @@ const css = fs.readFileSync(cssPath, 'utf8');
 
 assert.ok(css.includes('.post-list {'), 'Expected a .post-list block in main.css.');
 assert.ok(
-  css.includes('gap: var(--space-4);'),
+  css.includes('gap: var(--space-3);'),
   'Expected post list items to use vertical spacing via gap.'
 );
 assert.ok(
-  css.includes('.post-card {\n  background: var(--surface-1);\n  border: var(--border-width) solid var(--border-subtle);'),
+  css.includes('.post-card {\n  background: var(--card);\n  border: var(--borderWidth) solid var(--border-subtle);'),
   'Expected post cards to render on a subtle surface with a border.'
 );
 assert.ok(
-  css.includes('font-size: 1.2rem;'),
+  css.includes('font-size: var(--type-card);'),
   'Expected post titles to use a larger font size for hierarchy.'
 );
 assert.ok(
-  css.includes('color: var(--text-muted);'),
+  css.includes('color: var(--muted);'),
   'Expected post excerpts to use a muted text color.'
 );
 assert.ok(
