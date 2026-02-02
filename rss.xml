@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ABOUTME: Provides the site's RSS channel metadata and posts. -->
-<!-- ABOUTME: Mirrors output from the RSS generator script. -->
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>velvetdaemon</title>
@@ -8,20 +6,20 @@
     <link>https://dotxdaemon.github.io/blog</link>
     <atom:link href="https://dotxdaemon.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Jan 2026 21:30:16 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Feb 2026 18:05:04 GMT</lastBuildDate>
     <item>
       <title>cooking recipes</title>
       <link>https://dotxdaemon.github.io/blog/post.html?slug=cooking-recipes</link>
       <guid isPermaLink="true">https://dotxdaemon.github.io/blog/post.html?slug=cooking-recipes</guid>
       <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
-      <description>Three weeknight recipes built from pantry staples and bright herbs.</description>
+      <description>pantry chicken thighs</description>
     </item>
     <item>
       <title>movies I want to watch</title>
       <link>https://dotxdaemon.github.io/blog/post.html?slug=movies-i-want-to-watch</link>
       <guid isPermaLink="true">https://dotxdaemon.github.io/blog/post.html?slug=movies-i-want-to-watch</guid>
       <pubDate>Fri, 26 Sep 2025 00:00:00 GMT</pubDate>
-      <description>A running list of movies I want to watch soon.</description>
+      <description>Hamnet</description>
     </item>
     <item>
       <title>hi everybody</title>

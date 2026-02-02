@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-02-02
+  Task: Updated RSS generation to support configured site URLs.
+  Notes: Added coverage for SITE_URL overrides and regenerated the RSS feed.
 - Date: 2026-01-29
   Task: Refined the homepage layout to a modern card-based grid.
   Notes: Updated the homepage markup and styles to use a 12-column layout, surface cards, and refreshed navigation while aligning tests.

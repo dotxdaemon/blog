@@ -20,7 +20,8 @@ if (!match) {
 const posts = eval(match[1]);
 
 // Site config
-const SITE_URL = 'https://dotxdaemon.github.io/blog';
+const DEFAULT_SITE_URL = 'https://dotxdaemon.github.io/blog';
+const SITE_URL = resolveSiteUrl();
 const SITE_TITLE = 'velvetdaemon';
 const SITE_DESCRIPTION = '';
 
@@ -84,4 +85,18 @@ function escapeXml(text) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
+}
+
+function resolveSiteUrl() {
+  if (process.env.SITE_URL) {
+    return stripTrailingSlash(process.env.SITE_URL);
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${stripTrailingSlash(process.env.VERCEL_URL)}`;
+  }
+  return DEFAULT_SITE_URL;
+}
+
+function stripTrailingSlash(url) {
+  return url.endsWith('/') ? url.slice(0, -1) : url;
 }
