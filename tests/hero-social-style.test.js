@@ -20,6 +20,6 @@ assert.ok(
 );
 
 assert.ok(
-  /\.post-link[\s\S]*padding:\s*0\.35rem 0/i.test(css),
+  /\.post-link[\s\S]*padding:\s*var\(--space-1\)\s+0/i.test(css),
   'Expected the latest writing links to keep a compact rhythm.'
 );

@@ -12,15 +12,15 @@ const css = fs.readFileSync(cssPath, 'utf8');
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const appJs = fs.readFileSync(appPath, 'utf8');
 
-assert.ok(css.includes('--background: #050505;'), 'Expected Matrix Lite background color.');
-assert.ok(css.includes('--foreground: #f5f5f5;'), 'Expected Matrix Lite foreground color.');
+assert.ok(css.includes('--bg: #07070b;'), 'Expected Matrix Lite background color.');
+assert.ok(css.includes('--text: rgba(245, 244, 255, 0.96);'), 'Expected Matrix Lite text color.');
 assert.ok(css.includes('--accent: #cbb7ff;'), 'Expected Matrix Lite accent color.');
 assert.ok(
-  css.includes('--surface-1: rgba(255, 255, 255, 0.04);'),
-  'Expected Matrix Lite surface color.'
+  css.includes('--panel: rgba(13, 13, 20, 0.88);'),
+  'Expected Matrix Lite panel color.'
 );
 assert.ok(
-  css.includes('--border: rgba(255, 255, 255, 0.16);'),
+  css.includes('--border: rgba(245, 244, 255, 0.18);'),
   'Expected Matrix Lite border color.'
 );
 assert.ok(
@@ -28,7 +28,7 @@ assert.ok(
   'Expected Matrix Lite font stack.'
 );
 assert.ok(
-  css.includes('border: var(--border-width) solid var(--border-subtle);'),
+  css.includes('border: var(--borderWidth) solid var(--border-subtle);'),
   'Expected post card border style.'
 );
 assert.ok(css.includes('box-shadow: none;'), 'Expected post card hover glow to be removed.');

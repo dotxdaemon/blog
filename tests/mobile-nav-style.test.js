@@ -12,7 +12,7 @@ assert.ok(
 );
 
 assert.ok(
-  /\.nav-link[\s\S]*border-radius:\s*var\(--radius-sm\)/i.test(css),
+  /\.nav-link[\s\S]*border-radius:\s*var\(--radius\)/i.test(css),
   'Expected nav links to use the shared hard-edge radius token.'
 );
 

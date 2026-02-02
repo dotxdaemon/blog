@@ -22,7 +22,7 @@ assert.ok(
   'Expected the track text to truncate overflowing titles.'
 );
 assert.ok(
-  /\.recent-track[\s\S]*border-bottom:\s*var\(--border-width\) solid var\(--border-subtle\)/i.test(css),
+  /\.recent-track[\s\S]*border-bottom:\s*var\(--borderWidth\) solid var\(--border-subtle\)/i.test(css),
   'Expected recent tracks to use the subtle divider border color.'
 );
 assert.ok(
