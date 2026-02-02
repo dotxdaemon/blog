@@ -13,6 +13,11 @@ assert.ok(
 );
 
 assert.ok(
+  /class="matrix-veil"/i.test(html),
+  'Expected a matrix veil layer to temper the background.'
+);
+
+assert.ok(
   /matrix\.js/i.test(html),
   'Expected the matrix rain script to be loaded in the page.'
 );
@@ -50,16 +55,24 @@ assert.ok(
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 assert.ok(
-  /\.matrix-canvas[\s\S]*opacity:\s*0\.08/i.test(css),
-  'Expected the matrix canvas opacity to be more subtle.'
+  /\.matrix-canvas[\s\S]*opacity:\s*0\.18/i.test(css),
+  'Expected the matrix canvas opacity to be more pronounced.'
 );
 assert.ok(
-  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.08/i.test(css),
+  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.18/i.test(css),
   'Expected the matrix canvas opacity to be consistent in dark mode.'
 );
 assert.ok(
-  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.4/i.test(css),
+  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.45/i.test(css),
   'Expected the matrix canvas opacity to intensify when enabled.'
+);
+assert.ok(
+  /\.matrix-canvas[\s\S]*filter:\s*blur\(1\.5px\)/i.test(css),
+  'Expected the matrix canvas to use a soft blur.'
+);
+assert.ok(
+  /\.matrix-veil[\s\S]*background:\s*rgba\(5,\s*5,\s*5,\s*0\.6\)/i.test(css),
+  'Expected the matrix veil to provide a dark overlay.'
 );
 const reducedMotionStart = css.indexOf('@media (prefers-reduced-motion: reduce)');
 assert.ok(reducedMotionStart !== -1, 'Expected reduced-motion styles to exist.');

@@ -14,7 +14,7 @@ const appJs = fs.readFileSync(appPath, 'utf8');
 
 assert.ok(css.includes('--background: #050505;'), 'Expected Matrix Lite background color.');
 assert.ok(css.includes('--foreground: #f5f5f5;'), 'Expected Matrix Lite foreground color.');
-assert.ok(css.includes('--accent: #ffffff;'), 'Expected Matrix Lite accent color.');
+assert.ok(css.includes('--accent: #cbb7ff;'), 'Expected Matrix Lite accent color.');
 assert.ok(
   css.includes('--surface-1: rgba(255, 255, 255, 0.04);'),
   'Expected Matrix Lite surface color.'
@@ -28,7 +28,7 @@ assert.ok(
   'Expected Matrix Lite font stack.'
 );
 assert.ok(
-  css.includes('border: 1px solid var(--border-subtle);'),
+  css.includes('border: var(--border-width) solid var(--border-subtle);'),
   'Expected post card border style.'
 );
 assert.ok(css.includes('box-shadow: none;'), 'Expected post card hover glow to be removed.');

@@ -18,13 +18,13 @@ assert.ok(
 );
 
 assert.ok(
-  /\.grid-panel[\s\S]*?background:\s*var\(--surface-1\)/i.test(css),
-  'Expected panels to use the primary surface color.'
+  /\.grid-panel[\s\S]*?background:\s*var\(--panel-surface\)/i.test(css),
+  'Expected panels to use the panel surface color.'
 );
 
 assert.ok(
-  /\.grid-panel[\s\S]*?border:\s*1px\s+solid\s+var\(--border-subtle\)/i.test(css),
-  'Expected panels to use the subtle border color.'
+  /\.grid-panel[\s\S]*?border:\s*var\(--border-width\)\s+solid\s+var\(--border-subtle\)/i.test(css),
+  'Expected panels to use the subtle border color with a consistent weight.'
 );
 
 const navLinkSansPattern = /\.nav-link[\s\S]*?font-family:\s*var\(--font-sans\)/i;
@@ -46,11 +46,11 @@ assert.ok(
 );
 
 assert.ok(
-  /\.track-card[\s\S]*?background:\s*var\(--surface-1\)/i.test(css),
-  'Expected track cards to use a subtle surface background.'
+  /\.recent-track[\s\S]*?color:\s*var\(--text-primary\)/i.test(css),
+  'Expected recent tracks to use the primary text color.'
 );
 
 assert.ok(
-  /\.track-card[\s\S]*?border:\s*1px\s+solid\s+var\(--border-subtle\)/i.test(css),
-  'Expected track cards to use the subtle border color.'
+  /\.recent-track[\s\S]*?border-bottom:\s*var\(--border-width\)\s+solid\s+var\(--border-subtle\)/i.test(css),
+  'Expected recent tracks to use the subtle divider border color.'
 );

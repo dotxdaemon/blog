@@ -1,5 +1,5 @@
-// ABOUTME: Confirms the homepage layout matches the reference-style shell and navigation.
-// ABOUTME: Ensures the hero intro, skip link, and responsive menu wiring are present.
+// ABOUTME: Confirms the homepage layout matches the symmetry-first shell and navigation.
+// ABOUTME: Ensures the skip link, panel structure, and primary navigation are present.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -10,11 +10,6 @@ const html = fs.readFileSync(indexPath, 'utf8');
 assert.ok(
   /class="skip-link"[^>]*href="#main-content"/i.test(html),
   'Expected a skip link to jump to the main content.'
-);
-
-assert.ok(
-  /aria-controls="primary-nav"/i.test(html),
-  'Expected a nav toggle button controlling #primary-nav.'
 );
 
 const navLinkMatches = [...html.matchAll(/class="nav-link"[^>]*>([^<]+)/gi)].map(
@@ -39,8 +34,8 @@ const navBlockLinks = navBlockMatch
   : [];
 assert.deepStrictEqual(
   navBlockLinks,
-  ['posts', 'search', 'about'],
-  'Expected the primary navigation to list Posts, Search, and About only.'
+  ['posts', 'about'],
+  'Expected the primary navigation to list Posts and About only.'
 );
 
 assert.ok(
@@ -61,11 +56,6 @@ assert.ok(
 assert.ok(
   /class="page landing-grid"/i.test(html),
   'Expected the main content to opt into the landing grid layout.'
-);
-
-assert.ok(
-  /<section[^>]*id="hero"[^>]*data-hero/i.test(html),
-  'Expected a hero section with data-hero marker.'
 );
 
 assert.ok(
@@ -116,18 +106,6 @@ assert.ok(
 );
 
 assert.ok(
-  /Profile/i.test(html),
-  'Expected the profile section header to be present.'
-);
-
-const heroSectionMatch = html.match(/<section[^>]*data-hero[\s\S]*?<\/section>/i);
-assert.ok(heroSectionMatch, 'Expected the hero section markup to exist.');
-assert.ok(
-  heroSectionMatch ? !/·/.test(heroSectionMatch[0]) : false,
-  'Expected the profile links to avoid separator dots.'
-);
-
-assert.ok(
   !/class="eyebrow"[^>]*>Archive/i.test(html),
   'Expected the Archive eyebrow label to be removed.'
 );
@@ -138,11 +116,6 @@ assert.ok(
 );
 
 assert.ok(
-  html.includes('https://letterboxd.com/velvetdaemon/'),
-  'Expected the Letterboxd link to point to the velvetdaemon profile.'
-);
-
-assert.ok(
-  html.includes('mailto:seaneukim@gmail.com'),
-  'Expected the email link to use seaneukim@gmail.com.'
+  /id="now-playing-primary"/i.test(html),
+  'Expected a primary last-played slot for the dominant album art.'
 );
