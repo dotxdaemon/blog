@@ -55,19 +55,19 @@ assert.ok(
 const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 assert.ok(
-  /\.matrix-canvas[\s\S]*opacity:\s*0\.24/i.test(css),
+  /\.matrix-canvas[\s\S]*opacity:\s*0\.3/i.test(css),
   'Expected the matrix canvas opacity to be more pronounced.'
 );
 assert.ok(
-  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.24/i.test(css),
+  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.3/i.test(css),
   'Expected the matrix canvas opacity to be consistent in dark mode.'
 );
 assert.ok(
-  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.42/i.test(css),
+  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.48/i.test(css),
   'Expected the matrix canvas opacity to intensify when enabled.'
 );
 assert.ok(
-  /\.matrix-canvas[\s\S]*filter:\s*blur\(2\.5px\)/i.test(css),
+  /\.matrix-canvas[\s\S]*filter:\s*blur\(3px\)/i.test(css),
   'Expected the matrix canvas to use a soft blur.'
 );
 assert.ok(

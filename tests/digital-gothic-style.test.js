@@ -46,11 +46,11 @@ assert.ok(
 );
 
 assert.ok(
-  /\.recent-track[\s\S]*?color:\s*var\(--text\)/i.test(css),
-  'Expected recent tracks to use the primary text color.'
+  /\.panel-row[\s\S]*?color:\s*var\(--text\)/i.test(css),
+  'Expected panel rows to use the primary text color.'
 );
 
 assert.ok(
-  /\.recent-track[\s\S]*?border-bottom:\s*var\(--borderWidth\)\s+solid\s+var\(--border-subtle\)/i.test(css),
-  'Expected recent tracks to use the subtle divider border color.'
+  /\.panel-row[\s\S]*?border-bottom:\s*var\(--borderWidth\)\s+solid\s+var\(--border\)/i.test(css),
+  'Expected panel rows to use the primary divider border color.'
 );
