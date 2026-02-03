@@ -306,10 +306,30 @@ select {
   border-left: var(--borderWidth) solid var(--border);
   display: grid;
   gap: var(--space-2);
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  align-items: start;
 }
 
 .page[data-layout='posts'] .post-feature__title {
+  grid-column: 2;
   padding-left: 0;
+}
+
+.page[data-layout='posts'] .post-feature__title::before {
+  display: none;
+}
+
+.page[data-layout='posts'] .post-feature__meta {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  font-size: var(--type-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.page[data-layout='posts'] .post-feature__subtitle {
+  grid-column: 2;
+  max-width: 68ch;
 }
 
 .page.landing-grid {

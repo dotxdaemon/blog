@@ -42,6 +42,18 @@ assert.ok(
   ),
   'Expected posts entries to use a grid layout.'
 );
+assert.ok(
+  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?grid-template-columns:\s*minmax\(0,\s*220px\)\s+minmax\(0,\s*1fr\)/i.test(
+    css
+  ),
+  'Expected posts entries to use a two-column ledger layout.'
+);
+assert.ok(
+  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature__title::before[\s\S]*?display:\s*none/i.test(
+    css
+  ),
+  'Expected the posts list to remove the accent title marker.'
+);
 
 assert.ok(
   /assets\/js\/posts\.js/i.test(html),

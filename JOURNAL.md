@@ -12,6 +12,9 @@
 - Date: 2026-02-28
   Task: Shifted the UI toward a cleaner monochrome brutalist layout.
   Notes: Increased album grid spacing, strengthened tile borders and label contrast, and reworked post rows into a structured list.
+- Date: 2026-03-01
+  Task: Reframed the posts layout into a ledger-style list.
+  Notes: Switched posts to a two-column grid with metadata in a fixed column and removed the title accent marker.
 - Date: 2026-02-02
   Task: Shifted the homepage into a poster-style split layout with a build stamp.
   Notes: Replaced homepage card markup with typographic and poster blocks, unified row link styles, added build stamp rendering, and refreshed related tests.
