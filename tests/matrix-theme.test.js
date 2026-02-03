@@ -12,15 +12,15 @@ const css = fs.readFileSync(cssPath, 'utf8');
 const indexHtml = fs.readFileSync(indexPath, 'utf8');
 const appJs = fs.readFileSync(appPath, 'utf8');
 
-assert.ok(css.includes('--bg: #07070b;'), 'Expected Matrix Lite background color.');
-assert.ok(css.includes('--text: rgba(245, 244, 255, 0.96);'), 'Expected Matrix Lite text color.');
-assert.ok(css.includes('--accent: #cbb7ff;'), 'Expected Matrix Lite accent color.');
+assert.ok(css.includes('--bg: #060606;'), 'Expected Matrix Lite background color.');
+assert.ok(css.includes('--text: #f5f5f5;'), 'Expected Matrix Lite text color.');
+assert.ok(css.includes('--accent: #ff2d2d;'), 'Expected Matrix Lite accent color.');
 assert.ok(
-  css.includes('--panelBg: rgba(13, 13, 20, 0.92);'),
+  css.includes('--panelBg: #0f0f0f;'),
   'Expected Matrix Lite panel color.'
 );
 assert.ok(
-  css.includes('--border: rgba(245, 244, 255, 0.18);'),
+  css.includes('--border: #f5f5f5;'),
   'Expected Matrix Lite border color.'
 );
 assert.ok(

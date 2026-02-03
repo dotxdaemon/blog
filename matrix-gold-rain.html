@@ -1,5 +1,5 @@
-<!-- ABOUTME: Presents a self contained canvas demo of lavender matrix rain with layered glow. -->
-<!-- ABOUTME: Drives slow, graceful streams with bright leading heads and responsive resizing. -->
+<!-- ABOUTME: Presents a self contained canvas demo of high-contrast matrix rain with layered glow. -->
+<!-- ABOUTME: Drives slow, brutalist streams with bright leading heads and responsive resizing. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,10 +14,10 @@
     />
     <style>
       :root {
-        --matrix-background: #0d0d0d;
-        --matrix-primary: #CBB7FF;
-        --matrix-emerald: #CBB7FF;
-        --matrix-head: #CBB7FF;
+        --matrix-background: #060606;
+        --matrix-primary: #ff2d2d;
+        --matrix-emerald: #ff2d2d;
+        --matrix-head: #ff2d2d;
       }
 
       * {
@@ -44,18 +44,18 @@
         height: 100%;
         display: block;
         background: var(--matrix-background);
-        filter: drop-shadow(0 0 12px rgba(203, 183, 255, 0.25));
+        filter: drop-shadow(0 0 12px rgba(255, 45, 45, 0.3));
       }
 
       .hud {
         position: relative;
         z-index: 1;
         padding: 14px 18px;
-        border: 1px solid rgba(203, 183, 255, 0.35);
-        border-radius: 10px;
-        background: rgba(13, 13, 13, 0.35);
-        box-shadow: 0 0 18px rgba(203, 183, 255, 0.18);
-        backdrop-filter: blur(4px);
+        border: 2px solid rgba(255, 45, 45, 0.7);
+        border-radius: 0;
+        background: rgba(6, 6, 6, 0.6);
+        box-shadow: 0 0 18px rgba(255, 45, 45, 0.25);
+        backdrop-filter: none;
         text-align: center;
         letter-spacing: 0.08em;
       }
@@ -68,7 +68,7 @@
       .hud__subtitle {
         margin: 6px 0 0;
         font-size: 0.85rem;
-        color: rgba(203, 183, 255, 0.8);
+        color: rgba(255, 45, 45, 0.8);
       }
     </style>
   </head>
@@ -86,7 +86,7 @@
 
         const characters =
           'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-        const fadeFill = 'rgba(13, 13, 13, 0.08)';
+        const fadeFill = 'rgba(6, 6, 6, 0.12)';
         const glyphChangeInterval = 24;
         const columnSpacingRatio = 1.8;
 
@@ -133,10 +133,10 @@
         }
 
         function drawTrail(x, y, layer, columnIndex, layerIndex) {
-          const emerald = { r: 203, g: 183, b: 255 };
-          const lavender = { r: 203, g: 183, b: 255 };
+          const accentBright = { r: 255, g: 45, b: 45 };
+          const accentDeep = { r: 160, g: 0, b: 0 };
           context.shadowBlur = layer.glow;
-          context.shadowColor = 'rgba(203, 183, 255, 0.45)';
+          context.shadowColor = 'rgba(255, 45, 45, 0.45)';
 
           const stream = streams[layerIndex][columnIndex];
           if ((frameCount + stream.glyphOffset) % glyphChangeInterval === 0) {
@@ -144,7 +144,7 @@
           }
 
           const headChar = stream.glyphs[0];
-          context.fillStyle = 'rgba(203, 183, 255, 1)';
+          context.fillStyle = 'rgba(255, 45, 45, 1)';
           context.fillText(headChar, x, y);
 
           for (let depth = 1; depth <= layer.tail; depth += 1) {
@@ -152,7 +152,7 @@
             if (trailY < -layer.fontSize) break;
 
             const fade = 1 - depth / (layer.tail + 2);
-            const colorMix = blendColor(lavender, emerald, fade);
+            const colorMix = blendColor(accentBright, accentDeep, fade);
             const alpha = 0.35 + layer.opacity * fade * 0.7;
             context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
             const trailChar = stream.glyphs[depth] ?? randomChar();
