@@ -30,6 +30,18 @@ assert.ok(
   ),
   'Expected post entries to render as list-like rows on the posts page.'
 );
+assert.ok(
+  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?border-left/i.test(
+    css
+  ),
+  'Expected post entries to include a left-side rule for the posts list.'
+);
+assert.ok(
+  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?display:\s*grid/i.test(
+    css
+  ),
+  'Expected posts entries to use a grid layout.'
+);
 
 assert.ok(
   /assets\/js\/posts\.js/i.test(html),

@@ -34,14 +34,26 @@ assert.ok(
   'Expected album tiles to avoid heavy box shadows.'
 );
 assert.ok(
-  /\.album-tile\s*\{[^}]*border:\s*var\(--borderWidth\)\s+solid\s+var\(--border-subtle\)/i.test(
+  /\.album-tile\s*\{[^}]*border:\s*var\(--borderWidth\)\s+solid\s+var\(--border\)/i.test(
     css
   ),
-  'Expected album tiles to use the subtle border color.'
+  'Expected album tiles to use the primary border color.'
 );
 assert.ok(
   /\.album-tile__label[\s\S]*font-weight:\s*700/i.test(css),
   'Expected album tile labels to use bold typography.'
+);
+assert.ok(
+  /\.album-tile__label[\s\S]*background:\s*var\(--text\)/i.test(css),
+  'Expected album tile labels to use a high-contrast background.'
+);
+assert.ok(
+  /\.album-tile__label[\s\S]*color:\s*var\(--bg\)/i.test(css),
+  'Expected album tile labels to use the background color for text.'
+);
+assert.ok(
+  /\.track-grid[\s\S]*gap:\s*var\(--space-4\)/i.test(css),
+  'Expected the album grid to use the wider spacing token.'
 );
 assert.ok(
   css.includes('font-family: var(--font-sans);'),
