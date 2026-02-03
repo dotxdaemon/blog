@@ -24,7 +24,7 @@ assert.ok(
   'Expected Matrix Lite border color.'
 );
 assert.ok(
-  css.includes('--font-sans: -apple-system, BlinkMacSystemFont'),
+  css.includes('--font-sans: var(--font-mono);'),
   'Expected Matrix Lite font stack.'
 );
 assert.ok(

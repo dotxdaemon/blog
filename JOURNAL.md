@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-07
+  Task: Unified font stack across typography tokens.
+  Notes: Pointed the sans-serif token at the mono stack and updated typography coverage for the unified font.
 - Date: 2026-03-06
   Task: Aligned post navigation for static host parity.
   Notes: Pointed post back navigation and missing-slug redirects at the posts listing and added coverage for the back-link markup.
