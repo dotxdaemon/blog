@@ -1,5 +1,38 @@
 # Journal
 
+- Date: 2026-03-07
+  Task: Unified font stack across typography tokens.
+  Notes: Pointed the sans-serif token at the mono stack and updated typography coverage for the unified font.
+- Date: 2026-03-06
+  Task: Aligned post navigation for static host parity.
+  Notes: Pointed post back navigation and missing-slug redirects at the posts listing and added coverage for the back-link markup.
+- Date: 2026-03-05
+  Task: Unified posts list layout to match the list-row theme.
+  Notes: Rendered all posts using the list-row layout and added coverage to keep the posts renderer consistent.
+- Date: 2026-03-04
+  Task: Restored the 2x2 Last.fm grid and removed the Last played title.
+  Notes: Switched the homepage widget back to album tiles and removed the last-played header text with updated styling tests.
+- Date: 2026-03-03
+  Task: Restored the homepage Last.fm widget.
+  Notes: Reinstated the last-played section, restored now-playing rendering, and reverted track grid styling with aligned tests.
+- Date: 2026-02-25
+  Task: Reworked the homepage to focus on a 2x2 album art grid and separated the posts feed.
+  Notes: Removed the homepage post list, created a dedicated posts page, and refit Last.fm rendering into a 2x2 art grid with updated layout styles.
+- Date: 2026-02-26
+  Task: Refined the album grid hover behavior and aligned the posts page spacing.
+  Notes: Removed the homepage panel border, added hover labels to album tiles, and tuned posts page layout styles for cohesion.
+- Date: 2026-02-27
+  Task: Simplified album tiles and posts list styling for cleaner readability.
+  Notes: Reduced album tile chrome, strengthened hover labels, and reshaped posts into a tighter list layout.
+- Date: 2026-02-28
+  Task: Shifted the UI toward a cleaner monochrome brutalist layout.
+  Notes: Increased album grid spacing, strengthened tile borders and label contrast, and reworked post rows into a structured list.
+- Date: 2026-03-01
+  Task: Reframed the posts layout into a ledger-style list.
+  Notes: Switched posts to a two-column grid with metadata in a fixed column and removed the title accent marker.
+- Date: 2026-03-02
+  Task: Removed the homepage listening panel and stacked post metadata under titles.
+  Notes: Dropped the last-played section and reordered post list typography to match the provided visual reference.
 - Date: 2026-02-02
   Task: Shifted the homepage into a poster-style split layout with a build stamp.
   Notes: Replaced homepage card markup with typographic and poster blocks, unified row link styles, added build stamp rendering, and refreshed related tests.

@@ -13,10 +13,8 @@ assert.ok(
 );
 
 assert.ok(
-  /@media\s*\(min-width:\s*960px\)[\s\S]*\.page\.landing-grid[\s\S]*grid-template-columns:\s*minmax\(0,\s*2fr\)\s+minmax\(0,\s*1fr\)/i.test(
-    css
-  ),
-  'Expected the landing grid to switch to a two-column asymmetric layout on desktop.'
+  /\.page\.landing-grid[\s\S]*width:\s*100%/i.test(css),
+  'Expected the landing grid to stretch to the full width for the album layout.'
 );
 
 assert.ok(

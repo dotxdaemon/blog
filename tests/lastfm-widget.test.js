@@ -10,11 +10,6 @@ const html = fs.readFileSync(indexPath, 'utf8');
 const appSource = fs.readFileSync(appPath, 'utf8');
 
 assert.ok(
-  /data-last-played[\s\S]*id="now-playing-primary"/i.test(html),
-  'Expected the last played section to include the primary artwork container.'
-);
-
-assert.ok(
   !/Last\.fm/.test(html),
   'Expected the last played header to omit Last.fm text.'
 );
@@ -22,6 +17,11 @@ assert.ok(
 assert.ok(
   /id="track-grid"/i.test(html),
   'Expected the last played section to include a recent track list container.'
+);
+
+assert.ok(
+  !/id="now-playing-primary"/i.test(html),
+  'Expected the last played section to omit the primary now-playing slot.'
 );
 
 assert.ok(

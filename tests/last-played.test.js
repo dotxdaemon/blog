@@ -18,8 +18,8 @@ assert.ok(
 );
 
 assert.ok(
-  /Last played/i.test(html),
-  'Expected the last-played section to label the music status.'
+  !/Last played/i.test(html),
+  'Expected the last-played section to omit the title text.'
 );
 
 assert.ok(

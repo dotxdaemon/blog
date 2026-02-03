@@ -2,28 +2,23 @@
 /* ABOUTME: Handles post formatting and responsive menu interactions. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const postList = document.getElementById('posts');
-const prefersReducedMotion =
-  window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (!postList) {
-  throw new Error('Expected an element with the id "posts" to render posts.');
-}
+if (postList) {
+  const prefersReducedMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const orderedPosts = posts
+    .filter((post) => post && post.title && post.date)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-const orderedPosts = posts
-  .filter((post) => post && post.title && post.date)
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  postList.innerHTML = '';
 
-postList.innerHTML = '';
-
-if (!orderedPosts.length) {
-  postList.appendChild(createEmptyPost());
-} else {
-  const [featuredPost, ...remainingPosts] = orderedPosts;
-  postList.appendChild(createPostEntry(featuredPost, 0, prefersReducedMotion, true));
-
-  remainingPosts.slice(0, 2).forEach((post) => {
-    postList.appendChild(createPostLink(post));
-  });
+  if (!orderedPosts.length) {
+    postList.appendChild(createEmptyPost());
+  } else {
+    orderedPosts.forEach((post) => {
+      postList.appendChild(createPostLink(post));
+    });
+  }
 }
 
 const currentYearEl = document.getElementById('current-year');
@@ -365,9 +360,8 @@ function setupMatrixRain() {
 
 function setupListeningWidgets() {
   const section = document.querySelector('[data-last-played]');
-  const primarySlot = document.getElementById('now-playing-primary');
   const trackGrid = document.getElementById('track-grid');
-  if ((!section && !trackGrid && !primarySlot) || typeof window.fetch !== 'function') return;
+  if ((!section && !trackGrid) || typeof window.fetch !== 'function') return;
 
   const status = section ? section.querySelector('[data-last-played-status]') : null;
 
@@ -393,9 +387,7 @@ function setupListeningWidgets() {
     });
 
   function updateTrackGrid(tracks) {
-    const [primaryTrack, ...recentTracks] = tracks;
-    renderPrimaryTrack(primaryTrack);
-    renderRecentTracks(recentTracks.slice(0, 3));
+    renderRecentTracks(tracks.slice(0, 4));
   }
 
   function renderLastPlayedEmpty() {
@@ -404,76 +396,36 @@ function setupListeningWidgets() {
     }
   }
 
-  function renderPrimaryTrack(track) {
-    if (!primarySlot) return;
-    primarySlot.innerHTML = '';
-
-    if (!track) {
-      const empty = document.createElement('div');
-      empty.className = 'loading';
-      empty.textContent = 'No recent plays available yet.';
-      primarySlot.appendChild(empty);
-      return;
-    }
-
-    const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
-    const imageUrl = getTrackImage(track);
-    const artistText = track.artist && track.artist['#text'] ? track.artist['#text'] : '';
-
-    const artLink = document.createElement(track.url ? 'a' : 'div');
-    artLink.className = 'now-playing__artwork-link';
-    if (track.url) {
-      artLink.href = track.url;
-      artLink.target = '_blank';
-      artLink.rel = 'noreferrer';
-    }
-
-    const image = document.createElement('img');
-    image.className = 'now-playing__artwork';
-    if (imageUrl) {
-      image.src = imageUrl;
-    }
-    image.alt = track.name || 'Album art';
-    artLink.appendChild(image);
-
-    const details = document.createElement('div');
-    details.className = 'now-playing__caption';
-
-    const title = document.createElement('p');
-    title.className = 'now-playing__title';
-    if (isPlaying) {
-      title.innerHTML = `<span class="now-playing-icon">▶</span> ${track.name || ''}`;
-    } else {
-      title.textContent = track.name || '';
-    }
-
-    const artist = document.createElement('p');
-    artist.className = 'now-playing__artist';
-    artist.textContent = artistText;
-
-    details.appendChild(title);
-    details.appendChild(artist);
-    primarySlot.appendChild(artLink);
-    primarySlot.appendChild(details);
-  }
-
   function renderRecentTracks(tracks) {
     if (!trackGrid) return;
 
     trackGrid.innerHTML = '';
     tracks.forEach((track) => {
-      const artistText = track.artist && track.artist['#text'] ? track.artist['#text'] : '';
-      const lineText = [track.name, artistText].filter(Boolean).join(' — ');
-
       const item = document.createElement('li');
-      const link = document.createElement('a');
-      link.className = 'list-row';
-      link.href = track.url || '#';
-      link.target = '_blank';
-      link.rel = 'noreferrer';
-      link.textContent = lineText;
+      item.className = 'album-grid__item';
+      const tile = document.createElement(track.url ? 'a' : 'div');
+      tile.className = 'album-tile';
+      if (track.url) {
+        tile.href = track.url;
+        tile.target = '_blank';
+        tile.rel = 'noreferrer';
+      }
 
-      item.appendChild(link);
+      const image = document.createElement('img');
+      image.className = 'album-tile__image';
+      const imageUrl = getTrackImage(track);
+      if (imageUrl) {
+        image.src = imageUrl;
+      }
+      image.alt = track.name || 'Album art';
+
+      const label = document.createElement('span');
+      label.className = 'album-tile__label';
+      label.textContent = track.name || '';
+
+      tile.appendChild(image);
+      tile.appendChild(label);
+      item.appendChild(tile);
       trackGrid.appendChild(item);
     });
   }
@@ -485,9 +437,6 @@ function setupListeningWidgets() {
 
   function renderEmptyState(message) {
     renderLastPlayedEmpty();
-    if (primarySlot) {
-      primarySlot.innerHTML = `<div class="loading">${message}</div>`;
-    }
     renderTrackGridEmpty(message);
   }
 

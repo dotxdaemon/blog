@@ -27,8 +27,8 @@
   --gutter: clamp(16px, 4vw, 48px);
   --section-gap: clamp(24px, 3vw, 40px);
   --grid-gap: 32px;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Courier Prime', 'Courier New', monospace;
+  --font-sans: var(--font-mono);
   --type-section: 1.125rem;
   --type-card: 1.5rem;
   --type-body: 1rem;
@@ -177,7 +177,8 @@ body::after {
   .nav-link,
   .social-link,
   .list-row,
-  .now-playing__artwork-link {
+  .now-playing__artwork-link,
+  .album-tile {
     transition: none;
   }
 
@@ -185,7 +186,8 @@ body::after {
   .post-card:hover,
   .list-row:hover,
   .nav-link:hover,
-  .now-playing__artwork-link:hover {
+  .now-playing__artwork-link:hover,
+  .album-tile:hover {
     transform: none;
   }
 }
@@ -286,14 +288,64 @@ select {
   padding: 0 0 var(--space-5);
 }
 
+.page[data-layout='posts'] {
+  padding: clamp(24px, 3vw, 48px) var(--gutter) var(--space-6);
+  width: min(100%, var(--container-width));
+  margin: 0 auto;
+}
+
+.page[data-layout='posts'] .panel {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.page[data-layout='posts'] .post-list {
+  gap: var(--space-3);
+}
+
+.page[data-layout='posts'] .post-feature {
+  background: transparent;
+  border-radius: 0;
+  padding: var(--space-3) 0;
+  border-bottom: var(--borderWidth) solid var(--divider);
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.page[data-layout='posts'] .post-feature__title {
+  padding-left: 0;
+  color: var(--accent);
+  font-size: 1.35rem;
+  grid-row: 1;
+}
+
+.page[data-layout='posts'] .post-feature__title::before {
+  display: none;
+}
+
+.page[data-layout='posts'] .post-feature__meta {
+  font-size: var(--type-meta);
+  letter-spacing: 0;
+  color: var(--muted);
+  grid-row: 2;
+}
+
+.page[data-layout='posts'] .post-feature__subtitle {
+  max-width: 72ch;
+  grid-row: 3;
+}
+
 .page.landing-grid {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--section-gap);
   padding: clamp(24px, 3vw, 48px) var(--gutter) var(--space-6);
-  width: min(100%, var(--container-width));
+  width: 100%;
   margin: 0 auto;
+  min-height: calc(100vh - 240px);
   z-index: 1;
   --type-card: clamp(2.5rem, 4vw, 3.5rem);
 }
@@ -320,6 +372,13 @@ select {
 .panel--poster {
   padding: 0;
   overflow: hidden;
+}
+
+.panel--album {
+  border: none;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
 }
 
 .grid-panel--title .eyebrow {
@@ -361,6 +420,10 @@ select {
   gap: var(--space-3);
 }
 
+.panel--album .panel-body {
+  justify-items: center;
+}
+
 .section-block {
   display: flex;
   flex-direction: column;
@@ -369,8 +432,6 @@ select {
 
 @media (min-width: 960px) {
   .page.landing-grid {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    gap: var(--grid-gap);
     align-items: start;
   }
 }
@@ -739,8 +800,67 @@ select {
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  width: min(100%, 1200px);
+  min-height: clamp(360px, 72vh, 760px);
+}
+
+.album-grid {
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+.album-grid__item {
+  margin: 0;
+  padding: 0;
+}
+
+.album-tile {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: var(--borderWidth) solid var(--border);
+  background: var(--panel);
+  box-shadow: none;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.album-tile:hover {
+  border-color: var(--accent);
+}
+
+.album-tile__image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  background: var(--bg);
+  aspect-ratio: 1 / 1;
+}
+
+.album-tile__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--text);
+  color: var(--bg);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.album-tile:hover .album-tile__label,
+.album-tile:focus-visible .album-tile__label {
+  opacity: 1;
 }
 
 .list-row {

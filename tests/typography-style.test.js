@@ -31,6 +31,11 @@ assert.ok(
 );
 
 assert.ok(
+  /--font-sans:\s*var\(--font-mono\);/i.test(css),
+  'Expected the sans-serif font token to match the mono font stack.'
+);
+
+assert.ok(
   /body[\s\S]*?font-size:\s*var\(--font-size-base\)/i.test(css),
   'Expected the body font size to use the base font size variable.'
 );
