@@ -10,50 +10,8 @@ const css = fs.readFileSync(cssPath, 'utf8');
 assert.ok(css.includes('.track-grid {'), 'Expected track list styles to be defined.');
 assert.ok(css.includes('.list-row {'), 'Expected list row styles to be defined.');
 assert.ok(
-  css.includes('grid-template-columns: repeat(2, minmax(0, 1fr));'),
-  'Expected the recent track list to render as a 2x2 grid.'
-);
-assert.ok(
-  css.includes('.album-tile__label {'),
-  'Expected album tile label styles to be defined.'
-);
-assert.ok(
-  /\.album-tile:hover[\s\S]*?\.album-tile__label[\s\S]*opacity:\s*1/i.test(css),
-  'Expected album tile labels to reveal on hover.'
-);
-assert.ok(
-  /\.panel--album[\s\S]*border:\s*none/i.test(css),
-  'Expected the album panel to avoid a visible border.'
-);
-assert.ok(
-  /\.panel--album[\s\S]*background:\s*transparent/i.test(css),
-  'Expected the album panel to avoid a visible background.'
-);
-assert.ok(
-  /\.album-tile\s*\{[^}]*box-shadow:\s*none/i.test(css),
-  'Expected album tiles to avoid heavy box shadows.'
-);
-assert.ok(
-  /\.album-tile\s*\{[^}]*border:\s*var\(--borderWidth\)\s+solid\s+var\(--border\)/i.test(
-    css
-  ),
-  'Expected album tiles to use the primary border color.'
-);
-assert.ok(
-  /\.album-tile__label[\s\S]*font-weight:\s*700/i.test(css),
-  'Expected album tile labels to use bold typography.'
-);
-assert.ok(
-  /\.album-tile__label[\s\S]*background:\s*var\(--text\)/i.test(css),
-  'Expected album tile labels to use a high-contrast background.'
-);
-assert.ok(
-  /\.album-tile__label[\s\S]*color:\s*var\(--bg\)/i.test(css),
-  'Expected album tile labels to use the background color for text.'
-);
-assert.ok(
-  /\.track-grid[\s\S]*gap:\s*var\(--space-4\)/i.test(css),
-  'Expected the album grid to use the wider spacing token.'
+  css.includes('grid-template-columns: 1fr;'),
+  'Expected the recent track list to render as a single-column log.'
 );
 assert.ok(
   css.includes('font-family: var(--font-sans);'),
@@ -66,6 +24,10 @@ assert.ok(
 assert.ok(
   /\.list-row[\s\S]*text-overflow:\s*ellipsis/i.test(css),
   'Expected list rows to truncate overflowing titles.'
+);
+assert.ok(
+  /\.now-playing__artwork[\s\S]*width:\s*100%/i.test(css),
+  'Expected the primary album art to fill the panel width.'
 );
 assert.ok(
   css.includes('.loading {'),

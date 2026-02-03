@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-03
+  Task: Restored the homepage Last.fm widget.
+  Notes: Reinstated the last-played section, restored now-playing rendering, and reverted track grid styling with aligned tests.
 - Date: 2026-02-25
   Task: Reworked the homepage to focus on a 2x2 album art grid and separated the posts feed.
   Notes: Removed the homepage post list, created a dedicated posts page, and refit Last.fm rendering into a 2x2 art grid with updated layout styles.

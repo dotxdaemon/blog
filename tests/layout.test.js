@@ -74,6 +74,6 @@ assert.ok(
 );
 
 assert.ok(
-  !/id="last-played"/i.test(html),
-  'Expected the homepage to omit the last-played section.'
+  /id="last-played"/i.test(html),
+  'Expected the homepage to include the last-played section.'
 );

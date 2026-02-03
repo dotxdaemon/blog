@@ -41,10 +41,8 @@ assert.ok(navLinkSansPattern.test(css), 'Expected nav links to use the sans-seri
 });
 
 assert.ok(
-  /\.track-grid[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i.test(
-    css
-  ),
-  'Expected the track grid to render as a 2x2 grid.'
+  /\.track-grid[\s\S]*?grid-template-columns:\s*1fr/i.test(css),
+  'Expected the track grid to render as a single-column log.'
 );
 
 assert.ok(
