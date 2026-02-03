@@ -31,28 +31,22 @@ assert.ok(
   'Expected post entries to render as list-like rows on the posts page.'
 );
 assert.ok(
-  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?border-left/i.test(
-    css
-  ),
-  'Expected post entries to include a left-side rule for the posts list.'
-);
-assert.ok(
   /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?display:\s*grid/i.test(
     css
   ),
   'Expected posts entries to use a grid layout.'
 );
 assert.ok(
-  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?grid-template-columns:\s*minmax\(0,\s*220px\)\s+minmax\(0,\s*1fr\)/i.test(
+  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\)/i.test(
     css
   ),
-  'Expected posts entries to use a two-column ledger layout.'
+  'Expected posts entries to render as a single-column stack.'
 );
 assert.ok(
-  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature__title::before[\s\S]*?display:\s*none/i.test(
+  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature__title[\s\S]*?color:\s*var\(--accent\)/i.test(
     css
   ),
-  'Expected the posts list to remove the accent title marker.'
+  'Expected posts titles to use the accent color.'
 );
 
 assert.ok(

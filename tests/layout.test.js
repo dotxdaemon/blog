@@ -74,11 +74,6 @@ assert.ok(
 );
 
 assert.ok(
-  /album-grid/.test(html),
-  'Expected the homepage to include an album art grid.'
-);
-
-assert.ok(
-  /id="track-grid"/i.test(html),
-  'Expected the homepage to include the album art list container.'
+  !/id="last-played"/i.test(html),
+  'Expected the homepage to omit the last-played section.'
 );

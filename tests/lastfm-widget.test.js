@@ -15,8 +15,8 @@ assert.ok(
 );
 
 assert.ok(
-  /id="track-grid"/i.test(html),
-  'Expected the last played section to include a recent track grid container.'
+  !/id="track-grid"/i.test(html),
+  'Expected the homepage to omit the recent track grid container.'
 );
 
 assert.ok(

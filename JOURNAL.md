@@ -15,6 +15,9 @@
 - Date: 2026-03-01
   Task: Reframed the posts layout into a ledger-style list.
   Notes: Switched posts to a two-column grid with metadata in a fixed column and removed the title accent marker.
+- Date: 2026-03-02
+  Task: Removed the homepage listening panel and stacked post metadata under titles.
+  Notes: Dropped the last-played section and reordered post list typography to match the provided visual reference.
 - Date: 2026-02-02
   Task: Shifted the homepage into a poster-style split layout with a build stamp.
   Notes: Replaced homepage card markup with typographic and poster blocks, unified row link styles, added build stamp rendering, and refreshed related tests.
