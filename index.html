@@ -25,7 +25,7 @@
       <div class="container nav-shell">
         <a class="site-brand" href="#main-content">velvetdaemon</a>
         <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
-          <a class="nav-link" href="#latest-writing">Posts</a>
+          <a class="nav-link" href="posts.html">Posts</a>
           <a class="nav-link" href="#site-footer">About</a>
         </nav>
         <span class="build-stamp" id="build-stamp" data-build-sha="dee9f01">build: dee9f01 2026-02-02T20:18:30Z</span>
@@ -34,35 +34,15 @@
     </header>
 
     <main class="page landing-grid" id="main-content" data-layout="index">
-      <section
-        class="section-block post-feed"
-        id="latest-writing"
-        aria-label="Latest writing"
-      >
-        <div class="panel">
-          <header class="panel-header">
-            <h2 class="panel-title">Latest writing</h2>
-          </header>
-          <div class="panel-body">
-            <ul class="post-list" id="posts" aria-live="polite"></ul>
-          </div>
-        </div>
-      </section>
-
       <section class="section-block" id="last-played" data-last-played>
-        <div class="panel">
+        <div class="panel panel--album">
           <header class="panel-header">
             <h2 class="panel-title">Last played</h2>
           </header>
           <div class="panel-body">
-            <div class="now-playing">
-              <div class="now-playing__primary" id="now-playing-primary">
-                <div class="loading">Loading tracks...</div>
-              </div>
-              <div class="now-playing__rows">
-                <ul class="track-grid" id="track-grid" aria-label="Recent tracks"></ul>
-              </div>
-            </div>
+            <ul class="track-grid album-grid" id="track-grid" aria-label="Recent tracks">
+              <li class="loading">Loading tracks...</li>
+            </ul>
           </div>
         </div>
       </section>

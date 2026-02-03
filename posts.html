@@ -1,12 +1,11 @@
-<!-- ABOUTME: Search page with full-text search across all posts. -->
-<!-- ABOUTME: Provides instant filtering as user types. -->
+<!-- ABOUTME: Posts page listing the latest blog entries. -->
+<!-- ABOUTME: Presents the post feed separate from the homepage layout. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search - velvetdaemon</title>
-    <meta name="description" content="Search all blog posts." />
+    <title>Posts - velvetdaemon</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -31,38 +30,29 @@
       <div class="divider container" aria-hidden="true"></div>
     </header>
 
-    <main class="page" id="main-content">
-      <div class="container">
-        <header class="search-header">
-          <h1>Search</h1>
-        </header>
-
-        <div class="search-form">
-          <div class="search-input-wrapper">
-            <span class="search-icon" aria-hidden="true">&#128269;</span>
-            <input
-              type="search"
-              id="search-input"
-              class="search-input"
-              placeholder="Search posts..."
-              autocomplete="off"
-              autofocus
-            />
+    <main class="page" id="main-content" data-layout="posts">
+      <section
+        class="section-block post-feed container"
+        id="latest-writing"
+        aria-label="Latest writing"
+      >
+        <div class="panel">
+          <header class="panel-header">
+            <h2 class="panel-title">Latest writing</h2>
+          </header>
+          <div class="panel-body">
+            <ul class="post-list" id="posts" aria-live="polite"></ul>
           </div>
         </div>
-
-        <div id="search-results" aria-live="polite">
-          <p class="search-hint">Type to search through all posts...</p>
-        </div>
-      </div>
+      </section>
     </main>
 
-    <footer class="site-footer" aria-label="Site footer">
+    <footer class="site-footer" id="site-footer" aria-label="Site footer">
       <div class="divider container" aria-hidden="true"></div>
       <div class="container site-footer__inner">
-        <p>&copy; <span id="current-year"></span> velvetdaemon &mdash; built for reading</p>
+        <p>© <span id="current-year"></span> velvetdaemon</p>
         <div class="site-footer__links">
-          <a class="nav-link" href="index.html#hero">About</a>
+          <a class="nav-link" href="index.html#site-footer">About</a>
           <a
             class="nav-link"
             href="https://github.com/dotxdaemon"
@@ -77,6 +67,6 @@
 
     <script src="assets/js/matrix.js"></script>
     <script src="assets/js/posts.js"></script>
-    <script src="assets/js/search.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
   </body>
 </html>

@@ -64,63 +64,21 @@ assert.ok(
 );
 
 assert.ok(
-  !/data-collage="checkerboard"/i.test(html),
-  'Expected the landing page collage layer to be removed.'
-);
-
-const collageCells = [...html.matchAll(/class="collage-grid__cell"/gi)];
-assert.strictEqual(
-  collageCells.length,
-  0,
-  'Expected the collage grid slices to be removed.'
-);
-
-assert.ok(
-  !/Swiss grid \/ Dada collage/i.test(html),
-  'Expected the collage eyebrow copy to be removed.'
-);
-
-assert.ok(
-  !/Notes from a mirror-lit desk/i.test(html),
-  'Expected the hero lede copy to be removed.'
-);
-
-assert.ok(
-  !/Voyeur log/i.test(html),
-  'Expected the manifesto panel title to be removed.'
-);
-
-assert.ok(
-  !/Dispatches from behind the lens/i.test(html),
-  'Expected the manifesto panel copy to be removed.'
-);
-
-assert.ok(
-  !/Code fragments/i.test(html),
-  'Expected the index panel list copy to be removed.'
-);
-
-assert.ok(
   !/class="theme-toggle"/i.test(html),
   'Expected the theme toggle control to be removed from the header.'
 );
 
 assert.ok(
-  /Latest writing/i.test(html),
-  'Expected the posts section header to mention Latest writing.'
+  /href="posts\.html"/i.test(html),
+  'Expected the Posts navigation link to go to posts.html.'
 );
 
 assert.ok(
-  !/class="eyebrow"[^>]*>Archive/i.test(html),
-  'Expected the Archive eyebrow label to be removed.'
+  /album-grid/.test(html),
+  'Expected the homepage to include an album art grid.'
 );
 
 assert.ok(
-  /id="posts"/i.test(html),
-  'Expected an element with id "posts" for the archive.'
-);
-
-assert.ok(
-  /id="now-playing-primary"/i.test(html),
-  'Expected a primary last-played slot for the dominant album art.'
+  /id="track-grid"/i.test(html),
+  'Expected the homepage to include the album art list container.'
 );

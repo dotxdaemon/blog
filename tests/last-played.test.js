@@ -23,6 +23,6 @@ assert.ok(
 );
 
 assert.ok(
-  !/Recent plays/i.test(html),
-  'Expected the last-played header to omit the Recent plays subheader.'
+  /album-grid/.test(html),
+  'Expected the last-played section to include the album grid markup.'
 );

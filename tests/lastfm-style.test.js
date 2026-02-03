@@ -10,8 +10,8 @@ const css = fs.readFileSync(cssPath, 'utf8');
 assert.ok(css.includes('.track-grid {'), 'Expected track list styles to be defined.');
 assert.ok(css.includes('.list-row {'), 'Expected list row styles to be defined.');
 assert.ok(
-  css.includes('grid-template-columns: 1fr;'),
-  'Expected the recent track list to render as a single-column log.'
+  css.includes('grid-template-columns: repeat(2, minmax(0, 1fr));'),
+  'Expected the recent track list to render as a 2x2 grid.'
 );
 assert.ok(
   css.includes('font-family: var(--font-sans);'),
@@ -24,10 +24,6 @@ assert.ok(
 assert.ok(
   /\.list-row[\s\S]*text-overflow:\s*ellipsis/i.test(css),
   'Expected list rows to truncate overflowing titles.'
-);
-assert.ok(
-  /\.now-playing__artwork[\s\S]*width:\s*100%/i.test(css),
-  'Expected the primary album art to fill the panel width.'
 );
 assert.ok(
   css.includes('.loading {'),

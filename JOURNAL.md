@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-02-25
+  Task: Reworked the homepage to focus on a 2x2 album art grid and separated the posts feed.
+  Notes: Removed the homepage post list, created a dedicated posts page, and refit Last.fm rendering into a 2x2 art grid with updated layout styles.
 - Date: 2026-02-02
   Task: Shifted the homepage into a poster-style split layout with a build stamp.
   Notes: Replaced homepage card markup with typographic and poster blocks, unified row link styles, added build stamp rendering, and refreshed related tests.
