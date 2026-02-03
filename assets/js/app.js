@@ -422,7 +422,12 @@ function setupListeningWidgets() {
       }
       image.alt = track.name || 'Album art';
 
+      const label = document.createElement('span');
+      label.className = 'album-tile__label';
+      label.textContent = track.name || '';
+
       tile.appendChild(image);
+      tile.appendChild(label);
       item.appendChild(tile);
       trackGrid.appendChild(item);
     });

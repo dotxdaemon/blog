@@ -14,6 +14,22 @@ assert.ok(
   'Expected the recent track list to render as a 2x2 grid.'
 );
 assert.ok(
+  css.includes('.album-tile__label {'),
+  'Expected album tile label styles to be defined.'
+);
+assert.ok(
+  /\.album-tile:hover[\s\S]*?\.album-tile__label[\s\S]*opacity:\s*1/i.test(css),
+  'Expected album tile labels to reveal on hover.'
+);
+assert.ok(
+  /\.panel--album[\s\S]*border:\s*none/i.test(css),
+  'Expected the album panel to avoid a visible border.'
+);
+assert.ok(
+  /\.panel--album[\s\S]*background:\s*transparent/i.test(css),
+  'Expected the album panel to avoid a visible background.'
+);
+assert.ok(
   css.includes('font-family: var(--font-sans);'),
   'Expected Last.fm track text to use the blog typography.'
 );

@@ -288,6 +288,12 @@ select {
   padding: 0 0 var(--space-5);
 }
 
+.page[data-layout='posts'] {
+  padding: clamp(24px, 3vw, 48px) var(--gutter) var(--space-6);
+  width: min(100%, var(--container-width));
+  margin: 0 auto;
+}
+
 .page.landing-grid {
   position: relative;
   display: grid;
@@ -326,8 +332,10 @@ select {
 }
 
 .panel--album {
-  border-color: var(--accent);
-  padding: clamp(20px, 4vw, 48px);
+  border: none;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
 }
 
 .grid-panel--title .eyebrow {
@@ -769,6 +777,7 @@ select {
   display: block;
   width: 100%;
   height: 100%;
+  position: relative;
   border: var(--borderWidth) solid var(--border);
   background: var(--panel);
   box-shadow: 10px 10px 0 var(--accent);
@@ -789,6 +798,27 @@ select {
   object-fit: cover;
   background: var(--bg);
   aspect-ratio: 1 / 1;
+}
+
+.album-tile__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.album-tile:hover .album-tile__label,
+.album-tile:focus-visible .album-tile__label {
+  opacity: 1;
 }
 
 .list-row {
