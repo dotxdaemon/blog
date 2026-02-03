@@ -6,6 +6,9 @@
 - Date: 2026-02-26
   Task: Refined the album grid hover behavior and aligned the posts page spacing.
   Notes: Removed the homepage panel border, added hover labels to album tiles, and tuned posts page layout styles for cohesion.
+- Date: 2026-02-27
+  Task: Simplified album tiles and posts list styling for cleaner readability.
+  Notes: Reduced album tile chrome, strengthened hover labels, and reshaped posts into a tighter list layout.
 - Date: 2026-02-02
   Task: Shifted the homepage into a poster-style split layout with a build stamp.
   Notes: Replaced homepage card markup with typographic and poster blocks, unified row link styles, added build stamp rendering, and refreshed related tests.

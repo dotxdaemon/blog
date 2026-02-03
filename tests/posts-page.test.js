@@ -25,6 +25,13 @@ assert.ok(
 );
 
 assert.ok(
+  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?border-bottom/i.test(
+    css
+  ),
+  'Expected post entries to render as list-like rows on the posts page.'
+);
+
+assert.ok(
   /assets\/js\/posts\.js/i.test(html),
   'Expected the posts page to load the post data script.'
 );

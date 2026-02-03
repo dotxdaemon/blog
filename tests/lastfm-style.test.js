@@ -30,6 +30,20 @@ assert.ok(
   'Expected the album panel to avoid a visible background.'
 );
 assert.ok(
+  /\.album-tile\s*\{[^}]*box-shadow:\s*none/i.test(css),
+  'Expected album tiles to avoid heavy box shadows.'
+);
+assert.ok(
+  /\.album-tile\s*\{[^}]*border:\s*var\(--borderWidth\)\s+solid\s+var\(--border-subtle\)/i.test(
+    css
+  ),
+  'Expected album tiles to use the subtle border color.'
+);
+assert.ok(
+  /\.album-tile__label[\s\S]*font-weight:\s*700/i.test(css),
+  'Expected album tile labels to use bold typography.'
+);
+assert.ok(
   css.includes('font-family: var(--font-sans);'),
   'Expected Last.fm track text to use the blog typography.'
 );
