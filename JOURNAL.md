@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-06
+  Task: Aligned post navigation for static host parity.
+  Notes: Pointed post back navigation and missing-slug redirects at the posts listing and added coverage for the back-link markup.
 - Date: 2026-03-05
   Task: Unified posts list layout to match the list-row theme.
   Notes: Rendered all posts using the list-row layout and added coverage to keep the posts renderer consistent.

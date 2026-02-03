@@ -13,7 +13,7 @@
   }
 
   if (!postSlug) {
-    globalScope.location.href = 'index.html';
+    globalScope.location.href = 'posts.html';
     return;
   }
 
@@ -21,7 +21,7 @@
   const post = orderedPosts[currentIndex];
 
   if (!post) {
-    globalScope.location.href = 'index.html';
+    globalScope.location.href = 'posts.html';
     return;
   }
 
