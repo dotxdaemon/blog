@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-05
+  Task: Unified posts list layout to match the list-row theme.
+  Notes: Rendered all posts using the list-row layout and added coverage to keep the posts renderer consistent.
 - Date: 2026-03-04
   Task: Restored the 2x2 Last.fm grid and removed the Last played title.
   Notes: Switched the homepage widget back to album tiles and removed the last-played header text with updated styling tests.

@@ -15,10 +15,7 @@ if (postList) {
   if (!orderedPosts.length) {
     postList.appendChild(createEmptyPost());
   } else {
-    const [featuredPost, ...remainingPosts] = orderedPosts;
-    postList.appendChild(createPostEntry(featuredPost, 0, prefersReducedMotion, true));
-
-    remainingPosts.slice(0, 2).forEach((post) => {
+    orderedPosts.forEach((post) => {
       postList.appendChild(createPostLink(post));
     });
   }
