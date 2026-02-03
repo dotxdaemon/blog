@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-04
+  Task: Restored the 2x2 Last.fm grid and removed the Last played title.
+  Notes: Switched the homepage widget back to album tiles and removed the last-played header text with updated styling tests.
 - Date: 2026-03-03
   Task: Restored the homepage Last.fm widget.
   Notes: Reinstated the last-played section, restored now-playing rendering, and reverted track grid styling with aligned tests.
