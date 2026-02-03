@@ -1,5 +1,5 @@
 // ABOUTME: Guards against stray generated text and verifies the matrix rain background asset.
-// ABOUTME: Confirms the lavender matrix styling and startMatrixRain export shape.
+// ABOUTME: Confirms the brutalist matrix styling and startMatrixRain export shape.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -38,10 +38,10 @@ assert.ok(/reading.?time/i.test(appSource), 'Expected reading time feature to be
 
 const matrixSource = fs.readFileSync(matrixPath, 'utf8');
 assert.ok(/const\s+layers\s*=\s*\[/i.test(matrixSource), 'Expected layered streams.');
-assert.ok(/#cbb7ff/i.test(matrixSource), 'Expected the lavender palette to be defined.');
+assert.ok(/#ff2d2d/i.test(matrixSource), 'Expected the brutalist palette to be defined.');
 assert.ok(
-  /rgba\(13,\s*17,\s*15,\s*0\.06\)/i.test(matrixSource),
-  'Expected the lavender fade fill.'
+  /rgba\(5,\s*5,\s*5,\s*0\.12\)/i.test(matrixSource),
+  'Expected the brutalist fade fill.'
 );
 assert.ok(
   /const\s+glyphChangeInterval\s*=\s*24/.test(matrixSource),
@@ -67,8 +67,8 @@ assert.ok(
   'Expected the matrix canvas opacity to intensify when enabled.'
 );
 assert.ok(
-  /\.panel[\s\S]*backdrop-filter:\s*blur\(6px\)/i.test(css),
-  'Expected the panels to apply a backdrop blur.'
+  /\.panel[\s\S]*backdrop-filter:\s*none/i.test(css),
+  'Expected the panels to avoid backdrop blur.'
 );
 assert.ok(
   /\.matrix-veil[\s\S]*background:\s*var\(--veil\)/i.test(css),

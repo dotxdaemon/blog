@@ -8,31 +8,31 @@ const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
 const css = fs.readFileSync(cssPath, 'utf8');
 
 const matrixPalette = [
-  ['--bg', '#07070b'],
-  ['--veil', 'rgba(7, 7, 12, 0.66)'],
-  ['--panelBg', 'rgba(13, 13, 20, 0.92)'],
+  ['--bg', '#060606'],
+  ['--veil', 'rgba(6, 6, 6, 0.88)'],
+  ['--panelBg', '#0f0f0f'],
   ['--panel', 'var(--panelBg)'],
-  ['--card', 'rgba(22, 22, 32, 0.92)'],
-  ['--text', 'rgba(245, 244, 255, 0.96)'],
-  ['--muted', 'rgba(203, 200, 224, 0.72)'],
-  ['--accent', '#cbb7ff'],
-  ['--border', 'rgba(245, 244, 255, 0.18)'],
-  ['--border-subtle', 'rgba(245, 244, 255, 0.12)'],
-  ['--divider', 'rgba(245, 244, 255, 0.1)'],
+  ['--card', '#141414'],
+  ['--text', '#f5f5f5'],
+  ['--muted', 'rgba(245, 245, 245, 0.68)'],
+  ['--accent', '#ff2d2d'],
+  ['--border', '#f5f5f5'],
+  ['--border-subtle', 'rgba(245, 245, 245, 0.4)'],
+  ['--divider', 'rgba(245, 245, 245, 0.2)'],
 ];
 
 const lightPalette = [
-  ['--bg', '#f8f7fb'],
-  ['--veil', 'rgba(248, 247, 251, 0.7)'],
-  ['--panelBg', 'rgba(252, 251, 255, 0.92)'],
+  ['--bg', '#f2f2f2'],
+  ['--veil', 'rgba(242, 242, 242, 0.9)'],
+  ['--panelBg', '#ffffff'],
   ['--panel', 'var(--panelBg)'],
-  ['--card', 'rgba(255, 255, 255, 0.96)'],
-  ['--text', 'rgba(20, 20, 28, 0.92)'],
-  ['--muted', 'rgba(45, 45, 58, 0.68)'],
-  ['--accent', '#8a7bff'],
-  ['--border', 'rgba(20, 20, 28, 0.18)'],
-  ['--border-subtle', 'rgba(20, 20, 28, 0.12)'],
-  ['--divider', 'rgba(20, 20, 28, 0.12)'],
+  ['--card', '#f7f7f7'],
+  ['--text', '#101010'],
+  ['--muted', 'rgba(16, 16, 16, 0.7)'],
+  ['--accent', '#ff2d2d'],
+  ['--border', '#101010'],
+  ['--border-subtle', 'rgba(16, 16, 16, 0.3)'],
+  ['--divider', 'rgba(16, 16, 16, 0.2)'],
 ];
 
 function getBlock(selector) {

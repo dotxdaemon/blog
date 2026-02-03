@@ -1,4 +1,4 @@
-// ABOUTME: Ensures the homepage grid favors a two-column symmetry-first layout.
+// ABOUTME: Ensures the homepage grid favors a two-column asymmetric layout.
 // ABOUTME: Confirms the latest writing link list maintains compact spacing.
 const assert = require('assert');
 const fs = require('fs');
@@ -13,10 +13,10 @@ assert.ok(
 );
 
 assert.ok(
-  /@media\s*\(min-width:\s*960px\)[\s\S]*\.page\.landing-grid[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i.test(
+  /@media\s*\(min-width:\s*960px\)[\s\S]*\.page\.landing-grid[\s\S]*grid-template-columns:\s*minmax\(0,\s*2fr\)\s+minmax\(0,\s*1fr\)/i.test(
     css
   ),
-  'Expected the landing grid to switch to a two-column layout on desktop.'
+  'Expected the landing grid to switch to a two-column asymmetric layout on desktop.'
 );
 
 assert.ok(
