@@ -38,24 +38,20 @@ setupMatrixRain();
 setupListeningWidgets();
 
 function createEmptyPost() {
-  const item = document.createElement('li');
-  item.className = 'post-list__item post-list__item--featured';
-
   const entry = document.createElement('article');
-  entry.className = 'post-feature';
+  entry.className = 'post-row invert-on-hover';
 
-  const meta = document.createElement('p');
-  meta.className = 'post-feature__meta';
+  const meta = document.createElement('time');
+  meta.className = 'post-date';
   meta.textContent = 'Nothing yet';
 
-  const title = document.createElement('h3');
-  title.className = 'post-feature__title';
+  const title = document.createElement('h2');
+  title.className = 'post-title';
   title.textContent = 'Add your first post in assets/js/posts.js.';
 
   entry.appendChild(meta);
   entry.appendChild(title);
-  item.appendChild(entry);
-  return item;
+  return entry;
 }
 
 function createPostEntry(post, index, shouldReduceMotion, isFeatured) {
@@ -123,16 +119,39 @@ function createPostEntry(post, index, shouldReduceMotion, isFeatured) {
 }
 
 function createPostLink(post) {
-  const item = document.createElement('li');
-  item.className = 'post-list__item post-list__item--link';
+  const entry = document.createElement('article');
+  entry.className = 'post-row invert-on-hover';
+  entry.tabIndex = 0;
+  entry.setAttribute('role', 'link');
 
+  const destination = `post.html?slug=${slugify(post.title)}`;
+
+  entry.addEventListener('click', () => {
+    window.location.href = destination;
+  });
+  entry.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      window.location.href = destination;
+    }
+  });
+
+  const time = document.createElement('time');
+  time.className = 'post-date';
+  time.dateTime = post.date;
+  time.textContent = post.date;
+
+  const title = document.createElement('h2');
+  title.className = 'post-title';
   const link = document.createElement('a');
-  link.className = 'list-row';
-  link.href = `post.html?slug=${slugify(post.title)}`;
+  link.className = 'post-link';
+  link.href = destination;
   link.textContent = post.title;
+  title.appendChild(link);
 
-  item.appendChild(link);
-  return item;
+  entry.appendChild(time);
+  entry.appendChild(title);
+  return entry;
 }
 
 function slugify(text) {
@@ -402,30 +421,27 @@ function setupListeningWidgets() {
     trackGrid.innerHTML = '';
     tracks.forEach((track) => {
       const item = document.createElement('li');
-      item.className = 'album-grid__item';
-      const tile = document.createElement(track.url ? 'a' : 'div');
-      tile.className = 'album-tile';
+      item.className = 'track-row invert-on-hover';
+
+      const name = document.createElement('span');
+      name.className = 'track-name';
+      name.textContent = track.name || '';
+
+      const artist = document.createElement('span');
+      artist.className = 'track-artist';
+      artist.textContent = (track.artist && track.artist['#text']) || '';
+
+      const link = document.createElement(track.url ? 'a' : 'div');
+      link.className = 'track-link';
       if (track.url) {
-        tile.href = track.url;
-        tile.target = '_blank';
-        tile.rel = 'noreferrer';
+        link.href = track.url;
+        link.target = '_blank';
+        link.rel = 'noreferrer';
       }
+      link.appendChild(name);
+      link.appendChild(artist);
+      item.appendChild(link);
 
-      const image = document.createElement('img');
-      image.className = 'album-tile__image';
-      const imageUrl = getTrackImage(track);
-      if (imageUrl) {
-        image.src = imageUrl;
-      }
-      image.alt = track.name || 'Album art';
-
-      const label = document.createElement('span');
-      label.className = 'album-tile__label';
-      label.textContent = track.name || '';
-
-      tile.appendChild(image);
-      tile.appendChild(label);
-      item.appendChild(tile);
       trackGrid.appendChild(item);
     });
   }

@@ -1,55 +1,17 @@
-// ABOUTME: Confirms the site copy matches the simplified monochrome messaging.
-// ABOUTME: Ensures outdated taglines are removed across HTML and RSS assets.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Confirms the homepage includes the required header and footer branding.
+// ABOUTME: Ensures the site title and footer container are present.
+const { assertMatches, readIndexHtml } = require('./helpers');
 
-const indexPath = path.join(__dirname, '..', 'index.html');
-const rssPath = path.join(__dirname, '..', 'rss.xml');
-const generatorPath = path.join(__dirname, '..', 'scripts', 'generate-rss.js');
+const html = readIndexHtml();
 
-const indexHtml = fs.readFileSync(indexPath, 'utf8');
-const rssXml = fs.readFileSync(rssPath, 'utf8');
-const rssGenerator = fs.readFileSync(generatorPath, 'utf8');
-
-assert.ok(
-  !indexHtml.includes('Deliberate notes and measured builds.'),
-  'Did not expect the deliberate builds eyebrow to remain.'
-);
-assert.ok(
-  !indexHtml.includes('Code, film, and food written for clear reading.'),
-  'Did not expect the concise lede to remain.'
-);
-assert.ok(
-  !indexHtml.includes('Recent notes and essays to browse.'),
-  'Did not expect the archive subtitle to remain.'
+assertMatches(
+  html,
+  /<header[^>]*>[\s\S]*<h1[^>]*class="site-title"[^>]*>[^<]+<\/h1>/i,
+  'Expected the header to include a non-empty site title.'
 );
 
-assert.ok(
-  !indexHtml.includes('Steady notes, curious builds'),
-  'Did not expect the previous eyebrow tagline to remain.'
-);
-assert.ok(
-  !indexHtml.includes(
-    'This is a calm log of experiments, recipes, and film notes—kept tidy and always ready to share.'
-  ),
-  'Did not expect the previous hero description to remain.'
-);
-assert.ok(
-  !indexHtml.includes('A running list of notes, ideas, and essays that stay close to the metal.'),
-  'Did not expect the previous archive subtitle to remain.'
-);
-
-assert.ok(
-  !rssXml.includes('<description>Deliberate notes and measured builds.</description>'),
-  'Did not expect the deliberate RSS description to remain.'
-);
-assert.ok(
-  !rssXml.includes('Steady notes, curious builds'),
-  'Did not expect the previous RSS description to remain.'
-);
-
-assert.ok(
-  !rssGenerator.includes("const SITE_DESCRIPTION = 'Deliberate notes and measured builds.';"),
-  'Did not expect the deliberate description constant to remain.'
+assertMatches(
+  html,
+  /<footer[^>]*class="site-footer"/i,
+  'Expected the footer container to be present.'
 );

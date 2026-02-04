@@ -1,31 +1,11 @@
-// ABOUTME: Ensures the post detail page omits the share links and label block.
-// ABOUTME: Verifies the post detail page no longer renders the newsletter section.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Ensures the footer uses the same brutalist border treatment.
+// ABOUTME: Confirms the footer has a visible top border.
+const { assertMatches, readStyles } = require('./helpers');
 
-const postPath = path.join(__dirname, '..', 'post.html');
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
+const css = readStyles();
 
-const postHtml = fs.readFileSync(postPath, 'utf8');
-const css = fs.readFileSync(cssPath, 'utf8');
-
-assert.ok(
-  !/class="share-links"/i.test(postHtml),
-  'Expected the post detail page to omit the share links container.'
-);
-
-assert.ok(
-  !/\bShare:\b/i.test(postHtml),
-  'Expected the post detail page to omit the Share label.'
-);
-
-assert.ok(
-  !/\.newsletter-form/.test(css),
-  'Expected the newsletter form styles to be removed.'
-);
-
-assert.ok(
-  !/class="newsletter-form"/i.test(postHtml),
-  'Expected the newsletter form markup to be removed.'
+assertMatches(
+  css,
+  /\.site-footer[\s\S]*border-top:\s*var\(--border-width\)\s+solid\s+var\(--black\)/i,
+  'Expected the footer to include a top border divider.'
 );

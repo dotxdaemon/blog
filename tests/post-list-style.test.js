@@ -1,44 +1,41 @@
-// ABOUTME: Verifies post list styling includes spacing and hierarchy cues.
-// ABOUTME: Ensures card borders and excerpt color match design expectations.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Validates the post list grid and border treatments.
+// ABOUTME: Ensures posts are centered with no spacing between fields.
+const { assertMatches, readStyles } = require('./helpers');
 
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
-const css = fs.readFileSync(cssPath, 'utf8');
+const css = readStyles();
 
-assert.ok(css.includes('.post-list {'), 'Expected a .post-list block in main.css.');
-assert.ok(
-  css.includes('gap: var(--space-3);'),
-  'Expected post list items to use vertical spacing via gap.'
+assertMatches(
+  css,
+  /\.post-row[\s\S]*display:\s*grid/i,
+  'Expected post rows to use CSS Grid.'
 );
-assert.ok(
-  css.includes('.post-card {\n  background: var(--card);\n  border: var(--borderWidth) solid var(--border-subtle);'),
-  'Expected post cards to render on a subtle surface with a border.'
+assertMatches(
+  css,
+  /\.post-row[\s\S]*grid-template-columns:\s*1fr/i,
+  'Expected post rows to use a single column layout.'
 );
-assert.ok(
-  css.includes('font-size: var(--type-card);'),
-  'Expected post titles to use a larger font size for hierarchy.'
+assertMatches(
+  css,
+  /\.post-row[\s\S]*justify-items:\s*center/i,
+  'Expected post rows to center their contents.'
 );
-assert.ok(
-  css.includes('color: var(--muted);'),
-  'Expected post excerpts to use a muted text color.'
+assertMatches(
+  css,
+  /\.post-row[\s\S]*text-align:\s*center/i,
+  'Expected post rows to use centered text.'
 );
-assert.ok(
-  /\.post-snippet__excerpt[\s\S]*line-height:\s*1\.6/i.test(css),
-  'Expected post excerpts to enforce a 1.6 line height.'
+assertMatches(
+  css,
+  /\.post-row[\s\S]*gap:\s*0/i,
+  'Expected post rows to remove grid gaps.'
 );
-assert.ok(
-  /\.post-snippet__excerpt[\s\S]*-webkit-line-clamp:\s*2/i.test(css),
-  'Expected post excerpts to line clamp to two lines.'
+assertMatches(
+  css,
+  /\.post-row[\s\S]*padding:\s*0/i,
+  'Expected post rows to remove padding.'
 );
-
-assert.ok(
-  /\.post-card--featured[\s\S]*border-color:\s*var\(--border\)/i.test(css),
-  'Expected the featured post card to reinforce the primary border color.'
-);
-
-assert.ok(
-  /\.post-card--featured::after[\s\S]*background:\s*var\(--accent\)/i.test(css),
-  'Expected the featured post card to include an accent corner marker.'
+assertMatches(
+  css,
+  /\.post-row[\s\S]*border-bottom:\s*var\(--border-width\)\s+solid\s+var\(--black\)/i,
+  'Expected post rows to use thick border dividers.'
 );

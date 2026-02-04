@@ -1,15 +1,11 @@
-// ABOUTME: Verifies post detail navigation uses the posts listing entry point.
-// ABOUTME: Ensures back navigation stays consistent across static hosts.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Ensures navigation links use uppercase text for hierarchy.
+// ABOUTME: Confirms the nav link styling applies uppercase transformation.
+const { assertMatches, readStyles } = require('./helpers');
 
-const postPath = path.join(__dirname, '..', 'post.html');
-const html = fs.readFileSync(postPath, 'utf8');
+const css = readStyles();
 
-assert.ok(
-  /<a[^>]*(class="back-button"[^>]*href="posts\.html"|href="posts\.html"[^>]*class="back-button")[^>]*>/i.test(
-    html
-  ),
-  'Expected the post back button to point to posts.html.'
+assertMatches(
+  css,
+  /\.site-nav a[\s\S]*text-transform:\s*uppercase/i,
+  'Expected navigation links to be uppercase.'
 );

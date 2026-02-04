@@ -1,26 +1,26 @@
-// ABOUTME: Verifies the site loads monospace fonts on each HTML entry point.
-// ABOUTME: Ensures font links include the primary monospace stack choices.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Ensures the site avoids external font dependencies on every page.
+// ABOUTME: Confirms each HTML entry links the shared style.css file.
+const { assertMatches, assertNotMatches, readRepoFile } = require('./helpers');
 
 const htmlFiles = [
   'index.html',
-  'archives.html',
+  'posts.html',
   'post.html',
   'search.html',
+  'archives.html',
   'matrix-gold-rain.html',
 ];
 
 htmlFiles.forEach((fileName) => {
-  const htmlPath = path.join(__dirname, '..', fileName);
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  assert.ok(
-    /JetBrains[+\s]*Mono/i.test(html),
-    `Expected ${fileName} to load the JetBrains Mono font.`
+  const html = readRepoFile(fileName);
+  assertNotMatches(
+    html,
+    /fonts\.googleapis\.com|fonts\.gstatic\.com/i,
+    `Did not expect external font links in ${fileName}.`
   );
-  assert.ok(
-    /Fira[+\s]*Code/i.test(html),
-    `Expected ${fileName} to load the Fira Code font.`
+  assertMatches(
+    html,
+    /<link[^>]*href="style\.css"[^>]*>/i,
+    `Expected ${fileName} to link to style.css.`
   );
 });

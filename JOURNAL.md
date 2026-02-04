@@ -123,3 +123,27 @@
 - Date: 2026-02-24
   Task: Shifted the blog UI to a harsher brutalist palette with asymmetric layout.
   Notes: Updated palette tokens, matrix rain colors, and brutalist layout expectations with matching test coverage.
+- Date: 2026-02-04
+  Task: Plan monochrome brutalist static blog front-end refresh.
+  Notes: Restated requirements (monochrome palette, brutalist grid borders, monospaced typography, 5 recent posts, hover inversion, responsive single column); expected files index.html, style.css, tests; will run npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Restore dynamic posts and a text-only last played widget to the brutalist homepage.
+  Notes: Reintroduced posts rendering via app.js/posts.js, added last played markup without images, updated styles and tests, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Apply the monochrome brutalist front-end styling across all HTML pages.
+  Notes: Swapped pages to style.css, removed matrix visuals, aligned headers/footers, updated tests for shared styling, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Center post rows and remove spacing between post fields.
+  Notes: Adjusted post-row grid to a single centered column with zero padding/gap, updated tests, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Remove spacing from core layout and post detail elements.
+  Notes: Zeroed padding/gaps on layout containers and post detail metadata, added whitespace removal test coverage, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Remove body stretch to eliminate remaining whitespace in post views.
+  Notes: Set body rows to auto sizing, removed min-height, added body layout test coverage, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Reduce post detail to title and date, and make post rows fully clickable.
+  Notes: Removed post detail UI elements and related script logic, added post row click handling, added tests for minimal detail and click behavior, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Restore post body content and remove footer copy.
+  Notes: Added post body container and minimal rendering, removed static footer text and "built for reading" copy, updated footer branding test, added footer removal test coverage, and reran npm test, npm run lint, npm run typecheck.

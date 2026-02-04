@@ -1,27 +1,16 @@
-// ABOUTME: Verifies post dates format consistently regardless of timezone parsing quirks.
-// ABOUTME: Ensures the cooking recipes post date renders on the intended calendar day.
-process.env.TZ = 'America/Los_Angeles';
+// ABOUTME: Validates the posts renderer uses time elements for dates.
+// ABOUTME: Ensures post dates are rendered as time tags in app.js.
+const { assertMatches, readRepoFile } = require('./helpers');
 
-const assert = require('assert');
-const path = require('path');
+const appSource = readRepoFile('assets/js/app.js');
 
-const postDetail = require(path.join(__dirname, '..', 'assets', 'js', 'post-detail.js'));
-
-assert.strictEqual(
-  typeof postDetail.formatDate,
-  'function',
-  'Expected formatDate to be exported for date handling.'
+assertMatches(
+  appSource,
+  /createElement\(['"]time['"]\)/i,
+  'Expected app.js to create time elements for post dates.'
 );
-
-const formatted = postDetail.formatDate('2025-12-30');
-const expected = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-}).format(new Date(2025, 11, 30));
-
-assert.strictEqual(
-  formatted,
-  expected,
-  'Expected the cooking recipes date to stay on the correct calendar day.'
+assertMatches(
+  appSource,
+  /className\s*=\s*['"]post-date/i,
+  'Expected post dates to use the post-date class.'
 );

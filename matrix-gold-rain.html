@@ -6,185 +6,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lavender Matrix Rain</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --matrix-background: #060606;
-        --matrix-primary: #ff2d2d;
-        --matrix-emerald: #ff2d2d;
-        --matrix-head: #ff2d2d;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        background: var(--matrix-background);
-        color: var(--matrix-primary);
-        font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
-        font-weight: 700;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-      }
-
-      #golden-matrix {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        display: block;
-        background: var(--matrix-background);
-        filter: drop-shadow(0 0 12px rgba(255, 45, 45, 0.3));
-      }
-
-      .hud {
-        position: relative;
-        z-index: 1;
-        padding: 14px 18px;
-        border: 2px solid rgba(255, 45, 45, 0.7);
-        border-radius: 0;
-        background: rgba(6, 6, 6, 0.6);
-        box-shadow: 0 0 18px rgba(255, 45, 45, 0.25);
-        backdrop-filter: none;
-        text-align: center;
-        letter-spacing: 0.08em;
-      }
-
-      .hud__title {
-        margin: 0;
-        font-size: 1.1rem;
-      }
-
-      .hud__subtitle {
-        margin: 6px 0 0;
-        font-size: 0.85rem;
-        color: rgba(255, 45, 45, 0.8);
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <canvas id="golden-matrix" aria-hidden="true"></canvas>
-    <div class="hud" aria-hidden="true">
-      <p class="hud__title">Lavender Matrix Rain</p>
-      <p class="hud__subtitle">Slow luminous streams with a velvet glow.</p>
-    </div>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <span class="site-title">Lavender Matrix Rain</span>
+      </div>
+    </header>
 
-    <script>
-      (() => {
-        const canvas = document.getElementById('golden-matrix');
-        const context = canvas.getContext('2d');
-
-        const characters =
-          'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-        const fadeFill = 'rgba(6, 6, 6, 0.12)';
-        const glyphChangeInterval = 24;
-        const columnSpacingRatio = 1.8;
-
-        const layers = [
-          { fontSize: 16, speedMin: 0.05, speedMax: 0.12, tail: 28, glow: 6, opacity: 0.85 },
-          { fontSize: 22, speedMin: 0.08, speedMax: 0.16, tail: 24, glow: 7, opacity: 0.95 },
-          { fontSize: 30, speedMin: 0.1, speedMax: 0.2, tail: 20, glow: 8, opacity: 1 },
-        ];
-
-        let streams = [];
-        let running = false;
-        let frameCount = 0;
-
-        function blendColor(a, b, weight) {
-          const inverse = 1 - weight;
-          return {
-            r: Math.round(a.r * weight + b.r * inverse),
-            g: Math.round(a.g * weight + b.g * inverse),
-            b: Math.round(a.b * weight + b.b * inverse),
-          };
-        }
-
-        function randomChar() {
-          return characters[Math.floor(Math.random() * characters.length)];
-        }
-
-        function setup() {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          streams = layers.map((layer) => {
-            const columnSpacing = layer.fontSize * columnSpacingRatio;
-            const columnCount = Math.ceil(canvas.width / columnSpacing) + 1;
-            return Array.from({ length: columnCount }, () => ({
-              y: Math.random() * canvas.height,
-              speed: layer.speedMin + Math.random() * (layer.speedMax - layer.speedMin),
-              glyphOffset: Math.floor(Math.random() * glyphChangeInterval),
-              glyphs: Array.from({ length: layer.tail + 1 }, randomChar),
-            }));
-          });
-          if (!running) {
-            running = true;
-            requestAnimationFrame(draw);
-          }
-        }
-
-        function drawTrail(x, y, layer, columnIndex, layerIndex) {
-          const accentBright = { r: 255, g: 45, b: 45 };
-          const accentDeep = { r: 160, g: 0, b: 0 };
-          context.shadowBlur = layer.glow;
-          context.shadowColor = 'rgba(255, 45, 45, 0.45)';
-
-          const stream = streams[layerIndex][columnIndex];
-          if ((frameCount + stream.glyphOffset) % glyphChangeInterval === 0) {
-            stream.glyphs = stream.glyphs.map(randomChar);
-          }
-
-          const headChar = stream.glyphs[0];
-          context.fillStyle = 'rgba(255, 45, 45, 1)';
-          context.fillText(headChar, x, y);
-
-          for (let depth = 1; depth <= layer.tail; depth += 1) {
-            const trailY = y - depth * layer.fontSize;
-            if (trailY < -layer.fontSize) break;
-
-            const fade = 1 - depth / (layer.tail + 2);
-            const colorMix = blendColor(accentBright, accentDeep, fade);
-            const alpha = 0.35 + layer.opacity * fade * 0.7;
-            context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
-            const trailChar = stream.glyphs[depth] ?? randomChar();
-            context.fillText(trailChar, x, trailY);
-          }
-
-          stream.y += stream.speed;
-          if (stream.y > canvas.height + layer.fontSize) {
-            stream.y = Math.random() * -200;
-          }
-        }
-
-        function draw() {
-          frameCount += 1;
-          context.fillStyle = fadeFill;
-          context.fillRect(0, 0, canvas.width, canvas.height);
-
-          layers.forEach((layer, layerIndex) => {
-            context.font = `bold ${layer.fontSize}px 'Courier New', monospace`;
-            const columns = streams[layerIndex];
-            columns.forEach((stream, columnIndex) => {
-              const x = columnIndex * layer.fontSize * columnSpacingRatio;
-              drawTrail(x, stream.y, layer, columnIndex, layerIndex);
-            });
-          });
-
-          requestAnimationFrame(draw);
-        }
-
-        window.addEventListener('resize', setup);
-        setup();
-      })();
-    </script>
+    <main class="site-main">
+      <section class="post-stream">
+        <p>Slow luminous streams with a velvet glow.</p>
+      </section>
+    </main>
   </body>
 </html>

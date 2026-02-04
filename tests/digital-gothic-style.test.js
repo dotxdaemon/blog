@@ -1,58 +1,18 @@
-// ABOUTME: Verifies the digital gothic styling rules for geometry and data typography.
-// ABOUTME: Ensures metadata, overlays, and log layouts match the high-contrast spec.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Ensures the site keeps the brutalist layout free of decorative media.
+// ABOUTME: Confirms no images or canvases appear in the HTML entry points.
+const { assertNotMatches, readRepoFile } = require('./helpers');
 
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
-const css = fs.readFileSync(cssPath, 'utf8');
+const htmlFiles = [
+  'index.html',
+  'posts.html',
+  'post.html',
+  'search.html',
+  'archives.html',
+  'matrix-gold-rain.html',
+];
 
-assert.ok(
-  /--radius:\s*\d+px/i.test(css),
-  'Expected a radius token for rounded surfaces.'
-);
-
-assert.ok(
-  /body::after[\s\S]*?background:\s*transparent/i.test(css),
-  'Expected the overlay to avoid competing with the matrix veil.'
-);
-
-assert.ok(
-  /\.grid-panel[\s\S]*?background:\s*var\(--panel-surface\)/i.test(css),
-  'Expected panels to use the panel surface color.'
-);
-
-assert.ok(
-  /\.grid-panel[\s\S]*?border:\s*var\(--borderWidth\)\s+solid\s+var\(--border\)/i.test(css),
-  'Expected panels to use the primary border color with a consistent weight.'
-);
-
-const navLinkSansPattern = /\.nav-link[\s\S]*?font-family:\s*var\(--font-sans\)/i;
-assert.ok(navLinkSansPattern.test(css), 'Expected nav links to use the sans-serif font.');
-
-['post-snippet__meta', 'post-meta'].forEach((className) => {
-  const monoPattern = new RegExp(`\\.${className}[\\s\\S]*?font-family:\\s*var\\(--font-mono\\)`, 'i');
-  const uppercasePattern = new RegExp(`\\.${className}[\\s\\S]*?text-transform:\\s*none`, 'i');
-  const spacingPattern = new RegExp(`\\.${className}[\\s\\S]*?letter-spacing:\\s*0`, 'i');
-
-  assert.ok(monoPattern.test(css), `Expected ${className} metadata to use the monospace font.`);
-  assert.ok(uppercasePattern.test(css), `Expected ${className} metadata to avoid uppercase.`);
-  assert.ok(spacingPattern.test(css), `Expected ${className} metadata to avoid wide letter spacing.`);
+htmlFiles.forEach((fileName) => {
+  const html = readRepoFile(fileName);
+  assertNotMatches(html, /<img\b/i, `Did not expect decorative images in ${fileName}.`);
+  assertNotMatches(html, /<canvas\b/i, `Did not expect a canvas element in ${fileName}.`);
 });
-
-assert.ok(
-  /\.track-grid[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i.test(
-    css
-  ),
-  'Expected the track grid to render as a 2x2 grid.'
-);
-
-assert.ok(
-  /\.list-row[\s\S]*?color:\s*var\(--text\)/i.test(css),
-  'Expected list rows to use the primary text color.'
-);
-
-assert.ok(
-  /\.list-row:hover[\s\S]*?background:\s*var\(--hover\)/i.test(css),
-  'Expected list rows to use the hover surface color.'
-);

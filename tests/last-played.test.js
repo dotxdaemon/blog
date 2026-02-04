@@ -1,28 +1,21 @@
-// ABOUTME: Verifies the homepage exposes a last-played music slot for integrations.
-// ABOUTME: Ensures the markup for the Apple Music status card exists.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Ensures the last played widget markup exists on the homepage.
+// ABOUTME: Confirms the widget includes a status node and track list.
+const { assertMatches, readIndexHtml } = require('./helpers');
 
-const indexPath = path.join(__dirname, '..', 'index.html');
-const html = fs.readFileSync(indexPath, 'utf8');
+const html = readIndexHtml();
 
-assert.ok(
-  /id="last-played"/i.test(html),
-  'Expected a last-played section on the homepage.'
+assertMatches(
+  html,
+  /<section[^>]*data-last-played[^>]*>/i,
+  'Expected the last played section to be present.'
 );
-
-assert.ok(
-  /data-last-played/i.test(html),
-  'Expected the last-played section to include data-last-played attributes.'
+assertMatches(
+  html,
+  /data-last-played-status/i,
+  'Expected the last played status element to be present.'
 );
-
-assert.ok(
-  !/Last played/i.test(html),
-  'Expected the last-played section to omit the title text.'
-);
-
-assert.ok(
-  !/Recent plays/i.test(html),
-  'Expected the last-played header to omit the Recent plays subheader.'
+assertMatches(
+  html,
+  /id="track-grid"/i,
+  'Expected the track grid container to be present.'
 );

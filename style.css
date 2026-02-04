@@ -1,0 +1,270 @@
+/* ABOUTME: Styles the monochrome brutalist layout for the static blog homepage. */
+/* ABOUTME: Defines the grid, typography, borders, and hover inversion rules. */
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --border-width: 2px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--black);
+  display: grid;
+  font-family: 'Courier New', Courier, monospace;
+  grid-template-rows: auto auto auto;
+  min-height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header,
+.site-main,
+.site-footer {
+  border-left: var(--border-width) solid var(--black);
+  border-right: var(--border-width) solid var(--black);
+}
+
+.site-header {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 0;
+}
+
+.site-header__inner {
+  align-items: center;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto;
+}
+
+.site-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  gap: 12px;
+}
+
+.site-nav a {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.site-main {
+  display: grid;
+  gap: 0;
+  padding: 0;
+}
+
+.last-played {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 12px;
+}
+
+.post-stream {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 12px;
+}
+
+.last-played__status {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.track-list {
+  border-top: var(--border-width) solid var(--black);
+  list-style: none;
+  margin-top: 8px;
+}
+
+.track-row {
+  border-bottom: var(--border-width) solid var(--black);
+  padding: 8px 0;
+}
+
+.track-link {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(120px, 180px) 1fr;
+}
+
+.track-name,
+.track-artist {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.post-list {
+  border-top: var(--border-width) solid var(--black);
+  margin-top: 8px;
+}
+
+.post-row {
+  border-bottom: var(--border-width) solid var(--black);
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 0;
+  text-align: center;
+}
+
+.post-date {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.post-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.post-link {
+  display: block;
+}
+
+.site-footer {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 12px;
+}
+
+.site-footer__inner {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.post-actions {
+  margin-bottom: 0;
+}
+
+.post-detail {
+  display: grid;
+  gap: 0;
+  margin: 0 auto;
+  max-width: 720px;
+  width: 100%;
+}
+
+.post-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: center;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-divider {
+  border: none;
+  border-top: var(--border-width) solid var(--black);
+  margin: 0;
+}
+
+.post-navigation {
+  border-top: var(--border-width) solid var(--black);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  padding-top: 12px;
+}
+
+button,
+input {
+  border: var(--border-width) solid var(--black);
+  background-color: var(--white);
+  color: var(--black);
+  font-family: inherit;
+  font-weight: 700;
+  padding: 8px;
+}
+
+button {
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.search-input-wrapper {
+  align-items: center;
+  border: var(--border-width) solid var(--black);
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}
+
+.search-input {
+  border: none;
+  flex: 1;
+  padding: 0;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-hint {
+  margin-top: 12px;
+}
+
+.invert-on-hover:hover,
+.invert-on-hover:focus {
+  background-color: var(--black);
+  color: var(--white);
+  transition: none;
+}
+
+@media (max-width: 600px) {
+  .site-header__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .site-nav {
+    border-top: var(--border-width) solid var(--black);
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .track-link {
+    grid-template-columns: 1fr;
+  }
+
+  .post-row {
+    border-top: var(--border-width) solid var(--black);
+    grid-template-columns: 1fr;
+    padding-top: 0;
+  }
+}

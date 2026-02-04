@@ -1,71 +1,40 @@
-<!-- ABOUTME: Builds the reference-inspired homepage shell for the blog. -->
-<!-- ABOUTME: Anchors the hero, navigation, and ambient controls. -->
-<!-- ABOUTME: Primary homepage layout for the blog and listening widgets. -->
-<!-- ABOUTME: Defines navigation, listening sections, and post listings for the site. -->
+<!-- ABOUTME: Provides the monochrome brutalist homepage for the static blog. -->
+<!-- ABOUTME: Defines the header, navigation, recent posts stream, and footer. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>velvetdaemon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <title>Site Title</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-theme="dark">
-    <canvas id="matrix-rain" class="matrix-canvas" aria-hidden="true"></canvas>
-    <div class="matrix-veil" aria-hidden="true"></div>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-
+  <body>
     <header class="site-header">
-      <div class="container nav-shell">
-        <a class="site-brand" href="#main-content">velvetdaemon</a>
-        <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
-          <a class="nav-link" href="posts.html">Posts</a>
-          <a class="nav-link" href="#site-footer">About</a>
+      <div class="site-header__inner">
+        <h1 class="site-title">Site Title</h1>
+        <nav class="site-nav" aria-label="Primary">
+          <a class="nav-link invert-on-hover" href="#">Home</a>
+          <a class="nav-link invert-on-hover" href="#">About</a>
+          <a class="nav-link invert-on-hover" href="#">Archive</a>
         </nav>
-        <span class="build-stamp" id="build-stamp" data-build-sha="dee9f01">build: dee9f01 2026-02-02T20:18:30Z</span>
       </div>
-      <div class="divider container" aria-hidden="true"></div>
     </header>
 
-    <main class="page landing-grid" id="main-content" data-layout="index">
-      <section class="section-block" id="last-played" data-last-played>
-        <div class="panel panel--album">
-          <div class="panel-body">
-            <ul
-              class="track-grid album-grid"
-              id="track-grid"
-              aria-label="Recent tracks"
-            ></ul>
-          </div>
-        </div>
+    <main class="site-main">
+      <section class="last-played" data-last-played aria-label="Last played">
+        <div class="last-played__status" data-last-played-status></div>
+        <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
+      </section>
+
+      <section class="post-stream" aria-labelledby="recent-posts">
+        <h2 class="section-title" id="recent-posts">Recent Posts</h2>
+        <div class="post-list" id="posts"></div>
       </section>
     </main>
 
-    <footer class="site-footer" id="site-footer" aria-label="Site footer">
-      <div class="divider container" aria-hidden="true"></div>
-      <div class="container site-footer__inner">
-        <p>© <span id="current-year"></span> velvetdaemon</p>
-        <div class="site-footer__links">
-          <a class="nav-link" href="#site-footer">About</a>
-          <a
-            class="nav-link"
-            href="https://github.com/dotxdaemon"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-        </div>
-      </div>
+    <footer class="site-footer">
     </footer>
 
-    <script src="assets/js/matrix.js"></script>
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/app.js" type="module"></script>
   </body>

@@ -1,18 +1,21 @@
-// ABOUTME: Verifies the posts renderer applies a consistent list-row layout.
-// ABOUTME: Ensures all posts use the same list row rendering logic.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Ensures the posts renderer outputs post rows with dates and titles.
+// ABOUTME: Confirms app.js defines the post row markup classes.
+const { assertMatches, readRepoFile } = require('./helpers');
 
-const appPath = path.join(__dirname, '..', 'assets', 'js', 'app.js');
-const appSource = fs.readFileSync(appPath, 'utf8');
+const appSource = readRepoFile('assets/js/app.js');
 
-assert.ok(
-  /orderedPosts\.forEach\(\(post\)/.test(appSource),
-  'Expected the posts renderer to iterate over orderedPosts directly.'
+assertMatches(
+  appSource,
+  /className\s*=\s*['"]post-row/i,
+  'Expected app.js to create post rows.'
 );
-
-assert.ok(
-  !/featuredPost/.test(appSource),
-  'Expected the posts renderer to avoid a featured post split.'
+assertMatches(
+  appSource,
+  /className\s*=\s*['"]post-date/i,
+  'Expected app.js to create post date elements.'
+);
+assertMatches(
+  appSource,
+  /className\s*=\s*['"]post-title/i,
+  'Expected app.js to create post title elements.'
 );

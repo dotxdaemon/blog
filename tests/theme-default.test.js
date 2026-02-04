@@ -1,15 +1,12 @@
-// ABOUTME: Confirms the default theme is set to dark across primary pages.
-// ABOUTME: Ensures initial markup reflects the matrix palette preference.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Confirms the HTML head includes core meta tags.
+// ABOUTME: Ensures charset and viewport are defined for responsiveness.
+const { assertMatches, readIndexHtml } = require('./helpers');
 
-const htmlFiles = ['index.html', 'post.html', 'search.html', 'archives.html'];
+const html = readIndexHtml();
 
-htmlFiles.forEach((file) => {
-  const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
-  assert.ok(
-    /<body[^>]*data-theme="dark"/i.test(html),
-    `Expected ${file} to default to the dark theme.`
-  );
-});
+assertMatches(html, /<meta[^>]*charset="UTF-8"/i, 'Expected a UTF-8 charset meta tag.');
+assertMatches(
+  html,
+  /<meta[^>]*name="viewport"[^>]*content="width=device-width,\s*initial-scale=1\.0"/i,
+  'Expected the viewport meta tag for responsive layout.'
+);
