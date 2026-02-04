@@ -1,8 +1,18 @@
-// ABOUTME: Ensures the homepage keeps the brutalist layout free of decorative media.
-// ABOUTME: Confirms no images or canvases appear in the markup.
-const { assertNotMatches, readIndexHtml } = require('./helpers');
+// ABOUTME: Ensures the site keeps the brutalist layout free of decorative media.
+// ABOUTME: Confirms no images or canvases appear in the HTML entry points.
+const { assertNotMatches, readRepoFile } = require('./helpers');
 
-const html = readIndexHtml();
+const htmlFiles = [
+  'index.html',
+  'posts.html',
+  'post.html',
+  'search.html',
+  'archives.html',
+  'matrix-gold-rain.html',
+];
 
-assertNotMatches(html, /<img\b/i, 'Did not expect decorative images in the homepage.');
-assertNotMatches(html, /<canvas\b/i, 'Did not expect a canvas element in the homepage.');
+htmlFiles.forEach((fileName) => {
+  const html = readRepoFile(fileName);
+  assertNotMatches(html, /<img\b/i, `Did not expect decorative images in ${fileName}.`);
+  assertNotMatches(html, /<canvas\b/i, `Did not expect a canvas element in ${fileName}.`);
+});

@@ -7,41 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="page-title">Post - velvetdaemon</title>
     <meta name="description" id="page-description" content="" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-theme="dark">
+  <body>
     <div class="progress-container" id="progress-container">
       <div class="progress-bar" id="progress-bar"></div>
     </div>
-    <canvas id="matrix-rain" class="matrix-canvas" aria-hidden="true"></canvas>
-    <div class="matrix-veil" aria-hidden="true"></div>
-    <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
-      <div class="container nav-shell">
-        <a class="site-brand" href="index.html#main-content">velvetdaemon</a>
-        <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
-          <a class="nav-link" href="posts.html">Posts</a>
-          <a class="nav-link" href="index.html#site-footer">About</a>
+      <div class="site-header__inner">
+        <a class="site-title" href="index.html">velvetdaemon</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link invert-on-hover" href="posts.html">Posts</a>
+          <a class="nav-link invert-on-hover" href="index.html#site-footer">About</a>
         </nav>
       </div>
-      <div class="divider container" aria-hidden="true"></div>
     </header>
 
-    <main class="page" id="main-content" data-layout="post">
-      <div class="container">
+    <main class="site-main" id="main-content">
+      <div class="post-actions">
         <a href="posts.html" class="back-button" id="back-button">
           <span aria-hidden="true">&larr;</span> Back
         </a>
       </div>
 
-      <article class="post-detail container" id="post-detail">
+      <article class="post-detail" id="post-detail">
         <header class="post-header">
           <h1 class="post-title" id="post-title">Loading...</h1>
           <div class="post-meta-row">
@@ -58,7 +48,7 @@
 
         <div class="post-toc" id="post-toc"></div>
 
-        <div class="post-content prose" id="post-content">
+        <div class="post-content" id="post-content">
           <!-- Content rendered here -->
         </div>
 
@@ -90,13 +80,12 @@
     </main>
 
     <footer class="site-footer" aria-label="Site footer">
-      <div class="divider container" aria-hidden="true"></div>
-      <div class="container site-footer__inner">
+      <div class="site-footer__inner">
         <p>&copy; <span id="current-year"></span> velvetdaemon &mdash; built for reading</p>
         <div class="site-footer__links">
-          <a class="nav-link" href="index.html#hero">About</a>
+          <a class="nav-link invert-on-hover" href="index.html#hero">About</a>
           <a
-            class="nav-link"
+            class="nav-link invert-on-hover"
             href="https://github.com/dotxdaemon"
             target="_blank"
             rel="noreferrer"
@@ -107,7 +96,6 @@
       </div>
     </footer>
 
-    <script src="assets/js/matrix.js"></script>
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/post-detail.js"></script>
   </body>

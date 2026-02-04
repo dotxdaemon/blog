@@ -7,51 +7,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Archives - velvetdaemon</title>
     <meta name="description" content="Browse all blog posts by year and month." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body data-theme="dark">
-    <canvas id="matrix-rain" class="matrix-canvas" aria-hidden="true"></canvas>
-    <div class="matrix-veil" aria-hidden="true"></div>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-
+  <body>
     <header class="site-header">
-      <div class="container nav-shell">
-        <a class="site-brand" href="index.html#main-content">velvetdaemon</a>
-        <nav id="primary-nav" class="nav-menu" aria-label="Primary navigation">
-          <a class="nav-link" href="posts.html">Posts</a>
-          <a class="nav-link" href="index.html#site-footer">About</a>
+      <div class="site-header__inner">
+        <a class="site-title" href="index.html">velvetdaemon</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link invert-on-hover" href="posts.html">Posts</a>
+          <a class="nav-link invert-on-hover" href="index.html#site-footer">About</a>
         </nav>
       </div>
-      <div class="divider container" aria-hidden="true"></div>
     </header>
 
-    <main class="page" id="main-content">
-      <div class="container">
+    <main class="site-main" id="main-content">
+      <section class="post-stream">
         <header class="archives-header">
-          <h1>All Posts</h1>
+          <h1 class="section-title">All Posts</h1>
           <p>Browse all blog posts by year and month</p>
         </header>
 
         <div id="archives-content">
           <!-- Archives rendered here by JS -->
         </div>
-      </div>
+      </section>
     </main>
 
     <footer class="site-footer" aria-label="Site footer">
-      <div class="divider container" aria-hidden="true"></div>
-      <div class="container site-footer__inner">
+      <div class="site-footer__inner">
         <p>&copy; <span id="current-year"></span> velvetdaemon &mdash; built for reading</p>
         <div class="site-footer__links">
-          <a class="nav-link" href="index.html#hero">About</a>
+          <a class="nav-link invert-on-hover" href="index.html#hero">About</a>
           <a
-            class="nav-link"
+            class="nav-link invert-on-hover"
             href="https://github.com/dotxdaemon"
             target="_blank"
             rel="noreferrer"
@@ -62,7 +50,6 @@
       </div>
     </footer>
 
-    <script src="assets/js/matrix.js"></script>
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/archives.js"></script>
   </body>

@@ -129,3 +129,6 @@
 - Date: 2026-02-04
   Task: Restore dynamic posts and a text-only last played widget to the brutalist homepage.
   Notes: Reintroduced posts rendering via app.js/posts.js, added last played markup without images, updated styles and tests, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Apply the monochrome brutalist front-end styling across all HTML pages.
+  Notes: Swapped pages to style.css, removed matrix visuals, aligned headers/footers, updated tests for shared styling, and reran npm test, npm run lint, npm run typecheck.
