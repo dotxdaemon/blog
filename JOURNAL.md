@@ -135,3 +135,6 @@
 - Date: 2026-02-04
   Task: Center post rows and remove spacing between post fields.
   Notes: Adjusted post-row grid to a single centered column with zero padding/gap, updated tests, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Remove spacing from core layout and post detail elements.
+  Notes: Zeroed padding/gaps on layout containers and post detail metadata, added whitespace removal test coverage, and reran npm test, npm run lint, npm run typecheck.

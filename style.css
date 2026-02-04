@@ -37,7 +37,7 @@ a {
 .site-header {
   border-bottom: var(--border-width) solid var(--black);
   border-top: var(--border-width) solid var(--black);
-  padding: 12px;
+  padding: 0;
 }
 
 .site-header__inner {
@@ -64,8 +64,8 @@ a {
 
 .site-main {
   display: grid;
-  gap: 24px;
-  padding: 12px;
+  gap: 0;
+  padding: 0;
 }
 
 .last-played {
@@ -164,12 +164,12 @@ a {
 }
 
 .post-actions {
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .post-detail {
   display: grid;
-  gap: 16px;
+  gap: 0;
   margin: 0 auto;
   max-width: 720px;
   width: 100%;
@@ -178,8 +178,8 @@ a {
 .post-meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  justify-content: space-between;
+  gap: 0;
+  justify-content: center;
 }
 
 .post-meta {
@@ -191,6 +191,7 @@ a {
 .post-divider {
   border: none;
   border-top: var(--border-width) solid var(--black);
+  margin: 0;
 }
 
 .post-navigation {
