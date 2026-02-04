@@ -1,5 +1,5 @@
 // ABOUTME: Validates the post list grid and border treatments.
-// ABOUTME: Ensures posts display as a two-column grid with thick borders.
+// ABOUTME: Ensures posts are centered with no spacing between fields.
 const { assertMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
@@ -11,8 +11,28 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*grid-template-columns:\s*minmax\([^)]*\)\s+1fr/i,
-  'Expected post rows to define date and title columns.'
+  /\.post-row[\s\S]*grid-template-columns:\s*1fr/i,
+  'Expected post rows to use a single column layout.'
+);
+assertMatches(
+  css,
+  /\.post-row[\s\S]*justify-items:\s*center/i,
+  'Expected post rows to center their contents.'
+);
+assertMatches(
+  css,
+  /\.post-row[\s\S]*text-align:\s*center/i,
+  'Expected post rows to use centered text.'
+);
+assertMatches(
+  css,
+  /\.post-row[\s\S]*gap:\s*0/i,
+  'Expected post rows to remove grid gaps.'
+);
+assertMatches(
+  css,
+  /\.post-row[\s\S]*padding:\s*0/i,
+  'Expected post rows to remove padding.'
 );
 assertMatches(
   css,

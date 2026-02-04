@@ -132,3 +132,6 @@
 - Date: 2026-02-04
   Task: Apply the monochrome brutalist front-end styling across all HTML pages.
   Notes: Swapped pages to style.css, removed matrix visuals, aligned headers/footers, updated tests for shared styling, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Center post rows and remove spacing between post fields.
+  Notes: Adjusted post-row grid to a single centered column with zero padding/gap, updated tests, and reran npm test, npm run lint, npm run typecheck.

@@ -115,9 +115,11 @@ a {
 .post-row {
   border-bottom: var(--border-width) solid var(--black);
   display: grid;
-  gap: 12px;
-  grid-template-columns: minmax(120px, 180px) 1fr;
-  padding: 8px 0;
+  gap: 0;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 0;
+  text-align: center;
 }
 
 .post-date {
@@ -252,6 +254,6 @@ button {
   .post-row {
     border-top: var(--border-width) solid var(--black);
     grid-template-columns: 1fr;
-    padding-top: 8px;
+    padding-top: 0;
   }
 }
