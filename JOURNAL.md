@@ -138,3 +138,6 @@
 - Date: 2026-02-24
   Task: Remove spacing from core layout and post detail elements.
   Notes: Zeroed padding/gaps on layout containers and post detail metadata, added whitespace removal test coverage, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Remove body stretch to eliminate remaining whitespace in post views.
+  Notes: Set body rows to auto sizing, removed min-height, added body layout test coverage, and reran npm test, npm run lint, npm run typecheck.
