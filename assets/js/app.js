@@ -121,6 +121,20 @@ function createPostEntry(post, index, shouldReduceMotion, isFeatured) {
 function createPostLink(post) {
   const entry = document.createElement('article');
   entry.className = 'post-row invert-on-hover';
+  entry.tabIndex = 0;
+  entry.setAttribute('role', 'link');
+
+  const destination = `post.html?slug=${slugify(post.title)}`;
+
+  entry.addEventListener('click', () => {
+    window.location.href = destination;
+  });
+  entry.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      window.location.href = destination;
+    }
+  });
 
   const time = document.createElement('time');
   time.className = 'post-date';
@@ -131,7 +145,7 @@ function createPostLink(post) {
   title.className = 'post-title';
   const link = document.createElement('a');
   link.className = 'post-link';
-  link.href = `post.html?slug=${slugify(post.title)}`;
+  link.href = destination;
   link.textContent = post.title;
   title.appendChild(link);
 

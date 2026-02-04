@@ -141,3 +141,6 @@
 - Date: 2026-02-24
   Task: Remove body stretch to eliminate remaining whitespace in post views.
   Notes: Set body rows to auto sizing, removed min-height, added body layout test coverage, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Reduce post detail to title and date, and make post rows fully clickable.
+  Notes: Removed post detail UI elements and related script logic, added post row click handling, added tests for minimal detail and click behavior, and reran npm test, npm run lint, npm run typecheck.

@@ -1,5 +1,5 @@
-<!-- ABOUTME: Individual post page with full article view and navigation. -->
-<!-- ABOUTME: Includes progress bar, copy buttons, heading anchors, and share links. -->
+<!-- ABOUTME: Individual post page with minimal post metadata. -->
+<!-- ABOUTME: Shows the post title and date alongside the site layout. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,10 +10,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="progress-container" id="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
-
     <header class="site-header">
       <div class="site-header__inner">
         <a class="site-title" href="index.html">velvetdaemon</a>
@@ -25,57 +21,11 @@
     </header>
 
     <main class="site-main" id="main-content">
-      <div class="post-actions">
-        <a href="posts.html" class="back-button" id="back-button">
-          <span aria-hidden="true">&larr;</span> Back
-        </a>
-      </div>
-
       <article class="post-detail" id="post-detail">
         <header class="post-header">
           <h1 class="post-title" id="post-title">Loading...</h1>
-          <div class="post-meta-row">
-            <div class="post-meta">
-              <time id="post-date" datetime=""></time>
-              <span class="meta-divider">&#8226;</span>
-              <span id="reading-time"></span>
-            </div>
-            <a href="#" class="edit-link" id="edit-link" target="_blank" rel="noopener">
-              Edit on GitHub
-            </a>
-          </div>
+          <time id="post-date" datetime=""></time>
         </header>
-
-        <div class="post-toc" id="post-toc"></div>
-
-        <div class="post-content" id="post-content">
-          <!-- Content rendered here -->
-        </div>
-
-        <hr class="post-divider" />
-
-        <div class="post-tags" id="post-tags">
-          <!-- Tags rendered here -->
-        </div>
-
-        <div class="post-footer">
-          <button id="back-to-top" class="back-to-top">
-            <span aria-hidden="true">&uarr;</span> Back to Top
-          </button>
-        </div>
-
-        <hr class="post-divider" />
-
-        <nav class="post-navigation" id="post-navigation" aria-label="Post navigation">
-          <a href="#" class="nav-prev" id="nav-prev">
-            <span class="nav-label">Previous Post</span>
-            <span class="nav-title" id="prev-title"></span>
-          </a>
-          <a href="#" class="nav-next" id="nav-next">
-            <span class="nav-label">Next Post</span>
-            <span class="nav-title" id="next-title"></span>
-          </a>
-        </nav>
       </article>
     </main>
 
