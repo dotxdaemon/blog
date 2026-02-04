@@ -1,27 +1,23 @@
-// ABOUTME: Verifies post dates format consistently regardless of timezone parsing quirks.
-// ABOUTME: Ensures the cooking recipes post date renders on the intended calendar day.
-process.env.TZ = 'America/Los_Angeles';
-
+// ABOUTME: Validates the post row markup orders date before title.
+// ABOUTME: Ensures each post includes the date element on the left.
 const assert = require('assert');
-const path = require('path');
+const { readIndexHtml } = require('./helpers');
 
-const postDetail = require(path.join(__dirname, '..', 'assets', 'js', 'post-detail.js'));
+const html = readIndexHtml();
+const articleMatches = [...html.matchAll(/<article\b[\s\S]*?<\/article>/gi)];
 
-assert.strictEqual(
-  typeof postDetail.formatDate,
-  'function',
-  'Expected formatDate to be exported for date handling.'
-);
+articleMatches.forEach((match, index) => {
+  const entry = match[0];
+  const timeMatch = entry.match(/<time\b[^>]*class="post-date"[^>]*>[\s\S]*?<\/time>/i);
+  const titleMatch = entry.match(/<h2\b[^>]*class="post-title"[^>]*>[\s\S]*?<\/h2>/i);
 
-const formatted = postDetail.formatDate('2025-12-30');
-const expected = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-}).format(new Date(2025, 11, 30));
+  assert.ok(timeMatch, `Expected post ${index + 1} to include a post-date element.`);
+  assert.ok(titleMatch, `Expected post ${index + 1} to include a post-title element.`);
 
-assert.strictEqual(
-  formatted,
-  expected,
-  'Expected the cooking recipes date to stay on the correct calendar day.'
-);
+  if (timeMatch && titleMatch) {
+    assert.ok(
+      timeMatch.index < titleMatch.index,
+      `Expected the date to appear before the title in post ${index + 1}.`
+    );
+  }
+});

@@ -1,0 +1,131 @@
+/* ABOUTME: Styles the monochrome brutalist layout for the static blog homepage. */
+/* ABOUTME: Defines the grid, typography, borders, and hover inversion rules. */
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --border-width: 2px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--black);
+  display: grid;
+  font-family: 'Courier New', Courier, monospace;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header,
+.site-main,
+.site-footer {
+  border-left: var(--border-width) solid var(--black);
+  border-right: var(--border-width) solid var(--black);
+}
+
+.site-header {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 12px;
+}
+
+.site-header__inner {
+  align-items: center;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto;
+}
+
+.site-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  gap: 12px;
+}
+
+.site-nav a {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.site-main {
+  padding: 12px;
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.post-list {
+  border-top: var(--border-width) solid var(--black);
+}
+
+.post-row {
+  border-bottom: var(--border-width) solid var(--black);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(120px, 180px) 1fr;
+  padding: 8px 0;
+}
+
+.post-date {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.post-title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.post-link {
+  display: block;
+}
+
+.site-footer {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 12px;
+}
+
+.invert-on-hover:hover,
+.invert-on-hover:focus {
+  background-color: var(--black);
+  color: var(--white);
+  transition: none;
+}
+
+@media (max-width: 600px) {
+  .site-header__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .site-nav {
+    border-top: var(--border-width) solid var(--black);
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .post-row {
+    border-top: var(--border-width) solid var(--black);
+    grid-template-columns: 1fr;
+    padding-top: 8px;
+  }
+}

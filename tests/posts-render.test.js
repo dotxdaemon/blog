@@ -1,18 +1,13 @@
-// ABOUTME: Verifies the posts renderer applies a consistent list-row layout.
-// ABOUTME: Ensures all posts use the same list row rendering logic.
+// ABOUTME: Ensures post titles are rendered as links for navigation.
+// ABOUTME: Confirms each post entry includes a linked title.
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { readIndexHtml } = require('./helpers');
 
-const appPath = path.join(__dirname, '..', 'assets', 'js', 'app.js');
-const appSource = fs.readFileSync(appPath, 'utf8');
+const html = readIndexHtml();
+const linkMatches = [...html.matchAll(/class="post-link"/gi)];
 
-assert.ok(
-  /orderedPosts\.forEach\(\(post\)/.test(appSource),
-  'Expected the posts renderer to iterate over orderedPosts directly.'
-);
-
-assert.ok(
-  !/featuredPost/.test(appSource),
-  'Expected the posts renderer to avoid a featured post split.'
+assert.strictEqual(
+  linkMatches.length,
+  5,
+  'Expected each post title to be a link with the post-link class.'
 );

@@ -1,58 +1,20 @@
-// ABOUTME: Validates the homepage design tokens and their primary usage.
-// ABOUTME: Ensures the core palette and spacing scale are defined and applied.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Validates the monochrome tokens that drive the brutalist theme.
+// ABOUTME: Ensures the base colors and border width are defined and used.
+const { assertMatches, readStyles } = require('./helpers');
 
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
-const css = fs.readFileSync(cssPath, 'utf8');
+const css = readStyles();
 
-[
-  '--radius',
-  '--borderWidth',
-  '--bg',
-  '--veil',
-  '--panel',
-  '--panel-radius',
-  '--panel-border',
-  '--panel-surface',
-  '--panel-padding',
-  '--panel-header-spacing',
-  '--card',
-  '--text',
-  '--muted',
-  '--accent',
-].forEach((token) => {
-  const pattern = new RegExp(`${token}:`, 'i');
-  assert.ok(pattern.test(css), `Expected ${token} to be defined.`);
-});
+assertMatches(css, /--black:\s*#000000/i, 'Expected the black token to be defined.');
+assertMatches(css, /--white:\s*#FFFFFF/i, 'Expected the white token to be defined.');
+assertMatches(css, /--border-width:\s*2px/i, 'Expected the border width token to be 2px.');
 
-['1', '2', '3', '4', '5', '6'].forEach((step) => {
-  const pattern = new RegExp(`--space-${step}:\\s*\\d+px`, 'i');
-  assert.ok(pattern.test(css), `Expected --space-${step} to be defined in pixels.`);
-});
-
-assert.ok(
-  /body[\s\S]*background:\s*var\(--bg\)/i.test(css),
-  'Expected the page background to use the --bg token.'
+assertMatches(
+  css,
+  /body[\s\S]*background-color:\s*var\(--white\)/i,
+  'Expected the body background to use the white token.'
 );
-
-assert.ok(
-  /body[\s\S]*color:\s*var\(--text\)/i.test(css),
-  'Expected the body text color to use the --text token.'
-);
-
-assert.ok(
-  /\.matrix-veil[\s\S]*background:\s*var\(--veil\)/i.test(css),
-  'Expected the matrix veil to use the --veil token.'
-);
-
-assert.ok(
-  /\.grid-panel[\s\S]*background:\s*var\(--panel-surface\)/i.test(css),
-  'Expected panel surfaces to use the panel surface token.'
-);
-
-assert.ok(
-  /\.post-card[\s\S]*background:\s*var\(--card\)/i.test(css),
-  'Expected post cards to use the --card token.'
+assertMatches(
+  css,
+  /body[\s\S]*color:\s*var\(--black\)/i,
+  'Expected the body text color to use the black token.'
 );

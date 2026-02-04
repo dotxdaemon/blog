@@ -1,101 +1,11 @@
-// ABOUTME: Guards against stray generated text and verifies the matrix rain background asset.
-// ABOUTME: Confirms the brutalist matrix styling and startMatrixRain export shape.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Verifies the brutalist stylesheet avoids decorative effects.
+// ABOUTME: Ensures no shadows, gradients, or opacity rules are present.
+const { assertNotMatches, readStyles } = require('./helpers');
 
-const indexPath = path.join(__dirname, '..', 'index.html');
-const html = fs.readFileSync(indexPath, 'utf8');
+const css = readStyles();
 
-assert.ok(
-  /id="matrix-rain"/i.test(html),
-  'Expected a matrix rain canvas background element in the layout.'
-);
-
-assert.ok(
-  /class="matrix-veil"/i.test(html),
-  'Expected a matrix veil layer to temper the background.'
-);
-
-assert.ok(
-  /matrix\.js/i.test(html),
-  'Expected the matrix rain script to be loaded in the page.'
-);
-
-const matrixPath = path.join(__dirname, '..', 'assets', 'js', 'matrix.js');
-assert.doesNotThrow(() => require(matrixPath), 'Expected a matrix module to exist.');
-
-const matrixModule = require(matrixPath);
-assert.strictEqual(
-  typeof matrixModule.startMatrixRain,
-  'function',
-  'Expected startMatrixRain to be exported.'
-);
-
-const appPath = path.join(__dirname, '..', 'assets', 'js', 'app.js');
-const appSource = fs.readFileSync(appPath, 'utf8');
-assert.ok(/reading.?time/i.test(appSource), 'Expected reading time feature to be present.');
-
-const matrixSource = fs.readFileSync(matrixPath, 'utf8');
-assert.ok(/const\s+layers\s*=\s*\[/i.test(matrixSource), 'Expected layered streams.');
-assert.ok(/#ff2d2d/i.test(matrixSource), 'Expected the brutalist palette to be defined.');
-assert.ok(
-  /rgba\(5,\s*5,\s*5,\s*0\.12\)/i.test(matrixSource),
-  'Expected the brutalist fade fill.'
-);
-assert.ok(
-  /const\s+glyphChangeInterval\s*=\s*24/.test(matrixSource),
-  'Expected the glyph change interval to slow down the animation.'
-);
-assert.ok(
-  /const\s+columnSpacingRatio\s*=\s*1\.8/.test(matrixSource),
-  'Expected wider spacing for matrix rain columns.'
-);
-
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
-const css = fs.readFileSync(cssPath, 'utf8');
-assert.ok(
-  /\.matrix-canvas[\s\S]*opacity:\s*0\.24/i.test(css),
-  'Expected the matrix canvas opacity to be more pronounced.'
-);
-assert.ok(
-  /body\[data-theme='dark'\][\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.24/i.test(css),
-  'Expected the matrix canvas opacity to be consistent in dark mode.'
-);
-assert.ok(
-  /body\.matrix-enabled[\s\S]*?\.matrix-canvas[\s\S]*opacity:\s*0\.42/i.test(css),
-  'Expected the matrix canvas opacity to intensify when enabled.'
-);
-assert.ok(
-  /\.panel[\s\S]*backdrop-filter:\s*none/i.test(css),
-  'Expected the panels to avoid backdrop blur.'
-);
-assert.ok(
-  /\.matrix-veil[\s\S]*background:\s*var\(--veil\)/i.test(css),
-  'Expected the matrix veil to provide a controlled overlay.'
-);
-const reducedMotionStart = css.indexOf('@media (prefers-reduced-motion: reduce)');
-assert.ok(reducedMotionStart !== -1, 'Expected reduced-motion styles to exist.');
-const reducedMotionOpen = css.indexOf('{', reducedMotionStart);
-assert.ok(reducedMotionOpen !== -1, 'Expected reduced-motion styles to open a block.');
-let reducedMotionClose = -1;
-let reducedMotionDepth = 0;
-for (let i = reducedMotionOpen; i < css.length; i += 1) {
-  if (css[i] === '{') {
-    reducedMotionDepth += 1;
-  } else if (css[i] === '}') {
-    reducedMotionDepth -= 1;
-  }
-  if (reducedMotionDepth === 0) {
-    reducedMotionClose = i;
-    break;
-  }
-}
-assert.ok(reducedMotionClose !== -1, 'Expected reduced-motion styles to close the block.');
-const reducedMotionBlock = css.slice(reducedMotionOpen, reducedMotionClose);
-assert.ok(
-  /body\.matrix-enabled[\s\S]*\.matrix-canvas[\s\S]*display:\s*block/i.test(
-    reducedMotionBlock
-  ),
-  'Expected reduced-motion styles to allow the matrix canvas when enabled.'
-);
+assertNotMatches(css, /box-shadow\s*:/i, 'Did not expect box shadows in the stylesheet.');
+assertNotMatches(css, /text-shadow\s*:/i, 'Did not expect text shadows in the stylesheet.');
+assertNotMatches(css, /filter\s*:/i, 'Did not expect filters in the stylesheet.');
+assertNotMatches(css, /opacity\s*:/i, 'Did not expect opacity changes in the stylesheet.');
+assertNotMatches(css, /linear-gradient|radial-gradient/i, 'Did not expect gradients in the stylesheet.');

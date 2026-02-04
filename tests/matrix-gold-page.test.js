@@ -1,22 +1,18 @@
-// ABOUTME: Ensures the standalone matrix rain demo is present and wired for visual polish.
-// ABOUTME: Confirms aesthetic requirements like a brutalist palette, glow, trails, and katakana glyphs exist in source.
+// ABOUTME: Enforces the strict monochrome palette in the stylesheet.
+// ABOUTME: Ensures no colors beyond pure black and white are defined.
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { readStyles } = require('./helpers');
 
-const pagePath = path.join(__dirname, '..', 'matrix-gold-rain.html');
+const css = readStyles();
+const hexMatches = css.match(/#[0-9a-fA-F]{3,6}/g) || [];
+const normalized = hexMatches.map((value) => value.toUpperCase());
+const allowed = new Set(['#000000', '#FFFFFF']);
 
-assert.ok(fs.existsSync(pagePath), 'Expected the matrix rain demo page to exist.');
+normalized.forEach((value) => {
+  assert.ok(allowed.has(value), `Unexpected color value found: ${value}`);
+});
 
-const html = fs.readFileSync(pagePath, 'utf8');
-
-assert.ok(/<canvas[^>]+id="golden-matrix"/i.test(html), 'Expected a matrix canvas with the golden identifier.');
-assert.ok(/#060606/i.test(html), 'Expected a deep black background color.');
-assert.ok(/#ff2d2d/i.test(html), 'Expected the primary brutalist color to be defined.');
-assert.ok(/Courier\s+New/i.test(html), 'Expected the monospace font to be Courier New.');
-assert.ok(/shadowBlur/i.test(html), 'Expected glow or bloom styling via shadow blur.');
 assert.ok(
-  /rgba\(6,\s*6,\s*6,\s*0\.12\)/i.test(html),
-  'Expected smooth trails drawn with a translucent black overlay.'
+  !/rgb\(|hsl\(/i.test(css),
+  'Did not expect rgb or hsl color definitions in the stylesheet.'
 );
-assert.ok(/[\u30a0-\u30ff]/.test(html), 'Expected Katakana characters in the custom character set.');

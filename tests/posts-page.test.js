@@ -1,60 +1,11 @@
-// ABOUTME: Confirms the posts page exists and hosts the post list container.
-// ABOUTME: Ensures the posts page loads the shared homepage rendering script.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Confirms the Recent Posts section is present in the homepage.
+// ABOUTME: Ensures the section label uses the requested wording.
+const { assertMatches, readIndexHtml } = require('./helpers');
 
-const postsPath = path.join(__dirname, '..', 'posts.html');
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
-const html = fs.readFileSync(postsPath, 'utf8');
-const css = fs.readFileSync(cssPath, 'utf8');
+const html = readIndexHtml();
 
-assert.ok(
-  /id="posts"/i.test(html),
-  'Expected the posts page to include the post list container.'
-);
-
-assert.ok(
-  /data-layout="posts"/i.test(html),
-  'Expected the posts page to include a posts layout marker.'
-);
-
-assert.ok(
-  /\.page\[data-layout='posts'\]/.test(css) || /\.page\[data-layout="posts"\]/.test(css),
-  'Expected posts page layout styles to be defined.'
-);
-
-assert.ok(
-  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?border-bottom/i.test(
-    css
-  ),
-  'Expected post entries to render as list-like rows on the posts page.'
-);
-assert.ok(
-  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?display:\s*grid/i.test(
-    css
-  ),
-  'Expected posts entries to use a grid layout.'
-);
-assert.ok(
-  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\)/i.test(
-    css
-  ),
-  'Expected posts entries to render as a single-column stack.'
-);
-assert.ok(
-  /\.page\[data-layout=['"]posts['"]\][\s\S]*?\.post-feature__title[\s\S]*?color:\s*var\(--accent\)/i.test(
-    css
-  ),
-  'Expected posts titles to use the accent color.'
-);
-
-assert.ok(
-  /assets\/js\/posts\.js/i.test(html),
-  'Expected the posts page to load the post data script.'
-);
-
-assert.ok(
-  /assets\/js\/app\.js/i.test(html),
-  'Expected the posts page to load the shared rendering script.'
+assertMatches(
+  html,
+  /<h2[^>]*>Recent Posts<\/h2>/i,
+  'Expected the Recent Posts heading to appear in the markup.'
 );

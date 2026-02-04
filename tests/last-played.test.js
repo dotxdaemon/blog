@@ -1,28 +1,25 @@
-// ABOUTME: Verifies the homepage exposes a last-played music slot for integrations.
-// ABOUTME: Ensures the markup for the Apple Music status card exists.
+// ABOUTME: Ensures the recent posts stream lists five entries.
+// ABOUTME: Confirms each entry includes a date and title.
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { readIndexHtml } = require('./helpers');
 
-const indexPath = path.join(__dirname, '..', 'index.html');
-const html = fs.readFileSync(indexPath, 'utf8');
+const html = readIndexHtml();
+const articleMatches = [...html.matchAll(/<article\b[\s\S]*?<\/article>/gi)];
 
-assert.ok(
-  /id="last-played"/i.test(html),
-  'Expected a last-played section on the homepage.'
+assert.strictEqual(
+  articleMatches.length,
+  5,
+  'Expected the Recent Posts section to include five article entries.'
 );
 
-assert.ok(
-  /data-last-played/i.test(html),
-  'Expected the last-played section to include data-last-played attributes.'
-);
-
-assert.ok(
-  !/Last played/i.test(html),
-  'Expected the last-played section to omit the title text.'
-);
-
-assert.ok(
-  !/Recent plays/i.test(html),
-  'Expected the last-played header to omit the Recent plays subheader.'
-);
+articleMatches.forEach((match, index) => {
+  const entry = match[0];
+  assert.ok(
+    /<time\b[^>]*>[^<]+<\/time>/i.test(entry),
+    `Expected post ${index + 1} to include a date.`
+  );
+  assert.ok(
+    /<h2\b[^>]*class="post-title"[^>]*>[\s\S]*?<\/h2>/i.test(entry),
+    `Expected post ${index + 1} to include a title.`
+  );
+});

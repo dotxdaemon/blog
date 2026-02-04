@@ -1,22 +1,16 @@
-// ABOUTME: Confirms mobile navigation layouts use full-width tap targets.
-// ABOUTME: Ensures mobile navigation controls align in a single column.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Validates the mobile single-column collapse for post rows.
+// ABOUTME: Ensures horizontal dividers remain visible on small screens.
+const { assertMatches, readStyles } = require('./helpers');
 
-const css = fs.readFileSync(path.join(__dirname, '..', 'assets', 'css', 'main.css'), 'utf8');
+const css = readStyles();
 
-assert.ok(
-  /\.nav-menu\s*\{[^}]*display:\s*flex;[^}]*\}/s.test(css),
-  'Expected the navigation menu to render as a flex row.'
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*600px\)[\s\S]*\.post-row[\s\S]*grid-template-columns:\s*1fr/i,
+  'Expected post rows to collapse to a single column on small screens.'
 );
-
-assert.ok(
-  /\.nav-link[\s\S]*border-radius:\s*var\(--radius\)/i.test(css),
-  'Expected nav links to use the shared hard-edge radius token.'
-);
-
-assert.ok(
-  !/\.theme-toggle/i.test(css),
-  'Expected theme toggle styles to be removed.'
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*600px\)[\s\S]*\.post-row[\s\S]*border-top:/i,
+  'Expected post rows to keep horizontal dividers on small screens.'
 );

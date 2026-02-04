@@ -1,24 +1,20 @@
-// ABOUTME: Ensures the mobile nav closes after selecting a link on every page.
-// ABOUTME: Keeps responsive navigation behavior consistent across layouts.
+// ABOUTME: Ensures the navigation lists the required page links.
+// ABOUTME: Confirms Home, About, and Archive appear in order.
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { readIndexHtml } = require('./helpers');
 
-const scriptFiles = [
-  { file: 'app.js', label: 'homepage' },
-  { file: 'archives.js', label: 'archives' },
-  { file: 'search.js', label: 'search' },
-  { file: 'post-detail.js', label: 'post detail' },
-];
+const html = readIndexHtml();
+const navMatch = html.match(/<nav[^>]*class="site-nav"[^>]*>([\s\S]*?)<\/nav>/i);
+assert.ok(navMatch, 'Expected a site navigation block.');
 
-scriptFiles.forEach(({ file, label }) => {
-  const source = fs.readFileSync(path.join(__dirname, '..', 'assets', 'js', file), 'utf8');
-  const hasLinkListener = /navMenu\.querySelectorAll\(['"]a['"]\)\.forEach\(\(link\)/.test(source);
-  const removesOpenClass = /navMenu\.classList\.remove\(['"]is-open['"]\)/.test(source);
-  const resetsAria = /navToggle\.setAttribute\(['"]aria-expanded['"], ['"]false['"]\)/.test(source);
+const links = navMatch
+  ? [...navMatch[1].matchAll(/<a[^>]*>([^<]+)<\/a>/gi)].map((match) =>
+      (match[1] || '').trim()
+    )
+  : [];
 
-  assert.ok(
-    hasLinkListener && removesOpenClass && resetsAria,
-    `Expected ${label} nav toggle to close the menu when a link is activated.`
-  );
-});
+assert.deepStrictEqual(
+  links,
+  ['Home', 'About', 'Archive'],
+  'Expected the navigation to list Home, About, and Archive in order.'
+);

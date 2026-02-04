@@ -123,3 +123,6 @@
 - Date: 2026-02-24
   Task: Shifted the blog UI to a harsher brutalist palette with asymmetric layout.
   Notes: Updated palette tokens, matrix rain colors, and brutalist layout expectations with matching test coverage.
+- Date: 2026-02-04
+  Task: Plan monochrome brutalist static blog front-end refresh.
+  Notes: Restated requirements (monochrome palette, brutalist grid borders, monospaced typography, 5 recent posts, hover inversion, responsive single column); expected files index.html, style.css, tests; will run npm test, npm run lint, npm run typecheck.

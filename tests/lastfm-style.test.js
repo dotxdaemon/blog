@@ -1,77 +1,16 @@
-// ABOUTME: Verifies Last.fm track grid styling matches the blog theme.
-// ABOUTME: Ensures the track card typography and layout styles are defined.
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+// ABOUTME: Confirms hover interactions invert colors with no transitions.
+// ABOUTME: Ensures the hover utility uses the monochrome palette.
+const { assertMatches, readStyles } = require('./helpers');
 
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
-const css = fs.readFileSync(cssPath, 'utf8');
+const css = readStyles();
 
-assert.ok(css.includes('.track-grid {'), 'Expected track list styles to be defined.');
-assert.ok(css.includes('.list-row {'), 'Expected list row styles to be defined.');
-assert.ok(
-  css.includes('grid-template-columns: repeat(2, minmax(0, 1fr));'),
-  'Expected the recent track list to render as a 2x2 grid.'
+assertMatches(
+  css,
+  /\.invert-on-hover:hover[\s\S]*background-color:\s*var\(--black\)[\s\S]*color:\s*var\(--white\)/i,
+  'Expected hover styles to invert to black background and white text.'
 );
-assert.ok(
-  css.includes('.album-tile__label {'),
-  'Expected album tile label styles to be defined.'
-);
-assert.ok(
-  /\.album-tile:hover[\s\S]*?\.album-tile__label[\s\S]*opacity:\s*1/i.test(css),
-  'Expected album tile labels to reveal on hover.'
-);
-assert.ok(
-  /\.panel--album[\s\S]*border:\s*none/i.test(css),
-  'Expected the album panel to avoid a visible border.'
-);
-assert.ok(
-  /\.panel--album[\s\S]*background:\s*transparent/i.test(css),
-  'Expected the album panel to avoid a visible background.'
-);
-assert.ok(
-  /\.album-tile\s*\{[^}]*box-shadow:\s*none/i.test(css),
-  'Expected album tiles to avoid heavy box shadows.'
-);
-assert.ok(
-  /\.album-tile\s*\{[^}]*border:\s*var\(--borderWidth\)\s+solid\s+var\(--border\)/i.test(
-    css
-  ),
-  'Expected album tiles to use the primary border color.'
-);
-assert.ok(
-  /\.album-tile__label[\s\S]*font-weight:\s*700/i.test(css),
-  'Expected album tile labels to use bold typography.'
-);
-assert.ok(
-  /\.album-tile__label[\s\S]*background:\s*var\(--text\)/i.test(css),
-  'Expected album tile labels to use a high-contrast background.'
-);
-assert.ok(
-  /\.album-tile__label[\s\S]*color:\s*var\(--bg\)/i.test(css),
-  'Expected album tile labels to use the background color for text.'
-);
-assert.ok(
-  /\.track-grid[\s\S]*gap:\s*var\(--space-4\)/i.test(css),
-  'Expected the album grid to use the wider spacing token.'
-);
-assert.ok(
-  css.includes('font-family: var(--font-sans);'),
-  'Expected Last.fm track text to use the blog typography.'
-);
-assert.ok(
-  css.includes('text-overflow: ellipsis;'),
-  'Expected the track text to truncate overflowing titles.'
-);
-assert.ok(
-  /\.list-row[\s\S]*text-overflow:\s*ellipsis/i.test(css),
-  'Expected list rows to truncate overflowing titles.'
-);
-assert.ok(
-  css.includes('.loading {'),
-  'Expected loading state styles to be defined for Last.fm tracks.'
-);
-assert.ok(
-  css.includes('@keyframes pulse {'),
-  'Expected the now-playing icon to use a pulse animation.'
+assertMatches(
+  css,
+  /\.invert-on-hover:hover[\s\S]*transition:\s*none/i,
+  'Expected hover styles to use transition: none.'
 );

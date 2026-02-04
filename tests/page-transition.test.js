@@ -1,14 +1,14 @@
-// ABOUTME: Confirms the site applies a fade-in animation to soften page loads.
-// ABOUTME: Verifies the transition respects reduced motion preferences.
+// ABOUTME: Ensures hover interactions avoid transitions for instant inversion.
+// ABOUTME: Confirms all transition declarations are set to none.
 const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+const { readStyles } = require('./helpers');
 
-const cssPath = path.join(__dirname, '..', 'assets', 'css', 'main.css');
-const css = fs.readFileSync(cssPath, 'utf8');
+const css = readStyles();
+const transitions = css.match(/transition\s*:[^;]+;/gi) || [];
 
-const scrimBackground = /body\s*::before[^{]*{[\s\S]*background:\s*var\(--scrim\)/i.test(css);
-assert.ok(scrimBackground, 'Expected the page overlay to use the scrim token.');
-
-const scrimOpacity = /body\s*::before[^{]*{[\s\S]*opacity:\s*0\.55/i.test(css);
-assert.ok(scrimOpacity, 'Expected the page overlay to use a semi-opaque scrim.');
+transitions.forEach((transition) => {
+  assert.ok(
+    /transition\s*:\s*none/i.test(transition),
+    `Expected transition to be none, found: ${transition}`
+  );
+});
