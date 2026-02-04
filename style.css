@@ -74,6 +74,12 @@ a {
   padding: 12px;
 }
 
+.post-stream {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 12px;
+}
+
 .last-played__status {
   font-weight: 700;
   text-transform: uppercase;
@@ -110,6 +116,7 @@ a {
 
 .post-list {
   border-top: var(--border-width) solid var(--black);
+  margin-top: 8px;
 }
 
 .post-row {
@@ -163,6 +170,9 @@ a {
 .post-detail {
   display: grid;
   gap: 16px;
+  margin: 0 auto;
+  max-width: 720px;
+  width: 100%;
 }
 
 .post-meta-row {
