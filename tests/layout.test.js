@@ -1,5 +1,5 @@
 // ABOUTME: Confirms the homepage layout matches the required sections.
-// ABOUTME: Ensures the header, navigation, and recent posts stream exist.
+// ABOUTME: Ensures header, navigation, posts, and last played widgets exist.
 const assert = require('assert');
 const { readIndexHtml } = require('./helpers');
 
@@ -21,3 +21,5 @@ assert.ok(
   /<section[^>]*class="post-stream"[\s\S]*<h2[^>]*>Recent Posts<\/h2>/i.test(html),
   'Expected the Recent Posts section to include a heading.'
 );
+assert.ok(/id="posts"/i.test(html), 'Expected the posts container to be present.');
+assert.ok(/data-last-played/i.test(html), 'Expected the last played widget to be present.');

@@ -1,11 +1,22 @@
-// ABOUTME: Validates the post stream lives inside the main content area.
-// ABOUTME: Ensures the main region wraps the Recent Posts section.
-const { assertMatches, readIndexHtml } = require('./helpers');
+// ABOUTME: Verifies the blog posts data includes the expected entries.
+// ABOUTME: Ensures the restored posts list is populated.
+const assert = require('assert');
+const path = require('path');
 
-const html = readIndexHtml();
+const postsPath = path.join(__dirname, '..', 'assets', 'js', 'posts.js');
 
-assertMatches(
-  html,
-  /<main[^>]*>[\s\S]*<section[^>]*class="post-stream"/i,
-  'Expected the main region to contain the post stream section.'
-);
+global.window = {};
+
+delete require.cache[postsPath];
+require(postsPath);
+
+const posts = Array.isArray(global.window.BLOG_POSTS) ? global.window.BLOG_POSTS : [];
+
+assert.ok(Array.isArray(posts), 'Expected BLOG_POSTS to be an array.');
+
+['hi everybody', 'movies I want to watch', 'cooking recipes'].forEach((title) => {
+  assert.ok(
+    posts.some((post) => post && post.title === title),
+    `Expected a post titled "${title}".`
+  );
+});

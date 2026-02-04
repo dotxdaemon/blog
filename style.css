@@ -63,7 +63,43 @@ a {
 }
 
 .site-main {
+  display: grid;
+  gap: 24px;
   padding: 12px;
+}
+
+.last-played {
+  border-bottom: var(--border-width) solid var(--black);
+  border-top: var(--border-width) solid var(--black);
+  padding: 12px;
+}
+
+.last-played__status {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.track-list {
+  border-top: var(--border-width) solid var(--black);
+  list-style: none;
+  margin-top: 8px;
+}
+
+.track-row {
+  border-bottom: var(--border-width) solid var(--black);
+  padding: 8px 0;
+}
+
+.track-link {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(120px, 180px) 1fr;
+}
+
+.track-name,
+.track-artist {
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .section-title {
@@ -121,6 +157,10 @@ a {
     flex-direction: column;
     gap: 8px;
     padding-top: 8px;
+  }
+
+  .track-link {
+    grid-template-columns: 1fr;
   }
 
   .post-row {

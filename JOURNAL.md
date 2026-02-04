@@ -126,3 +126,6 @@
 - Date: 2026-02-04
   Task: Plan monochrome brutalist static blog front-end refresh.
   Notes: Restated requirements (monochrome palette, brutalist grid borders, monospaced typography, 5 recent posts, hover inversion, responsive single column); expected files index.html, style.css, tests; will run npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Restore dynamic posts and a text-only last played widget to the brutalist homepage.
+  Notes: Reintroduced posts rendering via app.js/posts.js, added last played markup without images, updated styles and tests, and reran npm test, npm run lint, npm run typecheck.

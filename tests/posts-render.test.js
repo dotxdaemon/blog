@@ -1,13 +1,21 @@
-// ABOUTME: Ensures post titles are rendered as links for navigation.
-// ABOUTME: Confirms each post entry includes a linked title.
-const assert = require('assert');
-const { readIndexHtml } = require('./helpers');
+// ABOUTME: Ensures the posts renderer outputs post rows with dates and titles.
+// ABOUTME: Confirms app.js defines the post row markup classes.
+const { assertMatches, readRepoFile } = require('./helpers');
 
-const html = readIndexHtml();
-const linkMatches = [...html.matchAll(/class="post-link"/gi)];
+const appSource = readRepoFile('assets/js/app.js');
 
-assert.strictEqual(
-  linkMatches.length,
-  5,
-  'Expected each post title to be a link with the post-link class.'
+assertMatches(
+  appSource,
+  /className\s*=\s*['"]post-row/i,
+  'Expected app.js to create post rows.'
+);
+assertMatches(
+  appSource,
+  /className\s*=\s*['"]post-date/i,
+  'Expected app.js to create post date elements.'
+);
+assertMatches(
+  appSource,
+  /className\s*=\s*['"]post-title/i,
+  'Expected app.js to create post title elements.'
 );

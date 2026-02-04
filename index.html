@@ -21,35 +21,22 @@
     </header>
 
     <main class="site-main">
+      <section class="last-played" data-last-played aria-label="Last played">
+        <div class="last-played__status" data-last-played-status></div>
+        <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
+      </section>
+
       <section class="post-stream" aria-labelledby="recent-posts">
         <h2 class="section-title" id="recent-posts">Recent Posts</h2>
-        <div class="post-list">
-          <article class="post-row invert-on-hover">
-            <time class="post-date" datetime="2026-02-01">2026-02-01</time>
-            <h2 class="post-title"><a class="post-link" href="#">Post One</a></h2>
-          </article>
-          <article class="post-row invert-on-hover">
-            <time class="post-date" datetime="2026-01-24">2026-01-24</time>
-            <h2 class="post-title"><a class="post-link" href="#">Post Two</a></h2>
-          </article>
-          <article class="post-row invert-on-hover">
-            <time class="post-date" datetime="2026-01-17">2026-01-17</time>
-            <h2 class="post-title"><a class="post-link" href="#">Post Three</a></h2>
-          </article>
-          <article class="post-row invert-on-hover">
-            <time class="post-date" datetime="2026-01-10">2026-01-10</time>
-            <h2 class="post-title"><a class="post-link" href="#">Post Four</a></h2>
-          </article>
-          <article class="post-row invert-on-hover">
-            <time class="post-date" datetime="2026-01-03">2026-01-03</time>
-            <h2 class="post-title"><a class="post-link" href="#">Post Five</a></h2>
-          </article>
-        </div>
+        <div class="post-list" id="posts"></div>
       </section>
     </main>
 
     <footer class="site-footer">
       <p>Static blog footer.</p>
     </footer>
+
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
   </body>
 </html>

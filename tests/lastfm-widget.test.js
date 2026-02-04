@@ -1,7 +1,8 @@
-// ABOUTME: Verifies the homepage stays static with no script dependencies.
-// ABOUTME: Ensures no script tags are present in the markup.
-const { assertNotMatches, readIndexHtml } = require('./helpers');
+// ABOUTME: Verifies the homepage includes the scripts needed for posts and widgets.
+// ABOUTME: Ensures the posts and app scripts are loaded on the page.
+const { assertMatches, readIndexHtml } = require('./helpers');
 
 const html = readIndexHtml();
 
-assertNotMatches(html, /<script\b/i, 'Did not expect script tags in the static homepage.');
+assertMatches(html, /<script[^>]*src="assets\/js\/posts\.js"/i, 'Expected posts.js to load.');
+assertMatches(html, /<script[^>]*src="assets\/js\/app\.js"/i, 'Expected app.js to load.');
