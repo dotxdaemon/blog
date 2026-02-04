@@ -144,3 +144,6 @@
 - Date: 2026-02-24
   Task: Reduce post detail to title and date, and make post rows fully clickable.
   Notes: Removed post detail UI elements and related script logic, added post row click handling, added tests for minimal detail and click behavior, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Restore post body content and remove footer copy.
+  Notes: Added post body container and minimal rendering, removed static footer text and "built for reading" copy, updated footer branding test, added footer removal test coverage, and reran npm test, npm run lint, npm run typecheck.

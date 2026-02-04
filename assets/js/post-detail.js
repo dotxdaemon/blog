@@ -43,6 +43,8 @@
     document.getElementById('post-title').textContent = post.title;
     document.getElementById('post-date').textContent = formatDate(post.date);
     document.getElementById('post-date').dateTime = post.date;
+    const contentEl = document.getElementById('post-content');
+    contentEl.textContent = post.body || '';
   }
 
   function slugify(text) {
