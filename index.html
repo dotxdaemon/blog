@@ -9,31 +9,33 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="site-header">
-      <div class="site-header__inner">
-        <h1 class="site-title">Site Title</h1>
-        <nav class="site-nav" aria-label="Primary">
-          <a class="nav-link invert-on-hover" href="#">Home</a>
-          <a class="nav-link invert-on-hover" href="#">About</a>
-          <a class="nav-link invert-on-hover" href="#">Archive</a>
-        </nav>
-      </div>
-    </header>
+    <div class="layout">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <h1 class="site-title">Site Title</h1>
+          <nav class="site-nav" aria-label="Primary">
+            <a class="nav-link invert-on-hover" href="#">Home</a>
+            <a class="nav-link invert-on-hover" href="#">About</a>
+            <a class="nav-link invert-on-hover" href="#">Archive</a>
+          </nav>
+        </div>
+      </header>
 
-    <main class="site-main">
-      <section class="last-played" data-last-played aria-label="Last played">
-        <div class="last-played__status" data-last-played-status></div>
-        <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
-      </section>
+      <main class="site-main">
+        <section class="last-played" data-last-played aria-label="Last played">
+          <div class="last-played__status" data-last-played-status></div>
+          <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
+        </section>
 
-      <section class="post-stream" aria-labelledby="recent-posts">
-        <h2 class="section-title" id="recent-posts">Recent Posts</h2>
-        <div class="post-list" id="posts"></div>
-      </section>
-    </main>
+        <section class="post-stream" aria-labelledby="recent-posts">
+          <h2 class="section-title" id="recent-posts">Recent Posts</h2>
+          <div class="post-list" id="posts"></div>
+        </section>
+      </main>
 
-    <footer class="site-footer">
-    </footer>
+      <footer class="site-footer">
+      </footer>
+    </div>
 
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/app.js" type="module"></script>

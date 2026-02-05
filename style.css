@@ -38,6 +38,15 @@ body {
   padding: var(--space-6) var(--space-4);
 }
 
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0 auto;
+  max-width: 1120px;
+  width: 100%;
+}
+
 a {
   color: var(--ink);
   text-decoration: none;
@@ -77,8 +86,7 @@ input:focus-visible {
 .site-title {
   font-size: 1.75rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .site-nav {
@@ -90,9 +98,8 @@ input:focus-visible {
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   padding: var(--space-1) var(--space-2);
-  text-transform: uppercase;
 }
 
 .site-main {
@@ -138,15 +145,13 @@ input:focus-visible {
 .track-name,
 .track-artist {
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .section-title {
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   margin-bottom: var(--space-2);
-  text-transform: uppercase;
 }
 
 .post-list {
@@ -178,8 +183,7 @@ input:focus-visible {
 .post-title {
   font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .post-link {
@@ -309,6 +313,13 @@ button {
 .invert-on-hover:focus {
   background-color: var(--ink);
   color: var(--paper);
+}
+
+@media (min-width: 900px) {
+  .site-main {
+    align-items: start;
+    grid-template-columns: minmax(220px, 0.4fr) minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 600px) {

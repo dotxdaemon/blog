@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-09
+  Task: Centered layout container with mixed-case typography and split homepage columns.
+  Notes: Wrapped shared layout sections in a centered container, reduced uppercase styling in headings/nav, added a wide-screen two-column main layout, and updated tests with npm test, npm run lint, and npm run typecheck.
 - Date: 2026-03-08
   Task: Refresh the site styling with a softer, card-based theme.
   Notes: Updated palette tokens, spacing, shadows, and typography with matching test expectations; ran npm test, npm run lint, and npm run typecheck with proxy env vars unset.
