@@ -1,16 +1,16 @@
 /* ABOUTME: Styles the monochrome brutalist layout for the static blog homepage. */
 /* ABOUTME: Defines the grid, typography, borders, and hover inversion rules. */
 :root {
-  --ink: #1F1F27;
-  --paper: #F6F4F1;
-  --surface: #FFFFFF;
-  --muted: #5F5F6B;
-  --accent: #2F5BEA;
-  --border: #E2DFDA;
+  --ink: #EADFFF;
+  --paper: #0B0814;
+  --surface: #161125;
+  --muted: #B7A6D9;
+  --accent: #C7A1FF;
+  --border: #3A2D55;
   --border-width: 1px;
   --radius: 18px;
   --radius-sm: 12px;
-  --shadow: 0 18px 40px rgba(31, 31, 39, 0.12);
+  --shadow: 0 18px 40px rgba(10, 6, 20, 0.6);
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 16px;
@@ -155,7 +155,7 @@ input:focus-visible {
 }
 
 .track-overlay {
-  background: rgba(31, 31, 39, 0.78);
+  background: rgba(11, 8, 20, 0.86);
   color: var(--paper);
   font-size: 0.85rem;
   font-weight: 700;
@@ -248,6 +248,7 @@ input:focus-visible {
 
 .post-content {
   font-size: 1rem;
+  white-space: pre-wrap;
 }
 
 .post-content h2,

@@ -438,7 +438,10 @@ function setupListeningWidgets() {
 
       const overlay = document.createElement('span');
       overlay.className = 'track-overlay';
-      overlay.textContent = (track.artist && track.artist['#text']) || '';
+      const trackName = track.name || '';
+      const artistName = (track.artist && track.artist['#text']) || '';
+      const overlayText = [trackName, artistName].filter(Boolean).join(' - ');
+      overlay.textContent = overlayText;
 
       link.appendChild(image);
       link.appendChild(overlay);

@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-11
+  Task: Apply lavender matrix styling, readable post content, and Last.fm hover details.
+  Notes: Updated the palette and matrix rain colors to lavender tones, preserved post body line breaks, removed post-page nav links, and showed song plus artist on Last.fm overlays with updated tests; reran npm test, npm run lint, and npm run typecheck.
 - Date: 2026-03-09
   Task: Centered layout container with mixed-case typography and split homepage columns.
   Notes: Wrapped shared layout sections in a centered container, reduced uppercase styling in headings/nav, added a wide-screen two-column main layout, and updated tests with npm test, npm run lint, and npm run typecheck.

@@ -11,11 +11,11 @@ function startMatrixRain(canvas) {
   const context = canvas.getContext('2d');
   const characters =
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
-  const fadeFill = 'rgba(5, 5, 5, 0.12)';
+  const fadeFill = 'rgba(11, 8, 20, 0.18)';
   const glyphChangeInterval = 24;
   const columnSpacingRatio = 1.8;
-  const brightAccent = { r: 255, g: 45, b: 45, hex: '#ff2d2d' };
-  const deepAccent = { r: 160, g: 0, b: 0 };
+  const brightAccent = { r: 199, g: 161, b: 255, hex: '#c7a1ff' };
+  const deepAccent = { r: 74, g: 44, b: 105 };
   const layers = [
     { fontSize: 16, speedMin: 0.05, speedMax: 0.12, tail: 28, glow: 6, opacity: 0.85 },
     { fontSize: 22, speedMin: 0.08, speedMax: 0.16, tail: 24, glow: 7, opacity: 0.95 },
