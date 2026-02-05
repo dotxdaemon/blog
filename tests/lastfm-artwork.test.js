@@ -19,3 +19,8 @@ assertMatches(
   /track-overlay/i,
   'Expected the Last.fm widget to render an artist overlay.'
 );
+assertMatches(
+  script,
+  /trackName[\s\S]*artistName[\s\S]*join\(['"]\s*-\s*['"]\)/,
+  'Expected the Last.fm widget overlay to include the song name and artist.'
+);
