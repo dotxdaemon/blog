@@ -126,26 +126,52 @@ input:focus-visible {
 }
 
 .track-list {
-  border-top: var(--border-width) solid var(--border);
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   list-style: none;
   margin-top: var(--space-3);
 }
 
-.track-row {
-  border-bottom: var(--border-width) solid var(--border);
-  padding: var(--space-2) 0;
+.track-card {
+  background-color: var(--surface);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
 }
 
 .track-link {
-  display: grid;
-  gap: var(--space-3);
-  grid-template-columns: minmax(140px, 200px) 1fr;
+  display: block;
+  position: relative;
 }
 
-.track-name,
-.track-artist {
+.track-image {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+}
+
+.track-overlay {
+  background: rgba(31, 31, 39, 0.78);
+  color: var(--paper);
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  inset: 0;
+  letter-spacing: 0.04em;
+  padding: var(--space-3);
+  position: absolute;
+  text-transform: uppercase;
+  transform: translateY(100%);
+  visibility: hidden;
+}
+
+.track-card:hover .track-overlay,
+.track-card:focus-within .track-overlay {
+  transform: translateY(0);
+  visibility: visible;
 }
 
 .section-title {
@@ -166,7 +192,7 @@ input:focus-visible {
   border-radius: var(--radius-sm);
   display: grid;
   gap: var(--space-2);
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(120px, 160px) 1fr;
   justify-items: start;
   padding: var(--space-3);
   text-align: left;
@@ -318,7 +344,7 @@ button {
 @media (min-width: 900px) {
   .site-main {
     align-items: start;
-    grid-template-columns: minmax(220px, 0.4fr) minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -338,7 +364,7 @@ button {
   }
 
   .track-link {
-    grid-template-columns: 1fr;
+    display: block;
   }
 
   .post-row {

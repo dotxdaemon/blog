@@ -421,15 +421,7 @@ function setupListeningWidgets() {
     trackGrid.innerHTML = '';
     tracks.forEach((track) => {
       const item = document.createElement('li');
-      item.className = 'track-row invert-on-hover';
-
-      const name = document.createElement('span');
-      name.className = 'track-name';
-      name.textContent = track.name || '';
-
-      const artist = document.createElement('span');
-      artist.className = 'track-artist';
-      artist.textContent = (track.artist && track.artist['#text']) || '';
+      item.className = 'track-card';
 
       const link = document.createElement(track.url ? 'a' : 'div');
       link.className = 'track-link';
@@ -438,8 +430,18 @@ function setupListeningWidgets() {
         link.target = '_blank';
         link.rel = 'noreferrer';
       }
-      link.appendChild(name);
-      link.appendChild(artist);
+
+      const image = document.createElement('img');
+      image.className = 'track-image';
+      image.alt = track.name || '';
+      image.src = getTrackImage(track);
+
+      const overlay = document.createElement('span');
+      overlay.className = 'track-overlay';
+      overlay.textContent = (track.artist && track.artist['#text']) || '';
+
+      link.appendChild(image);
+      link.appendChild(overlay);
       item.appendChild(link);
 
       trackGrid.appendChild(item);

@@ -6,8 +6,8 @@ const html = readIndexHtml();
 
 assertMatches(
   html,
-  /<header[^>]*>[\s\S]*<h1[^>]*class="site-title"[^>]*>[^<]+<\/h1>/i,
-  'Expected the header to include a non-empty site title.'
+  /<header[^>]*>[\s\S]*<h1[^>]*class="site-title"[^>]*>velvetdaemon<\/h1>/i,
+  'Expected the header to include the velvetdaemon site title.'
 );
 
 assertMatches(
