@@ -1,5 +1,5 @@
 // ABOUTME: Ensures the site keeps the brutalist layout free of decorative media.
-// ABOUTME: Confirms no images or canvases appear in the HTML entry points.
+// ABOUTME: Confirms no images appear in the HTML entry points.
 const { assertNotMatches, readRepoFile } = require('./helpers');
 
 const htmlFiles = [
@@ -14,5 +14,4 @@ const htmlFiles = [
 htmlFiles.forEach((fileName) => {
   const html = readRepoFile(fileName);
   assertNotMatches(html, /<img\b/i, `Did not expect decorative images in ${fileName}.`);
-  assertNotMatches(html, /<canvas\b/i, `Did not expect a canvas element in ${fileName}.`);
 });

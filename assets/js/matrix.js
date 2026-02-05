@@ -9,17 +9,28 @@ function startMatrixRain(canvas) {
   }
 
   const context = canvas.getContext('2d');
-  const characters =
-    'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?';
+  const glyphSets = [
+    'アカサタナハマヤラワ0123456789△◇◆○●◇▲▼',
+    'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?',
+  ];
   const fadeFill = 'rgba(11, 8, 20, 0.18)';
-  const glyphChangeInterval = 24;
+  const glyphChangeInterval = 160;
   const columnSpacingRatio = 1.8;
-  const brightAccent = { r: 199, g: 161, b: 255, hex: '#c7a1ff' };
-  const deepAccent = { r: 74, g: 44, b: 105 };
+  const alternationInterval = 240;
+  const palettes = [
+    {
+      brightAccent: { r: 199, g: 161, b: 255, hex: '#c7a1ff' },
+      deepAccent: { r: 74, g: 44, b: 105 },
+    },
+    {
+      brightAccent: { r: 155, g: 208, b: 255, hex: '#9bd0ff' },
+      deepAccent: { r: 41, g: 78, b: 126 },
+    },
+  ];
   const layers = [
-    { fontSize: 16, speedMin: 0.05, speedMax: 0.12, tail: 28, glow: 6, opacity: 0.85 },
-    { fontSize: 22, speedMin: 0.08, speedMax: 0.16, tail: 24, glow: 7, opacity: 0.95 },
-    { fontSize: 30, speedMin: 0.1, speedMax: 0.2, tail: 20, glow: 8, opacity: 1 },
+    { fontSize: 32, speedMin: 0.02, speedMax: 0.05, tail: 28, glow: 6, opacity: 0.85 },
+    { fontSize: 44, speedMin: 0.03, speedMax: 0.06, tail: 24, glow: 7, opacity: 0.95 },
+    { fontSize: 56, speedMin: 0.04, speedMax: 0.08, tail: 20, glow: 8, opacity: 1 },
   ];
 
   let streams = [];
@@ -36,8 +47,12 @@ function startMatrixRain(canvas) {
     };
   }
 
+  let activeGlyphSet = glyphSets[0];
+  let activePalette = palettes[0];
+  let currentAlternationIndex = 0;
+
   function randomChar() {
-    return characters[Math.floor(Math.random() * characters.length)];
+    return activeGlyphSet[Math.floor(Math.random() * activeGlyphSet.length)];
   }
 
   function setup() {
@@ -61,6 +76,7 @@ function startMatrixRain(canvas) {
   }
 
   function drawTrail(x, y, layer, columnIndex, layerIndex) {
+    const { brightAccent, deepAccent } = activePalette;
     context.shadowBlur = layer.glow;
     context.shadowColor = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.45)`;
 
@@ -93,6 +109,18 @@ function startMatrixRain(canvas) {
 
   function draw() {
     frameCount += 1;
+    const nextAlternationIndex =
+      Math.floor(frameCount / alternationInterval) % palettes.length;
+    if (nextAlternationIndex !== currentAlternationIndex) {
+      currentAlternationIndex = nextAlternationIndex;
+      activePalette = palettes[currentAlternationIndex];
+      activeGlyphSet = glyphSets[currentAlternationIndex % glyphSets.length];
+      streams.forEach((layerStreams) => {
+        layerStreams.forEach((stream) => {
+          stream.glyphs = stream.glyphs.map(randomChar);
+        });
+      });
+    }
     context.fillStyle = fadeFill;
     context.fillRect(0, 0, canvas.width, canvas.height);
 

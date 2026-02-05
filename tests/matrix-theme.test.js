@@ -17,6 +17,21 @@ assertMatches(
 );
 assertMatches(
   matrixScript,
-  /brightAccent\s*=\s*\{[^}]*hex:\s*'#c7a1ff'[^}]*\}/i,
+  /hex:\s*'#c7a1ff'/i,
   'Expected the matrix rain to use a lavender highlight color.'
+);
+assertMatches(
+  matrixScript,
+  /alternationInterval\s*=\s*240/i,
+  'Expected the matrix rain to alternate glyphs and colors slowly.'
+);
+assertMatches(
+  matrixScript,
+  /glyphSets\s*=\s*\[/i,
+  'Expected the matrix rain to define multiple glyph sets.'
+);
+assertMatches(
+  matrixScript,
+  /fontSize:\s*32/i,
+  'Expected the matrix rain to use larger glyph sizes.'
 );

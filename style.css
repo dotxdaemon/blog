@@ -1,5 +1,7 @@
 /* ABOUTME: Styles the monochrome brutalist layout for the static blog homepage. */
 /* ABOUTME: Defines the grid, typography, borders, and hover inversion rules. */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
 :root {
   --ink: #EADFFF;
   --paper: #0B0814;
@@ -7,7 +9,7 @@
   --muted: #B7A6D9;
   --accent: #C7A1FF;
   --border: #3A2D55;
-  --border-width: 1px;
+  --border-width: 0px;
   --radius: 18px;
   --radius-sm: 12px;
   --shadow: 0 18px 40px rgba(10, 6, 20, 0.6);
@@ -30,12 +32,13 @@ body {
   color: var(--ink);
   display: flex;
   flex-direction: column;
-  font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Merriweather', 'Times New Roman', serif;
   gap: var(--space-4);
   letter-spacing: 0.01em;
   line-height: 1.6;
   min-height: 100vh;
   padding: var(--space-6) var(--space-4);
+  position: relative;
 }
 
 .layout {
@@ -44,7 +47,9 @@ body {
   gap: var(--space-4);
   margin: 0 auto;
   max-width: 1120px;
+  position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 a {
@@ -70,6 +75,8 @@ input:focus-visible {
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  position: relative;
+  z-index: 1;
 }
 
 .site-header {
@@ -106,6 +113,15 @@ input:focus-visible {
   display: grid;
   gap: var(--space-4);
   padding: var(--space-4);
+}
+
+.matrix-rain {
+  height: 100vh;
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  width: 100vw;
+  z-index: 0;
 }
 
 .last-played,
