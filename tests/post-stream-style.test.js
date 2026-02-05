@@ -1,4 +1,4 @@
-// ABOUTME: Ensures the front page post stream mirrors the last played widget.
+// ABOUTME: Ensures the front page post stream uses the shared panel style.
 // ABOUTME: Confirms matching border and padding treatments for symmetry.
 const { assertMatches, readStyles } = require('./helpers');
 
@@ -6,21 +6,16 @@ const css = readStyles();
 
 assertMatches(
   css,
-  /\.post-stream[\s\S]*border-top:\s*var\(--border-width\)\s+solid\s+var\(--black\)/i,
-  'Expected the post stream to include a top border.'
+  /\.post-stream[\s\S]*border:\s*var\(--border-width\)\s+solid\s+var\(--border\)/i,
+  'Expected the post stream to use the shared panel border.'
 );
 assertMatches(
   css,
-  /\.post-stream[\s\S]*border-bottom:\s*var\(--border-width\)\s+solid\s+var\(--black\)/i,
-  'Expected the post stream to include a bottom border.'
+  /\.post-stream[\s\S]*padding:\s*var\(--space-4\)/i,
+  'Expected the post stream to use the shared panel padding.'
 );
 assertMatches(
   css,
-  /\.post-stream[\s\S]*padding:\s*12px/i,
-  'Expected the post stream to use the same padding as the last played widget.'
-);
-assertMatches(
-  css,
-  /\.post-list[\s\S]*margin-top:\s*8px/i,
-  'Expected the post list to align spacing with the track list.'
+  /\.post-list[\s\S]*margin-top:\s*var\(--space-3\)/i,
+  'Expected the post list to align spacing with the panel spacing scale.'
 );
