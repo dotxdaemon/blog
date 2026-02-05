@@ -1,11 +1,11 @@
-// ABOUTME: Ensures navigation links use uppercase text for hierarchy.
-// ABOUTME: Confirms the nav link styling applies uppercase transformation.
-const { assertMatches, readStyles } = require('./helpers');
+// ABOUTME: Ensures navigation links avoid uppercase text for readability.
+// ABOUTME: Confirms the nav link styling does not apply uppercase transformation.
+const { assertNotMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
 
-assertMatches(
+assertNotMatches(
   css,
-  /\.site-nav a[\s\S]*text-transform:\s*uppercase/i,
-  'Expected navigation links to be uppercase.'
+  /\.site-nav a[^}]*text-transform:\s*uppercase/i,
+  'Expected navigation links to avoid uppercase text.'
 );

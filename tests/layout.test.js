@@ -10,8 +10,8 @@ assert.ok(
   'Expected the page to include a site header.'
 );
 assert.ok(
-  /<nav[^>]*class="site-nav"/i.test(html),
-  'Expected the page to include a navigation section.'
+  /<div[^>]*class="layout"[\s\S]*<header[^>]*class="site-header"/i.test(html),
+  'Expected the page to wrap the header in a layout container.'
 );
 assert.ok(
   /<main[^>]*class="site-main"/i.test(html),

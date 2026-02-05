@@ -1,5 +1,11 @@
 # Journal
 
+- Date: 2026-03-09
+  Task: Centered layout container with mixed-case typography and split homepage columns.
+  Notes: Wrapped shared layout sections in a centered container, reduced uppercase styling in headings/nav, added a wide-screen two-column main layout, and updated tests with npm test, npm run lint, and npm run typecheck.
+- Date: 2026-03-10
+  Task: Update homepage title, Last.fm artwork tiles, and post readability.
+  Notes: Removed the homepage nav links, set the homepage title to velvetdaemon, switched the Last.fm widget to artwork tiles with artist hover overlays, updated post row layout for clarity, and refreshed tests with npm test, npm run lint, and npm run typecheck.
 - Date: 2026-03-08
   Task: Refresh the site styling with a softer, card-based theme.
   Notes: Updated palette tokens, spacing, shadows, and typography with matching test expectations; ran npm test, npm run lint, and npm run typecheck with proxy env vars unset.

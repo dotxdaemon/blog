@@ -11,8 +11,8 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*grid-template-columns:\s*1fr/i,
-  'Expected post rows to use a single column layout.'
+  /\.post-row[\s\S]*grid-template-columns:\s*minmax\(120px,\s*160px\)\s+1fr/i,
+  'Expected post rows to separate dates and titles into two columns.'
 );
 assertMatches(
   css,
