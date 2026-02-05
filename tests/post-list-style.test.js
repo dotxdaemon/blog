@@ -1,5 +1,5 @@
-// ABOUTME: Validates the post list grid and border treatments.
-// ABOUTME: Ensures posts are centered with no spacing between fields.
+// ABOUTME: Validates the post list layout and card treatments.
+// ABOUTME: Ensures posts are left-aligned with comfortable spacing.
 const { assertMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
@@ -16,26 +16,26 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*justify-items:\s*center/i,
-  'Expected post rows to center their contents.'
+  /\.post-row[\s\S]*justify-items:\s*start/i,
+  'Expected post rows to left-align their contents.'
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*text-align:\s*center/i,
-  'Expected post rows to use centered text.'
+  /\.post-row[\s\S]*text-align:\s*left/i,
+  'Expected post rows to use left-aligned text.'
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*gap:\s*0/i,
-  'Expected post rows to remove grid gaps.'
+  /\.post-row[\s\S]*gap:\s*var\(--space-2\)/i,
+  'Expected post rows to use the shared spacing scale.'
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*padding:\s*0/i,
-  'Expected post rows to remove padding.'
+  /\.post-row[\s\S]*padding:\s*var\(--space-3\)/i,
+  'Expected post rows to include card padding.'
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*border-bottom:\s*var\(--border-width\)\s+solid\s+var\(--black\)/i,
-  'Expected post rows to use thick border dividers.'
+  /\.post-row[\s\S]*border:\s*var\(--border-width\)\s+solid\s+var\(--border\)/i,
+  'Expected post rows to use the shared card border.'
 );

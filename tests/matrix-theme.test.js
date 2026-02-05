@@ -1,11 +1,11 @@
-// ABOUTME: Confirms the brutalist styling removes rounded corners.
-// ABOUTME: Ensures the stylesheet zeroes border radius globally.
+// ABOUTME: Confirms the refined styling uses shared corner radii.
+// ABOUTME: Ensures primary panels use the radius token.
 const { assertMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
 
 assertMatches(
   css,
-  /\*\s*\{[\s\S]*border-radius:\s*0/i,
-  'Expected a global border-radius reset of 0.'
+  /\.site-header[\s\S]*border-radius:\s*var\(--radius\)/i,
+  'Expected primary panels to use the radius token.'
 );

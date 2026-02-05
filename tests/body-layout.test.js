@@ -1,16 +1,16 @@
-// ABOUTME: Ensures the body layout does not force extra vertical space.
-// ABOUTME: Confirms body rows and height avoid stretching content.
+// ABOUTME: Ensures the body layout uses flexible vertical spacing.
+// ABOUTME: Confirms body layout uses a full-height flex column.
 const { assertMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
 
 assertMatches(
   css,
-  /body[\s\S]*grid-template-rows:\s*auto\s+auto\s+auto/i,
-  'Expected body grid rows to avoid 1fr stretching.'
+  /body[\s\S]*display:\s*flex/i,
+  'Expected body layout to use flexbox.'
 );
 assertMatches(
   css,
-  /body[\s\S]*min-height:\s*auto/i,
-  'Expected body min-height to avoid forcing viewport height.'
+  /body[\s\S]*min-height:\s*100vh/i,
+  'Expected body min-height to use the full viewport height.'
 );

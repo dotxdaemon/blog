@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-03-08
+  Task: Refresh the site styling with a softer, card-based theme.
+  Notes: Updated palette tokens, spacing, shadows, and typography with matching test expectations; ran npm test, npm run lint, and npm run typecheck with proxy env vars unset.
 - Date: 2026-03-07
   Task: Unified font stack across typography tokens.
   Notes: Pointed the sans-serif token at the mono stack and updated typography coverage for the unified font.
