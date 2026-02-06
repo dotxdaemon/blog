@@ -13,7 +13,7 @@ function startMatrixRain(canvas) {
     'アカサタナハマヤラワ0123456789△◇◆○●◇▲▼',
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?',
   ];
-  const fadeFill = 'rgba(11, 8, 20, 0.18)';
+  const fadeFill = 'rgba(11, 8, 20, 0.28)';
   const glyphChangeInterval = 160;
   const columnSpacingRatio = 1.8;
   const alternationInterval = 240;
@@ -28,9 +28,9 @@ function startMatrixRain(canvas) {
     },
   ];
   const layers = [
-    { fontSize: 32, speedMin: 0.02, speedMax: 0.05, tail: 28, glow: 6, opacity: 0.85 },
-    { fontSize: 44, speedMin: 0.03, speedMax: 0.06, tail: 24, glow: 7, opacity: 0.95 },
-    { fontSize: 56, speedMin: 0.04, speedMax: 0.08, tail: 20, glow: 8, opacity: 1 },
+    { fontSize: 32, speedMin: 0.02, speedMax: 0.05, tail: 24, glow: 4, opacity: 0.56 },
+    { fontSize: 44, speedMin: 0.03, speedMax: 0.06, tail: 20, glow: 5, opacity: 0.48 },
+    { fontSize: 56, speedMin: 0.04, speedMax: 0.08, tail: 18, glow: 6, opacity: 0.4 },
   ];
 
   let streams = [];
@@ -78,7 +78,7 @@ function startMatrixRain(canvas) {
   function drawTrail(x, y, layer, columnIndex, layerIndex) {
     const { brightAccent, deepAccent } = activePalette;
     context.shadowBlur = layer.glow;
-    context.shadowColor = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.45)`;
+    context.shadowColor = `rgba(${brightAccent.r}, ${brightAccent.g}, ${brightAccent.b}, 0.22)`;
 
     const stream = streams[layerIndex][columnIndex];
     if ((frameCount + stream.glyphOffset) % glyphChangeInterval === 0) {
@@ -95,7 +95,7 @@ function startMatrixRain(canvas) {
 
       const fade = 1 - depth / (layer.tail + 2);
       const colorMix = blendColor(brightAccent, deepAccent, fade);
-      const alpha = 0.35 + layer.opacity * fade * 0.7;
+      const alpha = 0.2 + layer.opacity * fade * 0.55;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
       const trailChar = stream.glyphs[depth] ?? randomChar();
       context.fillText(trailChar, x, trailY);

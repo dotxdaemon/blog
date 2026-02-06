@@ -12,8 +12,8 @@ assertMatches(
 );
 assertMatches(
   styles,
-  /--accent:\s*#c7a1ff;/i,
-  'Expected the accent color to use a lavender tone.'
+  /--accent:\s*#d2b9ff;/i,
+  'Expected the accent color to use the updated lavender tone.'
 );
 assertMatches(
   matrixScript,

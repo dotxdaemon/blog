@@ -139,7 +139,7 @@ function createPostLink(post) {
   const time = document.createElement('time');
   time.className = 'post-date';
   time.dateTime = post.date;
-  time.textContent = post.date;
+  time.textContent = formatDate(post.date) || post.date;
 
   const title = document.createElement('h2');
   title.className = 'post-title';
@@ -149,8 +149,14 @@ function createPostLink(post) {
   link.textContent = post.title;
   title.appendChild(link);
 
+  const chevron = document.createElement('span');
+  chevron.className = 'post-chevron';
+  chevron.setAttribute('aria-hidden', 'true');
+  chevron.textContent = '›';
+
   entry.appendChild(time);
   entry.appendChild(title);
+  entry.appendChild(chevron);
   return entry;
 }
 
@@ -406,7 +412,7 @@ function setupListeningWidgets() {
     });
 
   function updateTrackGrid(tracks) {
-    renderRecentTracks(tracks.slice(0, 4));
+    renderRecentTracks(tracks.slice(0, 1));
   }
 
   function renderLastPlayedEmpty() {
