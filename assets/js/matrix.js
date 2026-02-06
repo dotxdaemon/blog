@@ -13,7 +13,7 @@ function startMatrixRain(canvas) {
     'アカサタナハマヤラワ0123456789△◇◆○●◇▲▼',
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?',
   ];
-  const fadeFill = 'rgba(11, 8, 20, 0.28)';
+  const fadeFill = 'rgba(11, 8, 20, 0.4)';
   const glyphChangeInterval = 160;
   const columnSpacingRatio = 1.8;
   const alternationInterval = 240;
@@ -28,9 +28,9 @@ function startMatrixRain(canvas) {
     },
   ];
   const layers = [
-    { fontSize: 32, speedMin: 0.02, speedMax: 0.05, tail: 24, glow: 4, opacity: 0.56 },
-    { fontSize: 44, speedMin: 0.03, speedMax: 0.06, tail: 20, glow: 5, opacity: 0.48 },
-    { fontSize: 56, speedMin: 0.04, speedMax: 0.08, tail: 18, glow: 6, opacity: 0.4 },
+    { fontSize: 32, speedMin: 0.02, speedMax: 0.05, tail: 24, glow: 4, opacity: 0.42 },
+    { fontSize: 44, speedMin: 0.03, speedMax: 0.06, tail: 20, glow: 5, opacity: 0.35 },
+    { fontSize: 56, speedMin: 0.04, speedMax: 0.08, tail: 18, glow: 6, opacity: 0.3 },
   ];
 
   let streams = [];

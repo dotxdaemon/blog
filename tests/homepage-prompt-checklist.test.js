@@ -7,20 +7,20 @@ const css = readStyles();
 const app = readRepoFile('assets/js/app.js');
 
 // 1) Background treatment over the matrix canvas.
-assertMatches(css, /body::before[\s\S]*linear-gradient\(180deg,[\s\S]*0\.78[\s\S]*0\.72\)/i, 'Expected a dark scrim overlay.');
-assertMatches(css, /body::after[\s\S]*radial-gradient\([\s\S]*circle at center[\s\S]*0\.08[\s\S]*0\.62[\s\S]*0\.88[\s\S]*\)/i, 'Expected a radial mask overlay.');
-assertMatches(readRepoFile('assets/js/matrix.js'), /fadeFill\s*=\s*'rgba\(11, 8, 20, 0\.28\)'/i, 'Expected reduced matrix contrast.');
+assertMatches(css, /body::before[\s\S]*linear-gradient\(180deg,[\s\S]*0\.86[\s\S]*0\.82\)/i, 'Expected a dark scrim overlay.');
+assertMatches(css, /body::after[\s\S]*radial-gradient\([\s\S]*circle at center[\s\S]*0\.03[\s\S]*0\.56[\s\S]*0\.9[\s\S]*\)/i, 'Expected a radial mask overlay.');
+assertMatches(readRepoFile('assets/js/matrix.js'), /fadeFill\s*=\s*'rgba\(11, 8, 20, 0\.4\)'/i, 'Expected reduced matrix contrast.');
 
 // 2) Single centered container and aligned grid.
 assertMatches(css, /\.layout[\s\S]*max-width:\s*1120px/i, 'Expected centered container width between 1040 and 1200.');
 assertMatches(css, /\.site-header[\s\S]*padding:\s*var\(--space-4\)/i, 'Expected top bar to use shared card spacing.');
-assertMatches(css, /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i, 'Expected two-column layout with consistent gap.');
+assertMatches(css, /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*0\.95fr\)\s*minmax\(0,\s*1\.05fr\)/i, 'Expected two-column layout with consistent gap.');
 
 // 3) Spacing scale consistency.
-assertMatches(css, /--space-2:\s*8px/i, 'Expected 8px spacing increment token.');
-assertMatches(css, /--space-3:\s*16px/i, 'Expected 16px spacing increment token.');
-assertMatches(css, /--space-4:\s*24px/i, 'Expected 24px spacing increment token.');
-assertMatches(css, /--space-5:\s*32px/i, 'Expected 32px spacing increment token.');
+assertMatches(css, /--space-2:\s*16px/i, 'Expected 16px spacing increment token.');
+assertMatches(css, /--space-3:\s*24px/i, 'Expected 24px spacing increment token.');
+assertMatches(css, /--space-4:\s*32px/i, 'Expected 32px spacing increment token.');
+assertMatches(css, /--space-5:\s*40px/i, 'Expected 40px spacing increment token.');
 
 // 4) Reduced non-interactive pills.
 assertMatches(css, /button,\s*\ninput[\s\S]*border-radius:\s*9999px/i, 'Expected pills to remain for interactive inputs.');
@@ -41,8 +41,8 @@ assertMatches(css, /\.featured-card[\s\S]*min-height:\s*280px/i, 'Expected one f
 assertMatches(app, /function createFeaturedPost\(post\)/i, 'Expected one featured post item.');
 
 // 8) Unified radii, borders, and shadows.
-assertMatches(css, /--radius:\s*16px/i, 'Expected one primary radius token.');
-assertMatches(css, /--radius-sm:\s*12px/i, 'Expected one secondary radius token.');
+assertMatches(css, /--radius:\s*14px/i, 'Expected one primary radius token.');
+assertMatches(css, /--radius-sm:\s*var\(--radius\)/i, 'Expected one shared radius token across components.');
 assertMatches(css, /--border:\s*rgba\(255,\s*255,\s*255,\s*0\.08\)/i, 'Expected low-opacity unified border color.');
 assertMatches(css, /--shadow:\s*0\s*12px\s*40px\s*rgba\(0,\s*0,\s*0,\s*0\.45\)/i, 'Expected soft shared shadow token.');
 
