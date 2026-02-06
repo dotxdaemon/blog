@@ -1,9 +1,12 @@
 // ABOUTME: Confirms the homepage layout matches the required sections.
 // ABOUTME: Ensures header, navigation, posts, and Last.fm widgets exist.
 const assert = require('assert');
-const { readIndexHtml } = require('./helpers');
+const { readIndexHtml, readRepoFile } = require('./helpers');
 
 const html = readIndexHtml();
+const archivesHtml = readRepoFile('archives.html');
+const searchHtml = readRepoFile('search.html');
+const matrixHtml = readRepoFile('matrix-gold-rain.html');
 
 assert.ok(
   /<header[^>]*class="site-header"/i.test(html),
@@ -12,6 +15,18 @@ assert.ok(
 assert.ok(
   /<div[^>]*class="layout"[\s\S]*<header[^>]*class="site-header"/i.test(html),
   'Expected the page to wrap the header in a layout container.'
+);
+assert.ok(
+  /<div[^>]*class="layout"[\s\S]*<header[^>]*class="site-header"/i.test(archivesHtml),
+  'Expected archives.html to wrap the header in a layout container.'
+);
+assert.ok(
+  /<div[^>]*class="layout"[\s\S]*<header[^>]*class="site-header"/i.test(searchHtml),
+  'Expected search.html to wrap the header in a layout container.'
+);
+assert.ok(
+  /<div[^>]*class="layout"[\s\S]*<header[^>]*class="site-header"/i.test(matrixHtml),
+  'Expected matrix-gold-rain.html to wrap the header in a layout container.'
 );
 assert.ok(
   /<main[^>]*class="site-main"/i.test(html),
