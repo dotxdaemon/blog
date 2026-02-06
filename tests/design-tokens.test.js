@@ -6,10 +6,10 @@ const css = readStyles();
 
 assertMatches(css, /--ink:\s*#ece5ff/i, 'Expected the ink token to be defined.');
 assertMatches(css, /--paper:\s*#070610/i, 'Expected the paper token to be defined.');
-assertMatches(css, /--surface:\s*rgba\(18,\s*14,\s*35,\s*0\.78\)/i, 'Expected the surface token to be defined.');
+assertMatches(css, /--surface:\s*rgba\(15,\s*12,\s*30,\s*0\.94\)/i, 'Expected the surface token to be defined.');
 assertMatches(css, /--border:\s*rgba\(255,\s*255,\s*255,\s*0\.08\)/i, 'Expected the border token to be defined.');
 assertMatches(css, /--border-width:\s*1px/i, 'Expected the border width token to be 0px.');
-assertMatches(css, /--radius:\s*16px/i, 'Expected the radius token to be defined.');
+assertMatches(css, /--radius:\s*14px/i, 'Expected the radius token to be defined.');
 assertMatches(css, /--shadow:\s*0 12px 40px rgba\(0,\s*0,\s*0,\s*0\.45\)/i, 'Expected the shadow token to be defined.');
 
 assertMatches(

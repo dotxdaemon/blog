@@ -5,21 +5,21 @@
 :root {
   --ink: #ece5ff;
   --paper: #070610;
-  --surface: rgba(18, 14, 35, 0.78);
+  --surface: rgba(15, 12, 30, 0.94);
   --surface-soft: rgba(18, 14, 35, 0.55);
   --text: rgba(255, 255, 255, 0.92);
   --muted: rgba(255, 255, 255, 0.62);
   --accent: #d2b9ff;
   --border: rgba(255, 255, 255, 0.08);
   --border-width: 1px;
-  --radius: 16px;
-  --radius-sm: 12px;
+  --radius: 14px;
+  --radius-sm: var(--radius);
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
   --space-1: 8px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
   --space-6: 48px;
 }
 
@@ -52,26 +52,31 @@ body::after {
 }
 
 body::before {
-  background: linear-gradient(180deg, rgba(7, 5, 14, 0.78), rgba(5, 4, 10, 0.72));
+  background: linear-gradient(180deg, rgba(5, 4, 12, 0.86), rgba(3, 2, 8, 0.82));
   z-index: 0;
 }
 
 body::after {
   background: radial-gradient(
     circle at center,
-    rgba(7, 5, 14, 0.08) 0%,
-    rgba(7, 5, 14, 0.62) 60%,
-    rgba(7, 5, 14, 0.88) 100%
+    rgba(7, 5, 14, 0.03) 0%,
+    rgba(7, 5, 14, 0.56) 58%,
+    rgba(7, 5, 14, 0.9) 100%
   );
   z-index: 0;
 }
 
 .layout {
+  background-color: var(--surface);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
   margin: 0 auto;
   max-width: 1120px;
+  padding: var(--space-4);
   position: relative;
   width: 100%;
   z-index: 1;
@@ -93,18 +98,9 @@ input:focus-visible {
   outline-offset: 2px;
 }
 
-.site-header,
-.site-main {
-  background-color: var(--surface);
-  border: var(--border-width) solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+.site-header {
   position: relative;
   z-index: 1;
-}
-
-.site-header {
-  padding: var(--space-4);
 }
 
 .site-header__inner {
@@ -137,6 +133,8 @@ input:focus-visible {
   display: grid;
   gap: var(--space-4);
   padding: var(--space-4);
+  position: relative;
+  z-index: 1;
 }
 
 
@@ -161,9 +159,7 @@ input:focus-visible {
 }
 
 .track-card {
-  background-color: rgba(20, 16, 36, 0.9);
-  border: var(--border-width) solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
@@ -215,7 +211,7 @@ input:focus-visible {
     linear-gradient(160deg, rgba(35, 24, 62, 0.92), rgba(11, 9, 20, 0.95)),
     radial-gradient(circle at 18% 18%, rgba(210, 185, 255, 0.16), rgba(0, 0, 0, 0) 54%);
   border: var(--border-width) solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   display: grid;
   min-height: 280px;
@@ -268,19 +264,20 @@ input:focus-visible {
 .post-list {
   display: grid;
   flex: 1;
-  gap: var(--space-3);
+  gap: var(--space-2);
   margin-top: var(--space-3);
 }
 
 .post-row {
   align-items: center;
-  background-color: rgba(18, 13, 30, 0.88);
+  background-color: rgba(17, 13, 28, 0.72);
   border: var(--border-width) solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
   grid-template-columns: minmax(90px, 130px) 1fr auto;
   justify-items: start;
+  min-height: 72px;
   padding: var(--space-3);
   text-align: left;
   transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
@@ -313,8 +310,8 @@ input:focus-visible {
 .post-row:hover,
 .post-row:focus-visible,
 .post-row:focus-within {
-  background-color: rgba(26, 20, 43, 0.95);
-  border-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(28, 21, 47, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
 }
 
@@ -429,17 +426,25 @@ button {
 @media (min-width: 900px) {
   .site-main {
     align-items: start;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   }
 
   .post-stream {
     height: 100%;
+  }
+
+  .post-list {
+    min-height: 100%;
   }
 }
 
 @media (max-width: 600px) {
   body {
     padding: var(--space-4) var(--space-3);
+  }
+
+  .layout {
+    padding: var(--space-3);
   }
 
   .site-header__inner {
