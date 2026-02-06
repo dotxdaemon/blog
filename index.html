@@ -24,19 +24,23 @@
 
       <main class="site-main">
         <div class="left-column">
-          <section class="last-played" data-last-played aria-label="Last played">
-            <h2 class="section-title" id="last-played">Last Played</h2>
+          <section class="last-played module-card" data-last-played aria-label="Last played">
+            <div class="module-header">
+              <h2 class="section-title" id="last-played">Last Played</h2>
+              <a class="module-link" href="https://www.last.fm/user/velvetdaemon" target="_blank" rel="noreferrer">Open in Last.fm</a>
+            </div>
+
             <div class="last-played__status" data-last-played-status></div>
             <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
           </section>
 
-          <section class="featured" aria-labelledby="featured-post">
+          <section class="featured module-card" aria-labelledby="featured-post">
             <h2 class="section-title" id="featured-post">Featured</h2>
             <article class="featured-card" id="featured-card"></article>
           </section>
         </div>
 
-        <section class="post-stream" aria-labelledby="recent-posts">
+        <section class="post-stream module-card" aria-labelledby="recent-posts">
           <h2 class="section-title" id="recent-posts">Recent Posts</h2>
           <div class="post-list" id="posts"></div>
         </section>

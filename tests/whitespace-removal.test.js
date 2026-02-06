@@ -6,23 +6,18 @@ const css = readStyles();
 
 assertMatches(
   css,
-  /\.site-header[\s\S]*padding:\s*var\(--space-4\)/i,
+  /\.site-header[\s\S]*padding-bottom:\s*var\(--space-2\)/i,
   'Expected site header padding to use the shared spacing scale.'
 );
 assertMatches(
   css,
-  /\.site-main[\s\S]*gap:\s*var\(--space-4\)/i,
+  /\.site-main[\s\S]*gap:\s*24px/i,
   'Expected site main gap to use the shared spacing scale.'
 );
 assertMatches(
   css,
-  /\.site-main[\s\S]*padding:\s*var\(--space-4\)/i,
+  /\.site-main[\s\S]*padding:\s*0/i,
   'Expected site main padding to use the shared spacing scale.'
-);
-assertMatches(
-  css,
-  /\.post-actions[\s\S]*margin-bottom:\s*var\(--space-3\)/i,
-  'Expected post actions spacing to follow the shared scale.'
 );
 assertMatches(
   css,

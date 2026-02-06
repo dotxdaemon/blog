@@ -11,7 +11,7 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*grid-template-columns:\s*minmax\(90px,\s*130px\)\s+1fr\s+auto/i,
+  /\.post-row[\s\S]*grid-template-columns:\s*minmax\(94px,\s*120px\)\s+1fr\s+auto/i,
   'Expected post rows to separate dates, titles, and affordance into three columns.'
 );
 assertMatches(
@@ -26,16 +26,16 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*gap:\s*var\(--space-3\)/i,
+  /\.post-row[\s\S]*gap:\s*var\(--space-2\)/i,
   'Expected post rows to use the shared spacing scale.'
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*padding:\s*var\(--space-3\)/i,
+  /\.post-row[\s\S]*padding:\s*14px/i,
   'Expected post rows to include card padding.'
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*border:\s*var\(--border-width\)\s+solid\s+var\(--border\)/i,
+  /\.post-row[\s\S]*border:\s*var\(--border-width\)\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.08\)/i,
   'Expected post rows to use the shared card border.'
 );

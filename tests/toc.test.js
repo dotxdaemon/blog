@@ -6,6 +6,6 @@ const html = readIndexHtml();
 
 assertMatches(
   html,
-  /<section[^>]*class="post-stream"[\s\S]*id="posts"/i,
+  /<section[^>]*class="[^"]*post-stream[^"]*"[\s\S]*id="posts"/i,
   'Expected the posts container to live inside the post stream section.'
 );
