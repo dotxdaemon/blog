@@ -6,7 +6,7 @@ const html = readIndexHtml();
 
 assertMatches(
   html,
-  /<section[^>]*class="last-played"[^>]*data-last-played[^>]*>/i,
+  /<section[^>]*class="[^"]*last-played[^"]*"[^>]*data-last-played[^>]*>/i,
   'Expected the Last.fm section to be present.'
 );
 assertMatches(

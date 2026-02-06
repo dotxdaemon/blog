@@ -8,12 +8,12 @@ const appSource = readRepoFile('assets/js/app.js');
 
 assertMatches(
   css,
-  /body::before[\s\S]*linear-gradient\(180deg,\s*rgba\(5,\s*4,\s*12,\s*0\.86\),\s*rgba\(3,\s*2,\s*8,\s*0\.82\)\)/i,
+  /body::before[\s\S]*linear-gradient\(180deg,\s*rgba\(4,\s*3,\s*10,\s*0\.9\),\s*rgba\(2,\s*2,\s*7,\s*0\.86\)\)/i,
   'Expected a dark scrim overlay over the background canvas.'
 );
 assertMatches(
   css,
-  /body::after[\s\S]*radial-gradient\([\s\S]*circle at center[\s\S]*0\.03\)[\s\S]*0\.56\)[\s\S]*0\.9\)/i,
+  /body::after[\s\S]*radial-gradient\([\s\S]*ellipse at center[\s\S]*0\.08\)[\s\S]*0\.62\)[\s\S]*0\.94\)/i,
   'Expected a radial fade mask that keeps the center calmer than the edges.'
 );
 assertMatches(
@@ -23,12 +23,12 @@ assertMatches(
 );
 assertMatches(
   css,
-  /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*0\.95fr\)\s*minmax\(0,\s*1\.05fr\)/i,
+  /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*1\.2fr\)\s*minmax\(0,\s*0\.8fr\)/i,
   'Expected the homepage main area to use a weighted two-column grid.'
 );
 assertMatches(
   css,
-  /\.featured-card[\s\S]*min-height:\s*280px/i,
+  /\.featured-card[\s\S]*min-height:\s*260px/i,
   'Expected the featured module to use a single primary card block.'
 );
 assertMatches(

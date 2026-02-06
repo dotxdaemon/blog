@@ -438,19 +438,21 @@ function setupListeningWidgets() {
     'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks' +
     `&user=${username}&api_key=${apiKey}&format=json&limit=4`;
 
+  renderTrackLoading();
+
   fetch(url)
     .then((response) => (response.ok ? response.json() : null))
     .then((data) => {
       const tracks = data && data.recenttracks && data.recenttracks.track;
       if (!Array.isArray(tracks) || tracks.length === 0) {
-        renderEmptyState('No recent plays available yet.');
+        renderEmptyState('No recent track found.');
         return;
       }
 
       updateTrackGrid(tracks);
     })
     .catch(() => {
-      renderEmptyState('Error loading music.');
+      renderEmptyState('Unable to load Last.fm right now.');
     });
 
   function updateTrackGrid(tracks) {
@@ -481,15 +483,28 @@ function setupListeningWidgets() {
 
       const image = document.createElement('img');
       image.className = 'track-image';
-      image.alt = track.name || '';
-      image.src = getTrackImage(track);
+      image.alt = track.name || 'Album art';
+      const imageUrl = getTrackImage(track);
+      image.src = imageUrl || createTrackPlaceholder();
 
-      const overlay = document.createElement('span');
+      const overlay = document.createElement('div');
       overlay.className = 'track-overlay';
-      const trackName = track.name || '';
-      const artistName = (track.artist && track.artist['#text']) || '';
-      const overlayText = [trackName, artistName].filter(Boolean).join(' - ');
-      overlay.textContent = overlayText;
+
+      const trackName = document.createElement('div');
+      trackName.className = 'track-title';
+      trackName.textContent = track.name || 'Unknown track';
+
+      const artistName = document.createElement('div');
+      artistName.className = 'track-artist';
+      artistName.textContent = (track.artist && track.artist['#text']) || 'Unknown artist';
+
+      const playedAt = document.createElement('div');
+      playedAt.className = 'track-meta';
+      playedAt.textContent = 'Played recently';
+
+      overlay.appendChild(trackName);
+      overlay.appendChild(artistName);
+      overlay.appendChild(playedAt);
 
       link.appendChild(image);
       link.appendChild(overlay);
@@ -501,12 +516,41 @@ function setupListeningWidgets() {
 
   function renderTrackGridEmpty(message) {
     if (!trackGrid) return;
-    trackGrid.innerHTML = `<li><span class="loading">${message}</span></li>`;
+    trackGrid.innerHTML = '';
+
+    const item = document.createElement('li');
+    item.className = 'track-card';
+
+    const statusCard = document.createElement('div');
+    statusCard.className = 'track-link';
+
+    const image = document.createElement('div');
+    image.className = 'track-image';
+
+    const text = document.createElement('div');
+    text.className = 'track-overlay';
+    const line = document.createElement('div');
+    line.className = 'track-artist';
+    line.textContent = message;
+    text.appendChild(line);
+
+    statusCard.appendChild(image);
+    statusCard.appendChild(text);
+    item.appendChild(statusCard);
+    trackGrid.appendChild(item);
+  }
+
+  function renderTrackLoading() {
+    renderTrackGridEmpty('Loading recent track…');
   }
 
   function renderEmptyState(message) {
     renderLastPlayedEmpty();
     renderTrackGridEmpty(message);
+  }
+
+  function createTrackPlaceholder() {
+    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52"><rect width="100%" height="100%" fill="%23130f22"/><path d="M10 34h32" stroke="%234f4469" stroke-width="3"/></svg>';
   }
 
   function getTrackImage(track) {

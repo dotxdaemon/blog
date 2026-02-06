@@ -6,6 +6,6 @@ const css = readStyles();
 
 assertMatches(
   css,
-  /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*0\.95fr\)\s*minmax\(0,\s*1\.05fr\)/i,
+  /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*1\.2fr\)\s*minmax\(0,\s*0\.8fr\)/i,
   'Expected the homepage to use a weighted two-column layout at large sizes.'
 );

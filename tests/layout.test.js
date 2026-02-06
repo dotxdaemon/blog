@@ -33,7 +33,7 @@ assert.ok(
   'Expected the page to include a main content section.'
 );
 assert.ok(
-  /<section[^>]*class="post-stream"[\s\S]*<h2[^>]*>Recent Posts<\/h2>/i.test(html),
+  /<section[^>]*class="[^"]*post-stream[^"]*"[\s\S]*<h2[^>]*>Recent Posts<\/h2>/i.test(html),
   'Expected the Recent Posts section to include a heading.'
 );
 assert.ok(/id="posts"/i.test(html), 'Expected the posts container to be present.');

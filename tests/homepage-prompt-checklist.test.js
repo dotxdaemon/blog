@@ -7,14 +7,14 @@ const css = readStyles();
 const app = readRepoFile('assets/js/app.js');
 
 // 1) Background treatment over the matrix canvas.
-assertMatches(css, /body::before[\s\S]*linear-gradient\(180deg,[\s\S]*0\.86[\s\S]*0\.82\)/i, 'Expected a dark scrim overlay.');
-assertMatches(css, /body::after[\s\S]*radial-gradient\([\s\S]*circle at center[\s\S]*0\.03[\s\S]*0\.56[\s\S]*0\.9[\s\S]*\)/i, 'Expected a radial mask overlay.');
+assertMatches(css, /body::before[\s\S]*linear-gradient\(180deg,[\s\S]*0\.9[\s\S]*0\.86\)/i, 'Expected a stronger dark scrim overlay.');
+assertMatches(css, /body::after[\s\S]*radial-gradient\([\s\S]*ellipse at center[\s\S]*0\.08[\s\S]*0\.62[\s\S]*0\.94[\s\S]*\)/i, 'Expected a centered vignette overlay.');
 assertMatches(readRepoFile('assets/js/matrix.js'), /fadeFill\s*=\s*'rgba\(11, 8, 20, 0\.4\)'/i, 'Expected reduced matrix contrast.');
 
 // 2) Single centered container and aligned grid.
-assertMatches(css, /\.layout[\s\S]*max-width:\s*1120px/i, 'Expected centered container width between 1040 and 1200.');
-assertMatches(css, /\.site-header[\s\S]*padding:\s*var\(--space-4\)/i, 'Expected top bar to use shared card spacing.');
-assertMatches(css, /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*0\.95fr\)\s*minmax\(0,\s*1\.05fr\)/i, 'Expected two-column layout with consistent gap.');
+assertMatches(css, /\.layout[\s\S]*max-width:\s*1160px/i, 'Expected centered shell width within target range.');
+assertMatches(css, /\.layout[\s\S]*padding:\s*24px\s*28px/i, 'Expected shell padding to match spacing requirements.');
+assertMatches(css, /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*1\.2fr\)\s*minmax\(0,\s*0\.8fr\)/i, 'Expected normalized 60\/40 desktop grid.');
 
 // 3) Spacing scale consistency.
 assertMatches(css, /--space-2:\s*16px/i, 'Expected 16px spacing increment token.');
@@ -28,16 +28,16 @@ assertNotMatches(css, /\.site-main\s*\{[^}]*border-radius:\s*9999px/i, 'Did not 
 
 // 5) Typography hierarchy.
 assertMatches(css, /\.site-title[\s\S]*font-size:\s*1\.75rem[\s\S]*font-weight:\s*700/i, 'Expected page title hierarchy.');
-assertMatches(css, /\.section-title[\s\S]*font-size:\s*1\.05rem[\s\S]*font-weight:\s*600/i, 'Expected section title hierarchy.');
+assertMatches(css, /\.section-title[\s\S]*font-size:\s*1rem[\s\S]*font-weight:\s*600/i, 'Expected consistent section title hierarchy.');
 assertMatches(css, /\.post-title[\s\S]*font-size:\s*0\.98rem[\s\S]*font-weight:\s*600/i, 'Expected row title hierarchy.');
 assertMatches(css, /\.post-date[\s\S]*font-size:\s*0\.78rem[\s\S]*font-weight:\s*500[\s\S]*line-height:\s*1\.5/i, 'Expected compact muted metadata styles.');
 
 // 6) Recent posts as a real list row shape.
 assertMatches(app, /className\s*=\s*'post-chevron'/i, 'Expected row affordance chevron.');
-assertMatches(css, /\.post-row:hover,[\s\S]*border-color:[\s\S]*transform:\s*translateY\(-1px\)/i, 'Expected consistent row hover/focus state.');
+assertMatches(css, /\.post-row:hover,[\s\S]*border-color:[\s\S]*transform:\s*translateX\(2px\)/i, 'Expected consistent row hover/focus state.');
 
 // 7) Left module simplified from 2x2 to one feature.
-assertMatches(css, /\.featured-card[\s\S]*min-height:\s*280px/i, 'Expected one featured card column.');
+assertMatches(css, /\.featured-card[\s\S]*min-height:\s*260px/i, 'Expected one featured card column.');
 assertMatches(app, /function createFeaturedPost\(post\)/i, 'Expected one featured post item.');
 
 // 8) Unified radii, borders, and shadows.
