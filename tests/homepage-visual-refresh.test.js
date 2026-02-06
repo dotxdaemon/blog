@@ -18,18 +18,18 @@ assertMatches(
 );
 assertMatches(
   css,
-  /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*1\.1fr\)\s+minmax\(0,\s*0\.9fr\)/i,
+  /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i,
   'Expected the homepage main area to use a weighted two-column grid.'
 );
 assertMatches(
   css,
-  /\.track-list[\s\S]*grid-template-columns:\s*1fr/i,
-  'Expected the featured module to use a single primary track card instead of a 2x2 grid.'
+  /\.featured-card[\s\S]*min-height:\s*280px/i,
+  'Expected the featured module to use a single primary card block.'
 );
 assertMatches(
   appSource,
-  /renderRecentTracks\(tracks\.slice\(0,\s*1\)\)/i,
-  'Expected the music widget to render one featured track card.'
+  /function createFeaturedPost\(post\)/i,
+  'Expected the page script to build a featured post block.'
 );
 assertMatches(
   appSource,

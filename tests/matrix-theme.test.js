@@ -7,7 +7,7 @@ const matrixScript = readRepoFile('assets/js/matrix.js');
 
 assertMatches(
   styles,
-  /--paper:\s*#0b0814;/i,
+  /--paper:\s*#070610;/i,
   'Expected the background paper color to use the lavender matrix palette.'
 );
 assertMatches(

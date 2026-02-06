@@ -6,7 +6,7 @@ const { readStyles } = require('./helpers');
 const css = readStyles();
 const hexMatches = css.match(/#[0-9a-fA-F]{3,6}/g) || [];
 const normalized = hexMatches.map((value) => value.toUpperCase());
-const allowed = new Set(['#0B0814', '#ECE5FF', '#B7ACD2', '#D2B9FF']);
+const allowed = new Set(['#070610', '#ECE5FF', '#D2B9FF']);
 
 normalized.forEach((value) => {
   assert.ok(allowed.has(value), `Unexpected color value found: ${value}`);

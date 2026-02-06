@@ -1,5 +1,5 @@
 <!-- ABOUTME: Provides the monochrome brutalist homepage for the static blog. -->
-<!-- ABOUTME: Defines the header, navigation, recent posts stream, and footer. -->
+<!-- ABOUTME: Defines the header, featured post, recent posts stream, and footer. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,13 +14,18 @@
       <header class="site-header">
         <div class="site-header__inner">
           <h1 class="site-title">velvetdaemon</h1>
+          <nav class="site-nav" aria-label="Primary">
+            <a href="index.html">Home</a>
+            <a href="archives.html">Archives</a>
+            <a href="search.html">Search</a>
+          </nav>
         </div>
       </header>
 
       <main class="site-main">
-        <section class="last-played" data-last-played aria-label="Last played">
-          <div class="last-played__status" data-last-played-status></div>
-          <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
+        <section class="featured" aria-labelledby="featured-post">
+          <h2 class="section-title" id="featured-post">Featured</h2>
+          <article class="featured-card" id="featured-card"></article>
         </section>
 
         <section class="post-stream" aria-labelledby="recent-posts">
@@ -29,8 +34,6 @@
         </section>
       </main>
       <footer class="site-footer"></footer>
-
-
     </div>
 
     <script src="assets/js/posts.js"></script>

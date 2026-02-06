@@ -14,7 +14,7 @@ assertMatches(readRepoFile('assets/js/matrix.js'), /fadeFill\s*=\s*'rgba\(11, 8,
 // 2) Single centered container and aligned grid.
 assertMatches(css, /\.layout[\s\S]*max-width:\s*1120px/i, 'Expected centered container width between 1040 and 1200.');
 assertMatches(css, /\.site-header[\s\S]*padding:\s*var\(--space-4\)/i, 'Expected top bar to use shared card spacing.');
-assertMatches(css, /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*1\.1fr\)\s+minmax\(0,\s*0\.9fr\)/i, 'Expected two-column layout with consistent gap.');
+assertMatches(css, /@media\s*\(min-width:\s*900px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i, 'Expected two-column layout with consistent gap.');
 
 // 3) Spacing scale consistency.
 assertMatches(css, /--space-2:\s*8px/i, 'Expected 8px spacing increment token.');
@@ -37,14 +37,14 @@ assertMatches(app, /className\s*=\s*'post-chevron'/i, 'Expected row affordance c
 assertMatches(css, /\.post-row:hover,[\s\S]*border-color:[\s\S]*transform:\s*translateY\(-1px\)/i, 'Expected consistent row hover/focus state.');
 
 // 7) Left module simplified from 2x2 to one feature.
-assertMatches(css, /\.track-list[\s\S]*grid-template-columns:\s*1fr/i, 'Expected one featured tile column.');
-assertMatches(app, /renderRecentTracks\(tracks\.slice\(0,\s*1\)\)/i, 'Expected one featured track item.');
+assertMatches(css, /\.featured-card[\s\S]*min-height:\s*280px/i, 'Expected one featured card column.');
+assertMatches(app, /function createFeaturedPost\(post\)/i, 'Expected one featured post item.');
 
 // 8) Unified radii, borders, and shadows.
 assertMatches(css, /--radius:\s*16px/i, 'Expected one primary radius token.');
 assertMatches(css, /--radius-sm:\s*12px/i, 'Expected one secondary radius token.');
 assertMatches(css, /--border:\s*rgba\(255,\s*255,\s*255,\s*0\.08\)/i, 'Expected low-opacity unified border color.');
-assertMatches(css, /--shadow:\s*0\s*14px\s*28px\s*rgba\(8,\s*5,\s*16,\s*0\.42\)/i, 'Expected soft shared shadow token.');
+assertMatches(css, /--shadow:\s*0\s*12px\s*40px\s*rgba\(0,\s*0,\s*0,\s*0\.45\)/i, 'Expected soft shared shadow token.');
 
 // 9) Main surface model and footer cleanup.
 assertMatches(html, /<main[^>]*class="site-main"/i, 'Expected one main surface card wrapper.');
