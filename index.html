@@ -23,10 +23,18 @@
       </header>
 
       <main class="site-main">
-        <section class="featured" aria-labelledby="featured-post">
-          <h2 class="section-title" id="featured-post">Featured</h2>
-          <article class="featured-card" id="featured-card"></article>
-        </section>
+        <div class="left-column">
+          <section class="last-played" data-last-played aria-label="Last played">
+            <h2 class="section-title" id="last-played">Last Played</h2>
+            <div class="last-played__status" data-last-played-status></div>
+            <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
+          </section>
+
+          <section class="featured" aria-labelledby="featured-post">
+            <h2 class="section-title" id="featured-post">Featured</h2>
+            <article class="featured-card" id="featured-card"></article>
+          </section>
+        </div>
 
         <section class="post-stream" aria-labelledby="recent-posts">
           <h2 class="section-title" id="recent-posts">Recent Posts</h2>

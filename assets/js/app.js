@@ -43,6 +43,7 @@ if (buildStampEl) {
 
 setupNavToggle();
 setupMatrixRain();
+setupListeningWidgets();
 
 function createEmptyPost() {
   const entry = document.createElement('article');

@@ -1,5 +1,5 @@
 // ABOUTME: Confirms the homepage layout matches the required sections.
-// ABOUTME: Ensures header, navigation, posts, and featured widgets exist.
+// ABOUTME: Ensures header, navigation, posts, and Last.fm widgets exist.
 const assert = require('assert');
 const { readIndexHtml } = require('./helpers');
 
@@ -22,4 +22,4 @@ assert.ok(
   'Expected the Recent Posts section to include a heading.'
 );
 assert.ok(/id="posts"/i.test(html), 'Expected the posts container to be present.');
-assert.ok(/id="featured-card"/i.test(html), 'Expected the featured widget to be present.');
+assert.ok(/data-last-played/i.test(html), 'Expected the Last.fm widget to be present.');
