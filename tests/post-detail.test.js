@@ -20,3 +20,8 @@ assertMatches(
   /\.post-content[\s\S]*white-space:\s*pre-wrap;/,
   'Expected post content to preserve line breaks.'
 );
+assertNotMatches(
+  styles,
+  /^\.post-title\s*\{[^}]*text-overflow:\s*ellipsis;[^}]*white-space:\s*nowrap;/m,
+  'Expected post title truncation styles to avoid the global .post-title selector.'
+);

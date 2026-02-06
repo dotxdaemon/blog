@@ -346,6 +346,9 @@ input:focus-visible {
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1.4;
+}
+
+.post-row .post-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -521,7 +524,7 @@ button {
     padding: var(--space-2);
   }
 
-  .post-title {
+  .post-row .post-title {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     display: -webkit-box;
