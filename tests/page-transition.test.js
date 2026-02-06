@@ -10,7 +10,7 @@ assert.ok(transitions.length > 0, 'Expected transition declarations in the style
 
 transitions.forEach((transition) => {
   assert.ok(
-    /transition\s*:\s*color\s+150ms\s+ease,\s*background-color\s+150ms\s+ease/i.test(transition),
-    `Expected transition timing to match the shared hover timing, found: ${transition}`
+    /150ms\s+ease/i.test(transition),
+    `Expected transition timing to keep the shared 150ms easing, found: ${transition}`
   );
 });

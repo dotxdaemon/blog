@@ -2,14 +2,22 @@
 /* ABOUTME: Handles post formatting and responsive menu interactions. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const postList = document.getElementById('posts');
+const featuredCard = document.getElementById('featured-card');
+
+const orderedPosts = posts
+  .filter((post) => post && post.title && post.date)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+if (featuredCard) {
+  featuredCard.innerHTML = '';
+  if (!orderedPosts.length) {
+    featuredCard.appendChild(createEmptyPost());
+  } else {
+    featuredCard.appendChild(createFeaturedPost(orderedPosts[0]));
+  }
+}
 
 if (postList) {
-  const prefersReducedMotion =
-    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const orderedPosts = posts
-    .filter((post) => post && post.title && post.date)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
   postList.innerHTML = '';
 
   if (!orderedPosts.length) {
@@ -118,6 +126,40 @@ function createPostEntry(post, index, shouldReduceMotion, isFeatured) {
   return item;
 }
 
+
+function createFeaturedPost(post) {
+  const article = document.createElement('article');
+  article.className = 'featured-content';
+
+  const date = document.createElement('time');
+  date.className = 'featured-date';
+  date.dateTime = post.date;
+  date.textContent = formatDate(post.date) || post.date;
+
+  const title = document.createElement('h3');
+  title.className = 'featured-title';
+  const link = document.createElement('a');
+  link.className = 'featured-link';
+  link.href = `post.html?slug=${slugify(post.title)}`;
+  link.textContent = post.title;
+  title.appendChild(link);
+
+  const excerpt = document.createElement('p');
+  excerpt.className = 'featured-excerpt';
+  excerpt.textContent = deriveExcerpt(post).text || 'Read the latest note and updates.';
+
+  const tags = document.createElement('p');
+  tags.className = 'featured-tags';
+  const tagList = Array.isArray(post.tags) && post.tags.length ? post.tags.slice(0, 3) : ['notes'];
+  tags.textContent = tagList.map((tag) => `#${tag}`).join(' ');
+
+  article.appendChild(date);
+  article.appendChild(title);
+  article.appendChild(excerpt);
+  article.appendChild(tags);
+  return article;
+}
+
 function createPostLink(post) {
   const entry = document.createElement('article');
   entry.className = 'post-row invert-on-hover';
@@ -139,7 +181,7 @@ function createPostLink(post) {
   const time = document.createElement('time');
   time.className = 'post-date';
   time.dateTime = post.date;
-  time.textContent = post.date;
+  time.textContent = formatDate(post.date) || post.date;
 
   const title = document.createElement('h2');
   title.className = 'post-title';
@@ -149,8 +191,14 @@ function createPostLink(post) {
   link.textContent = post.title;
   title.appendChild(link);
 
+  const chevron = document.createElement('span');
+  chevron.className = 'post-chevron';
+  chevron.setAttribute('aria-hidden', 'true');
+  chevron.textContent = '›';
+
   entry.appendChild(time);
   entry.appendChild(title);
+  entry.appendChild(chevron);
   return entry;
 }
 
@@ -406,7 +454,7 @@ function setupListeningWidgets() {
     });
 
   function updateTrackGrid(tracks) {
-    renderRecentTracks(tracks.slice(0, 4));
+    renderRecentTracks(tracks.slice(0, 1));
   }
 
   function renderLastPlayedEmpty() {

@@ -1,10 +1,15 @@
-// ABOUTME: Ensures the homepage removes the top navigation links.
-// ABOUTME: Confirms the nav block is not rendered in the header.
-const { assertNotMatches, readIndexHtml } = require('./helpers');
+// ABOUTME: Ensures the homepage includes a compact top navigation.
+// ABOUTME: Confirms the header nav block renders quick links.
+const { assertMatches, readIndexHtml } = require('./helpers');
 
 const html = readIndexHtml();
-assertNotMatches(
+assertMatches(
   html,
   /<nav[^>]*class="site-nav"/i,
-  'Expected the homepage header to omit the navigation links.'
+  'Expected the homepage header to include navigation links.'
+);
+assertMatches(
+  html,
+  /<a[^>]*href="archives\.html"/i,
+  'Expected the homepage nav to include an archives link.'
 );

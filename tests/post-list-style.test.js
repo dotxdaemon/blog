@@ -11,8 +11,8 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*grid-template-columns:\s*minmax\(120px,\s*160px\)\s+1fr/i,
-  'Expected post rows to separate dates and titles into two columns.'
+  /\.post-row[\s\S]*grid-template-columns:\s*minmax\(90px,\s*130px\)\s+1fr\s+auto/i,
+  'Expected post rows to separate dates, titles, and affordance into three columns.'
 );
 assertMatches(
   css,
@@ -26,7 +26,7 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*gap:\s*var\(--space-2\)/i,
+  /\.post-row[\s\S]*gap:\s*var\(--space-3\)/i,
   'Expected post rows to use the shared spacing scale.'
 );
 assertMatches(
