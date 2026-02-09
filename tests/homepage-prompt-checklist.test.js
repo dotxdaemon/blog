@@ -9,7 +9,7 @@ const app = readRepoFile('assets/js/app.js');
 // 1) Background treatment over the matrix canvas.
 assertMatches(css, /body::before[\s\S]*linear-gradient\(180deg,[\s\S]*0\.9[\s\S]*0\.86\)/i, 'Expected a stronger dark scrim overlay.');
 assertMatches(css, /body::after[\s\S]*radial-gradient\([\s\S]*ellipse at center[\s\S]*0\.08[\s\S]*0\.62[\s\S]*0\.94[\s\S]*\)/i, 'Expected a centered vignette overlay.');
-assertMatches(readRepoFile('assets/js/matrix.js'), /fadeFill\s*=\s*'rgba\(11, 8, 20, 0\.4\)'/i, 'Expected reduced matrix contrast.');
+assertMatches(readRepoFile('assets/js/matrix.js'), /fadeFill\s*=\s*'rgba\(0, 0, 0, 0\.4\)'/i, 'Expected reduced matrix contrast.');
 
 // 2) Single centered container and aligned grid.
 assertMatches(css, /\.layout[\s\S]*max-width:\s*1160px/i, 'Expected centered shell width within target range.');

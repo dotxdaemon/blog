@@ -3,13 +3,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --ink: #ece5ff;
-  --paper: #070610;
-  --surface: rgba(15, 12, 30, 0.94);
-  --surface-soft: rgba(20, 15, 36, 0.88);
+  --ink: #ffffff;
+  --paper: #000000;
+  --surface: rgba(0, 0, 0, 0.94);
+  --surface-soft: rgba(12, 12, 12, 0.88);
   --text: rgba(255, 255, 255, 0.92);
   --muted: rgba(255, 255, 255, 0.62);
-  --accent: #d2b9ff;
+  --accent: #ffffff;
   --border: rgba(255, 255, 255, 0.08);
   --border-width: 1px;
   --radius: 14px;
@@ -58,16 +58,16 @@ body::after {
 }
 
 body::before {
-  background: linear-gradient(180deg, rgba(4, 3, 10, 0.9), rgba(2, 2, 7, 0.86));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.86));
   z-index: 0;
 }
 
 body::after {
   background: radial-gradient(
     ellipse at center,
-    rgba(7, 5, 14, 0.08) 0%,
-    rgba(7, 5, 14, 0.62) 60%,
-    rgba(7, 5, 14, 0.94) 100%
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.62) 60%,
+    rgba(0, 0, 0, 0.94) 100%
   );
   z-index: 0;
 }
@@ -142,8 +142,8 @@ input:focus-visible {
 }
 
 .site-nav a[aria-current='page'] {
-  background-color: rgba(210, 185, 255, 0.22);
-  border-color: rgba(210, 185, 255, 0.82);
+  background-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.82);
   color: var(--ink);
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -152,13 +152,13 @@ input:focus-visible {
 
 .site-nav a[aria-current='page']:hover,
 .site-nav a[aria-current='page']:focus-visible {
-  background-color: rgba(210, 185, 255, 0.3);
-  border-color: rgba(210, 185, 255, 1);
+  background-color: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 1);
 }
 
 .site-nav a[aria-current='page']:active {
-  background-color: rgba(210, 185, 255, 0.36);
-  border-color: rgba(236, 229, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.92);
 }
 
 .site-main {
@@ -294,8 +294,8 @@ input:focus-visible {
 .featured-card {
   align-items: end;
   background:
-    linear-gradient(160deg, rgba(35, 24, 62, 0.92), rgba(11, 9, 20, 0.95)),
-    radial-gradient(circle at 18% 18%, rgba(210, 185, 255, 0.16), rgba(0, 0, 0, 0) 54%);
+    linear-gradient(160deg, rgba(20, 20, 20, 0.92), rgba(0, 0, 0, 0.95)),
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0) 54%);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -377,7 +377,7 @@ input:focus-visible {
 .track-link:hover,
 .track-link:focus-visible,
 .track-link:focus-within {
-  background-color: rgba(28, 21, 47, 0.94);
+  background-color: rgba(18, 18, 18, 0.94);
   border-color: rgba(255, 255, 255, 0.22);
   transform: translateX(2px);
 }
@@ -419,7 +419,7 @@ input:focus-visible {
 .post-row:hover,
 .post-row:focus-visible,
 .post-row:focus-within {
-  background-color: rgba(28, 21, 47, 0.94);
+  background-color: rgba(18, 18, 18, 0.94);
   border-color: rgba(255, 255, 255, 0.22);
   transform: translateX(2px);
 }
