@@ -1,5 +1,5 @@
-// ABOUTME: Validates the homepage against the requested visual checklist.
-// ABOUTME: Confirms scrim, layout, spacing, typography, and module structure requirements.
+// ABOUTME: Validates the homepage against the requested flat visual checklist.
+// ABOUTME: Confirms gradients, hover effects, and featured module are removed.
 const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile, readStyles } = require('./helpers');
 
 const html = readIndexHtml();
@@ -7,8 +7,8 @@ const css = readStyles();
 const app = readRepoFile('assets/js/app.js');
 
 // 1) Background treatment over the matrix canvas.
-assertMatches(css, /body::before[\s\S]*linear-gradient\(180deg,[\s\S]*0\.9[\s\S]*0\.86\)/i, 'Expected a stronger dark scrim overlay.');
-assertMatches(css, /body::after[\s\S]*radial-gradient\([\s\S]*ellipse at center[\s\S]*0\.08[\s\S]*0\.62[\s\S]*0\.94[\s\S]*\)/i, 'Expected a centered vignette overlay.');
+assertMatches(css, /body::before[\s\S]*background:\s*rgba\(0,\s*0,\s*0,\s*0\.9\)/i, 'Expected a flat dark scrim overlay.');
+assertNotMatches(css, /gradient\(/i, 'Did not expect gradients in styles.');
 assertMatches(readRepoFile('assets/js/matrix.js'), /fadeFill\s*=\s*'rgba\(0, 0, 0, 0\.4\)'/i, 'Expected reduced matrix contrast.');
 
 // 2) Single centered container and aligned grid.
@@ -32,19 +32,23 @@ assertMatches(css, /\.section-title[\s\S]*font-size:\s*1rem[\s\S]*font-weight:\s
 assertMatches(css, /\.post-title[\s\S]*font-size:\s*0\.98rem[\s\S]*font-weight:\s*600/i, 'Expected row title hierarchy.');
 assertMatches(css, /\.post-date[\s\S]*font-size:\s*0\.78rem[\s\S]*font-weight:\s*500[\s\S]*line-height:\s*1\.5/i, 'Expected compact muted metadata styles.');
 
-// 6) Recent posts as a real list row shape.
+// 6) Recent posts as a flat list section.
 assertMatches(app, /className\s*=\s*'post-chevron'/i, 'Expected row affordance chevron.');
-assertMatches(css, /\.post-row:hover,[\s\S]*border-color:[\s\S]*transform:\s*translateX\(2px\)/i, 'Expected consistent row hover/focus state.');
+assertNotMatches(css, /\.post-row:hover/i, 'Did not expect hover-specific post row styles.');
+
+assertMatches(css, /\.post-stream[\s\S]*display:\s*flex[\s\S]*flex-direction:\s*column/i, 'Expected recent posts section to keep a simple flat column layout.');
+assertNotMatches(css, /\.post-row\s*\{[^}]*border-radius:/i, 'Did not expect rounded row corners in recent posts.');
+assertNotMatches(css, /\.post-row\s*\{[^}]*background-color:/i, 'Did not expect row background fill in recent posts.');
 
 // 7) Left module simplified from 2x2 to one feature.
-assertMatches(css, /\.featured-card[\s\S]*min-height:\s*260px/i, 'Expected one featured card column.');
-assertMatches(app, /function createFeaturedPost\(post\)/i, 'Expected one featured post item.');
+assertNotMatches(html, /<section[^>]*class="[^"]*featured[^"]*"/i, 'Did not expect a featured section.');
+assertNotMatches(app, /function createFeaturedPost\(post\)/i, 'Did not expect featured post rendering.');
 
 // 8) Unified radii, borders, and shadows.
-assertMatches(css, /--radius:\s*14px/i, 'Expected one primary radius token.');
+assertMatches(css, /--radius:\s*0px/i, 'Expected flat zero-radius token.');
 assertMatches(css, /--radius-sm:\s*var\(--radius\)/i, 'Expected one shared radius token across components.');
 assertMatches(css, /--border:\s*rgba\(255,\s*255,\s*255,\s*0\.08\)/i, 'Expected low-opacity unified border color.');
-assertMatches(css, /--shadow:\s*0\s*12px\s*40px\s*rgba\(0,\s*0,\s*0,\s*0\.45\)/i, 'Expected soft shared shadow token.');
+assertMatches(css, /--shadow:\s*none/i, 'Expected no shared shadow token for flat styling.');
 
 // 9) Main surface model and footer cleanup.
 assertMatches(html, /<main[^>]*class="site-main"/i, 'Expected one main surface card wrapper.');

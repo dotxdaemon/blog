@@ -1,16 +1,9 @@
-// ABOUTME: Ensures hover interactions use subtle transitions.
-// ABOUTME: Confirms transition declarations match the shared timing.
+// ABOUTME: Ensures the homepage stylesheet stays flat without transition effects.
+// ABOUTME: Confirms interaction styles do not include transition declarations.
 const assert = require('assert');
 const { readStyles } = require('./helpers');
 
 const css = readStyles();
 const transitions = css.match(/transition\s*:[^;]+;/gi) || [];
 
-assert.ok(transitions.length > 0, 'Expected transition declarations in the stylesheet.');
-
-transitions.forEach((transition) => {
-  assert.ok(
-    /150ms\s+ease/i.test(transition),
-    `Expected transition timing to keep the shared 150ms easing, found: ${transition}`
-  );
-});
+assert.strictEqual(transitions.length, 0, 'Did not expect transition declarations in the stylesheet.');

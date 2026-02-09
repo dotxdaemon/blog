@@ -1,26 +1,10 @@
-// ABOUTME: Ensures the Last.fm widget renders album artwork tiles.
-// ABOUTME: Confirms the widget builds image elements and artist overlays.
-const { assertMatches, readRepoFile } = require('./helpers');
+// ABOUTME: Ensures the listening section renders album entries from script data.
+// ABOUTME: Confirms the page script builds album title and artist lines.
+const { assertMatches, assertNotMatches, readRepoFile } = require('./helpers');
 
 const script = readRepoFile('assets/js/app.js');
 
-assertMatches(
-  script,
-  /createElement\(['"]img['"]\)/i,
-  'Expected the Last.fm widget to create album artwork images.'
-);
-assertMatches(
-  script,
-  /track-image/i,
-  'Expected the Last.fm widget to apply a track-image class.'
-);
-assertMatches(
-  script,
-  /track-overlay/i,
-  'Expected the Last.fm widget to render an artist overlay.'
-);
-assertMatches(
-  script,
-  /track-title[\s\S]*track-artist/i,
-  'Expected the Last.fm widget overlay to include song and artist text lines.'
-);
+assertMatches(script, /className\s*=\s*['"]album-item['"]/i, 'Expected listening entries to use the album-item class.');
+assertMatches(script, /className\s*=\s*['"]album-title['"]/i, 'Expected listening entries to include an album title line.');
+assertMatches(script, /className\s*=\s*['"]album-artist['"]/i, 'Expected listening entries to include an album artist line.');
+assertNotMatches(script, /track-image/i, 'Did not expect track artwork rendering classes in the script.');

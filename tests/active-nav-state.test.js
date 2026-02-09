@@ -1,6 +1,6 @@
 // ABOUTME: Verifies current-page navigation links are explicitly marked in templates.
 // ABOUTME: Ensures active nav styling uses high contrast and remains clear on mobile.
-const { assertMatches, readRepoFile, readStyles } = require('./helpers');
+const { assertMatches, assertNotMatches, readRepoFile, readStyles } = require('./helpers');
 
 const indexHtml = readRepoFile('index.html');
 const archivesHtml = readRepoFile('archives.html');
@@ -8,11 +8,7 @@ const searchHtml = readRepoFile('search.html');
 const postsHtml = readRepoFile('posts.html');
 const css = readStyles();
 
-assertMatches(
-  indexHtml,
-  /<a[^>]*href="index\.html"[^>]*aria-current="page"/i,
-  'Expected index navigation to mark Home as the current page.'
-);
+assertNotMatches(indexHtml, /<nav[^>]*class="site-nav"/i, 'Did not expect navigation links in index.html header.');
 assertMatches(
   archivesHtml,
   /<a[^>]*href="archives\.html"[^>]*aria-current="page"/i,
@@ -38,11 +34,7 @@ assertMatches(
   /\.site-nav a\[aria-current='page'\][\s\S]*(border|text-decoration)/i,
   'Expected active navigation links to include a visible accent.'
 );
-assertMatches(
-  css,
-  /\.site-nav a\[aria-current='page'\]:hover[\s\S]*\.site-nav a\[aria-current='page'\]:active/i,
-  'Expected active navigation hover and active states to remain distinct.'
-);
+assertNotMatches(css, /\.site-nav a\[aria-current='page'\]:hover/i, 'Did not expect active navigation hover state styles.');
 assertMatches(
   css,
   /@media\s*\(max-width:\s*600px\)[\s\S]*\.site-nav a\[aria-current='page'\][\s\S]*(border|text-decoration|color)/i,

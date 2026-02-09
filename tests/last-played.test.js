@@ -1,21 +1,21 @@
-// ABOUTME: Ensures the Last.fm widget markup exists on the homepage.
-// ABOUTME: Confirms the widget includes status and track list containers.
+// ABOUTME: Ensures the listening section markup exists on the homepage.
+// ABOUTME: Confirms the widget includes an album list container.
 const { assertMatches, readIndexHtml } = require('./helpers');
 
 const html = readIndexHtml();
 
 assertMatches(
   html,
-  /<section[^>]*class="[^"]*last-played[^"]*"[^>]*data-last-played[^>]*>/i,
-  'Expected the Last.fm section to be present.'
+  /<section[^>]*class="[^"]*listening-to[^"]*"[^>]*data-listening-to[^>]*>/i,
+  'Expected the listening section to be present.'
 );
 assertMatches(
   html,
-  /data-last-played-status/i,
-  'Expected the Last.fm status element to be present.'
+  />Listening to</i,
+  'Expected the section heading to be Listening to.'
 );
 assertMatches(
   html,
-  /id="track-grid"/i,
-  'Expected the Last.fm track grid container to be present.'
+  /id="album-list"/i,
+  'Expected the album list container to be present.'
 );

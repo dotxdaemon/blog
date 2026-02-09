@@ -1,5 +1,5 @@
 <!-- ABOUTME: Provides the monochrome brutalist homepage for the static blog. -->
-<!-- ABOUTME: Defines the header, featured post, recent posts stream, and footer. -->
+<!-- ABOUTME: Defines the header, listening section, recent posts stream, and footer. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,33 +14,18 @@
       <header class="site-header">
         <div class="site-header__inner">
           <h1 class="site-title">velvetdaemon</h1>
-          <nav class="site-nav" aria-label="Primary">
-            <a href="index.html" aria-current="page">Home</a>
-            <a href="archives.html">Archives</a>
-            <a href="search.html">Search</a>
-          </nav>
         </div>
       </header>
 
       <main class="site-main">
         <div class="left-column">
-          <section class="last-played module-card" data-last-played aria-label="Last played">
-            <div class="module-header">
-              <h2 class="section-title" id="last-played">Last Played</h2>
-              <a class="module-link" href="https://www.last.fm/user/velvetdaemon" target="_blank" rel="noreferrer">Open in Last.fm</a>
-            </div>
-
-            <div class="last-played__status" data-last-played-status></div>
-            <ul class="track-list" id="track-grid" aria-label="Recent tracks"></ul>
-          </section>
-
-          <section class="featured module-card" aria-labelledby="featured-post">
-            <h2 class="section-title" id="featured-post">Featured</h2>
-            <article class="featured-card" id="featured-card"></article>
+          <section class="listening-to module-card" data-listening-to aria-label="Listening to">
+            <h2 class="section-title" id="listening-to">Listening to</h2>
+            <ul class="album-list" id="album-list" aria-label="Favorite albums"></ul>
           </section>
         </div>
 
-        <section class="post-stream module-card" aria-labelledby="recent-posts">
+        <section class="post-stream" aria-labelledby="recent-posts">
           <h2 class="section-title" id="recent-posts">Recent Posts</h2>
           <div class="post-list" id="posts"></div>
         </section>
@@ -50,6 +35,7 @@
 
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/matrix.js"></script>
+    <script src="assets/js/listening-to.js"></script>
     <script src="assets/js/app.js" type="module"></script>
   </body>
 </html>

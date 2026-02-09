@@ -1,16 +1,8 @@
-// ABOUTME: Confirms hover interactions use subtle emphasis transitions.
-// ABOUTME: Ensures the hover utility retains readable contrast while highlighting borders.
-const { assertMatches, readStyles } = require('./helpers');
+// ABOUTME: Confirms hover utility styles are removed for a flat presentation.
+// ABOUTME: Ensures no invert-on-hover transition remains in the homepage stylesheet.
+const { assertNotMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
 
-assertMatches(
-  css,
-  /\.invert-on-hover:hover[\s\S]*color:\s*var\(--ink\)/i,
-  'Expected hover styles to keep readable ink text.'
-);
-assertMatches(
-  css,
-  /\.invert-on-hover[\s\S]*transition:\s*color\s+150ms\s+ease,\s*background-color\s+150ms\s+ease,\s*border-color\s+150ms\s+ease/i,
-  'Expected hover styles to include color and border transitions.'
-);
+assertNotMatches(css, /\.invert-on-hover:hover/i, 'Did not expect hover styles for invert-on-hover utility.');
+assertNotMatches(css, /\.invert-on-hover[\s\S]*transition:/i, 'Did not expect transitions for invert-on-hover utility.');

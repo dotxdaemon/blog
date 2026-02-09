@@ -1,16 +1,12 @@
-// ABOUTME: Ensures homepage behavior preserves the Last.fm data flow.
-// ABOUTME: Confirms the Last.fm setup function is still invoked on load.
-const { assertMatches, readRepoFile } = require('./helpers');
+// ABOUTME: Ensures homepage behavior preserves the static listening list flow.
+// ABOUTME: Confirms the listening setup function is invoked on load.
+const { assertMatches, assertNotMatches, readRepoFile } = require('./helpers');
 
 const script = readRepoFile('assets/js/app.js');
 
 assertMatches(
   script,
-  /setupListeningWidgets\(\);/i,
-  'Expected homepage startup to invoke Last.fm widget setup.'
+  /setupListeningAlbums\(\);/i,
+  'Expected homepage startup to invoke listening section setup.'
 );
-assertMatches(
-  script,
-  /method=user\.getrecenttracks/i,
-  'Expected Last.fm recent tracks API usage to remain in app script.'
-);
+assertNotMatches(script, /method=user\.getrecenttracks/i, 'Did not expect Last.fm recent tracks API usage in app script.');
