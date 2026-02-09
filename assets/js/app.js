@@ -4,7 +4,11 @@ const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const dashboardData = window.VELVETDAEMON_DASHBOARD || {};
 const postList = document.getElementById('posts');
 const dashboardStatus = document.getElementById('dashboard-status');
+const dashboardStatusTextEl = document.querySelector('.dashboard-status-text');
 const dashboardTrack = document.getElementById('dashboard-track');
+const dashboardTrackTextEl = document.querySelector('.dashboard-track-text');
+const dashboardAlbumEl = document.getElementById('dashboard-album');
+const dashboardArtistEl = document.getElementById('dashboard-artist');
 
 const orderedPosts = posts
   .filter((post) => post && post.title && post.date)
@@ -13,18 +17,32 @@ const dashboardPosts = Array.isArray(dashboardData.posts) ? dashboardData.posts 
 const dashboardStatusText =
   typeof dashboardData.statusText === 'string' && dashboardData.statusText.trim()
     ? dashboardData.statusText
-    : 'Dashboard is live.';
+    : 'Dashboard is live';
 const dashboardTrackData = dashboardData.track && typeof dashboardData.track === 'object' ? dashboardData.track : {};
 
-if (dashboardStatus) {
-  dashboardStatus.textContent = dashboardStatusText;
+if (dashboardStatus && dashboardStatusTextEl) {
+  dashboardStatusTextEl.textContent = dashboardStatusText;
 }
 
 if (dashboardTrack) {
   const trackTitle = typeof dashboardTrackData.title === 'string' ? dashboardTrackData.title : '';
   const trackArtist = typeof dashboardTrackData.artist === 'string' ? dashboardTrackData.artist : '';
-  const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet.';
-  dashboardTrack.textContent = dashboardTrackText;
+  const trackAlbum = typeof dashboardTrackData.album === 'string' ? dashboardTrackData.album : '';
+  const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
+
+  if (dashboardTrackTextEl) {
+    dashboardTrackTextEl.textContent = dashboardTrackText;
+  }
+
+  dashboardTrack.classList.toggle('is-empty', !(trackTitle || trackArtist));
+
+  if (dashboardAlbumEl) {
+    dashboardAlbumEl.textContent = trackAlbum || '—';
+  }
+
+  if (dashboardArtistEl) {
+    dashboardArtistEl.textContent = trackArtist || '—';
+  }
 }
 
 if (postList) {
@@ -159,7 +177,7 @@ function formatDate(isoString) {
 
   return new Intl.DateTimeFormat(undefined, {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
   }).format(date);
 }
