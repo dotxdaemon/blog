@@ -10,7 +10,10 @@ const orderedPosts = posts
   .filter((post) => post && post.title && post.date)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 const dashboardPosts = Array.isArray(dashboardData.posts) ? dashboardData.posts : orderedPosts;
-const dashboardStatusText = typeof dashboardData.statusText === 'string' ? dashboardData.statusText : '';
+const dashboardStatusText =
+  typeof dashboardData.statusText === 'string' && dashboardData.statusText.trim()
+    ? dashboardData.statusText
+    : 'Dashboard is live.';
 const dashboardTrackData = dashboardData.track && typeof dashboardData.track === 'object' ? dashboardData.track : {};
 
 if (dashboardStatus) {
@@ -20,7 +23,8 @@ if (dashboardStatus) {
 if (dashboardTrack) {
   const trackTitle = typeof dashboardTrackData.title === 'string' ? dashboardTrackData.title : '';
   const trackArtist = typeof dashboardTrackData.artist === 'string' ? dashboardTrackData.artist : '';
-  dashboardTrack.textContent = [trackTitle, trackArtist].filter(Boolean).join(' — ');
+  const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet.';
+  dashboardTrack.textContent = dashboardTrackText;
 }
 
 if (postList) {

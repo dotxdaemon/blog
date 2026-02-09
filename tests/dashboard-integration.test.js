@@ -9,4 +9,5 @@ assertMatches(html, /<main class="site-main"[^>]*data-dashboard/i, 'Expected hom
 assertMatches(html, /id="dashboard-status"/i, 'Expected homepage to include a status text target.');
 assertMatches(appScript, /const dashboardData = window\.VELVETDAEMON_DASHBOARD \|\| \{\}/, 'Expected dashboard data context to read from page globals.');
 assertMatches(appScript, /const dashboardPosts = Array\.isArray\(dashboardData\.posts\) \? dashboardData\.posts : orderedPosts/, 'Expected dashboard posts to fall back to site posts.');
-assertMatches(appScript, /const dashboardStatusText = typeof dashboardData\.statusText === 'string' \? dashboardData\.statusText : ''/, 'Expected dashboard status text to include an empty string fallback.');
+assertMatches(appScript, /const dashboardStatusText =[\s\S]*\? dashboardData\.statusText[\s\S]*: 'Dashboard is live\.'/, 'Expected dashboard status text to default to visible copy when not provided.');
+assertMatches(appScript, /const dashboardTrackText = \[trackTitle, trackArtist\]\.filter\(Boolean\)\.join\(' — '\) \|\| 'No track selected yet\.'/, 'Expected dashboard track text to include a visible fallback.');
