@@ -155,8 +155,8 @@ input:focus-visible {
 
 .module-card {
   background-color: var(--surface-soft);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
   padding: 20px;
 }
 
@@ -206,12 +206,15 @@ input:focus-visible {
 
 .track-link {
   align-items: center;
-  background-color: rgba(17, 13, 30, 0.9);
+  background-color: var(--surface-soft);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
   display: grid;
   gap: 12px;
   grid-template-columns: 52px 1fr;
   min-height: 84px;
   padding: 14px;
+  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
 }
 
 .track-image {
@@ -337,7 +340,7 @@ input:focus-visible {
 
 .post-row {
   align-items: center;
-  background-color: rgba(17, 13, 30, 0.9);
+  background-color: var(--surface-soft);
   border: var(--border-width) solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius);
   display: grid;
@@ -348,6 +351,14 @@ input:focus-visible {
   padding: 14px;
   text-align: left;
   transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+
+.track-link:hover,
+.track-link:focus-visible,
+.track-link:focus-within {
+  background-color: rgba(28, 21, 47, 0.94);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateX(2px);
 }
 
 .post-date {
