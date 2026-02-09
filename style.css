@@ -21,6 +21,13 @@
   --space-4: 32px;
   --space-5: 40px;
   --space-6: 48px;
+  --font-size-tertiary: 0.78rem;
+  --font-size-secondary: 1rem;
+  --font-size-primary: 1.85rem;
+  --font-size-primary-featured: 1.45rem;
+  --line-height-tertiary: 1.5;
+  --line-height-secondary: 1.35;
+  --line-height-primary: 1.2;
 }
 
 * {
@@ -112,9 +119,12 @@ input:focus-visible {
 }
 
 .site-title {
+  color: var(--text);
   font-size: 1.75rem;
+  font-size: var(--font-size-primary);
   font-weight: 700;
   letter-spacing: 0.02em;
+  line-height: var(--line-height-primary);
 }
 
 .site-nav {
@@ -163,8 +173,9 @@ input:focus-visible {
 
 .module-link {
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: var(--font-size-tertiary);
   font-weight: 500;
+  line-height: var(--line-height-tertiary);
 }
 
 .module-link:hover,
@@ -175,9 +186,9 @@ input:focus-visible {
 .last-played,
 .last-played__status {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: var(--font-size-tertiary);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: var(--line-height-tertiary);
 }
 
 .track-list {
@@ -229,9 +240,9 @@ input:focus-visible {
 .track-artist,
 .track-meta {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: var(--font-size-tertiary);
   font-weight: 500;
-  line-height: 1.4;
+  line-height: var(--line-height-tertiary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -278,16 +289,18 @@ input:focus-visible {
 .featured-date,
 .featured-tags {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: var(--font-size-tertiary);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: var(--line-height-tertiary);
 }
 
 .featured-title {
+  color: var(--text);
   font-size: 1.35rem;
+  font-size: var(--font-size-primary-featured);
   font-weight: 700;
   letter-spacing: 0.01em;
-  line-height: 1.25;
+  line-height: var(--line-height-primary);
 }
 
 .featured-link {
@@ -301,9 +314,12 @@ input:focus-visible {
 }
 
 .section-title {
+  color: var(--text);
   font-size: 1rem;
+  font-size: var(--font-size-secondary);
   font-weight: 600;
   letter-spacing: 0.02em;
+  line-height: var(--line-height-secondary);
   margin-bottom: 12px;
 }
 
@@ -337,15 +353,19 @@ input:focus-visible {
 .post-date {
   color: var(--muted);
   font-size: 0.78rem;
+  font-size: var(--font-size-tertiary);
   font-weight: 500;
   line-height: 1.5;
+  line-height: var(--line-height-tertiary);
 }
 
 .post-title {
+  color: var(--text);
   font-size: 0.98rem;
+  font-size: var(--font-size-secondary);
   font-weight: 600;
   letter-spacing: 0.02em;
-  line-height: 1.4;
+  line-height: var(--line-height-secondary);
 }
 
 .post-row .post-title {
