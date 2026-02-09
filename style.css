@@ -489,17 +489,19 @@ body {
 }
 
 .module-card {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
   transition: border-color 280ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .module-card:hover {
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
 }
 
 .section-title {
@@ -507,7 +509,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .dashboard-status {
@@ -540,7 +542,7 @@ body {
   align-content: center;
   gap: 8px;
   margin-bottom: 18px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .dashboard-track-icon {
@@ -550,7 +552,7 @@ body {
 }
 
 .dashboard-track-text {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .dashboard-fields {
@@ -564,13 +566,14 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .dashboard-field-label {
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .dashboard-field-value {
@@ -590,13 +593,13 @@ body {
 .post-title {
   font-size: 16px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   transition: color 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .post-date {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.45);
   font-variant-numeric: tabular-nums;
 }
 
