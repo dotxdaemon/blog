@@ -1,20 +1,35 @@
 /* ABOUTME: Renders the homepage layout, listening list, and post rows. */
 /* ABOUTME: Handles post formatting and responsive menu interactions. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
+const dashboardData = window.VELVETDAEMON_DASHBOARD || {};
 const postList = document.getElementById('posts');
+const dashboardStatus = document.getElementById('dashboard-status');
+const dashboardTrack = document.getElementById('dashboard-track');
 
 const orderedPosts = posts
   .filter((post) => post && post.title && post.date)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const dashboardPosts = Array.isArray(dashboardData.posts) ? dashboardData.posts : orderedPosts;
+const dashboardStatusText = typeof dashboardData.statusText === 'string' ? dashboardData.statusText : '';
+const dashboardTrackData = dashboardData.track && typeof dashboardData.track === 'object' ? dashboardData.track : {};
 
+if (dashboardStatus) {
+  dashboardStatus.textContent = dashboardStatusText;
+}
+
+if (dashboardTrack) {
+  const trackTitle = typeof dashboardTrackData.title === 'string' ? dashboardTrackData.title : '';
+  const trackArtist = typeof dashboardTrackData.artist === 'string' ? dashboardTrackData.artist : '';
+  dashboardTrack.textContent = [trackTitle, trackArtist].filter(Boolean).join(' — ');
+}
 
 if (postList) {
   postList.innerHTML = '';
 
-  if (!orderedPosts.length) {
+  if (!dashboardPosts.length) {
     postList.appendChild(createEmptyPost());
   } else {
-    orderedPosts.forEach((post) => {
+    dashboardPosts.forEach((post) => {
       postList.appendChild(createPostLink(post));
     });
   }

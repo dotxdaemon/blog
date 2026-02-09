@@ -182,6 +182,19 @@ input:focus-visible {
 }
 
 
+
+.dashboard-status {
+  color: var(--muted);
+  font-size: var(--font-size-tertiary);
+  line-height: var(--line-height-tertiary);
+  margin-bottom: 12px;
+}
+
+#dashboard-track {
+  margin-bottom: 12px;
+}
+
+
 .album-list {
   display: grid;
   gap: 12px;

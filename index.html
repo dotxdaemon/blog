@@ -17,10 +17,12 @@
         </div>
       </header>
 
-      <main class="site-main">
+      <main class="site-main" data-dashboard>
         <div class="left-column">
           <section class="listening-to module-card" data-listening-to aria-label="Listening to">
             <h2 class="section-title" id="listening-to">Listening to</h2>
+            <p class="dashboard-status" id="dashboard-status"></p>
+            <div class="album-item" id="dashboard-track" aria-live="polite"></div>
             <ul class="album-list" id="album-list" aria-label="Favorite albums"></ul>
           </section>
         </div>
@@ -33,6 +35,9 @@
       <footer class="site-footer"></footer>
     </div>
 
+    <script>
+      window.VELVETDAEMON_DASHBOARD = window.VELVETDAEMON_DASHBOARD || {};
+    </script>
     <script src="assets/js/posts.js"></script>
     <script src="assets/js/matrix.js"></script>
     <script src="assets/js/listening-to.js"></script>
