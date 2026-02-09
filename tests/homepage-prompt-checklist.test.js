@@ -32,9 +32,13 @@ assertMatches(css, /\.section-title[\s\S]*font-size:\s*1rem[\s\S]*font-weight:\s
 assertMatches(css, /\.post-title[\s\S]*font-size:\s*0\.98rem[\s\S]*font-weight:\s*600/i, 'Expected row title hierarchy.');
 assertMatches(css, /\.post-date[\s\S]*font-size:\s*0\.78rem[\s\S]*font-weight:\s*500[\s\S]*line-height:\s*1\.5/i, 'Expected compact muted metadata styles.');
 
-// 6) Recent posts as a real list row shape.
+// 6) Recent posts as a flat list section.
 assertMatches(app, /className\s*=\s*'post-chevron'/i, 'Expected row affordance chevron.');
 assertNotMatches(css, /\.post-row:hover/i, 'Did not expect hover-specific post row styles.');
+
+assertMatches(css, /\.post-stream[\s\S]*display:\s*flex[\s\S]*flex-direction:\s*column/i, 'Expected recent posts section to keep a simple flat column layout.');
+assertNotMatches(css, /\.post-row\s*\{[^}]*border-radius:/i, 'Did not expect rounded row corners in recent posts.');
+assertNotMatches(css, /\.post-row\s*\{[^}]*background-color:/i, 'Did not expect row background fill in recent posts.');
 
 // 7) Left module simplified from 2x2 to one feature.
 assertNotMatches(html, /<section[^>]*class="[^"]*featured[^"]*"/i, 'Did not expect a featured section.');

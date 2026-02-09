@@ -1,5 +1,5 @@
 // ABOUTME: Confirms the homepage layout matches the required sections.
-// ABOUTME: Ensures header, navigation, posts, and listening widgets exist.
+// ABOUTME: Ensures header, posts, and listening widgets exist.
 const assert = require('assert');
 const { readIndexHtml, readRepoFile } = require('./helpers');
 
@@ -38,3 +38,5 @@ assert.ok(
 );
 assert.ok(/id="posts"/i.test(html), 'Expected the posts container to be present.');
 assert.ok(/data-listening-to/i.test(html), 'Expected the listening section to be present.');
+
+assert.ok(!/<nav[^>]*class="site-nav"/i.test(html), 'Did not expect top-right navigation links on the homepage.');

@@ -8,11 +8,7 @@ const searchHtml = readRepoFile('search.html');
 const postsHtml = readRepoFile('posts.html');
 const css = readStyles();
 
-assertMatches(
-  indexHtml,
-  /<a[^>]*href="index\.html"[^>]*aria-current="page"/i,
-  'Expected index navigation to mark Home as the current page.'
-);
+assertNotMatches(indexHtml, /<nav[^>]*class="site-nav"/i, 'Did not expect navigation links in index.html header.');
 assertMatches(
   archivesHtml,
   /<a[^>]*href="archives\.html"[^>]*aria-current="page"/i,

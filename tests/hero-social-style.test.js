@@ -1,5 +1,5 @@
-// ABOUTME: Confirms the header layout uses a strict grid split for title and nav.
-// ABOUTME: Ensures the header grid defines distinct columns.
+// ABOUTME: Confirms the header layout keeps a single-column title presentation.
+// ABOUTME: Ensures the header grid uses one column without top-right links.
 const { assertMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
@@ -11,6 +11,6 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.site-header__inner[\s\S]*grid-template-columns:\s*1fr\s+auto/i,
-  'Expected the header grid to split title and navigation columns.'
+  /\.site-header__inner[\s\S]*grid-template-columns:\s*1fr/i,
+  'Expected the header grid to keep a single title column.'
 );
