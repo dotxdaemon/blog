@@ -1,10 +1,10 @@
-// ABOUTME: Verifies the refined stylesheet uses subtle depth cues.
-// ABOUTME: Ensures shadows are present while avoiding heavy filters.
+// ABOUTME: Verifies the dashboard stylesheet uses layered depth and subtle motion.
+// ABOUTME: Ensures glow, contrast, and transition effects are present and constrained.
 const { assertMatches, assertNotMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
 
-assertMatches(css, /box-shadow\s*:\s*var\(--shadow\)/i, 'Expected shared shadow tokens to be used.');
-assertNotMatches(css, /text-shadow\s*:/i, 'Did not expect text shadows in the stylesheet.');
-assertNotMatches(css, /filter\s*:/i, 'Did not expect filters in the stylesheet.');
-assertNotMatches(css, /opacity\s*:/i, 'Did not expect opacity changes in the stylesheet.');
+assertMatches(css, /text-shadow\s*:\s*0\s*0\s*40px\s*rgba\(255,\s*255,\s*255,\s*0\.1\)/i, 'Expected subtle header glow shadow.');
+assertMatches(css, /box-shadow\s*:\s*0\s*8px\s*32px\s*rgba\(0,\s*0,\s*0,\s*0\.6\)/i, 'Expected card drop shadow styling.');
+assertMatches(css, /backdrop-filter\s*:\s*blur\(12px\)/i, 'Expected card backdrop blur for contrast.');
+assertMatches(css, /transition\s*:[^;]*cubic-bezier\(0\.4,\s*0,\s*0\.2,\s*1\)/i, 'Expected smooth cubic-bezier transitions.');

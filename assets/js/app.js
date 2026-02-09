@@ -1,20 +1,57 @@
 /* ABOUTME: Renders the homepage layout, listening list, and post rows. */
 /* ABOUTME: Handles post formatting and responsive menu interactions. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
+const dashboardData = window.VELVETDAEMON_DASHBOARD || {};
 const postList = document.getElementById('posts');
+const dashboardStatus = document.getElementById('dashboard-status');
+const dashboardStatusTextEl = document.querySelector('.dashboard-status-text');
+const dashboardTrack = document.getElementById('dashboard-track');
+const dashboardTrackTextEl = document.querySelector('.dashboard-track-text');
+const dashboardAlbumEl = document.getElementById('dashboard-album');
+const dashboardArtistEl = document.getElementById('dashboard-artist');
 
 const orderedPosts = posts
   .filter((post) => post && post.title && post.date)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const dashboardPosts = Array.isArray(dashboardData.posts) ? dashboardData.posts : orderedPosts;
+const dashboardStatusText =
+  typeof dashboardData.statusText === 'string' && dashboardData.statusText.trim()
+    ? dashboardData.statusText
+    : 'Dashboard is live';
+const dashboardTrackData = dashboardData.track && typeof dashboardData.track === 'object' ? dashboardData.track : {};
 
+if (dashboardStatus && dashboardStatusTextEl) {
+  dashboardStatusTextEl.textContent = dashboardStatusText;
+}
+
+if (dashboardTrack) {
+  const trackTitle = typeof dashboardTrackData.title === 'string' ? dashboardTrackData.title : '';
+  const trackArtist = typeof dashboardTrackData.artist === 'string' ? dashboardTrackData.artist : '';
+  const trackAlbum = typeof dashboardTrackData.album === 'string' ? dashboardTrackData.album : '';
+  const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
+
+  if (dashboardTrackTextEl) {
+    dashboardTrackTextEl.textContent = dashboardTrackText;
+  }
+
+  dashboardTrack.classList.toggle('is-empty', !(trackTitle || trackArtist));
+
+  if (dashboardAlbumEl) {
+    dashboardAlbumEl.textContent = trackAlbum || '—';
+  }
+
+  if (dashboardArtistEl) {
+    dashboardArtistEl.textContent = trackArtist || '—';
+  }
+}
 
 if (postList) {
   postList.innerHTML = '';
 
-  if (!orderedPosts.length) {
+  if (!dashboardPosts.length) {
     postList.appendChild(createEmptyPost());
   } else {
-    orderedPosts.forEach((post) => {
+    dashboardPosts.forEach((post) => {
       postList.appendChild(createPostLink(post));
     });
   }
@@ -139,8 +176,7 @@ function formatDate(isoString) {
   }
 
   return new Intl.DateTimeFormat(undefined, {
-    year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
   }).format(date);
 }
