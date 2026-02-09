@@ -1,21 +1,12 @@
-/* ABOUTME: Renders the homepage layout, posts, and navigation behaviors. */
+/* ABOUTME: Renders the homepage layout, listening list, and post rows. */
 /* ABOUTME: Handles post formatting and responsive menu interactions. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const postList = document.getElementById('posts');
-const featuredCard = document.getElementById('featured-card');
 
 const orderedPosts = posts
   .filter((post) => post && post.title && post.date)
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-if (featuredCard) {
-  featuredCard.innerHTML = '';
-  if (!orderedPosts.length) {
-    featuredCard.appendChild(createEmptyPost());
-  } else {
-    featuredCard.appendChild(createFeaturedPost(orderedPosts[0]));
-  }
-}
 
 if (postList) {
   postList.innerHTML = '';
@@ -43,11 +34,11 @@ if (buildStampEl) {
 
 setupNavToggle();
 setupMatrixRain();
-setupListeningWidgets();
+setupListeningAlbums();
 
 function createEmptyPost() {
   const entry = document.createElement('article');
-  entry.className = 'post-row invert-on-hover';
+  entry.className = 'post-row';
 
   const meta = document.createElement('time');
   meta.className = 'post-date';
@@ -62,107 +53,9 @@ function createEmptyPost() {
   return entry;
 }
 
-function createPostEntry(post, index, shouldReduceMotion, isFeatured) {
-  const item = document.createElement('li');
-  item.className = 'post-list__item post-list__item--featured';
-
-  const entry = document.createElement('article');
-  entry.className = 'post-feature';
-
-  if (!shouldReduceMotion) {
-    const delay = Number.isFinite(index) ? index * 100 : 0;
-    entry.style.animation = 'decrypt-entry 240ms ease forwards';
-    entry.style.animationDelay = `${delay}ms`;
-  }
-
-  const slug = slugify(post.title);
-  const meta = document.createElement('p');
-  meta.className = 'post-feature__meta';
-
-  const formattedDate = formatDate(post.date);
-  const metaNodes = [];
-
-  if (formattedDate) {
-    const time = document.createElement('time');
-    time.className = 'post-snippet__date';
-    time.dateTime = post.date;
-    time.textContent = formattedDate;
-    metaNodes.push(time);
-  }
-
-  // Add reading time
-  if (post.body) {
-    const readingTime = document.createElement('span');
-    readingTime.className = 'post-snippet__reading-time';
-    const words = post.body.split(/\s+/).length;
-    const mins = Math.max(1, Math.ceil(words / 200));
-    readingTime.textContent = `${mins} min read`;
-    metaNodes.push(readingTime);
-  }
-
-  appendMetaSegments(meta, metaNodes);
-  entry.appendChild(meta);
-
-  const title = document.createElement('h3');
-  title.className = 'post-feature__title';
-  const titleLink = document.createElement('a');
-  titleLink.className = 'post-feature__link';
-  titleLink.href = `post.html?slug=${slug}`;
-  titleLink.textContent = post.title;
-  title.appendChild(titleLink);
-  entry.appendChild(title);
-
-  const { text: excerpt, isFromBody } = deriveExcerpt(post);
-  const shouldRenderExcerpt = Boolean(excerpt);
-
-  if (shouldRenderExcerpt) {
-    const excerptEl = document.createElement('p');
-    excerptEl.className = 'post-feature__subtitle';
-    excerptEl.textContent = excerpt;
-    entry.appendChild(excerptEl);
-  }
-
-  item.appendChild(entry);
-  return item;
-}
-
-
-function createFeaturedPost(post) {
-  const article = document.createElement('article');
-  article.className = 'featured-content';
-
-  const date = document.createElement('time');
-  date.className = 'featured-date';
-  date.dateTime = post.date;
-  date.textContent = formatDate(post.date) || post.date;
-
-  const title = document.createElement('h3');
-  title.className = 'featured-title';
-  const link = document.createElement('a');
-  link.className = 'featured-link';
-  link.href = `post.html?slug=${slugify(post.title)}`;
-  link.textContent = post.title;
-  title.appendChild(link);
-
-  const excerpt = document.createElement('p');
-  excerpt.className = 'featured-excerpt';
-  excerpt.textContent = deriveExcerpt(post).text || 'Read the latest note and updates.';
-
-  const tags = document.createElement('p');
-  tags.className = 'featured-tags';
-  const tagList = Array.isArray(post.tags) && post.tags.length ? post.tags.slice(0, 3) : ['notes'];
-  tags.textContent = tagList.map((tag) => `#${tag}`).join(' ');
-
-  article.appendChild(date);
-  article.appendChild(title);
-  article.appendChild(excerpt);
-  article.appendChild(tags);
-  return article;
-}
-
 function createPostLink(post) {
   const entry = document.createElement('article');
-  entry.className = 'post-row invert-on-hover';
+  entry.className = 'post-row';
   entry.tabIndex = 0;
   entry.setAttribute('role', 'link');
 
@@ -207,18 +100,6 @@ function slugify(text) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
-}
-
-function appendMetaSegments(container, nodes) {
-  const validNodes = nodes.filter(Boolean);
-  validNodes.forEach((node, index) => {
-    if (index > 0) {
-      const divider = document.createElement('span');
-      divider.textContent = '•';
-      container.appendChild(divider);
-    }
-    container.appendChild(node);
-  });
 }
 
 function formatDate(isoString) {
@@ -425,150 +306,34 @@ function setupMatrixRain() {
   }
 }
 
-function setupListeningWidgets() {
-  const section = document.querySelector('[data-last-played]');
-  const trackGrid = document.getElementById('track-grid');
-  if ((!section && !trackGrid) || typeof window.fetch !== 'function') return;
+function setupListeningAlbums() {
+  const albumList = document.getElementById('album-list');
+  if (!albumList) return;
 
-  const status = section ? section.querySelector('[data-last-played-status]') : null;
+  const albums = Array.isArray(window.LISTENING_TO_ALBUMS) ? window.LISTENING_TO_ALBUMS : [];
 
-  const username = 'velvetdaemon';
-  const apiKey = '2bbf4ee9e1f771ed5887745e562d499c';
-  const url =
-    'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks' +
-    `&user=${username}&api_key=${apiKey}&format=json&limit=4`;
-
-  renderTrackLoading();
-
-  fetch(url)
-    .then((response) => (response.ok ? response.json() : null))
-    .then((data) => {
-      const tracks = data && data.recenttracks && data.recenttracks.track;
-      if (!Array.isArray(tracks) || tracks.length === 0) {
-        renderEmptyState('No recent track found.');
-        return;
-      }
-
-      updateTrackGrid(tracks);
-    })
-    .catch(() => {
-      renderEmptyState('Unable to load Last.fm right now.');
-    });
-
-  function updateTrackGrid(tracks) {
-    renderRecentTracks(tracks.slice(0, 1));
-  }
-
-  function renderLastPlayedEmpty() {
-    if (status) {
-      status.textContent = 'No recent plays available yet.';
+  albumList.innerHTML = '';
+  albums.forEach((album) => {
+    if (!album || !album.title) {
+      return;
     }
-  }
-
-  function renderRecentTracks(tracks) {
-    if (!trackGrid) return;
-
-    trackGrid.innerHTML = '';
-    tracks.forEach((track) => {
-      const item = document.createElement('li');
-      item.className = 'track-card';
-
-      const link = document.createElement(track.url ? 'a' : 'div');
-      link.className = 'track-link';
-      if (track.url) {
-        link.href = track.url;
-        link.target = '_blank';
-        link.rel = 'noreferrer';
-      }
-
-      const image = document.createElement('img');
-      image.className = 'track-image';
-      image.alt = track.name || 'Album art';
-      const imageUrl = getTrackImage(track);
-      image.src = imageUrl || createTrackPlaceholder();
-
-      const overlay = document.createElement('div');
-      overlay.className = 'track-overlay';
-
-      const trackName = document.createElement('div');
-      trackName.className = 'track-title';
-      trackName.textContent = track.name || 'Unknown track';
-
-      const artistName = document.createElement('div');
-      artistName.className = 'track-artist';
-      artistName.textContent = (track.artist && track.artist['#text']) || 'Unknown artist';
-
-      const playedAt = document.createElement('div');
-      playedAt.className = 'track-meta';
-      playedAt.textContent = 'Played recently';
-
-      overlay.appendChild(trackName);
-      overlay.appendChild(artistName);
-      overlay.appendChild(playedAt);
-
-      link.appendChild(image);
-      link.appendChild(overlay);
-      item.appendChild(link);
-
-      trackGrid.appendChild(item);
-    });
-  }
-
-  function renderTrackGridEmpty(message) {
-    if (!trackGrid) return;
-    trackGrid.innerHTML = '';
 
     const item = document.createElement('li');
-    item.className = 'track-card';
+    item.className = 'album-item';
 
-    const statusCard = document.createElement('div');
-    statusCard.className = 'track-link';
+    const title = document.createElement('p');
+    title.className = 'album-title';
+    title.textContent = album.title;
 
-    const image = document.createElement('div');
-    image.className = 'track-image';
+    item.appendChild(title);
 
-    const text = document.createElement('div');
-    text.className = 'track-overlay';
-    const line = document.createElement('div');
-    line.className = 'track-artist';
-    line.textContent = message;
-    text.appendChild(line);
-
-    statusCard.appendChild(image);
-    statusCard.appendChild(text);
-    item.appendChild(statusCard);
-    trackGrid.appendChild(item);
-  }
-
-  function renderTrackLoading() {
-    renderTrackGridEmpty('Loading recent track…');
-  }
-
-  function renderEmptyState(message) {
-    renderLastPlayedEmpty();
-    renderTrackGridEmpty(message);
-  }
-
-  function createTrackPlaceholder() {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52"><rect width="100%" height="100%" fill="%23130f22"/><path d="M10 34h32" stroke="%234f4469" stroke-width="3"/></svg>';
-  }
-
-  function getTrackImage(track) {
-    if (!track || !Array.isArray(track.image)) {
-      return '';
+    if (album.artist) {
+      const artist = document.createElement('p');
+      artist.className = 'album-artist';
+      artist.textContent = album.artist;
+      item.appendChild(artist);
     }
 
-    const sizePreference = ['extralarge', 'large', 'medium', 'small'];
-    const preferred = sizePreference
-      .map((size) =>
-        track.image.find((image) => image && image.size === size && image['#text'])
-      )
-      .find((image) => image);
-    if (preferred) {
-      return preferred['#text'];
-    }
-
-    const fallback = track.image.find((image) => image && image['#text']);
-    return fallback ? fallback['#text'] : '';
-  }
+    albumList.appendChild(item);
+  });
 }

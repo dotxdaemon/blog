@@ -1,5 +1,5 @@
 /* ABOUTME: Styles the monochrome brutalist layout for the static blog homepage. */
-/* ABOUTME: Defines the grid, typography, borders, and hover inversion rules. */
+/* ABOUTME: Defines the grid, typography, and flat surface rules. */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -12,9 +12,9 @@
   --accent: #ffffff;
   --border: rgba(255, 255, 255, 0.08);
   --border-width: 1px;
-  --radius: 14px;
+  --radius: 0px;
   --radius-sm: var(--radius);
-  --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --shadow: none;
   --space-1: 8px;
   --space-2: 16px;
   --space-3: 24px;
@@ -58,17 +58,12 @@ body::after {
 }
 
 body::before {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.86));
+  background: rgba(0, 0, 0, 0.9);
   z-index: 0;
 }
 
 body::after {
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 0, 0, 0.08) 0%,
-    rgba(0, 0, 0, 0.62) 60%,
-    rgba(0, 0, 0, 0.94) 100%
-  );
+  background: transparent;
   z-index: 0;
 }
 
@@ -93,9 +88,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  color: var(--accent);
-}
 
 a:focus-visible,
 button:focus-visible,
@@ -150,16 +142,6 @@ input:focus-visible {
   text-underline-offset: 0.22em;
 }
 
-.site-nav a[aria-current='page']:hover,
-.site-nav a[aria-current='page']:focus-visible {
-  background-color: rgba(255, 255, 255, 0.24);
-  border-color: rgba(255, 255, 255, 1);
-}
-
-.site-nav a[aria-current='page']:active {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.92);
-}
 
 .site-main {
   display: grid;
@@ -199,77 +181,34 @@ input:focus-visible {
   line-height: var(--line-height-tertiary);
 }
 
-.module-link:hover,
-.module-link:focus-visible {
-  color: var(--ink);
-}
 
-.last-played,
-.last-played__status {
-  color: var(--muted);
-  font-size: var(--font-size-tertiary);
-  font-weight: 500;
-  line-height: var(--line-height-tertiary);
-}
-
-.track-list {
+.album-list {
   display: grid;
   gap: 12px;
   list-style: none;
   margin-top: 12px;
 }
 
-.track-card {
-  border-radius: var(--radius);
-  min-height: 84px;
-  overflow: hidden;
-}
-
-.track-link {
-  align-items: center;
+.album-item {
   background-color: var(--surface-soft);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   display: grid;
-  gap: 12px;
-  grid-template-columns: 52px 1fr;
-  min-height: 84px;
+  gap: 4px;
   padding: 14px;
-  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
 }
 
-.track-image {
-  background-color: rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  height: 52px;
-  object-fit: cover;
-  width: 52px;
-}
-
-.track-overlay {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-
-.track-title {
+.album-title {
   color: var(--text);
   font-size: 0.92rem;
   font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.track-artist,
-.track-meta {
+.album-artist {
   color: var(--muted);
   font-size: var(--font-size-tertiary);
   font-weight: 500;
   line-height: var(--line-height-tertiary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .site-footer {
@@ -289,52 +228,6 @@ input:focus-visible {
   position: fixed;
   width: 100vw;
   z-index: 0;
-}
-
-.featured-card {
-  align-items: end;
-  background:
-    linear-gradient(160deg, rgba(20, 20, 20, 0.92), rgba(0, 0, 0, 0.95)),
-    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0) 54%);
-  border: var(--border-width) solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  display: grid;
-  min-height: 260px;
-  padding: var(--space-4);
-}
-
-.featured-content {
-  display: grid;
-  gap: var(--space-3);
-  max-width: 56ch;
-}
-
-.featured-date,
-.featured-tags {
-  color: var(--muted);
-  font-size: var(--font-size-tertiary);
-  font-weight: 500;
-  line-height: var(--line-height-tertiary);
-}
-
-.featured-title {
-  color: var(--text);
-  font-size: 1.35rem;
-  font-size: var(--font-size-primary-featured);
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  line-height: var(--line-height-primary);
-}
-
-.featured-link {
-  color: var(--text, var(--ink));
-}
-
-.featured-excerpt {
-  color: var(--ink);
-  font-size: 0.95rem;
-  line-height: 1.6;
 }
 
 .section-title {
@@ -371,16 +264,8 @@ input:focus-visible {
   min-height: 76px;
   padding: 14px;
   text-align: left;
-  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
 }
 
-.track-link:hover,
-.track-link:focus-visible,
-.track-link:focus-within {
-  background-color: rgba(18, 18, 18, 0.94);
-  border-color: rgba(255, 255, 255, 0.22);
-  transform: translateX(2px);
-}
 
 .post-date {
   color: var(--muted);
@@ -416,13 +301,6 @@ input:focus-visible {
   font-weight: 500;
 }
 
-.post-row:hover,
-.post-row:focus-visible,
-.post-row:focus-within {
-  background-color: rgba(18, 18, 18, 0.94);
-  border-color: rgba(255, 255, 255, 0.22);
-  transform: translateX(2px);
-}
 
 
 .post-detail {
@@ -517,15 +395,6 @@ button {
   margin-top: var(--space-3);
 }
 
-.invert-on-hover {
-  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease,
-    transform 150ms ease;
-}
-
-.invert-on-hover:hover,
-.invert-on-hover:focus {
-  color: var(--ink);
-}
 
 @media (min-width: 900px) {
   .site-main {
@@ -565,14 +434,6 @@ button {
     border-width: 2px;
   }
 
-  .track-link {
-    grid-template-columns: 44px 1fr;
-  }
-
-  .track-image {
-    height: 44px;
-    width: 44px;
-  }
 
   .post-row {
     border: var(--border-width) solid rgba(255, 255, 255, 0.08);
