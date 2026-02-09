@@ -13,18 +13,18 @@ function startMatrixRain(canvas) {
     'アカサタナハマヤラワ0123456789△◇◆○●◇▲▼',
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?',
   ];
-  const fadeFill = 'rgba(11, 8, 20, 0.4)';
+  const fadeFill = 'rgba(0, 0, 0, 0.4)';
   const glyphChangeInterval = 160;
   const columnSpacingRatio = 1.8;
   const alternationInterval = 240;
   const palettes = [
     {
-      brightAccent: { r: 199, g: 161, b: 255, hex: '#c7a1ff' },
-      deepAccent: { r: 74, g: 44, b: 105 },
+      brightAccent: { r: 255, g: 255, b: 255, hex: '#ffffff' },
+      deepAccent: { r: 96, g: 96, b: 96 },
     },
     {
-      brightAccent: { r: 155, g: 208, b: 255, hex: '#9bd0ff' },
-      deepAccent: { r: 41, g: 78, b: 126 },
+      brightAccent: { r: 224, g: 224, b: 224, hex: '#e0e0e0' },
+      deepAccent: { r: 64, g: 64, b: 64 },
     },
   ];
   const layers = [

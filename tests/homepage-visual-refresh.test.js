@@ -8,7 +8,7 @@ const appSource = readRepoFile('assets/js/app.js');
 
 assertMatches(
   css,
-  /body::before[\s\S]*linear-gradient\(180deg,\s*rgba\(4,\s*3,\s*10,\s*0\.9\),\s*rgba\(2,\s*2,\s*7,\s*0\.86\)\)/i,
+  /body::before[\s\S]*linear-gradient\(180deg,\s*rgba\(0,\s*0,\s*0,\s*0\.9\),\s*rgba\(0,\s*0,\s*0,\s*0\.86\)\)/i,
   'Expected a dark scrim overlay over the background canvas.'
 );
 assertMatches(

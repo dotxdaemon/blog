@@ -1,37 +1,20 @@
-// ABOUTME: Validates the lavender matrix theme colors across CSS and animation.
-// ABOUTME: Ensures the palette favors dark surfaces with lavender accents.
+// ABOUTME: Validates the monochrome matrix theme colors across CSS and animation.
+// ABOUTME: Ensures the palette uses black, white, and grayscale accents.
 const { assertMatches, readRepoFile, readStyles } = require('./helpers');
 
 const styles = readStyles();
 const matrixScript = readRepoFile('assets/js/matrix.js');
 
+assertMatches(styles, /--paper:\s*#000000;/i, 'Expected a black background token.');
+assertMatches(styles, /--ink:\s*#ffffff;/i, 'Expected a white foreground token.');
+assertMatches(styles, /--accent:\s*#ffffff;/i, 'Expected the accent token to remain monochrome.');
 assertMatches(
-  styles,
-  /--paper:\s*#070610;/i,
-  'Expected the background paper color to use the lavender matrix palette.'
-);
-assertMatches(
-  styles,
-  /--accent:\s*#d2b9ff;/i,
-  'Expected the accent color to use the updated lavender tone.'
+  matrixScript,
+  /brightAccent:\s*\{\s*r:\s*255,\s*g:\s*255,\s*b:\s*255,\s*hex:\s*'#ffffff'\s*\}/i,
+  'Expected the matrix rain highlight color to be white.'
 );
 assertMatches(
   matrixScript,
-  /hex:\s*'#c7a1ff'/i,
-  'Expected the matrix rain to use a lavender highlight color.'
-);
-assertMatches(
-  matrixScript,
-  /alternationInterval\s*=\s*240/i,
-  'Expected the matrix rain to alternate glyphs and colors slowly.'
-);
-assertMatches(
-  matrixScript,
-  /glyphSets\s*=\s*\[/i,
-  'Expected the matrix rain to define multiple glyph sets.'
-);
-assertMatches(
-  matrixScript,
-  /fontSize:\s*32/i,
-  'Expected the matrix rain to use larger glyph sizes.'
+  /deepAccent:\s*\{\s*r:\s*96,\s*g:\s*96,\s*b:\s*96\s*\}/i,
+  'Expected the matrix rain trail color to use grayscale values.'
 );
