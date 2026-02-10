@@ -10,8 +10,7 @@ function startMatrixRain(canvas) {
 
   const context = canvas.getContext('2d');
   const glyphSets = [
-    'アカサタナハマヤラワ0123456789△◇◆○●◇▲▼',
-    'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ<>[]{}/*=+&?',
+    'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789△◇◆○●▲▼□■◯',
   ];
   const fadeFill = 'rgba(0, 0, 0, 0.4)';
   const glyphChangeInterval = 160;
@@ -19,12 +18,12 @@ function startMatrixRain(canvas) {
   const alternationInterval = 240;
   const palettes = [
     {
-      brightAccent: { r: 255, g: 255, b: 255, hex: '#ffffff' },
-      deepAccent: { r: 96, g: 96, b: 96 },
+      brightAccent: { r: 210, g: 210, b: 210, hex: '#d2d2d2' },
+      deepAccent: { r: 90, g: 90, b: 90 },
     },
     {
-      brightAccent: { r: 224, g: 224, b: 224, hex: '#e0e0e0' },
-      deepAccent: { r: 64, g: 64, b: 64 },
+      brightAccent: { r: 180, g: 180, b: 180, hex: '#b4b4b4' },
+      deepAccent: { r: 70, g: 70, b: 70 },
     },
   ];
   const layers = [
@@ -95,7 +94,7 @@ function startMatrixRain(canvas) {
 
       const fade = 1 - depth / (layer.tail + 2);
       const colorMix = blendColor(brightAccent, deepAccent, fade);
-      const alpha = 0.2 + layer.opacity * fade * 0.55;
+      const alpha = 0.1 + Math.random() * 0.05;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
       const trailChar = stream.glyphs[depth] ?? randomChar();
       context.fillText(trailChar, x, trailY);

@@ -1,20 +1,29 @@
-// ABOUTME: Verifies dashboard visuals match the refined matrix music layout.
-// ABOUTME: Checks header rule, card treatment, and interactive post row behavior.
+// ABOUTME: Verifies dashboard visuals match the requested matrix music layout.
+// ABOUTME: Checks texture overlays, glass cards, and active-state interactions.
 const { assertMatches, readIndexHtml, readStyles, readRepoFile } = require('./helpers');
 
 const html = readIndexHtml();
 const css = readStyles();
 const appScript = readRepoFile('assets/js/app.js');
+const matrixScript = readRepoFile('assets/js/matrix.js');
 
-assertMatches(css, /background:\s*linear-gradient\(180deg,\s*#000000\s*0%,\s*#0a0a0a\s*100%\)/i, 'Expected dark gradient background.');
-assertMatches(html, /<div class="site-title-block">[\s\S]*<h1 class="site-title">velvetdaemon<\/h1>[\s\S]*<hr class="site-title-rule"/i, 'Expected title block with matching horizontal rule.');
-assertMatches(css, /\.site-main[\s\S]*gap:\s*32px[\s\S]*align-items:\s*start/i, 'Expected dashboard grid gap of 32px with aligned top edges.');
-assertMatches(css, /@media\s*\(min-width:\s*768px\)[\s\S]*\.site-main[\s\S]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s*minmax\(0,\s*1fr\)/i, 'Expected two-column 1fr dashboard grid.');
-assertMatches(css, /\.module-card[\s\S]*background-color:\s*rgba\(0,\s*0,\s*0,\s*0\.85\)[\s\S]*border:\s*1px\s*solid\s*rgba\(255,\s*255,\s*255,\s*0\.12\)[\s\S]*border-radius:\s*16px[\s\S]*padding:\s*32px[\s\S]*backdrop-filter:\s*blur\(12px\)/i, 'Expected card baseline styles.');
-assertMatches(css, /\.module-card:hover[\s\S]*border-color:\s*rgba\(255,\s*255,\s*255,\s*0\.2\)[\s\S]*box-shadow:\s*0\s*12px\s*48px\s*rgba\(0,\s*0,\s*0,\s*0\.7\)/i, 'Expected hover border and shadow lift.');
-assertMatches(css, /@keyframes\s+pulse\s*\{[\s\S]*50%\s*\{\s*opacity:\s*0\.5;/i, 'Expected pulse animation keyframes.');
-assertMatches(css, /\.post-row:hover[\s\S]*padding-left:\s*8px/i, 'Expected post-row hover shift via left padding.');
-assertMatches(css, /\.post-row:hover[\s\S]*\.post-chevron[\s\S]*opacity:\s*1/i, 'Expected arrow reveal on row hover.');
+assertMatches(css, /background:\s*linear-gradient\(135deg,\s*#0a0a0a\s*0%,\s*#000000\s*100%\)/i, 'Expected base linear background gradient.');
+assertMatches(css, /body::after[\s\S]*radial-gradient\(circle,\s*transparent\s*60%,\s*black\s*100%\)/i, 'Expected vignette darkening at viewport edges.');
+assertMatches(css, /body::before[\s\S]*opacity:\s*0\.05/i, 'Expected subtle grain/noise overlay opacity.');
+assertMatches(html, /class="matrix-rain"/i, 'Expected matrix canvas to be present.');
+assertMatches(css, /\.module-card[\s\S]*background-color:\s*rgba\(10,\s*10,\s*10,\s*0\.8\)/i, 'Expected translucent card background treatment.');
+assertMatches(css, /\.module-card[\s\S]*border:\s*1px\s*solid\s*rgba\(255,\s*255,\s*255,\s*0\.15\)/i, 'Expected micro-borders on cards.');
+assertMatches(css, /\.module-card[\s\S]*border-radius:\s*8px/i, 'Expected tighter card corners.');
+assertMatches(css, /\.module-card[\s\S]*backdrop-filter:\s*blur\(12px\)/i, 'Expected glass blur depth on cards.');
+assertMatches(css, /\.section-title[\s\S]*font-family:\s*'JetBrains Mono'/i, 'Expected monospace labels for interface metadata.');
+assertMatches(css, /\.post-date[\s\S]*color:\s*#888/i, 'Expected deemphasized date styling.');
+assertMatches(css, /@keyframes\s+pulse\s*\{[\s\S]*50%\s*\{[\s\S]*opacity:\s*0\.5;[\s\S]*scale\(1\.2\)/i, 'Expected live status pulse scale and opacity animation.');
+assertMatches(html, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected placeholder icon to use SVG artwork.');
+assertMatches(css, /\.dashboard-scrub/i, 'Expected a scrub bar container in dashboard styles.');
+assertMatches(css, /\.post-list::before[\s\S]*1px\s*solid\s*#333/i, 'Expected timeline guide line for recent posts.');
+assertMatches(css, /\.post-row:hover\s+\.post-link[\s\S]*color:\s*#00ff00/i, 'Expected hover state to use green accent color.');
+assertMatches(css, /\.post-link::before[\s\S]*content:\s*["']>["']/i, 'Expected terminal cursor indicator on post links.');
+assertMatches(css, /\.post-row:nth-child\(odd\)[\s\S]*rgba\(255,\s*255,\s*255,\s*0\.03\)/i, 'Expected subtle zebra striping for scannability.');
 assertMatches(appScript, /month:\s*'short'/, 'Expected short month date formatting.');
 assertMatches(appScript, /day:\s*'numeric'/, 'Expected short month-day date formatting.');
-assertMatches(appScript, /new Intl\.DateTimeFormat\(undefined,\s*\{[\s\S]*month:\s*'short'[\s\S]*day:\s*'numeric'[\s\S]*\}\)/, 'Expected date format without year.');
+assertMatches(matrixScript, /0\.1\s*\+\s*Math\.random\(\)\s*\*\s*0\.05/, 'Expected matrix glyph opacity variation between 10% and 15%.');
