@@ -319,11 +319,22 @@ input:focus-visible {
 
 
 .post-detail {
+  background-color: rgba(0, 0, 0, 0.88);
+  border: var(--border-width) solid var(--border);
   display: grid;
   gap: var(--space-4);
   margin: 0 auto;
   max-width: 720px;
+  padding: var(--space-3);
   width: 100%;
+}
+
+.post-page .post-detail {
+  background-color: rgba(0, 0, 0, 0.88);
+}
+
+.post-page .matrix-rain {
+  opacity: 0.08;
 }
 
 .post-content {
