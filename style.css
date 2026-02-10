@@ -587,6 +587,31 @@ body {
   margin-bottom: 24px;
 }
 
+.dashboard-track-link {
+  display: none;
+}
+
+.dashboard-track-artwork {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-track-empty.has-artwork {
+  padding-top: 24px;
+}
+
+.dashboard-track-empty.has-artwork .dashboard-track-link {
+  display: inline-block;
+  margin: 0 auto 16px;
+}
+
+.dashboard-track-empty.has-artwork .dashboard-track-icon {
+  display: none;
+}
+
 .dashboard-track-icon {
   display: block;
   width: 90px;

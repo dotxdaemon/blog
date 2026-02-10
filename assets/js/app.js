@@ -9,6 +9,8 @@ const dashboardTrack = document.getElementById('dashboard-track');
 const dashboardTrackTextEl = document.querySelector('.dashboard-track-text');
 const dashboardAlbumEl = document.getElementById('dashboard-album');
 const dashboardArtistEl = document.getElementById('dashboard-artist');
+const dashboardTrackArtworkEl = document.getElementById('dashboard-track-artwork');
+const dashboardTrackLinkEl = document.getElementById('dashboard-track-link');
 
 const orderedPosts = posts
   .filter((post) => post && post.title && post.date)
@@ -24,10 +26,21 @@ if (dashboardStatus && dashboardStatusTextEl) {
   dashboardStatusTextEl.textContent = dashboardStatusText;
 }
 
-if (dashboardTrack) {
-  const trackTitle = typeof dashboardTrackData.title === 'string' ? dashboardTrackData.title : '';
-  const trackArtist = typeof dashboardTrackData.artist === 'string' ? dashboardTrackData.artist : '';
-  const trackAlbum = typeof dashboardTrackData.album === 'string' ? dashboardTrackData.album : '';
+renderDashboardTrack(dashboardTrackData);
+loadLastPlayedTrack();
+
+
+function renderDashboardTrack(trackData) {
+  if (!dashboardTrack) {
+    return;
+  }
+
+  const safeTrackData = trackData && typeof trackData === 'object' ? trackData : {};
+  const trackTitle = typeof safeTrackData.title === 'string' ? safeTrackData.title : '';
+  const trackArtist = typeof safeTrackData.artist === 'string' ? safeTrackData.artist : '';
+  const trackAlbum = typeof safeTrackData.album === 'string' ? safeTrackData.album : '';
+  const trackUrl = typeof safeTrackData.url === 'string' ? safeTrackData.url : '';
+  const artworkUrl = typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl : '';
   const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
 
   if (dashboardTrackTextEl) {
@@ -43,6 +56,62 @@ if (dashboardTrack) {
   if (dashboardArtistEl) {
     dashboardArtistEl.textContent = trackArtist || '—';
   }
+
+  if (dashboardTrackArtworkEl) {
+    const artworkAlt = [trackAlbum || trackTitle, trackArtist].filter(Boolean).join(' — ') || 'Track artwork';
+    if (artworkUrl) {
+      dashboardTrackArtworkEl.src = artworkUrl;
+      dashboardTrackArtworkEl.alt = artworkAlt;
+      dashboardTrack.classList.add('has-artwork');
+    } else {
+      dashboardTrackArtworkEl.src = '';
+      dashboardTrackArtworkEl.alt = '';
+      dashboardTrack.classList.remove('has-artwork');
+    }
+  }
+
+  if (dashboardTrackLinkEl) {
+    if (artworkUrl) {
+      dashboardTrackLinkEl.hidden = false;
+      dashboardTrackLinkEl.href = trackUrl || artworkUrl;
+      dashboardTrackLinkEl.target = '_blank';
+      dashboardTrackLinkEl.rel = 'noreferrer';
+      dashboardTrackLinkEl.setAttribute('aria-label', 'Open track');
+    } else {
+      dashboardTrackLinkEl.hidden = true;
+      dashboardTrackLinkEl.removeAttribute('href');
+      dashboardTrackLinkEl.removeAttribute('target');
+      dashboardTrackLinkEl.removeAttribute('rel');
+      dashboardTrackLinkEl.removeAttribute('aria-label');
+    }
+  }
+}
+
+function loadLastPlayedTrack() {
+  fetch('assets/data/last-played.json')
+    .then((response) => {
+      if (!response.ok) {
+        return null;
+      }
+      return response.json();
+    })
+    .then((lastPlayed) => {
+      if (!lastPlayed || typeof lastPlayed !== 'object') {
+        return;
+      }
+
+      const hasCurrentTrack =
+        typeof dashboardTrackData.title === 'string' && dashboardTrackData.title.trim();
+
+      if (hasCurrentTrack) {
+        return;
+      }
+
+      renderDashboardTrack(lastPlayed);
+    })
+    .catch(() => {
+      return;
+    });
 }
 
 if (postList) {
