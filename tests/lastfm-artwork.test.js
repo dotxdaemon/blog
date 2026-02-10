@@ -1,10 +1,11 @@
-// ABOUTME: Ensures the listening section renders album entries from script data.
-// ABOUTME: Confirms the page script builds album title and artist lines.
-const { assertMatches, assertNotMatches, readRepoFile } = require('./helpers');
+// ABOUTME: Ensures the listening section supports rendering track artwork when available.
+// ABOUTME: Confirms dashboard script reads artwork metadata from track data.
+const { assertMatches, readIndexHtml, readRepoFile } = require('./helpers');
 
+const html = readIndexHtml();
 const script = readRepoFile('assets/js/app.js');
 
-assertMatches(script, /className\s*=\s*['"]album-item['"]/i, 'Expected listening entries to use the album-item class.');
-assertMatches(script, /className\s*=\s*['"]album-title['"]/i, 'Expected listening entries to include an album title line.');
-assertMatches(script, /className\s*=\s*['"]album-artist['"]/i, 'Expected listening entries to include an album artist line.');
-assertNotMatches(script, /track-image/i, 'Did not expect track artwork rendering classes in the script.');
+assertMatches(html, /id="dashboard-track-artwork"/i, 'Expected listening section to include a dashboard artwork image element.');
+assertMatches(html, /id="dashboard-track-link"/i, 'Expected listening section to include a dashboard artwork link container.');
+assertMatches(script, /artworkUrl/i, 'Expected dashboard script to read an artwork URL from track data.');
+assertMatches(script, /dashboard-track-artwork/i, 'Expected dashboard script to target the artwork image element.');
