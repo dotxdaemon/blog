@@ -29,7 +29,12 @@
               <a class="dashboard-track-link" id="dashboard-track-link" href="#" hidden>
                 <img class="dashboard-track-artwork" id="dashboard-track-artwork" src="" alt="" loading="lazy" />
               </a>
-              <span class="dashboard-track-icon" aria-hidden="true">♫</span>
+              <span class="dashboard-track-icon" aria-hidden="true">
+                <svg viewBox="0 0 120 120" role="img" aria-label="Waveform placeholder">
+                  <circle cx="60" cy="60" r="38" fill="none" stroke="currentColor" stroke-width="2"></circle>
+                  <path d="M26 60h14l6-10 8 20 8-24 8 28 6-14h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
               <p class="dashboard-track-text">No track selected yet</p>
             </div>
             <ul class="album-list" id="album-list" aria-label="Favorite albums"></ul>
@@ -43,6 +48,7 @@
                 <span class="dashboard-field-value" id="dashboard-artist">—</span>
               </label>
             </div>
+            <div class="dashboard-scrub" aria-hidden="true"><div class="dashboard-scrub-progress"></div></div>
           </section>
         </div>
 

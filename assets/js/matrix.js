@@ -94,7 +94,7 @@ function startMatrixRain(canvas) {
 
       const fade = 1 - depth / (layer.tail + 2);
       const colorMix = blendColor(brightAccent, deepAccent, fade);
-      const alpha = 0.1 + Math.random() * 0.2;
+      const alpha = 0.1 + Math.random() * 0.05;
       context.fillStyle = `rgba(${colorMix.r}, ${colorMix.g}, ${colorMix.b}, ${alpha})`;
       const trailChar = stream.glyphs[depth] ?? randomChar();
       context.fillText(trailChar, x, trailY);
