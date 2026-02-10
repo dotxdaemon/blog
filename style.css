@@ -810,3 +810,247 @@ body::after {
     grid-template-columns: 1fr;
   }
 }
+
+.post-page {
+  background: linear-gradient(135deg, #0a0a0a 0%, #000000 100%);
+  scroll-behavior: smooth;
+}
+
+.post-page::before {
+  background: transparent;
+}
+
+.post-page::after {
+  background: radial-gradient(ellipse at center, rgba(10, 10, 10, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.post-page .layout {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  max-width: 800px;
+  padding: 80px 40px 120px 40px;
+}
+
+.post-page .site-main {
+  display: block;
+}
+
+.post-back-link {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 2;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.post-back-link:hover {
+  color: #8b5cf6;
+  transform: translateX(-4px);
+}
+
+.post-back-link:focus-visible,
+.post-page a:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
+}
+
+.post-page .post-header {
+  margin-bottom: 40px;
+}
+
+.post-page .post-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+  margin-bottom: 16px;
+}
+
+.post-page .post-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.post-meta-badge {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.post-meta-divider {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.post-page .post-detail {
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  margin-bottom: 60px;
+  max-width: 100%;
+  padding: 48px;
+}
+
+.post-page .post-content {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 680px;
+  white-space: normal;
+}
+
+.post-page .post-content p {
+  margin-bottom: 24px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.post-page .post-content h2 {
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.post-page .post-content h3 {
+  margin-top: 32px;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.post-page .post-content h4 {
+  margin-top: 24px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.post-page .post-content ul,
+.post-page .post-content ol {
+  padding-left: 24px;
+}
+
+.post-page .post-content li {
+  margin-bottom: 12px;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.post-page .post-content a {
+  color: #8b5cf6;
+  transition: all 0.2s ease;
+}
+
+.post-page .post-content a:hover {
+  color: #a78bfa;
+  text-decoration: underline;
+}
+
+.post-page .post-content pre {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 16px;
+  font-family: monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  overflow-x: auto;
+}
+
+.post-page .post-content code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 15px;
+}
+
+.post-page .post-content img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 32px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.post-page .post-content blockquote {
+  border-left: 3px solid rgba(139, 92, 246, 0.5);
+  padding-left: 20px;
+  margin: 24px 0;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.post-footer {
+  position: fixed;
+  right: 40px;
+  bottom: 32px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.post-footer-divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.post-footer a {
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+}
+
+.post-footer a:hover {
+  color: #8b5cf6;
+}
+
+@media (max-width: 767px) {
+  .post-page .layout {
+    padding: 60px 24px 100px 24px;
+  }
+
+  .post-back-link {
+    top: 24px;
+    left: 24px;
+  }
+
+  .post-page .post-title {
+    font-size: 28px;
+  }
+
+  .post-page .post-detail {
+    padding: 32px 24px;
+  }
+
+  .post-page .post-content {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .post-footer {
+    right: 24px;
+    bottom: 24px;
+  }
+}
