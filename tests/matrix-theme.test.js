@@ -10,11 +10,11 @@ assertMatches(styles, /--ink:\s*#ffffff;/i, 'Expected a white foreground token.'
 assertMatches(styles, /--accent:\s*#ffffff;/i, 'Expected the accent token to remain monochrome.');
 assertMatches(
   matrixScript,
-  /brightAccent:\s*\{\s*r:\s*255,\s*g:\s*255,\s*b:\s*255,\s*hex:\s*'#ffffff'\s*\}/i,
-  'Expected the matrix rain highlight color to be white.'
+  /brightAccent:\s*\{\s*r:\s*210,\s*g:\s*210,\s*b:\s*210,\s*hex:\s*'#d2d2d2'\s*\}/i,
+  'Expected the matrix rain highlight color to use grayscale tones.'
 );
 assertMatches(
   matrixScript,
-  /deepAccent:\s*\{\s*r:\s*96,\s*g:\s*96,\s*b:\s*96\s*\}/i,
+  /deepAccent:\s*\{\s*r:\s*90,\s*g:\s*90,\s*b:\s*90\s*\}/i,
   'Expected the matrix rain trail color to use grayscale values.'
 );

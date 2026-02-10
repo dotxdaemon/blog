@@ -6,7 +6,7 @@ const html = readIndexHtml();
 const css = readStyles();
 const app = readRepoFile('assets/js/app.js');
 
-assertMatches(css, /background:\s*linear-gradient\(180deg,\s*#000000\s*0%,\s*#0a0a0a\s*100%\)/i, 'Expected gradient background in styles.');
+assertMatches(css, /background:\s*linear-gradient\(135deg,\s*#0a0a0a\s*0%,\s*#000000\s*100%\)/i, 'Expected gradient background in styles.');
 assertMatches(css, /\.module-card[\s\S]*border-radius:\s*16px[\s\S]*padding:\s*32px/i, 'Expected glass card style dimensions.');
 assertMatches(css, /\.module-card:hover[\s\S]*border-color:\s*rgba\(255,\s*255,\s*255,\s*0\.2\)/i, 'Expected hover border lift on cards.');
 assertMatches(css, /\.section-title[\s\S]*font-size:\s*11px[\s\S]*text-transform:\s*uppercase/i, 'Expected unified compact section headers.');
