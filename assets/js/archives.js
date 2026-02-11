@@ -106,7 +106,7 @@
               <span class="month-name">${MONTHS[month]}</span>
               <span class="month-count">${monthPosts.length}</span>
             </div>
-            <ul class="archive-list">${postsHtml}</ul>
+            <ul class="post-list archive-list">${postsHtml}</ul>
           </div>
         `;
       }).join('');
@@ -123,7 +123,7 @@
 
   function renderCover(post, href) {
     if (post && typeof post.cover === 'string' && post.cover.trim()) {
-      return `<a class="post-cover-link" href="${href}"><img class="post-cover-image" src="${escapeHtml(post.cover)}" alt="" loading="lazy" /></a>`;
+      return `<a class="post-cover-link" href="${href}" aria-label="Open post cover: ${escapeHtml(post.title)}"><img class="post-cover-image" src="${escapeHtml(post.cover)}" alt="" loading="lazy" /></a>`;
     }
     return '<span class="post-cover-placeholder" aria-hidden="true">TEXT</span>';
   }

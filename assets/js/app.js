@@ -218,6 +218,8 @@ function createPostCover(post, destination) {
     coverImage.alt = '';
     coverImage.loading = 'lazy';
 
+    const coverTitle = typeof post.title === 'string' && post.title.trim() ? post.title : 'untitled';
+    coverLink.setAttribute('aria-label', `Open post cover: ${coverTitle}`);
     coverLink.appendChild(coverImage);
     return coverLink;
   }
