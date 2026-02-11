@@ -170,11 +170,6 @@ function createPostLink(post) {
   time.dateTime = post.date;
   time.textContent = formatDate(post.date) || post.date;
 
-  const coverSlot = createPostCover(post, destination);
-
-  const textGroup = document.createElement('div');
-  textGroup.className = 'post-row-grid';
-
   const title = document.createElement('h2');
   title.className = 'post-title';
   const link = document.createElement('a');
@@ -183,26 +178,17 @@ function createPostLink(post) {
   link.textContent = post.title;
   title.appendChild(link);
 
+  entry.appendChild(time);
+  entry.appendChild(title);
+
   const excerptData = deriveExcerpt(post);
   if (excerptData.text) {
     const excerpt = document.createElement('p');
     excerpt.className = 'post-excerpt';
     excerpt.textContent = excerptData.text;
-    textGroup.appendChild(title);
-    textGroup.appendChild(excerpt);
-  } else {
-    textGroup.appendChild(title);
+    entry.appendChild(excerpt);
   }
 
-  const chevron = document.createElement('span');
-  chevron.className = 'post-chevron';
-  chevron.setAttribute('aria-hidden', 'true');
-  chevron.textContent = '›';
-
-  entry.appendChild(time);
-  entry.appendChild(coverSlot);
-  entry.appendChild(textGroup);
-  entry.appendChild(chevron);
   return entry;
 }
 
