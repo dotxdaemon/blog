@@ -13,7 +13,7 @@ assertMatches(
 
 assertMatches(
   css,
-  /\.post-page\s+\.post-detail\s*\{[\s\S]*background:\s*rgba\(0,\s*0,\s*0,\s*0\.85\)[\s\S]*border:\s*1px\s*solid\s*rgba\(255,\s*255,\s*255,\s*0\.12\)[\s\S]*border-radius:\s*16px[\s\S]*padding:\s*48px/i,
+  /\.post-page\s+\.post-detail\s*\{[\s\S]*background:\s*var\(--card-bg-strong\)[\s\S]*border:\s*var\(--border-width\)\s*solid\s*var\(--border\)[\s\S]*border-radius:\s*var\(--radius-2\)[\s\S]*padding:\s*var\(--space-6\)/i,
   'Expected post detail content card to match the dashboard glass treatment.'
 );
 

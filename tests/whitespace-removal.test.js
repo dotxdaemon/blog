@@ -16,7 +16,7 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.site-main[\s\S]*padding:\s*0/i,
+  /\.site-main[\s\S]*padding:\s*var\(--space-0\)/i,
   'Expected site main padding to use the shared spacing scale.'
 );
 assertMatches(

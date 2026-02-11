@@ -76,7 +76,8 @@ function renderDashboardTrack(trackData) {
       dashboardTrackLinkEl.href = trackUrl || artworkUrl;
       dashboardTrackLinkEl.target = '_blank';
       dashboardTrackLinkEl.rel = 'noreferrer';
-      dashboardTrackLinkEl.setAttribute('aria-label', 'Open track');
+      const linkLabel = dashboardTrackText === 'No track selected yet' ? 'Open track' : `Open track: ${dashboardTrackText}`;
+      dashboardTrackLinkEl.setAttribute('aria-label', linkLabel);
     } else {
       dashboardTrackLinkEl.hidden = true;
       dashboardTrackLinkEl.removeAttribute('href');
