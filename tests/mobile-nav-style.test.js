@@ -6,11 +6,11 @@ const css = readStyles();
 
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*600px\)[\s\S]*\.post-row[\s\S]*grid-template-columns:\s*1fr/i,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.post-row[\s\S]*grid-template-columns:\s*1fr/i,
   'Expected post rows to collapse to a single column on small screens.'
 );
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*600px\)[\s\S]*\.post-row[\s\S]*border:/i,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.post-row[\s\S]*border:/i,
   'Expected post rows to keep card borders on small screens.'
 );

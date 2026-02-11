@@ -11,7 +11,7 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-row[\s\S]*grid-template-columns:\s*minmax\(94px,\s*120px\)\s+1fr\s+auto/i,
+  /\.post-row[\s\S]*grid-template-columns:\s*minmax\(94px,\s*120px\)\s+72px\s+1fr\s+auto/i,
   'Expected post rows to separate dates, titles, and affordance into three columns.'
 );
 assertMatches(

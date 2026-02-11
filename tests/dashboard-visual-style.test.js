@@ -11,9 +11,9 @@ assertMatches(css, /background:\s*linear-gradient\(135deg,\s*#0a0a0a\s*0%,\s*#00
 assertMatches(css, /body::after[\s\S]*radial-gradient\(circle,\s*transparent\s*60%,\s*black\s*100%\)/i, 'Expected vignette darkening at viewport edges.');
 assertMatches(css, /body::before[\s\S]*opacity:\s*0\.05/i, 'Expected subtle grain/noise overlay opacity.');
 assertMatches(html, /class="matrix-rain"/i, 'Expected matrix canvas to be present.');
-assertMatches(css, /\.module-card[\s\S]*background-color:\s*rgba\(10,\s*10,\s*10,\s*0\.8\)/i, 'Expected translucent card background treatment.');
+assertMatches(css, /\.module-card[\s\S]*background-color:\s*var\(--card-bg\)/i, 'Expected translucent card background treatment.');
 assertMatches(css, /\.module-card[\s\S]*border:\s*1px\s*solid\s*rgba\(255,\s*255,\s*255,\s*0\.15\)/i, 'Expected micro-borders on cards.');
-assertMatches(css, /\.module-card[\s\S]*border-radius:\s*8px/i, 'Expected tighter card corners.');
+assertMatches(css, /\.module-card[\s\S]*border-radius:\s*var\(--radius-1\)/i, 'Expected tighter card corners.');
 assertMatches(css, /\.module-card[\s\S]*backdrop-filter:\s*blur\(12px\)/i, 'Expected glass blur depth on cards.');
 assertMatches(css, /\.section-title[\s\S]*font-family:\s*'JetBrains Mono'/i, 'Expected monospace labels for interface metadata.');
 assertMatches(css, /\.post-date[\s\S]*color:\s*#888/i, 'Expected deemphasized date styling.');

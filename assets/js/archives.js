@@ -83,12 +83,22 @@
 
       const monthsHtml = months.map((month) => {
         const monthPosts = yearPosts[month];
-        const postsHtml = monthPosts.map((post) => `
-          <li class="archive-item">
-            <time class="archive-date" datetime="${post.date}">${formatShortDate(post.date)}</time>
-            <a href="post.html?slug=${slugify(post.title)}" class="archive-title">${escapeHtml(post.title)}</a>
+        const postsHtml = monthPosts.map((post) => {
+          const href = `post.html?slug=${slugify(post.title)}`;
+          const cover = renderCover(post, href);
+          const excerpt = getExcerpt(post);
+          return `
+          <li class="archive-item post-row">
+            <time class="post-date" datetime="${post.date}">${formatShortDate(post.date)}</time>
+            ${cover}
+            <div class="post-row-grid">
+              <h3 class="post-title"><a href="${href}" class="post-link">${escapeHtml(post.title)}</a></h3>
+              ${excerpt ? `<p class="post-excerpt">${escapeHtml(excerpt)}</p>` : ''}
+            </div>
+            <span class="post-chevron" aria-hidden="true">›</span>
           </li>
-        `).join('');
+        `;
+        }).join('');
 
         return `
           <div class="month-group">
@@ -108,6 +118,28 @@
         </div>
       `;
     }).join('');
+  }
+
+
+  function renderCover(post, href) {
+    if (post && typeof post.cover === 'string' && post.cover.trim()) {
+      return `<a class="post-cover-link" href="${href}"><img class="post-cover-image" src="${escapeHtml(post.cover)}" alt="" loading="lazy" /></a>`;
+    }
+    return '<span class="post-cover-placeholder" aria-hidden="true">TEXT</span>';
+  }
+
+  function getExcerpt(post) {
+    const source = post && (post.excerpt || post.body);
+    if (!source) {
+      return '';
+    }
+    const text = String(source).replace(/\s+/g, ' ').trim();
+    if (text.length <= 96) {
+      return text;
+    }
+    const truncated = text.slice(0, 96);
+    const pivot = truncated.lastIndexOf(' ');
+    return `${(pivot > 48 ? truncated.slice(0, pivot) : truncated).replace(/[.,;:!?]+$/u, '')}…`;
   }
 
   function slugify(text) {

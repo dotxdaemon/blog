@@ -158,17 +158,27 @@
     const meta = [formattedDate, readingTime].filter(Boolean).join(' • ');
     const href = `post.html?slug=${slugify(post.title)}`;
 
+    const cover = renderCover(post, href);
+
     return `
-      <li class="post-list__item">
-        <a class="post-snippet" href="${href}">
-          <h3 class="post-snippet__title">
-            <span class="post-snippet__link">${highlightMatches(escapeHtml(post.title), query)}</span>
-          </h3>
-          ${meta ? `<div class="post-snippet__meta"><span>${meta}</span></div>` : ''}
-          <p class="post-snippet__excerpt">${excerpt}</p>
-        </a>
+      <li class="post-list__item post-row">
+        <span class="post-date">${meta || ''}</span>
+        ${cover}
+        <div class="post-row-grid">
+          <h3 class="post-title"><a class="post-link" href="${href}">${highlightMatches(escapeHtml(post.title), query)}</a></h3>
+          <p class="post-excerpt">${excerpt}</p>
+        </div>
+        <span class="post-chevron" aria-hidden="true">›</span>
       </li>
     `;
+  }
+
+
+  function renderCover(post, href) {
+    if (post && typeof post.cover === 'string' && post.cover.trim()) {
+      return `<a class="post-cover-link" href="${href}"><img class="post-cover-image" src="${escapeHtml(post.cover)}" alt="" loading="lazy" /></a>`;
+    }
+    return '<span class="post-cover-placeholder" aria-hidden="true">TEXT</span>';
   }
 
   function getHighlightedExcerpt(post, query) {
