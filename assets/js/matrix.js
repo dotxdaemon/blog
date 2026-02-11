@@ -9,10 +9,18 @@ function startMatrixRain(canvas) {
   }
 
   const context = canvas.getContext('2d');
+  const prefersReducedMotion =
+    typeof globalWindow.matchMedia === 'function' &&
+    globalWindow.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    return () => {};
+  }
   const glyphSets = [
     'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0123456789△◇◆○●▲▼□■◯',
   ];
-  const fadeFill = 'rgba(0, 0, 0, 0.4)';
+  const fadeFill = 'rgba(0, 0, 0, 0.55)';
   const glyphChangeInterval = 160;
   const columnSpacingRatio = 1.8;
   const alternationInterval = 240;
@@ -27,9 +35,9 @@ function startMatrixRain(canvas) {
     },
   ];
   const layers = [
-    { fontSize: 32, speedMin: 0.02, speedMax: 0.05, tail: 24, glow: 4, opacity: 0.42 },
-    { fontSize: 44, speedMin: 0.03, speedMax: 0.06, tail: 20, glow: 5, opacity: 0.35 },
-    { fontSize: 56, speedMin: 0.04, speedMax: 0.08, tail: 18, glow: 6, opacity: 0.3 },
+    { fontSize: 32, speedMin: 0.015, speedMax: 0.035, tail: 20, glow: 3, opacity: 0.3 },
+    { fontSize: 44, speedMin: 0.02, speedMax: 0.04, tail: 16, glow: 4, opacity: 0.24 },
+    { fontSize: 56, speedMin: 0.025, speedMax: 0.05, tail: 14, glow: 5, opacity: 0.2 },
   ];
 
   let streams = [];

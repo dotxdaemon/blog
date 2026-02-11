@@ -6,7 +6,7 @@ const css = readStyles();
 
 assertMatches(
   css,
-  /\.post-page\s*\{[\s\S]*background:\s*linear-gradient\(135deg,\s*#0a0a0a\s*0%,\s*#000000\s*100%\)/i,
+  /\.post-page\s*\{[\s\S]*background:\s*linear-gradient\(135deg,\s*var\(--paper-soft\)\s*0%,\s*var\(--paper\)\s*100%\)/i,
   'Expected post page to use the dashboard gradient background.'
 );
 assertMatches(
@@ -16,7 +16,7 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.post-page\s+\.layout\s*\{[\s\S]*max-width:\s*800px[\s\S]*padding:\s*80px\s*40px\s*120px\s*40px/i,
+  /\.post-page\s+\.layout\s*\{[\s\S]*max-width:\s*var\(--post-layout-max-width\)[\s\S]*padding:\s*var\(--post-layout-padding\)/i,
   'Expected post layout width and desktop padding to match requirements.'
 );
 assertMatches(
@@ -26,7 +26,7 @@ assertMatches(
 );
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*767px\)[\s\S]*\.post-page\s+\.layout\s*\{[\s\S]*padding:\s*60px\s*24px\s*100px\s*24px/i,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.post-page\s+\.layout\s*\{[\s\S]*padding:\s*var\(--post-layout-padding-mobile\)/i,
   'Expected mobile post layout padding adjustments.'
 );
 assertMatches(

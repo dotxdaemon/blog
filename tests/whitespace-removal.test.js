@@ -11,12 +11,12 @@ assertMatches(
 );
 assertMatches(
   css,
-  /\.site-main[\s\S]*gap:\s*24px/i,
+  /\.site-main[\s\S]*gap:\s*var\(--space-3\)/i,
   'Expected site main gap to use the shared spacing scale.'
 );
 assertMatches(
   css,
-  /\.site-main[\s\S]*padding:\s*0/i,
+  /\.site-main[\s\S]*padding:\s*var\(--space-0\)/i,
   'Expected site main padding to use the shared spacing scale.'
 );
 assertMatches(

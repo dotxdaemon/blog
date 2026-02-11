@@ -76,7 +76,8 @@ function renderDashboardTrack(trackData) {
       dashboardTrackLinkEl.href = trackUrl || artworkUrl;
       dashboardTrackLinkEl.target = '_blank';
       dashboardTrackLinkEl.rel = 'noreferrer';
-      dashboardTrackLinkEl.setAttribute('aria-label', 'Open track');
+      const linkLabel = dashboardTrackText === 'No track selected yet' ? 'Open track' : `Open track: ${dashboardTrackText}`;
+      dashboardTrackLinkEl.setAttribute('aria-label', linkLabel);
     } else {
       dashboardTrackLinkEl.hidden = true;
       dashboardTrackLinkEl.removeAttribute('href');
@@ -162,25 +163,17 @@ function createEmptyPost() {
 function createPostLink(post) {
   const entry = document.createElement('article');
   entry.className = 'post-row';
-  entry.tabIndex = 0;
-  entry.setAttribute('role', 'link');
-
   const destination = `post.html?slug=${slugify(post.title)}`;
-
-  entry.addEventListener('click', () => {
-    window.location.href = destination;
-  });
-  entry.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      window.location.href = destination;
-    }
-  });
 
   const time = document.createElement('time');
   time.className = 'post-date';
   time.dateTime = post.date;
   time.textContent = formatDate(post.date) || post.date;
+
+  const coverSlot = createPostCover(post, destination);
+
+  const textGroup = document.createElement('div');
+  textGroup.className = 'post-row-grid';
 
   const title = document.createElement('h2');
   title.className = 'post-title';
@@ -190,15 +183,52 @@ function createPostLink(post) {
   link.textContent = post.title;
   title.appendChild(link);
 
+  const excerptData = deriveExcerpt(post);
+  if (excerptData.text) {
+    const excerpt = document.createElement('p');
+    excerpt.className = 'post-excerpt';
+    excerpt.textContent = excerptData.text;
+    textGroup.appendChild(title);
+    textGroup.appendChild(excerpt);
+  } else {
+    textGroup.appendChild(title);
+  }
+
   const chevron = document.createElement('span');
   chevron.className = 'post-chevron';
   chevron.setAttribute('aria-hidden', 'true');
   chevron.textContent = '›';
 
   entry.appendChild(time);
-  entry.appendChild(title);
+  entry.appendChild(coverSlot);
+  entry.appendChild(textGroup);
   entry.appendChild(chevron);
   return entry;
+}
+
+function createPostCover(post, destination) {
+  if (post && typeof post.cover === 'string' && post.cover.trim()) {
+    const coverLink = document.createElement('a');
+    coverLink.className = 'post-cover-link';
+    coverLink.href = destination;
+
+    const coverImage = document.createElement('img');
+    coverImage.className = 'post-cover-image';
+    coverImage.src = post.cover;
+    coverImage.alt = '';
+    coverImage.loading = 'lazy';
+
+    const coverTitle = typeof post.title === 'string' && post.title.trim() ? post.title : 'untitled';
+    coverLink.setAttribute('aria-label', `Open post cover: ${coverTitle}`);
+    coverLink.appendChild(coverImage);
+    return coverLink;
+  }
+
+  const placeholder = document.createElement('span');
+  placeholder.className = 'post-cover-placeholder';
+  placeholder.setAttribute('aria-hidden', 'true');
+  placeholder.textContent = 'TEXT';
+  return placeholder;
 }
 
 function slugify(text) {

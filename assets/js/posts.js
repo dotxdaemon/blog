@@ -4,6 +4,7 @@ window.BLOG_POSTS = [
   {
     title: "hi everybody",
     date: "2025-09-19",
+    cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=160&q=60",
     tags: ["intro", "notes"],
     body: "hi everybody",
     ambientTone: "cool",
@@ -19,6 +20,7 @@ window.BLOG_POSTS = [
   {
     title: "movies I want to watch",
     date: "2025-09-26",
+    cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=160&q=60",
     tags: ["movies", "watchlist"],
     body: `Hamnet
 
@@ -60,6 +62,7 @@ https://letterboxd.com/000_leo/list/oscars-2026-1/`,
   {
     title: "cooking recipes",
     date: "2025-12-30",
+    cover: "",
     tags: ["cooking", "recipes"],
     body: `pantry chicken thighs`,
     ambientTone: "cozy",

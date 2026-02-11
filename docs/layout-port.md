@@ -96,7 +96,7 @@ All tests pass without errors. The layout matches the reference steipete.me stru
 
 ### Enhanced Matrix Rain Background
 - Multiple character sets (binary + katakana + symbols)
-- Matrix green + cyan color scheme
+- Electric blue + cyan color scheme
 - Variable column speeds
 - Fading trails with gradient colors
 - Glitch effects (random column glitches)
