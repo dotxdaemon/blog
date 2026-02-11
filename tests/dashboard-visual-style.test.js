@@ -21,7 +21,7 @@ assertMatches(css, /@keyframes\s+pulse\s*\{[\s\S]*50%\s*\{[\s\S]*opacity:\s*0\.5
 assertMatches(html, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected placeholder icon to use SVG artwork.');
 assertMatches(css, /\.dashboard-scrub/i, 'Expected a scrub bar container in dashboard styles.');
 assertMatches(css, /\.post-list::before[\s\S]*1px\s*solid\s*#333/i, 'Expected timeline guide line for recent posts.');
-assertMatches(css, /\.post-row:hover\s+\.post-link[\s\S]*color:\s*#00ff00/i, 'Expected hover state to use green accent color.');
+assertMatches(css, /\.post-row:hover\s+\.post-link[\s\S]*color:\s*#00f0ff/i, 'Expected hover state to use electric blue accent color.');
 assertMatches(css, /\.post-chevron\s*\{[\s\S]*color:\s*rgba\(255,\s*255,\s*255,\s*0\.35\)/i, 'Expected post chevron to remain neutral when inactive.');
 assertMatches(css, /\.post-link::before[\s\S]*content:\s*["']>["']/i, 'Expected terminal cursor indicator on post links.');
 assertMatches(css, /\.post-row:nth-child\(odd\)[\s\S]*rgba\(255,\s*255,\s*255,\s*0\.03\)/i, 'Expected subtle zebra striping for scannability.');
