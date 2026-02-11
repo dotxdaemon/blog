@@ -124,7 +124,7 @@ input {
   font-family: var(--font-heading);
   font-size: clamp(72px, 9vw, 96px);
   font-weight: 400;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   line-height: 0.9;
 }
 
@@ -218,8 +218,11 @@ input {
   text-transform: uppercase;
 }
 
+#listening-to {
+  margin-bottom: 80px;
+}
+
 .module-link,
-.dashboard-status-text,
 .dashboard-field-value,
 .dashboard-track-text,
 .search-hint,
@@ -318,7 +321,7 @@ input {
   margin-top: 160px;
   max-width: 640px;
   padding: 80px 0 0;
-  width: 100%;
+  width: 640px;
 }
 
 .post-stream .section-title {
