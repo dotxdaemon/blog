@@ -142,6 +142,34 @@ if (buildStampEl) {
 setupNavToggle();
 setupMatrixRain();
 setupListeningAlbums();
+setupAmbientReading();
+
+
+function setupAmbientReading() {
+  const root = document.documentElement;
+
+  const setPresence = (x, y) => {
+    root.style.setProperty('--presence-x', `${x}%`);
+    root.style.setProperty('--presence-y', `${y}%`);
+  };
+
+  const setProgress = () => {
+    const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+    const progress = Math.min(Math.max(window.scrollY / scrollable, 0), 1);
+    root.style.setProperty('--ambient-progress', progress.toFixed(3));
+  };
+
+  setPresence(50, 32);
+  setProgress();
+
+  window.addEventListener('mousemove', (event) => {
+    const x = (event.clientX / window.innerWidth) * 100;
+    const y = (event.clientY / window.innerHeight) * 100;
+    setPresence(x, y);
+  });
+
+  window.addEventListener('scroll', setProgress, { passive: true });
+}
 
 function createEmptyPost() {
   const entry = document.createElement('article');
