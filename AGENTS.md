@@ -494,3 +494,14 @@ Process:
 - Final response must include: what changed, and the exact commands run.
 
 DO NOT add text or add content of your own unless I specify WHAT to add. Show a screenshot of the resulting changes. Do not complete until the tests are done, the prompt has been re-read and re-tested, and the screenshot shows cleanly.
+
+Visual Verification Guardrails
+
+- For any UI or style change, include before/after screenshots at the same viewport and a short visual diff summary of what changed and where.
+- For each claimed visual change, report selector-level computed values before and after when applicable (example: `body::before z-index: -2 -> 0`).
+- Define 3 to 5 explicit user-visible acceptance criteria and mark each criterion PASS or FAIL with evidence.
+- Do not mark work complete when only tests pass; completion requires automated checks and visual verification evidence.
+- For visual bug fixes, include root cause, minimal fix, and at least one regression assertion that would have caught the issue.
+- Use a failure-first flow for UI bugs: show one failing check before code changes, then show it passing after.
+- Keep UI fixes minimal and scoped; avoid unrelated style refactors and explain every touched selector and file.
+- End with a confidence section listing: what is known for sure, what is inferred, and what could still be wrong.
