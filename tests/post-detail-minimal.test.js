@@ -15,6 +15,7 @@ assertMatches(script, /function\s+formatPostDateBadge/i, 'Expected post script t
 assertMatches(script, /month:\s*'short'/i, 'Expected post date formatting to use short month names.');
 assertMatches(script, /day:\s*'2-digit'/i, 'Expected post date formatting to keep two-digit day values.');
 assertMatches(script, /toUpperCase\(\)/i, 'Expected post date badge text to be uppercased.');
+assertMatches(readRepoFile('style.css'), /--font-body:\s*'Cormorant Garamond',\s*Georgia,\s*serif/i, 'Expected the site body font token to use the original serif font.');
 
 assertNotMatches(html, /id="post-reading-time"/i, 'Expected the post template to omit reading-time metadata.');
 assertNotMatches(html, /class="post-meta-divider"/i, 'Expected the post template to omit the metadata divider when only date remains.');

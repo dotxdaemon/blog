@@ -1,6 +1,6 @@
 /* ABOUTME: Defines a single tokenized visual system for every site page and shared component. */
 /* ABOUTME: Organizes styles into base tokens, reusable components, and one optional glass theme override. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&display=swap');
 
 :root {
   --paper: #F5F0E8;
@@ -46,9 +46,9 @@
   --glass-surface: rgba(245, 240, 232, 0.46);
   --presence-x: 50%;
   --presence-y: 32%;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-label: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Cormorant Garamond', Georgia, serif;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-label: 'Cormorant Garamond', Georgia, serif;
 }
 
 /* COMPONENTS: Base reset and page scaffolding */
