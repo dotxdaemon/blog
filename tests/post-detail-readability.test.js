@@ -19,7 +19,7 @@ assertMatches(
 
 assertMatches(
   css,
-  /\.post-page\s+\.post-content\s*\{[\s\S]*font-size:\s*17px[\s\S]*line-height:\s*1\.8[\s\S]*max-width:\s*680px/i,
+  /\.post-page\s+\.post-content\s*\{[\s\S]*font-size:\s*17px[\s\S]*line-height:\s*1\.9[\s\S]*max-width:\s*680px/i,
   'Expected post content to use readable long-form typography.'
 );
 

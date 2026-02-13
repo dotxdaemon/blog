@@ -549,7 +549,7 @@ a:focus-visible {
 .post-page .post-content {
   color: var(--ink);
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.9;
   max-width: 680px;
   white-space: normal;
 }
