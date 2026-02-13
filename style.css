@@ -532,7 +532,7 @@ a:focus-visible {
 }
 
 .post-back-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--muted);
   cursor: pointer;
   font-size: 14px;
   position: absolute;
@@ -547,7 +547,7 @@ a:focus-visible {
 }
 
 .post-page .post-content {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--ink);
   font-size: 17px;
   line-height: 1.8;
   max-width: 680px;
@@ -567,7 +567,7 @@ a:focus-visible {
 }
 
 .post-page .post-content a {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--accent);
 }
 
 .post-page .post-content pre {
@@ -575,7 +575,7 @@ a:focus-visible {
 }
 
 .post-page .post-content blockquote {
-  border-left: 3px solid rgba(255, 255, 255, 0.22);
+  border-left: 3px solid var(--line);
 }
 
 .post-meta-row {
@@ -593,7 +593,7 @@ a:focus-visible {
 .post-footer {
   align-items: center;
   bottom: var(--space-4);
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--muted);
   display: flex;
   font-size: 11px;
   gap: 20px;
