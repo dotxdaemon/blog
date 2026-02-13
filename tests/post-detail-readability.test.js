@@ -19,13 +19,16 @@ assertMatches(
 
 assertMatches(
   css,
-  /\.post-page\s+\.post-content\s*\{[\s\S]*font-size:\s*17px[\s\S]*line-height:\s*1\.8[\s\S]*max-width:\s*680px/i,
+  /\.post-page\s+\.post-content\s*\{[\s\S]*font-size:\s*17px[\s\S]*line-height:\s*1\.9[\s\S]*max-width:\s*680px/i,
   'Expected post content to use readable long-form typography.'
 );
 
 assertMatches(css, /\.post-page\s+\.post-content\s+h2[\s\S]*font-size:\s*24px/i, 'Expected H2 sizing in post content.');
 assertMatches(css, /\.post-page\s+\.post-content\s+h3[\s\S]*font-size:\s*20px/i, 'Expected H3 sizing in post content.');
 assertMatches(css, /\.post-page\s+\.post-content\s+h4[\s\S]*font-size:\s*18px/i, 'Expected H4 sizing in post content.');
-assertMatches(css, /\.post-page\s+\.post-content\s+a\s*\{[\s\S]*color:\s*rgba\(255,\s*255,\s*255,\s*0\.82\)/i, 'Expected neutral link styling in post content.');
+assertMatches(css, /\.post-page\s+\.post-content\s*\{[\s\S]*color:\s*var\(--ink\)/i, 'Expected post content body text to use high-contrast ink color.');
+assertMatches(css, /\.post-page\s+\.post-content\s+a\s*\{[\s\S]*color:\s*var\(--accent\)/i, 'Expected post content links to use the accent token for readable contrast.');
 assertMatches(css, /\.post-page\s+\.post-content\s+pre\s*\{[\s\S]*overflow-x:\s*auto/i, 'Expected scrollable code blocks in post content.');
-assertMatches(css, /\.post-page\s+\.post-content\s+blockquote\s*\{[\s\S]*border-left:\s*3px\s+solid\s+rgba\(255,\s*255,\s*255,\s*0\.22\)/i, 'Expected neutral-accent blockquote styling.');
+assertMatches(css, /\.post-page\s+\.post-content\s+blockquote\s*\{[\s\S]*border-left:\s*3px\s+solid\s+var\(--line\)/i, 'Expected neutral-accent blockquote styling.');
+assertMatches(css, /\.post-back-link\s*\{[\s\S]*color:\s*var\(--muted\)/i, 'Expected post back link to remain readable against the paper background.');
+assertMatches(css, /\.post-footer\s*\{[\s\S]*color:\s*var\(--muted\)/i, 'Expected post footer text to use readable muted ink on paper.');

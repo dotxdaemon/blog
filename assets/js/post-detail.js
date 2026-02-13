@@ -1,5 +1,5 @@
 /* ABOUTME: Renders post detail pages with dynamic title, metadata badges, and formatted body content. */
-/* ABOUTME: Handles slug lookup, date badge formatting, reading-time estimation, and safe inline markup. */
+/* ABOUTME: Handles slug lookup, date badge formatting, and safe inline markup. */
 (function (globalScope) {
   'use strict';
 
@@ -8,7 +8,7 @@
   const postSlug = urlParams.get('slug');
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { formatDate, formatPostDateBadge, estimateReadingTime };
+    module.exports = { formatDate, formatPostDateBadge };
     return;
   }
 
@@ -38,10 +38,7 @@
     const pageDescriptionEl = document.getElementById('page-description');
     const postTitleEl = document.getElementById('post-title');
     const postDateEl = document.getElementById('post-date');
-    const postReadingTimeEl = document.getElementById('post-reading-time');
     const postContentEl = document.getElementById('post-content');
-    const postMetaRowEl = document.querySelector('.post-meta-row');
-    const postMetaDividerEl = document.querySelector('.post-meta-divider');
 
     if (pageTitleEl) {
       pageTitleEl.textContent = `${postEntry.title} - velvetdaemon`;
@@ -58,15 +55,6 @@
     if (postDateEl) {
       postDateEl.textContent = formatPostDateBadge(postEntry.date);
       postDateEl.dateTime = postEntry.date;
-    }
-
-    const readingTime = estimateReadingTime(postEntry.body || '');
-    if (postReadingTimeEl) {
-      postReadingTimeEl.textContent = `${readingTime} min read`;
-    }
-
-    if (postMetaRowEl && postMetaDividerEl) {
-      postMetaDividerEl.hidden = !readingTime;
     }
 
     if (postContentEl) {
@@ -129,19 +117,6 @@
     return formatDate(isoString).toUpperCase();
   }
 
-  function estimateReadingTime(content) {
-    const plainText = String(content || '')
-      .replace(/<[^>]+>/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    if (!plainText) {
-      return 1;
-    }
-
-    const words = plainText.split(' ').filter(Boolean).length;
-    return Math.max(1, Math.ceil(words / 200));
-  }
 
   function renderBody(raw) {
     const paragraphs = String(raw)

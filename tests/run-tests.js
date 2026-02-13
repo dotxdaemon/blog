@@ -8,6 +8,7 @@ const testFiles = [
   'posts.test.js',
   'rss.test.js',
   'navigation.test.js',
+  'post-detail-minimal.test.js',
 ];
 
 for (const file of testFiles) {

@@ -1,6 +1,6 @@
 /* ABOUTME: Defines a single tokenized visual system for every site page and shared component. */
 /* ABOUTME: Organizes styles into base tokens, reusable components, and one optional glass theme override. */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Inter:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&display=swap');
 
 :root {
   --paper: #F5F0E8;
@@ -46,9 +46,9 @@
   --glass-surface: rgba(245, 240, 232, 0.46);
   --presence-x: 50%;
   --presence-y: 32%;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Cormorant Garamond', Georgia, serif;
   --font-heading: 'Cormorant Garamond', Georgia, serif;
-  --font-label: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-label: 'Cormorant Garamond', Georgia, serif;
 }
 
 /* COMPONENTS: Base reset and page scaffolding */
@@ -199,11 +199,11 @@ input {
 }
 
 .left-column {
-  grid-column: 3 / 11;
   display: grid;
   gap: var(--space-4);
-  justify-self: center;
-  max-width: 640px;
+  grid-column: 1 / 9;
+  grid-row: 1;
+  min-height: 70vh;
   width: 100%;
 }
 
@@ -262,6 +262,10 @@ input {
 
 #listening-to {
   margin-bottom: 80px;
+}
+
+.listening-to {
+  padding-top: 0;
 }
 
 .module-link,
@@ -357,12 +361,13 @@ input {
 .context-layer {
   background: var(--glass-surface);
   border: 1px solid rgba(var(--accent-rgb), 0.18);
+  backdrop-filter: blur(4px);
   grid-column: 9 / 13;
-  max-width: 280px;
+  grid-row: 2;
+  max-width: 320px;
   padding: var(--space-3);
   position: sticky;
   top: 120px;
-  backdrop-filter: blur(4px);
 }
 
 .scene-label {
@@ -406,6 +411,7 @@ input {
 .light-ribbon {
   background: linear-gradient(180deg, rgba(233, 193, 146, 0), rgba(233, 193, 146, 0.28), rgba(233, 193, 146, 0));
   grid-column: 8 / 9;
+  grid-row: 1;
   height: 100%;
   min-height: 540px;
   opacity: 0.45;
@@ -414,23 +420,24 @@ input {
 
 /* COMPONENTS: Post lists */
 .post-stream {
-  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
   display: block;
-  grid-column: 3 / 11;
-  justify-self: center;
-  margin-top: 160px;
-  max-width: 640px;
-  padding: 80px 0 0;
-  width: 640px;
+  grid-column: 9 / 13;
+  grid-row: 1;
+  margin-top: 0;
+  max-width: 320px;
+  min-height: 70vh;
+  padding: 0 0 0 40px;
+  width: 100%;
 }
 
 .post-stream .section-title {
-  margin-bottom: 64px;
+  margin-bottom: 32px;
 }
 
 .post-list {
   display: grid;
-  gap: 80px;
+  gap: 40px;
 }
 
 .post-row {
@@ -525,7 +532,7 @@ a:focus-visible {
 }
 
 .post-back-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--muted);
   cursor: pointer;
   font-size: 14px;
   position: absolute;
@@ -540,9 +547,9 @@ a:focus-visible {
 }
 
 .post-page .post-content {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--ink);
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.9;
   max-width: 680px;
   white-space: normal;
 }
@@ -560,7 +567,7 @@ a:focus-visible {
 }
 
 .post-page .post-content a {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--accent);
 }
 
 .post-page .post-content pre {
@@ -568,7 +575,7 @@ a:focus-visible {
 }
 
 .post-page .post-content blockquote {
-  border-left: 3px solid rgba(255, 255, 255, 0.22);
+  border-left: 3px solid var(--line);
 }
 
 .post-meta-row {
@@ -586,7 +593,7 @@ a:focus-visible {
 .post-footer {
   align-items: center;
   bottom: var(--space-4);
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--muted);
   display: flex;
   font-size: 11px;
   gap: 20px;
@@ -721,8 +728,19 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .left-column {
+  .left-column,
+  .post-stream {
     grid-column: 1 / -1;
+    grid-row: auto;
+    max-width: none;
+    min-height: 0;
+  }
+
+  .post-stream {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    margin-top: 80px;
+    padding: 80px 0 0;
   }
 
   .context-layer,
