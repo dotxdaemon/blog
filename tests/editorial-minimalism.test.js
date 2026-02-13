@@ -10,6 +10,7 @@ assertMatches(css, /--accent:\s*#6B635E/i, 'Expected warm gray accent token.');
 assertMatches(css, /\.site-title[\s\S]*letter-spacing:\s*0\.15em/i, 'Expected title letter spacing near +150.');
 assertMatches(css, /\.site-main[\s\S]*grid-template-columns:\s*repeat\(12,\s*minmax\(0,\s*1fr\)\)/i, 'Expected a 12-column layout grid on desktop.');
 assertMatches(css, /\.left-column[\s\S]*grid-column:\s*1\s*\/\s*9/i, 'Expected listening column to span most of the desktop grid.');
+assertMatches(css, /\.left-column\s*\{[^}]*grid-row:\s*1/i, 'Expected listening column to share the first grid row with recent posts.');
 assertMatches(html, /class="section-title" id="listening-to">LISTENING TO</i, 'Expected LISTENING TO label to remain present.');
 assertMatches(css, /\.dashboard-status[\s\S]*color:\s*var\(--muted-strong\)/i, 'Expected status label to use tertiary text token.');
 

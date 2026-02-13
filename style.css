@@ -202,6 +202,7 @@ input {
   display: grid;
   gap: var(--space-4);
   grid-column: 1 / 9;
+  grid-row: 1;
   min-height: 70vh;
   width: 100%;
 }
