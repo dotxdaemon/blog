@@ -13,6 +13,7 @@ assertMatches(css, /\.left-column[\s\S]*grid-column:\s*1\s*\/\s*9/i, 'Expected l
 assertMatches(html, /class="section-title" id="listening-to">LISTENING TO</i, 'Expected LISTENING TO label to remain present.');
 assertMatches(css, /\.dashboard-status[\s\S]*color:\s*var\(--muted-strong\)/i, 'Expected status label to use tertiary text token.');
 
+assertMatches(css, /\.listening-to[\s\S]*padding-top:\s*0/i, 'Expected listening module top padding to be removed so headings align.');
 assertMatches(css, /\.post-stream[\s\S]*grid-column:\s*9\s*\/\s*13/i, 'Expected recent posts to render in the right-side column on desktop.');
 assertMatches(css, /\.post-stream[\s\S]*margin-top:\s*0/i, 'Expected recent posts to align with the listening section instead of sitting below it.');
 assertMatches(css, /\.post-stream[\s\S]*border-left:\s*1px\s+solid\s+var\(--line\)/i, 'Expected a vertical divider between listening and recent posts.');

@@ -263,6 +263,10 @@ input {
   margin-bottom: 80px;
 }
 
+.listening-to {
+  padding-top: 0;
+}
+
 .module-link,
 .dashboard-field-value,
 .dashboard-track-text,
