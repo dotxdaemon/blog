@@ -199,11 +199,10 @@ input {
 }
 
 .left-column {
-  grid-column: 3 / 11;
   display: grid;
   gap: var(--space-4);
-  justify-self: center;
-  max-width: 640px;
+  grid-column: 1 / 9;
+  min-height: 70vh;
   width: 100%;
 }
 
@@ -357,12 +356,13 @@ input {
 .context-layer {
   background: var(--glass-surface);
   border: 1px solid rgba(var(--accent-rgb), 0.18);
+  backdrop-filter: blur(4px);
   grid-column: 9 / 13;
-  max-width: 280px;
+  grid-row: 2;
+  max-width: 320px;
   padding: var(--space-3);
   position: sticky;
   top: 120px;
-  backdrop-filter: blur(4px);
 }
 
 .scene-label {
@@ -406,6 +406,7 @@ input {
 .light-ribbon {
   background: linear-gradient(180deg, rgba(233, 193, 146, 0), rgba(233, 193, 146, 0.28), rgba(233, 193, 146, 0));
   grid-column: 8 / 9;
+  grid-row: 1;
   height: 100%;
   min-height: 540px;
   opacity: 0.45;
@@ -414,23 +415,24 @@ input {
 
 /* COMPONENTS: Post lists */
 .post-stream {
-  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
   display: block;
-  grid-column: 3 / 11;
-  justify-self: center;
-  margin-top: 160px;
-  max-width: 640px;
-  padding: 80px 0 0;
-  width: 640px;
+  grid-column: 9 / 13;
+  grid-row: 1;
+  margin-top: 0;
+  max-width: 320px;
+  min-height: 70vh;
+  padding: 0 0 0 40px;
+  width: 100%;
 }
 
 .post-stream .section-title {
-  margin-bottom: 64px;
+  margin-bottom: 32px;
 }
 
 .post-list {
   display: grid;
-  gap: 80px;
+  gap: 40px;
 }
 
 .post-row {
@@ -721,8 +723,19 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .left-column {
+  .left-column,
+  .post-stream {
     grid-column: 1 / -1;
+    grid-row: auto;
+    max-width: none;
+    min-height: 0;
+  }
+
+  .post-stream {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    margin-top: 80px;
+    padding: 80px 0 0;
   }
 
   .context-layer,
