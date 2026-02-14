@@ -678,7 +678,11 @@ a:focus-visible {
     --layout-padding-block: var(--space-6);
   }
 
-  .site-title { font-size: 72px; }
+  .site-header {
+    margin-bottom: var(--space-5);
+  }
+
+  .site-title { font-size: clamp(44px, 16vw, 64px); }
 
   .site-main {
     gap: var(--space-4);
@@ -692,6 +696,19 @@ a:focus-visible {
   .context-layer,
   .light-ribbon {
     display: none;
+  }
+
+  .dashboard-status {
+    left: auto;
+    margin-bottom: var(--space-2);
+    position: static;
+    top: auto;
+  }
+
+  .dashboard-track-artwork,
+  .dashboard-track-icon {
+    height: min(320px, calc(100vw - (var(--space-3) * 2)));
+    width: min(100%, 320px);
   }
 
   .site-nav a[aria-current='page'] {
@@ -719,7 +736,8 @@ a:focus-visible {
   }
 
   .post-footer {
-    right: var(--space-3);
+    position: static;
+    right: auto;
   }
 }
 

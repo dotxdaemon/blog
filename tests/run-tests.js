@@ -9,6 +9,7 @@ const testFiles = [
   'rss.test.js',
   'navigation.test.js',
   'post-detail-minimal.test.js',
+  'mobile-layout-improvements.test.js',
 ];
 
 for (const file of testFiles) {
