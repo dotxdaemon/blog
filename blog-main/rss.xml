@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>velvetdaemon</title>
+    <description></description>
+    <link>https://dotxdaemon.github.io/blog</link>
+    <atom:link href="https://dotxdaemon.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Feb 2026 18:05:04 GMT</lastBuildDate>
+    <item>
+      <title>cooking recipes</title>
+      <link>https://dotxdaemon.github.io/blog/post.html?slug=cooking-recipes</link>
+      <guid isPermaLink="true">https://dotxdaemon.github.io/blog/post.html?slug=cooking-recipes</guid>
+      <pubDate>Tue, 30 Dec 2025 00:00:00 GMT</pubDate>
+      <description>pantry chicken thighs</description>
+    </item>
+    <item>
+      <title>movies I want to watch</title>
+      <link>https://dotxdaemon.github.io/blog/post.html?slug=movies-i-want-to-watch</link>
+      <guid isPermaLink="true">https://dotxdaemon.github.io/blog/post.html?slug=movies-i-want-to-watch</guid>
+      <pubDate>Fri, 26 Sep 2025 00:00:00 GMT</pubDate>
+      <description>Hamnet</description>
+    </item>
+    <item>
+      <title>hi everybody</title>
+      <link>https://dotxdaemon.github.io/blog/post.html?slug=hi-everybody</link>
+      <guid isPermaLink="true">https://dotxdaemon.github.io/blog/post.html?slug=hi-everybody</guid>
+      <pubDate>Fri, 19 Sep 2025 00:00:00 GMT</pubDate>
+      <description>hi everybody</description>
+    </item>
+  </channel>
+</rss>

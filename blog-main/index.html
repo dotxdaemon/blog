@@ -1,0 +1,88 @@
+<!-- ABOUTME: Provides the monochrome brutalist homepage for the static blog. -->
+<!-- ABOUTME: Defines the header, listening section, recent posts stream, and footer. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>velvetdaemon</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="ambient-fabric" aria-hidden="true"></div>
+    <div class="layout">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div class="site-title-block">
+            <h1 class="site-title">velvetdaemon</h1>
+            <hr class="site-title-rule" aria-hidden="true" />
+          </div>
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a class="nav-link" href="index.html" aria-current="page">Home</a>
+            <a class="nav-link" href="archives.html">Archives</a>
+            <a class="nav-link" href="search.html">Search</a>
+            <a class="nav-link" href="posts.html">Posts</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="site-main" id="main-content" data-dashboard>
+        <div class="left-column">
+          <section class="listening-to module-card" data-listening-to aria-label="Listening to">
+            <h2 class="section-title" id="listening-to">LISTENING TO</h2>
+            <p class="dashboard-status" id="dashboard-status"><span class="live-dot" aria-hidden="true"></span><span class="dashboard-status-text">Dashboard is live</span></p>
+            <div class="dashboard-track-empty" id="dashboard-track" aria-live="polite">
+              <a class="dashboard-track-link" id="dashboard-track-link" href="#" hidden>
+                <img class="dashboard-track-artwork" id="dashboard-track-artwork" src="" alt="" loading="lazy" />
+              </a>
+              <span class="dashboard-track-icon" aria-hidden="true">
+                <svg viewBox="0 0 120 120" role="img" aria-label="Waveform placeholder">
+                  <path d="M26 60h14l6-10 8 20 8-24 8 28 6-14h18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="dashboard-track-meta">
+              <p class="dashboard-track-text" id="dashboard-track-text">No track selected yet</p>
+              <p class="dashboard-track-detail"><span id="dashboard-artist">-</span> <span class="dashboard-track-separator" aria-hidden="true">&middot;</span> <span id="dashboard-album">-</span></p>
+            </div>
+          </section>
+        </div>
+
+        <aside class="context-layer module-card" aria-label="Context">
+          <p class="scene-label">quiet scene</p>
+          <p class="scene-meta">instant to read</p>
+          <p class="scene-meta">quiet navigation</p>
+          <p class="scene-meta">no friction</p>
+          <details class="folded-card">
+            <summary>details</summary>
+            <p>stack and performance notes</p>
+          </details>
+        </aside>
+
+        <span class="light-ribbon" aria-hidden="true"></span>
+
+        <section class="post-stream module-card" aria-labelledby="recent-posts">
+          <h2 class="section-title" id="recent-posts">RECENT POSTS</h2>
+          <div class="post-list" id="posts"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer" id="site-footer" aria-label="Site footer">
+        <div class="site-footer__inner">
+          <p>&copy; <span id="current-year"></span> velvetdaemon - built for reading</p>
+          <div class="site-footer__links">
+            <a class="nav-link" href="index.html">About</a>
+            <a class="nav-link" href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      window.VELVETDAEMON_DASHBOARD = window.VELVETDAEMON_DASHBOARD || {};
+    </script>
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/listening-to.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
+  </body>
+</html>
