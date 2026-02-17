@@ -1,0 +1,172 @@
+<!-- ABOUTME: Font mockups for proposed typefaces. -->
+<!-- ABOUTME: Shows sample headline and body for each font. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Font Mockups</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Serif+4:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&family=Merriweather:wght@400;700&display=swap");
+
+      :root {
+        color-scheme: light;
+      }
+
+      body {
+        margin: 0;
+        background: #f5f3ef;
+        color: #1e1e1e;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      header {
+        padding: 48px 64px 24px;
+      }
+
+      header h1 {
+        margin: 0 0 12px;
+        font-size: 40px;
+      }
+
+      header p {
+        margin: 0;
+        font-size: 18px;
+        max-width: 720px;
+      }
+
+      main {
+        display: grid;
+        gap: 24px;
+        padding: 24px 64px 64px;
+      }
+
+      section {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e2d8cc;
+        padding: 28px 32px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      section h2 {
+        margin: 0 0 12px;
+        font-size: 32px;
+      }
+
+      section h3 {
+        margin: 0 0 16px;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      .font-sample {
+        margin: 0 0 16px;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      section p {
+        margin: 0 0 12px;
+        font-size: 18px;
+        line-height: 1.55;
+      }
+
+      .inter {
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      .source-serif {
+        font-family: "Source Serif 4", "Times New Roman", serif;
+      }
+
+      .space-grotesk {
+        font-family: "Space Grotesk", system-ui, sans-serif;
+      }
+
+      .ibm-plex {
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+      }
+
+      .merriweather {
+        font-family: "Merriweather", "Times New Roman", serif;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Typeface Mockups</h1>
+      <p>
+        Sample blog typography showing headline, subhead, and body copy for each candidate font.
+      </p>
+    </header>
+    <main>
+      <section class="inter" data-font="Inter">
+        <h2>Inter</h2>
+        <h3>Designing calm, readable interfaces for long-form stories.</h3>
+        <p class="font-sample">Aa Bb Cc Dd Ee Ff Gg Hh Ii 0123456789</p>
+        <p>
+          Inter balances crisp geometry with friendly curves, keeping text sharp at small sizes while
+          still feeling welcoming for longer reads.
+        </p>
+        <p>
+          Best for: clean, modern layouts that prioritize clarity and minimal friction.
+        </p>
+      </section>
+
+      <section class="source-serif" data-font="Source Serif 4">
+        <h2>Source Serif 4</h2>
+        <h3>A literary feel for editorial notes and thoughtful essays.</h3>
+        <p class="font-sample">Aa Bb Cc Dd Ee Ff Gg Hh Ii 0123456789</p>
+        <p>
+          Source Serif 4 gives paragraphs a bookish rhythm, with sturdy serifs and confident
+          contrast that elevate longer articles.
+        </p>
+        <p>
+          Best for: journals, essays, and story-driven posts.
+        </p>
+      </section>
+
+      <section class="space-grotesk" data-font="Space Grotesk">
+        <h2>Space Grotesk</h2>
+        <h3>Playful geometry that still reads clean at body sizes.</h3>
+        <p class="font-sample">Aa Bb Cc Dd Ee Ff Gg Hh Ii 0123456789</p>
+        <p>
+          Space Grotesk brings a modern, slightly quirky edge with tight spacing and bold forms,
+          giving headings a memorable snap.
+        </p>
+        <p>
+          Best for: design-forward, tech, or creative commentary.
+        </p>
+      </section>
+
+      <section class="ibm-plex" data-font="IBM Plex Sans">
+        <h2>IBM Plex Sans</h2>
+        <h3>A professional sans with a subtle technical personality.</h3>
+        <p class="font-sample">Aa Bb Cc Dd Ee Ff Gg Hh Ii 0123456789</p>
+        <p>
+          IBM Plex Sans feels precise without being cold, offering excellent legibility and a
+          hint of newsroom seriousness.
+        </p>
+        <p>
+          Best for: product updates, research notes, and pragmatic writing.
+        </p>
+      </section>
+
+      <section class="merriweather" data-font="Merriweather">
+        <h2>Merriweather</h2>
+        <h3>Warm, screen-optimized serif for relaxed reading.</h3>
+        <p class="font-sample">Aa Bb Cc Dd Ee Ff Gg Hh Ii 0123456789</p>
+        <p>
+          Merriweather keeps letterforms open and sturdy, helping readers settle into longer
+          content with an approachable tone.
+        </p>
+        <p>
+          Best for: personal essays, reflective writing, and storytelling.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+// ABOUTME: Confirms the post detail view follows the matrix template layout and spacing.
+// ABOUTME: Ensures post page width, padding, and back navigation placement are correct.
+const { assertMatches, readStyles } = require('./helpers');
+
+const css = readStyles();
+
+assertMatches(
+  css,
+  /\.post-page\s*\{[\s\S]*background:\s*linear-gradient\(135deg,\s*var\(--paper-soft\)\s*0%,\s*var\(--paper\)\s*100%\)/i,
+  'Expected post page to use the dashboard gradient background.'
+);
+assertMatches(
+  css,
+  /\.post-page::before\s*\{[\s\S]*radial-gradient\(ellipse at center,\s*rgba\(10,\s*10,\s*10,\s*0\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*0\.6\)\s*100%\)/i,
+  'Expected post page to include the centered vignette overlay.'
+);
+assertMatches(
+  css,
+  /\.post-page\s+\.layout\s*\{[\s\S]*max-width:\s*var\(--post-layout-max-width\)[\s\S]*padding:\s*var\(--post-layout-padding\)/i,
+  'Expected post layout width and desktop padding to match requirements.'
+);
+assertMatches(
+  css,
+  /\.post-back-link\s*\{[\s\S]*position:\s*absolute[\s\S]*top:\s*40px[\s\S]*left:\s*40px/i,
+  'Expected back navigation to be absolutely positioned from the top-left.'
+);
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.post-page\s+\.layout\s*\{[\s\S]*padding:\s*var\(--post-layout-padding-mobile\)/i,
+  'Expected mobile post layout padding adjustments.'
+);
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.post-back-link\s*\{[\s\S]*top:\s*24px[\s\S]*left:\s*24px/i,
+  'Expected mobile back-link offsets.'
+);
+
+assertMatches(
+  css,
+  /\.post-page\s+\.layout\s*\{[\s\S]*cubic-bezier\(0\.4,\s*0,\s*0\.2,\s*1\)/i,
+  'Expected post layout transitions to use the requested cubic-bezier easing.'
+);

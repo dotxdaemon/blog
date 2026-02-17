@@ -1,0 +1,56 @@
+<!-- ABOUTME: Posts page listing the latest blog entries. -->
+<!-- ABOUTME: Presents the post feed separate from the homepage layout. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posts - velvetdaemon</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div class="site-title-block">
+            <a class="site-title site-title-link" href="index.html">velvetdaemon</a>
+            <hr class="site-title-rule" aria-hidden="true" />
+          </div>
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="archives.html">Archives</a>
+            <a class="nav-link" href="search.html">Search</a>
+            <a class="nav-link" href="posts.html" aria-current="page">Posts</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="site-main" id="main-content">
+        <section class="post-stream module-card" id="latest-writing" aria-label="Latest writing">
+          <h2 class="section-title">Latest writing</h2>
+          <div class="post-list" id="posts" aria-live="polite"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer" id="site-footer" aria-label="Site footer">
+        <div class="site-footer__inner">
+          <p>&copy; <span id="current-year"></span> velvetdaemon - built for reading</p>
+          <div class="site-footer__links">
+            <a class="nav-link" href="index.html">About</a>
+            <a
+              class="nav-link"
+              href="https://github.com/dotxdaemon"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!-- ABOUTME: Individual post page template with matrix backdrop and long-form reading layout. -->
+<!-- ABOUTME: Renders dynamic post title, metadata badges, content card, and fixed footer links. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Post - velvetdaemon</title>
+    <meta name="description" id="page-description" content="" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="post-page">
+    <div class="layout">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <a class="post-back-link" href="index.html" aria-label="Back to dashboard">Back</a>
+          <div class="site-title-block">
+            <a class="site-title site-title-link" href="index.html">velvetdaemon</a>
+            <hr class="site-title-rule" aria-hidden="true" />
+          </div>
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="archives.html">Archives</a>
+            <a class="nav-link" href="search.html">Search</a>
+            <a class="nav-link" href="posts.html">Posts</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="site-main" id="main-content">
+        <article class="post-detail" id="post-detail">
+          <header class="post-header">
+            <h1 class="post-title" id="post-title">Loading...</h1>
+            <div class="post-meta-row" aria-label="Post metadata">
+              <span class="post-meta-badge" id="post-date-badge"><time id="post-date" datetime=""></time></span>
+            </div>
+          </header>
+          <div class="post-content" id="post-content"></div>
+        </article>
+      </main>
+
+      <footer class="site-footer" id="site-footer" aria-label="Site footer">
+        <div class="site-footer__inner">
+          <p>&copy; <span id="current-year"></span> velvetdaemon - built for reading</p>
+          <div class="site-footer__links">
+            <a class="nav-link" href="index.html">About</a>
+            <a class="nav-link" href="https://github.com/dotxdaemon" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
+    <script src="assets/js/post-detail.js"></script>
+  </body>
+</html>

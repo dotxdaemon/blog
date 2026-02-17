@@ -1,0 +1,164 @@
+# Journal
+
+- Date: 2026-03-11
+  Task: Apply lavender matrix styling, readable post content, and Last.fm hover details.
+  Notes: Updated the palette and matrix rain colors to lavender tones, preserved post body line breaks, removed post-page nav links, and showed song plus artist on Last.fm overlays with updated tests; reran npm test, npm run lint, and npm run typecheck.
+- Date: 2026-03-12
+  Task: Move to Merriweather, remove borders, and background the matrix rain.
+  Notes: Added Merriweather typography, removed border styling, placed the matrix canvas behind all pages, and slowed/enlarged the alternating matrix glyphs with updated tests; reran npm test, npm run lint, and npm run typecheck.
+- Date: 2026-03-09
+  Task: Centered layout container with mixed-case typography and split homepage columns.
+  Notes: Wrapped shared layout sections in a centered container, reduced uppercase styling in headings/nav, added a wide-screen two-column main layout, and updated tests with npm test, npm run lint, and npm run typecheck.
+- Date: 2026-03-10
+  Task: Update homepage title, Last.fm artwork tiles, and post readability.
+  Notes: Removed the homepage nav links, set the homepage title to velvetdaemon, switched the Last.fm widget to artwork tiles with artist hover overlays, updated post row layout for clarity, and refreshed tests with npm test, npm run lint, and npm run typecheck.
+- Date: 2026-03-08
+  Task: Refresh the site styling with a softer, card-based theme.
+  Notes: Updated palette tokens, spacing, shadows, and typography with matching test expectations; ran npm test, npm run lint, and npm run typecheck with proxy env vars unset.
+- Date: 2026-03-07
+  Task: Unified font stack across typography tokens.
+  Notes: Pointed the sans-serif token at the mono stack and updated typography coverage for the unified font.
+- Date: 2026-03-06
+  Task: Aligned post navigation for static host parity.
+  Notes: Pointed post back navigation and missing-slug redirects at the posts listing and added coverage for the back-link markup.
+- Date: 2026-03-05
+  Task: Unified posts list layout to match the list-row theme.
+  Notes: Rendered all posts using the list-row layout and added coverage to keep the posts renderer consistent.
+- Date: 2026-03-04
+  Task: Restored the 2x2 Last.fm grid and removed the Last played title.
+  Notes: Switched the homepage widget back to album tiles and removed the last-played header text with updated styling tests.
+- Date: 2026-03-03
+  Task: Restored the homepage Last.fm widget.
+  Notes: Reinstated the last-played section, restored now-playing rendering, and reverted track grid styling with aligned tests.
+- Date: 2026-02-25
+  Task: Reworked the homepage to focus on a 2x2 album art grid and separated the posts feed.
+  Notes: Removed the homepage post list, created a dedicated posts page, and refit Last.fm rendering into a 2x2 art grid with updated layout styles.
+- Date: 2026-02-26
+  Task: Refined the album grid hover behavior and aligned the posts page spacing.
+  Notes: Removed the homepage panel border, added hover labels to album tiles, and tuned posts page layout styles for cohesion.
+- Date: 2026-02-27
+  Task: Simplified album tiles and posts list styling for cleaner readability.
+  Notes: Reduced album tile chrome, strengthened hover labels, and reshaped posts into a tighter list layout.
+- Date: 2026-02-28
+  Task: Shifted the UI toward a cleaner monochrome brutalist layout.
+  Notes: Increased album grid spacing, strengthened tile borders and label contrast, and reworked post rows into a structured list.
+- Date: 2026-03-01
+  Task: Reframed the posts layout into a ledger-style list.
+  Notes: Switched posts to a two-column grid with metadata in a fixed column and removed the title accent marker.
+- Date: 2026-03-02
+  Task: Removed the homepage listening panel and stacked post metadata under titles.
+  Notes: Dropped the last-played section and reordered post list typography to match the provided visual reference.
+- Date: 2026-02-02
+  Task: Shifted the homepage into a poster-style split layout with a build stamp.
+  Notes: Replaced homepage card markup with typographic and poster blocks, unified row link styles, added build stamp rendering, and refreshed related tests.
+- Date: 2026-02-22
+  Task: Reduced the matrix veil opacity for improved content contrast.
+  Notes: Adjusted the matrix veil background alpha and updated the related effect test.
+- Date: 2026-02-02
+  Task: Updated RSS generation to support configured site URLs.
+  Notes: Added coverage for SITE_URL overrides and regenerated the RSS feed.
+- Date: 2026-02-02
+  Task: Removed the AGENTS.md instruction about uncommitted changes.
+  Notes: Cleared the version control rule that conflicted with session directives.
+- Date: 2026-02-02
+  Task: Redesigned the homepage panels with unified tokens and typography.
+  Notes: Added design token coverage, refreshed layout styles, and updated related CSS tests.
+- Date: 2026-01-29
+  Task: Refined the homepage layout to a modern card-based grid.
+  Notes: Updated the homepage markup and styles to use a 12-column layout, surface cards, and refreshed navigation while aligning tests.
+- Date: 2026-01-29
+  Task: Balanced the homepage profile and last-played layout symmetry.
+  Notes: Restructured the profile and last-played sections with matched headers and card containers, plus updated spacing and tests.
+- Date: 2026-01-29
+  Task: Aligned the homepage hero social links with the title baseline.
+  Notes: Added a hero alignment style rule at the 640px breakpoint with coverage in a new CSS test.
+- Date: 2026-02-21
+  Task: Removed the homepage collage photo and balanced the landing layout spacing.
+  Notes: Dropped the collage grid markup and tightened the desktop grid to a two-column layout with larger gaps.
+- Date: 2026-02-20
+  Task: Removed added landing page copy from the collage layout.
+  Notes: Dropped the extra hero and panel text while keeping the grid structure.
+- Date: 2026-02-20
+  Task: Rebuilt the blog landing page into a Swiss grid and Dada collage layout.
+  Notes: Added checkerboard photo slicing, grid panels, and updated layout coverage.
+- Date: 2026-01-23
+  Task: Refined the homepage layout hierarchy, navigation, and typography for the brutalist refresh.
+  Notes: Updated the monospace typography, palette, Last Played layout, and post feed styling with refreshed tests.
+- Date: 2026-01-16
+  Task: Shifted the blog UI to a digital gothic aesthetic with sharper geometry and typography.
+  Notes: Added CSS and test coverage for square geometry, metadata styling, overlays, and log-style music layout.
+- Date: 2025-01-05
+  Task: Adjusted post list spacing and hierarchy, added CSS style test, and captured UI screenshot.
+  Notes: Applied TDD for CSS changes and validated styling via node test.
+- Date: 2026-01-14
+  Task: Added a Last.fm listening widget to the homepage with coverage in tests.
+  Notes: Created a minimal npm test runner and documented the change.
+- Date: 2026-01-14
+  Task: Combined the Last.fm last-played and listening widgets into a single client fetch flow.
+  Notes: Moved the Last.fm fetch into the main app script and updated the homepage labels.
+- Date: 2026-01-14
+  Task: Updated the Last.fm section to show the last four plays in a single grid.
+  Notes: Removed the standalone listening widget and simplified the Last.fm rendering flow.
+- Date: 2026-01-15
+  Task: Restyled the Last.fm section and removed post card borders.
+  Notes: Updated artwork selection and added coverage for Last.fm styling and image handling.
+- Date: 2026-01-14
+  Task: Removed Last.fm wording from the listening widget header and status text.
+  Notes: Updated the widget label copy and verified coverage with existing tests.
+- Date: 2026-02-14
+  Task: Allowed the matrix rain toggle to stay clickable with reduced motion defaults.
+  Notes: Added aria-disabled updates and extended matrix toggle coverage in tests.
+- Date: 2026-01-15
+  Task: Updated the Last.fm widget status copy and aligned widget styling with theme.
+  Notes: Removed inline styles, moved missing styles into the main stylesheet, and adjusted Last.fm tests.
+- Date: 2026-01-15
+  Task: Let the matrix rain animation appear when enabled under reduced motion.
+  Notes: Added reduced-motion CSS override coverage for the matrix canvas.
+- Date: 2026-01-21
+  Task: Made the matrix rain more visible and ensured theme overlays respond to light mode.
+  Notes: Adjusted the matrix animation opacity and theme backdrop tokens with updated tests.
+- Date: 2026-02-16
+  Task: Slowed the matrix rain and removed theme toggling controls from the UI.
+  Notes: Increased rain visibility, refreshed demo settings, and updated tests and documentation.
+- Date: 2026-02-17
+  Task: Enabled the matrix rain by default across the site.
+  Notes: Updated toggle defaults in scripts, refreshed tests, and captured a screenshot of the active rain.
+- Date: 2026-02-18
+  Task: Removed the wavy underline from the active search nav link to match the other top buttons.
+  Notes: Updated nav link styling and adjusted typography test coverage.
+- Date: 2026-02-19
+  Task: Aligned the accent color with the primary text and refreshed the cooking post copy.
+  Notes: Updated palette tests and ensured the recipe entry mentions pantry-friendly dishes.
+- Date: 2026-02-02
+  Task: Added extended system and workflow instructions to AGENTS.md.
+  Notes: Appended the provided instruction block verbatim.
+- Date: 2026-02-23
+  Task: Unify homepage panels with shared component and spacing rules.
+  Notes: Restated requirements (panel component with shared tokens, list row reuse, background scrim overlay, typography sizing); planning to touch index.html, assets styles, and tests; will run npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Shifted the blog UI to a harsher brutalist palette with asymmetric layout.
+  Notes: Updated palette tokens, matrix rain colors, and brutalist layout expectations with matching test coverage.
+- Date: 2026-02-04
+  Task: Plan monochrome brutalist static blog front-end refresh.
+  Notes: Restated requirements (monochrome palette, brutalist grid borders, monospaced typography, 5 recent posts, hover inversion, responsive single column); expected files index.html, style.css, tests; will run npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Restore dynamic posts and a text-only last played widget to the brutalist homepage.
+  Notes: Reintroduced posts rendering via app.js/posts.js, added last played markup without images, updated styles and tests, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Apply the monochrome brutalist front-end styling across all HTML pages.
+  Notes: Swapped pages to style.css, removed matrix visuals, aligned headers/footers, updated tests for shared styling, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-04
+  Task: Center post rows and remove spacing between post fields.
+  Notes: Adjusted post-row grid to a single centered column with zero padding/gap, updated tests, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Remove spacing from core layout and post detail elements.
+  Notes: Zeroed padding/gaps on layout containers and post detail metadata, added whitespace removal test coverage, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Remove body stretch to eliminate remaining whitespace in post views.
+  Notes: Set body rows to auto sizing, removed min-height, added body layout test coverage, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Reduce post detail to title and date, and make post rows fully clickable.
+  Notes: Removed post detail UI elements and related script logic, added post row click handling, added tests for minimal detail and click behavior, and reran npm test, npm run lint, npm run typecheck.
+- Date: 2026-02-24
+  Task: Restore post body content and remove footer copy.
+  Notes: Added post body container and minimal rendering, removed static footer text and "built for reading" copy, updated footer branding test, added footer removal test coverage, and reran npm test, npm run lint, npm run typecheck.

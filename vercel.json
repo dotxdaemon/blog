@@ -1,4 +1,14 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/blog-main/:path*",
+      "destination": "/blog-main/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/blog-main/:path*"
+    }
+  ]
 }
