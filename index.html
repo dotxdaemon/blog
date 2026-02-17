@@ -10,6 +10,7 @@
   </head>
   <body>
     <canvas class="matrix-rain" id="matrix-rain" aria-hidden="true"></canvas>
+    <div class="ambient-fabric" aria-hidden="true"></div>
     <div class="layout">
       <header class="site-header">
         <div class="site-header__inner">
@@ -23,28 +24,36 @@
       <main class="site-main" data-dashboard>
         <div class="left-column">
           <section class="listening-to module-card" data-listening-to aria-label="Listening to">
-            <h2 class="section-title" id="listening-to">Listening to</h2>
+            <h2 class="section-title" id="listening-to">LISTENING TO</h2>
             <p class="dashboard-status" id="dashboard-status"><span class="live-dot" aria-hidden="true"></span><span class="dashboard-status-text">Dashboard is live</span></p>
             <div class="dashboard-track-empty" id="dashboard-track" aria-live="polite">
-              <span class="dashboard-track-icon" aria-hidden="true">♫</span>
-              <p class="dashboard-track-text">No track selected yet</p>
-            </div>
-            <ul class="album-list" id="album-list" aria-label="Favorite albums"></ul>
-            <div class="dashboard-fields" aria-hidden="true">
-              <label class="dashboard-field">
-                <span class="dashboard-field-label">Album title</span>
-                <span class="dashboard-field-value" id="dashboard-album">—</span>
-              </label>
-              <label class="dashboard-field">
-                <span class="dashboard-field-label">Artist name</span>
-                <span class="dashboard-field-value" id="dashboard-artist">—</span>
-              </label>
+              <a class="dashboard-track-link" id="dashboard-track-link" href="#" hidden>
+                <img class="dashboard-track-artwork" id="dashboard-track-artwork" src="" alt="" loading="lazy" />
+              </a>
+              <span class="dashboard-track-icon" aria-hidden="true">
+                <svg viewBox="0 0 120 120" role="img" aria-label="Waveform placeholder">
+                  <path d="M26 60h14l6-10 8 20 8-24 8 28 6-14h18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
             </div>
           </section>
         </div>
 
+        <aside class="context-layer module-card" aria-label="Context">
+          <p class="scene-label">quiet scene</p>
+          <p class="scene-meta">instant to read</p>
+          <p class="scene-meta">quiet navigation</p>
+          <p class="scene-meta">no friction</p>
+          <details class="folded-card">
+            <summary>details</summary>
+            <p>stack and performance notes</p>
+          </details>
+        </aside>
+
+        <span class="light-ribbon" aria-hidden="true"></span>
+
         <section class="post-stream module-card" aria-labelledby="recent-posts">
-          <h2 class="section-title" id="recent-posts">Recent Posts</h2>
+          <h2 class="section-title" id="recent-posts">RECENT POSTS</h2>
           <div class="post-list" id="posts"></div>
         </section>
       </main>

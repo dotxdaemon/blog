@@ -1,21 +1,31 @@
-// ABOUTME: Ensures the front page post stream uses the shared panel style.
-// ABOUTME: Confirms matching border and padding treatments for symmetry.
+// ABOUTME: Ensures the homepage post stream follows the editorial spacing system.
+// ABOUTME: Confirms divider, offsets, and readable content width are present.
 const { assertMatches, readStyles } = require('./helpers');
 
 const css = readStyles();
 
 assertMatches(
   css,
-  /\.post-stream[\s\S]*border:\s*var\(--border-width\)\s+solid\s+var\(--border\)/i,
-  'Expected the post stream to use the shared panel border.'
+  /\.post-stream[\s\S]*margin-top:\s*160px/i,
+  'Expected a 160px vertical offset before the recent posts section.'
 );
 assertMatches(
   css,
-  /\.post-stream[\s\S]*padding:\s*var\(--space-4\)/i,
-  'Expected the post stream to use the shared panel padding.'
+  /\.post-stream[\s\S]*max-width:\s*640px/i,
+  'Expected the recent posts section to cap at 640px width.'
 );
 assertMatches(
   css,
-  /\.post-list[\s\S]*margin-top:\s*var\(--space-3\)/i,
-  'Expected the post list to align spacing with the panel spacing scale.'
+  /\.post-stream[\s\S]*border-top:\s*1px\s+solid\s+var\(--line\)/i,
+  'Expected a 1px divider above recent posts.'
+);
+assertMatches(
+  css,
+  /\.post-stream[\s\S]*padding-top:\s*80px/i,
+  'Expected an 80px gap between divider and section heading.'
+);
+assertMatches(
+  css,
+  /\.post-stream\s+\.section-title[\s\S]*margin-bottom:\s*64px/i,
+  'Expected a 64px gap between heading and first post item.'
 );

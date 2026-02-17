@@ -6,6 +6,6 @@ const css = readStyles();
 
 assertMatches(
   css,
-  /font-family:\s*'Inter',\s*system-ui,\s*-apple-system,\s*sans-serif/i,
+  /(--font-body:\s*'Inter',\s*system-ui,\s*-apple-system,\s*sans-serif|font-family:\s*'Inter',\s*system-ui,\s*-apple-system,\s*sans-serif)/i,
   'Expected the body font stack to use Inter and system sans-serif fallbacks.'
 );

@@ -37,6 +37,6 @@ assertMatches(
 assertNotMatches(css, /\.site-nav a\[aria-current='page'\]:hover/i, 'Did not expect active navigation hover state styles.');
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*600px\)[\s\S]*\.site-nav a\[aria-current='page'\][\s\S]*(border|text-decoration|color)/i,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.site-nav a\[aria-current='page'\][\s\S]*(border|text-decoration|color)/i,
   'Expected mobile nav rules to keep current-page links visually clear.'
 );

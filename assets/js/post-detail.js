@@ -1,5 +1,5 @@
-/* ABOUTME: Renders individual post pages with minimal post metadata. */
-/* ABOUTME: Sets post titles, dates, and page metadata. */
+/* ABOUTME: Renders post detail pages with dynamic title, metadata badges, and formatted body content. */
+/* ABOUTME: Handles slug lookup, date badge formatting, and safe inline markup. */
 (function (globalScope) {
   'use strict';
 
@@ -8,7 +8,7 @@
   const postSlug = urlParams.get('slug');
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { formatDate };
+    module.exports = { formatDate, formatPostDateBadge };
     return;
   }
 
@@ -17,38 +17,53 @@
     return;
   }
 
-  const currentIndex = orderedPosts.findIndex((p) => slugify(p.title) === postSlug);
-  const post = orderedPosts[currentIndex];
+  const post = orderedPosts.find((entry) => slugify(entry.title) === postSlug);
 
   if (!post) {
     globalScope.location.href = 'posts.html';
     return;
   }
 
-  initPost(post, currentIndex);
-  setCurrentYear();
+  initPost(post);
 
   function getOrderedPosts() {
     const posts = Array.isArray(globalScope.BLOG_POSTS) ? [...globalScope.BLOG_POSTS] : [];
     return posts
-      .filter((post) => post && post.title && post.date)
+      .filter((entry) => entry && entry.title && entry.date)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
-  function initPost(post, index) {
-    document.getElementById('page-title').textContent = `${post.title} - velvetdaemon`;
-    document.getElementById('page-description').content =
-      post.excerpt || deriveExcerpt(post.body);
+  function initPost(postEntry) {
+    const pageTitleEl = document.getElementById('page-title');
+    const pageDescriptionEl = document.getElementById('page-description');
+    const postTitleEl = document.getElementById('post-title');
+    const postDateEl = document.getElementById('post-date');
+    const postContentEl = document.getElementById('post-content');
 
-    document.getElementById('post-title').textContent = post.title;
-    document.getElementById('post-date').textContent = formatDate(post.date);
-    document.getElementById('post-date').dateTime = post.date;
-    const contentEl = document.getElementById('post-content');
-    contentEl.textContent = post.body || '';
+    if (pageTitleEl) {
+      pageTitleEl.textContent = `${postEntry.title} - velvetdaemon`;
+    }
+
+    if (pageDescriptionEl) {
+      pageDescriptionEl.content = postEntry.excerpt || deriveExcerpt(postEntry.body);
+    }
+
+    if (postTitleEl) {
+      postTitleEl.textContent = postEntry.title;
+    }
+
+    if (postDateEl) {
+      postDateEl.textContent = formatPostDateBadge(postEntry.date);
+      postDateEl.dateTime = postEntry.date;
+    }
+
+    if (postContentEl) {
+      postContentEl.innerHTML = renderBody(postEntry.body || '');
+    }
   }
 
   function slugify(text) {
-    return text
+    return String(text)
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
@@ -72,7 +87,7 @@
       const day = Number(dayStr);
 
       if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) {
-        return isoString;
+        return '';
       }
 
       date = new Date(year, month - 1, day);
@@ -93,20 +108,75 @@
     }
 
     return new Intl.DateTimeFormat(undefined, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+      month: 'short',
+      day: '2-digit',
     }).format(date);
   }
 
-  function deriveExcerpt(body) {
-    if (!body) return '';
-    const firstParagraph = body.split(/\n{2,}/)[0] || '';
-    const plain = firstParagraph.replace(/<[^>]+>/g, '').trim();
-    return plain.length > 160 ? plain.slice(0, 157) + '...' : plain;
+  function formatPostDateBadge(isoString) {
+    return formatDate(isoString).toUpperCase();
   }
-  function setCurrentYear() {
-    const el = document.getElementById('current-year');
-    if (el) el.textContent = new Date().getFullYear();
+
+
+  function renderBody(raw) {
+    const paragraphs = String(raw)
+      .split(/\n{2,}/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+
+    if (!paragraphs.length) {
+      return '';
+    }
+
+    return paragraphs
+      .map((paragraph) => `<p>${applyFormatting(paragraph)}</p>`)
+      .join('');
+  }
+
+  function applyFormatting(text) {
+    const escaped = String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    const withInlineFormatting = escaped
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>');
+    const withLinks = linkifyExcludingCode(withInlineFormatting);
+    return withLinks.replace(/\n/g, '<br />');
+  }
+
+  function linkifyExcludingCode(html) {
+    const codePattern = /<code>[\s\S]*?<\/code>/g;
+    let result = '';
+    let lastIndex = 0;
+    let match = codePattern.exec(html);
+
+    while (match) {
+      result += replaceUrls(html.slice(lastIndex, match.index));
+      result += match[0];
+      lastIndex = match.index + match[0].length;
+      match = codePattern.exec(html);
+    }
+
+    result += replaceUrls(html.slice(lastIndex));
+    return result;
+  }
+
+  function replaceUrls(segment) {
+    const urlPattern = /(https?:\/\/[^\s<]+)/g;
+    return segment.replace(
+      urlPattern,
+      '<a href="$1" target="_blank" rel="noreferrer">$1</a>'
+    );
+  }
+
+  function deriveExcerpt(body) {
+    if (!body) {
+      return '';
+    }
+
+    const firstParagraph = String(body).split(/\n{2,}/)[0] || '';
+    const plain = firstParagraph.replace(/<[^>]+>/g, '').trim();
+    return plain.length > 160 ? `${plain.slice(0, 157)}...` : plain;
   }
 })(typeof window !== 'undefined' ? window : globalThis);
