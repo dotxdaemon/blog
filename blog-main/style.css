@@ -399,6 +399,30 @@ input {
   outline-offset: 2px;
 }
 
+@media (hover: none), (pointer: coarse) {
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .album-item {
+    aspect-ratio: auto;
+  }
+
+  .album-artwork {
+    height: auto;
+  }
+
+  .album-overlay {
+    background: rgba(245, 240, 232, 0.94);
+    color: var(--ink);
+    display: block;
+    inset: auto;
+    opacity: 1;
+    padding: 8px 10px;
+    position: static;
+  }
+}
+
 .dashboard-track-meta {
   display: grid;
   gap: 8px;

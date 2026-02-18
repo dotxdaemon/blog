@@ -25,6 +25,11 @@ assertMatches(
   'Expected album overlay to become visible on hover or focus.'
 );
 assertMatches(
+  css,
+  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-overlay\s*\{[^}]*opacity:\s*1[^}]*position:\s*static/i,
+  'Expected coarse-pointer devices to show album labels without hover.'
+);
+assertMatches(
   data,
   /artwork:\s*['"]assets\/images\/the-1975\.jpg['"]/i,
   'Expected listening data to reference the The 1975 artwork image path.'
