@@ -495,6 +495,40 @@ Process:
 
 DO NOT add text or add content of your own unless I specify WHAT to add. Show a screenshot of the resulting changes. Do not complete until the tests are done, the prompt has been re-read and re-tested, and the screenshot shows cleanly.
 
+## Hard Guardrails: Homepage/UI Tasks
+
+1) Deploy Path First (mandatory)
+- Before editing, detect which directory is actually deployed (Vercel rewrites + GitHub Pages workflow artifact path).
+- Treat that deployed directory as source of truth.
+- If root and deployed dir differ (example: `blog-main/`), apply and verify changes in the deployed dir.
+
+2) No Images Unless Explicitly Requested
+- Do not add `<img>` tags, image-based placeholders, or image fallback logic unless Sean explicitly asks.
+- This includes hidden image elements and JS image wiring.
+- For listening widgets, use text + SVG/CSS only by default.
+
+3) Forbidden-Pattern Gate (must pass before completion)
+- Run a grep gate for banned image hooks in touched UI files:
+  - `dashboard-track-artwork`
+  - `artworkUrl` image rendering paths
+  - newly added `<img` in homepage/listening sections
+- If any match remains, task is FAIL.
+
+4) Completion Gate (mandatory)
+- Run all required verification commands:
+  - `npm test`
+  - `npm run lint`
+  - `npm run typecheck`
+- Re-run until all pass.
+- Do not claim completion without passing verification and forbidden-pattern gate.
+
+5) Validation Must Match What Users See
+- Visual checks and computed-style checks must target the deployed URL/path, not only root equivalents.
+- If there are multiple variants (`/` and `/blog-main`), verify the deployed one first.
+
+6) Artifact Hygiene
+- Do not leave screenshot/debug artifact files in repo working tree unless Sean explicitly asked for them to be committed.
+
 Visual Verification Guardrails
 
 - For any UI or style change, include before/after screenshots at the same viewport and a short visual diff summary of what changed and where.
