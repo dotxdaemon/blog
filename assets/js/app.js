@@ -10,6 +10,7 @@ const dashboardTrackTextEl = document.getElementById('dashboard-track-text');
 const dashboardAlbumEl = document.getElementById('dashboard-album');
 const dashboardArtistEl = document.getElementById('dashboard-artist');
 const dashboardTrackLinkEl = document.getElementById('dashboard-track-link');
+const dashboardTrackArtworkEl = document.getElementById('dashboard-track-artwork');
 
 const orderedPosts = posts
   .filter((post) => post && post.title && post.date)
@@ -39,6 +40,7 @@ function renderDashboardTrack(trackData) {
   const trackArtist = typeof safeTrackData.artist === 'string' ? safeTrackData.artist.trim() : '';
   const trackAlbum = typeof safeTrackData.album === 'string' ? safeTrackData.album.trim() : '';
   const trackUrl = typeof safeTrackData.url === 'string' ? safeTrackData.url.trim() : '';
+  const artworkUrl = typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl.trim() : '';
   const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
   const trackTitleText = trackTitle || 'No track selected yet';
   const trackArtistText = trackArtist || 'Artist unknown';
@@ -55,6 +57,22 @@ function renderDashboardTrack(trackData) {
 
   if (dashboardArtistEl) {
     dashboardArtistEl.textContent = trackArtistText;
+  }
+
+  if (dashboardTrackArtworkEl) {
+    if (artworkUrl) {
+      dashboardTrackArtworkEl.hidden = false;
+      dashboardTrackArtworkEl.src = artworkUrl;
+      if (trackTitle || trackArtist) {
+        dashboardTrackArtworkEl.alt = [trackTitle || 'Track', trackArtist || 'Unknown artist'].join(' — ');
+      } else {
+        dashboardTrackArtworkEl.alt = 'Track artwork';
+      }
+    } else {
+      dashboardTrackArtworkEl.hidden = true;
+      dashboardTrackArtworkEl.removeAttribute('src');
+      dashboardTrackArtworkEl.alt = '';
+    }
   }
 
   if (dashboardTrackLinkEl) {

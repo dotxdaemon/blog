@@ -311,6 +311,19 @@ input {
   text-align: left;
 }
 
+.dashboard-track-artwork {
+  border: 1px solid var(--line);
+  display: block;
+  height: 96px;
+  margin: 0 0 12px;
+  object-fit: cover;
+  width: 96px;
+}
+
+[hidden].dashboard-track-artwork {
+  display: none;
+}
+
 .dashboard-track-meta {
   display: grid;
   gap: 8px;
@@ -706,6 +719,11 @@ input {
   .dashboard-track-icon {
     height: 44px;
     width: min(100%, 220px);
+  }
+
+  .dashboard-track-artwork {
+    height: 120px;
+    width: 120px;
   }
 
   .site-nav a[aria-current='page'] {
