@@ -342,8 +342,7 @@ input {
   width: fit-content;
 }
 
-.dashboard-track-album,
-.dashboard-track-artwork {
+.dashboard-track-album {
   display: none;
 }
 
@@ -704,7 +703,6 @@ input {
     top: auto;
   }
 
-  .dashboard-track-artwork,
   .dashboard-track-icon {
     height: 44px;
     width: min(100%, 220px);
