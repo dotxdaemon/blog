@@ -6,7 +6,7 @@ const postList = document.getElementById('posts');
 const dashboardStatus = document.getElementById('dashboard-status');
 const dashboardStatusTextEl = document.querySelector('.dashboard-status-text');
 const dashboardTrack = document.getElementById('dashboard-track');
-const dashboardTrackTextEl = document.querySelector('.dashboard-track-text');
+const dashboardTrackTextEl = document.getElementById('dashboard-track-text');
 const dashboardAlbumEl = document.getElementById('dashboard-album');
 const dashboardArtistEl = document.getElementById('dashboard-artist');
 const dashboardTrackArtworkEl = document.getElementById('dashboard-track-artwork');
@@ -36,25 +36,27 @@ function renderDashboardTrack(trackData) {
   }
 
   const safeTrackData = trackData && typeof trackData === 'object' ? trackData : {};
-  const trackTitle = typeof safeTrackData.title === 'string' ? safeTrackData.title : '';
-  const trackArtist = typeof safeTrackData.artist === 'string' ? safeTrackData.artist : '';
-  const trackAlbum = typeof safeTrackData.album === 'string' ? safeTrackData.album : '';
-  const trackUrl = typeof safeTrackData.url === 'string' ? safeTrackData.url : '';
-  const artworkUrl = typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl : '';
+  const trackTitle = typeof safeTrackData.title === 'string' ? safeTrackData.title.trim() : '';
+  const trackArtist = typeof safeTrackData.artist === 'string' ? safeTrackData.artist.trim() : '';
+  const trackAlbum = typeof safeTrackData.album === 'string' ? safeTrackData.album.trim() : '';
+  const trackUrl = typeof safeTrackData.url === 'string' ? safeTrackData.url.trim() : '';
+  const artworkUrl = typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl.trim() : '';
   const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
+  const trackTitleText = trackTitle || 'No track selected yet';
+  const trackArtistText = trackArtist || 'Artist unknown';
 
   if (dashboardTrackTextEl) {
-    dashboardTrackTextEl.textContent = dashboardTrackText;
+    dashboardTrackTextEl.textContent = trackTitleText;
   }
 
   dashboardTrack.classList.toggle('is-empty', !(trackTitle || trackArtist));
 
   if (dashboardAlbumEl) {
-    dashboardAlbumEl.textContent = trackAlbum || '—';
+    dashboardAlbumEl.textContent = trackAlbum;
   }
 
   if (dashboardArtistEl) {
-    dashboardArtistEl.textContent = trackArtist || '—';
+    dashboardArtistEl.textContent = trackArtistText;
   }
 
   if (dashboardTrackArtworkEl) {
@@ -62,21 +64,22 @@ function renderDashboardTrack(trackData) {
     if (artworkUrl) {
       dashboardTrackArtworkEl.src = artworkUrl;
       dashboardTrackArtworkEl.alt = artworkAlt;
-      dashboardTrack.classList.add('has-artwork');
+      dashboardTrackArtworkEl.hidden = false;
     } else {
       dashboardTrackArtworkEl.src = '';
       dashboardTrackArtworkEl.alt = '';
-      dashboardTrack.classList.remove('has-artwork');
+      dashboardTrackArtworkEl.hidden = true;
     }
   }
 
   if (dashboardTrackLinkEl) {
-    if (artworkUrl) {
+    if (trackUrl || artworkUrl) {
       dashboardTrackLinkEl.hidden = false;
       dashboardTrackLinkEl.href = trackUrl || artworkUrl;
       dashboardTrackLinkEl.target = '_blank';
       dashboardTrackLinkEl.rel = 'noreferrer';
       const linkLabel = dashboardTrackText === 'No track selected yet' ? 'Open track' : `Open track: ${dashboardTrackText}`;
+      dashboardTrackLinkEl.textContent = 'Open track';
       dashboardTrackLinkEl.setAttribute('aria-label', linkLabel);
     } else {
       dashboardTrackLinkEl.hidden = true;
@@ -288,10 +291,9 @@ function formatDate(isoString) {
     return '';
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
+  const day = new Intl.DateTimeFormat(undefined, { day: 'numeric' }).format(date);
+  const month = new Intl.DateTimeFormat(undefined, { month: 'short' }).format(date);
+  return `${day} ${month}`;
 }
 
 function deriveExcerpt(post) {

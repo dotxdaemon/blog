@@ -12,8 +12,20 @@ assertMatches(
 
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*767px\)[\s\S]*\.dashboard-track-artwork,[\s\S]*\.dashboard-track-icon\s*\{[\s\S]*width:\s*min\(100%,\s*320px\)/i,
-  'Expected dashboard artwork and icon width to scale within small screens.'
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.dashboard-track-artwork,[\s\S]*\.dashboard-track-icon\s*\{[\s\S]*width:\s*min\(100%,\s*220px\)/i,
+  'Expected listening waveform width to stay compact on small screens.'
+);
+
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*900px\)[\s\S]*\.site-main\s*\{[\s\S]*grid-template-columns:\s*1fr/i,
+  'Expected the dashboard to collapse into one column under 900px.'
+);
+
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*900px\)[\s\S]*\.post-stream\s*\{[\s\S]*border-left:\s*none/i,
+  'Expected the right sidebar divider to be removed in stacked layout.'
 );
 
 assertMatches(
