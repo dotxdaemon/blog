@@ -291,6 +291,11 @@ input {
   position: static;
 }
 
+.dashboard-status[hidden],
+.dashboard-track-empty[hidden] {
+  display: none;
+}
+
 .live-dot {
   background-color: var(--muted);
   border-radius: 50%;

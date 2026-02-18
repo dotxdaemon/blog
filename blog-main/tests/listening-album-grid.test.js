@@ -3,7 +3,13 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { assertMatches, readIndexHtml, readRepoFile, readStyles } = require('./helpers');
+const {
+  assertMatches,
+  assertNotMatches,
+  readIndexHtml,
+  readRepoFile,
+  readStyles,
+} = require('./helpers');
 
 const html = readIndexHtml();
 const script = readRepoFile('assets/js/app.js');
@@ -23,8 +29,17 @@ assertMatches(
   /artwork:\s*['"]assets\/images\/the-1975\.jpg['"]/i,
   'Expected listening data to reference the The 1975 artwork image path.'
 );
-assertMatches(data, /title:\s*['"]The 1975['"]/i, 'Expected listening data to include The 1975 album title.');
+assertMatches(
+  data,
+  /title:\s*['"]Being Funny in a Foreign Language['"]/i,
+  'Expected listening data to include the album title for this artwork.'
+);
 assertMatches(data, /artist:\s*['"]The 1975['"]/i, 'Expected listening data to include The 1975 artist name.');
+assertNotMatches(
+  html,
+  /No track selected yet|Artist unknown/i,
+  'Did not expect default no-track fallback text in the Listening section.'
+);
 
 const artworkPath = path.join(__dirname, '..', 'assets', 'images', 'the-1975.jpg');
 assert.ok(

@@ -2,7 +2,7 @@
 /* ABOUTME: Exposes favorite album entries for rendering in the Listening to section. */
 window.LISTENING_TO_ALBUMS = [
   {
-    title: 'The 1975',
+    title: 'Being Funny in a Foreign Language',
     artist: 'The 1975',
     artwork: 'assets/images/the-1975.jpg',
   },
