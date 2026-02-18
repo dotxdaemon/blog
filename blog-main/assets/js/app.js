@@ -9,7 +9,6 @@ const dashboardTrack = document.getElementById('dashboard-track');
 const dashboardTrackTextEl = document.getElementById('dashboard-track-text');
 const dashboardAlbumEl = document.getElementById('dashboard-album');
 const dashboardArtistEl = document.getElementById('dashboard-artist');
-const dashboardTrackArtworkEl = document.getElementById('dashboard-track-artwork');
 const dashboardTrackLinkEl = document.getElementById('dashboard-track-link');
 
 const orderedPosts = posts
@@ -64,37 +63,25 @@ function renderDashboardTrack(trackData) {
     typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl.trim() : '';
   const dashboardTrackText =
     [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
+  const trackTitleText = trackTitle || 'No track selected yet';
+  const trackArtistText = trackArtist || 'Artist unknown';
 
   if (dashboardTrackTextEl) {
-    dashboardTrackTextEl.textContent = dashboardTrackText;
+    dashboardTrackTextEl.textContent = trackTitleText;
   }
 
   if (dashboardAlbumEl) {
-    dashboardAlbumEl.textContent = trackAlbum || '-';
+    dashboardAlbumEl.textContent = trackAlbum;
   }
 
   if (dashboardArtistEl) {
-    dashboardArtistEl.textContent = trackArtist || '-';
+    dashboardArtistEl.textContent = trackArtistText;
   }
 
   dashboardTrack.classList.toggle('is-empty', !(trackTitle || trackArtist));
 
-  if (dashboardTrackArtworkEl) {
-    const artworkAlt =
-      [trackAlbum || trackTitle, trackArtist].filter(Boolean).join(' — ') || 'Track artwork';
-    if (artworkUrl) {
-      dashboardTrackArtworkEl.src = artworkUrl;
-      dashboardTrackArtworkEl.alt = artworkAlt;
-      dashboardTrack.classList.add('has-artwork');
-    } else {
-      dashboardTrackArtworkEl.src = '';
-      dashboardTrackArtworkEl.alt = '';
-      dashboardTrack.classList.remove('has-artwork');
-    }
-  }
-
   if (dashboardTrackLinkEl) {
-    if (artworkUrl) {
+    if (trackUrl || artworkUrl) {
       dashboardTrackLinkEl.hidden = false;
       dashboardTrackLinkEl.href = trackUrl || artworkUrl;
       dashboardTrackLinkEl.target = '_blank';
@@ -103,6 +90,7 @@ function renderDashboardTrack(trackData) {
         dashboardTrackText === 'No track selected yet'
           ? 'Open track'
           : `Open track: ${dashboardTrackText}`;
+      dashboardTrackLinkEl.textContent = 'Open track';
       dashboardTrackLinkEl.setAttribute('aria-label', linkLabel);
     } else {
       dashboardTrackLinkEl.hidden = true;
@@ -311,11 +299,9 @@ function formatDate(isoString) {
     return '';
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(date);
+  const day = new Intl.DateTimeFormat(undefined, { day: 'numeric' }).format(date);
+  const month = new Intl.DateTimeFormat(undefined, { month: 'short' }).format(date);
+  return `${day} ${month}`;
 }
 
 function deriveExcerpt(post) {

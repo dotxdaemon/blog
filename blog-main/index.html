@@ -32,18 +32,17 @@
             <h2 class="section-title" id="listening-to">LISTENING TO</h2>
             <p class="dashboard-status" id="dashboard-status"><span class="live-dot" aria-hidden="true"></span><span class="dashboard-status-text">Dashboard is live</span></p>
             <div class="dashboard-track-empty" id="dashboard-track" aria-live="polite">
-              <a class="dashboard-track-link" id="dashboard-track-link" href="#" hidden>
-                <img class="dashboard-track-artwork" id="dashboard-track-artwork" src="" alt="" loading="lazy" />
-              </a>
+              <div class="dashboard-track-meta">
+                <p class="dashboard-track-text dashboard-track-title" id="dashboard-track-text">No track selected yet</p>
+                <p class="dashboard-track-artist" id="dashboard-artist">Artist unknown</p>
+                <p class="dashboard-track-album" id="dashboard-album" hidden></p>
+                <a class="dashboard-track-link" id="dashboard-track-link" href="#" hidden>Open track</a>
+              </div>
               <span class="dashboard-track-icon" aria-hidden="true">
-                <svg viewBox="0 0 120 120" role="img" aria-label="Waveform placeholder">
-                  <path d="M26 60h14l6-10 8 20 8-24 8 28 6-14h18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                <svg viewBox="0 0 240 44" role="img" aria-label="Waveform">
+                  <path d="M5 22h14l4-6 6 12 5-17 6 20 6-14 6 18 7-23 6 16 6-12 5 9h17l6-8 7 13 6-19 7 22 7-14h18l6-9 6 14 7-20 6 16 6-11h18l4-5 5 10h12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
               </span>
-            </div>
-            <div class="dashboard-track-meta">
-              <p class="dashboard-track-text" id="dashboard-track-text">No track selected yet</p>
-              <p class="dashboard-track-detail"><span id="dashboard-artist">-</span> <span class="dashboard-track-separator" aria-hidden="true">&middot;</span> <span id="dashboard-album">-</span></p>
             </div>
           </section>
         </div>
