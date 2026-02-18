@@ -344,6 +344,56 @@ input {
   stroke-width: 1.1;
 }
 
+.album-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.album-item {
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  position: relative;
+}
+
+.album-artwork {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.album-overlay {
+  align-items: flex-end;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.74) 100%);
+  color: #f5f0e8;
+  display: flex;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  inset: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  transition: opacity 0.2s ease;
+}
+
+.album-item:hover .album-overlay,
+.album-item:focus .album-overlay,
+.album-item:focus-within .album-overlay {
+  opacity: 1;
+}
+
+.album-item:focus-visible {
+  outline: 2px solid var(--accent-45);
+  outline-offset: 2px;
+}
+
 .dashboard-track-meta {
   display: grid;
   gap: 8px;
@@ -804,6 +854,10 @@ input {
   .dashboard-track-artwork {
     height: 120px;
     width: 120px;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .module-card,

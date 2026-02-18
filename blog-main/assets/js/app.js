@@ -47,6 +47,7 @@ if (currentYearEl) {
   currentYearEl.textContent = String(new Date().getFullYear());
 }
 
+setupListeningAlbums();
 setupAmbientReading();
 
 function renderDashboardTrack(trackData) {
@@ -170,6 +171,50 @@ function setupAmbientReading() {
   });
 
   window.addEventListener('scroll', setProgress, { passive: true });
+}
+
+function setupListeningAlbums() {
+  const albumList = document.getElementById('album-list');
+  if (!albumList) {
+    return;
+  }
+
+  const albums = Array.isArray(window.LISTENING_TO_ALBUMS) ? window.LISTENING_TO_ALBUMS : [];
+
+  albumList.innerHTML = '';
+  albums.forEach((album) => {
+    if (!album || typeof album !== 'object') {
+      return;
+    }
+
+    const albumTitle = typeof album.title === 'string' ? album.title.trim() : '';
+    const albumArtist = typeof album.artist === 'string' ? album.artist.trim() : '';
+    const artwork = typeof album.artwork === 'string' ? album.artwork.trim() : '';
+    if (!albumTitle || !artwork) {
+      return;
+    }
+
+    const label = [albumTitle, albumArtist].filter(Boolean).join(' - ');
+
+    const item = document.createElement('li');
+    item.className = 'album-item';
+    item.tabIndex = 0;
+
+    const artworkImage = document.createElement('img');
+    artworkImage.className = 'album-artwork';
+    artworkImage.src = artwork;
+    artworkImage.alt = `${label} artwork`;
+    artworkImage.loading = 'lazy';
+
+    const overlay = document.createElement('span');
+    overlay.className = 'album-overlay';
+    overlay.textContent = label || albumTitle;
+
+    item.appendChild(artworkImage);
+    item.appendChild(overlay);
+
+    albumList.appendChild(item);
+  });
 }
 
 function createEmptyPost() {

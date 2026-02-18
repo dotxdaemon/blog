@@ -2,7 +2,8 @@
 /* ABOUTME: Exposes favorite album entries for rendering in the Listening to section. */
 window.LISTENING_TO_ALBUMS = [
   {
-    title: 'Album title',
-    artist: 'Artist name',
+    title: 'The 1975',
+    artist: 'The 1975',
+    artwork: 'assets/images/the-1975.jpg',
   },
 ];
