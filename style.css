@@ -263,6 +263,7 @@ input {
 
 .listening-to {
   padding-top: 0;
+  width: 100%;
 }
 
 .module-link,
@@ -395,6 +396,7 @@ input {
   border: 1px solid var(--line);
   overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
 .album-artwork {
@@ -437,21 +439,23 @@ input {
   }
 
   .album-item {
-    aspect-ratio: auto;
+    aspect-ratio: 1 / 1;
   }
 
   .album-artwork {
-    height: auto;
+    height: 100%;
   }
 
   .album-overlay {
-    background: rgba(245, 240, 232, 0.94);
-    color: var(--ink);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.76) 100%);
+    color: #f5f0e8;
     display: block;
-    inset: auto;
+    inset: auto 0 0 0;
+    font-size: 12px;
+    line-height: 1.4;
     opacity: 1;
-    padding: 8px 10px;
-    position: static;
+    padding: 10px 12px;
+    position: absolute;
   }
 }
 
@@ -806,7 +810,7 @@ input {
   }
 
   .album-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .site-nav a[aria-current='page'] {
