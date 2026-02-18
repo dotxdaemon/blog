@@ -9,7 +9,6 @@ const dashboardTrack = document.getElementById('dashboard-track');
 const dashboardTrackTextEl = document.getElementById('dashboard-track-text');
 const dashboardAlbumEl = document.getElementById('dashboard-album');
 const dashboardArtistEl = document.getElementById('dashboard-artist');
-const dashboardTrackArtworkEl = document.getElementById('dashboard-track-artwork');
 const dashboardTrackLinkEl = document.getElementById('dashboard-track-link');
 
 const orderedPosts = posts
@@ -57,19 +56,6 @@ function renderDashboardTrack(trackData) {
 
   if (dashboardArtistEl) {
     dashboardArtistEl.textContent = trackArtistText;
-  }
-
-  if (dashboardTrackArtworkEl) {
-    const artworkAlt = [trackAlbum || trackTitle, trackArtist].filter(Boolean).join(' — ') || 'Track artwork';
-    if (artworkUrl) {
-      dashboardTrackArtworkEl.src = artworkUrl;
-      dashboardTrackArtworkEl.alt = artworkAlt;
-      dashboardTrackArtworkEl.hidden = false;
-    } else {
-      dashboardTrackArtworkEl.src = '';
-      dashboardTrackArtworkEl.alt = '';
-      dashboardTrackArtworkEl.hidden = true;
-    }
   }
 
   if (dashboardTrackLinkEl) {
