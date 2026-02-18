@@ -59,8 +59,6 @@ function renderDashboardTrack(trackData) {
     typeof safeTrackData.artist === 'string' ? safeTrackData.artist.trim() : '';
   const trackAlbum = typeof safeTrackData.album === 'string' ? safeTrackData.album.trim() : '';
   const trackUrl = typeof safeTrackData.url === 'string' ? safeTrackData.url.trim() : '';
-  const artworkUrl =
-    typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl.trim() : '';
   const dashboardTrackText =
     [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
   const trackTitleText = trackTitle || 'No track selected yet';
@@ -81,9 +79,9 @@ function renderDashboardTrack(trackData) {
   dashboardTrack.classList.toggle('is-empty', !(trackTitle || trackArtist));
 
   if (dashboardTrackLinkEl) {
-    if (trackUrl || artworkUrl) {
+    if (trackUrl) {
       dashboardTrackLinkEl.hidden = false;
-      dashboardTrackLinkEl.href = trackUrl || artworkUrl;
+      dashboardTrackLinkEl.href = trackUrl;
       dashboardTrackLinkEl.target = '_blank';
       dashboardTrackLinkEl.rel = 'noreferrer';
       const linkLabel =

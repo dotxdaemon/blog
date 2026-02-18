@@ -12,7 +12,7 @@ assertMatches(
 
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*767px\)[\s\S]*\.dashboard-track-artwork,[\s\S]*\.dashboard-track-icon\s*\{[\s\S]*width:\s*min\(100%,\s*220px\)/i,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.dashboard-track-icon\s*\{[\s\S]*width:\s*min\(100%,\s*220px\)/i,
   'Expected listening waveform width to stay compact on small screens.'
 );
 
