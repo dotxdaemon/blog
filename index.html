@@ -1,5 +1,5 @@
 <!-- ABOUTME: Provides the monochrome brutalist homepage for the static blog. -->
-<!-- ABOUTME: Defines the header, listening section, recent posts stream, and footer. -->
+<!-- ABOUTME: Defines the header, listening section, and footer. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,24 +43,6 @@
             <ul class="album-grid" id="album-list" aria-label="Favorite albums"></ul>
           </section>
         </div>
-
-        <aside class="context-layer module-card" aria-label="Context">
-          <p class="scene-label">quiet scene</p>
-          <p class="scene-meta">instant to read</p>
-          <p class="scene-meta">quiet navigation</p>
-          <p class="scene-meta">no friction</p>
-          <details class="folded-card">
-            <summary>details</summary>
-            <p>stack and performance notes</p>
-          </details>
-        </aside>
-
-        <span class="light-ribbon" aria-hidden="true"></span>
-
-        <section class="post-stream module-card" aria-labelledby="recent-posts">
-          <h2 class="section-title" id="recent-posts">RECENT POSTS</h2>
-          <div class="post-list" id="posts"></div>
-        </section>
       </main>
       <footer class="site-footer"></footer>
     </div>
@@ -68,7 +50,6 @@
     <script>
       window.VELVETDAEMON_DASHBOARD = window.VELVETDAEMON_DASHBOARD || {};
     </script>
-    <script src="assets/js/posts.js"></script>
     <script src="assets/js/matrix.js"></script>
     <script src="assets/js/listening-to.js"></script>
     <script src="assets/js/app.js" type="module"></script>

@@ -1,0 +1,43 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - heading "velvetdaemon" [level=1] [ref=e6]
+      - separator [ref=e7]
+  - main [ref=e8]:
+    - region "Listening to" [ref=e10]:
+      - heading "LISTENING TO" [level=2] [ref=e11]
+      - list "Favorite albums" [ref=e12]:
+        - listitem [ref=e13]:
+          - img "Being Funny in a Foreign Language - The 1975 artwork" [ref=e14]
+          - generic [ref=e15]: Being Funny in a Foreign Language - The 1975
+        - listitem [ref=e16]:
+          - img "Time 'n' Place - Kero Kero Bonito artwork" [ref=e17]
+          - generic [ref=e18]: Time 'n' Place - Kero Kero Bonito
+        - listitem [ref=e19]:
+          - img "From Under the Cork Tree - Fall Out Boy artwork" [ref=e20]
+          - generic [ref=e21]: From Under the Cork Tree - Fall Out Boy
+        - listitem [ref=e22]:
+          - img "F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3 - Skrillex artwork" [ref=e23]
+          - generic [ref=e24]: F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3 - Skrillex
+    - region "RECENT POSTS" [ref=e25]:
+      - heading "RECENT POSTS" [level=2] [ref=e26]
+      - generic [ref=e27]:
+        - article [ref=e28]:
+          - time [ref=e29]: 30 Dec
+          - heading "cooking recipes" [level=2] [ref=e30]:
+            - link "cooking recipes" [ref=e31] [cursor=pointer]:
+              - /url: post.html?slug=cooking-recipes
+          - paragraph [ref=e32]: pantry chicken thighs
+        - article [ref=e33]:
+          - time [ref=e34]: 26 Sept
+          - heading "movies I want to watch" [level=2] [ref=e35]:
+            - link "movies I want to watch" [ref=e36] [cursor=pointer]:
+              - /url: post.html?slug=movies-i-want-to-watch
+          - paragraph [ref=e37]: Hamnet
+        - article [ref=e38]:
+          - time [ref=e39]: 19 Sept
+          - heading "hi everybody" [level=2] [ref=e40]:
+            - link "hi everybody" [ref=e41] [cursor=pointer]:
+              - /url: post.html?slug=hi-everybody
+          - paragraph [ref=e42]: hi everybody
+  - contentinfo [ref=e43]

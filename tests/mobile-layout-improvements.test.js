@@ -24,8 +24,8 @@ assertMatches(
 
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*900px\)[\s\S]*\.post-stream\s*\{[\s\S]*border-left:\s*none/i,
-  'Expected the right sidebar divider to be removed in stacked layout.'
+  /@media\s*\(max-width:\s*900px\)[\s\S]*\.post-stream\s*\{[\s\S]*max-width:\s*none/i,
+  'Expected posts stream to expand to full width in stacked layout.'
 );
 
 assertMatches(

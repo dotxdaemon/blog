@@ -1,0 +1,44 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "velvetdaemon" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+      - navigation "Primary navigation" [ref=e6]:
+        - link "Home" [ref=e7] [cursor=pointer]:
+          - /url: index.html
+        - link "Archives" [ref=e8] [cursor=pointer]:
+          - /url: archives.html
+        - link "Search" [ref=e9] [cursor=pointer]:
+          - /url: search.html
+        - link "Posts" [ref=e10] [cursor=pointer]:
+          - /url: posts.html
+  - main [ref=e11]:
+    - region "Latest writing" [ref=e12]:
+      - heading "Latest writing" [level=2] [ref=e13]
+      - generic [ref=e14]:
+        - article [ref=e15]:
+          - time [ref=e16]: 30 Dec
+          - heading "cooking recipes" [level=2] [ref=e17]:
+            - link "cooking recipes" [ref=e18] [cursor=pointer]:
+              - /url: post.html?slug=cooking-recipes
+          - paragraph [ref=e19]: pantry chicken thighs
+        - article [ref=e20]:
+          - time [ref=e21]: 26 Sept
+          - heading "movies I want to watch" [level=2] [ref=e22]:
+            - link "movies I want to watch" [ref=e23] [cursor=pointer]:
+              - /url: post.html?slug=movies-i-want-to-watch
+          - paragraph [ref=e24]: Hamnet
+        - article [ref=e25]:
+          - time [ref=e26]: 19 Sept
+          - heading "hi everybody" [level=2] [ref=e27]:
+            - link "hi everybody" [ref=e28] [cursor=pointer]:
+              - /url: post.html?slug=hi-everybody
+          - paragraph [ref=e29]: hi everybody
+  - contentinfo "Site footer" [ref=e30]:
+    - generic [ref=e31]:
+      - paragraph [ref=e32]: © 2026 velvetdaemon
+      - generic [ref=e33]:
+        - link "About" [ref=e34] [cursor=pointer]:
+          - /url: index.html#site-footer
+        - link "GitHub" [ref=e35] [cursor=pointer]:
+          - /url: https://github.com/dotxdaemon

@@ -197,7 +197,7 @@ input {
 .left-column {
   display: grid;
   gap: var(--space-4);
-  grid-column: 1 / 9;
+  grid-column: 1 / -1;
   grid-row: 1;
   min-height: 70vh;
   width: 100%;
@@ -523,15 +523,14 @@ input {
 
 /* COMPONENTS: Post lists */
 .post-stream {
-  border-left: 1px solid var(--sidebar-divider);
   display: block;
-  grid-column: 9 / 13;
+  grid-column: 1 / -1;
   grid-row: 1;
-  margin-top: 0;
-  max-width: 280px;
-  min-height: 70vh;
-  padding: 0 0 0 32px;
-  width: 280px;
+  margin: 0 auto;
+  max-width: 640px;
+  min-height: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .post-stream .section-title {
@@ -852,15 +851,13 @@ input {
   .post-stream {
     grid-column: 1 / -1;
     grid-row: auto;
-    max-width: none;
     min-height: 0;
   }
 
   .post-stream {
-    border-left: none;
-    border-top: 1px solid var(--sidebar-divider);
-    margin-top: 56px;
-    padding: 56px 0 0;
+    margin: 0;
+    max-width: none;
+    padding: 0;
     width: 100%;
   }
 
