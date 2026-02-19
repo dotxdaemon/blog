@@ -1,5 +1,5 @@
-/* ABOUTME: Renders homepage and listing pages with shared post rows and dashboard values. */
-/* ABOUTME: Keeps post metadata, excerpts, and ambient reading behavior consistent across views. */
+/* ABOUTME: Renders the homepage layout, listening list, and post rows. */
+/* ABOUTME: Handles post formatting and responsive menu interactions. */
 const posts = Array.isArray(window.BLOG_POSTS) ? [...window.BLOG_POSTS] : [];
 const dashboardData = window.VELVETDAEMON_DASHBOARD || {};
 const postList = document.getElementById('posts');
@@ -20,8 +20,7 @@ const dashboardStatusText =
   typeof dashboardData.statusText === 'string' && dashboardData.statusText.trim()
     ? dashboardData.statusText
     : 'Dashboard is live';
-const dashboardTrackData =
-  dashboardData.track && typeof dashboardData.track === 'object' ? dashboardData.track : {};
+const dashboardTrackData = dashboardData.track && typeof dashboardData.track === 'object' ? dashboardData.track : {};
 
 if (dashboardStatus && dashboardStatusTextEl) {
   dashboardStatusTextEl.textContent = dashboardStatusText;
@@ -30,25 +29,6 @@ if (dashboardStatus && dashboardStatusTextEl) {
 renderDashboardTrack(dashboardTrackData);
 loadLastPlayedTrack();
 
-if (postList) {
-  postList.innerHTML = '';
-
-  if (!dashboardPosts.length) {
-    postList.appendChild(createEmptyPost());
-  } else {
-    dashboardPosts.forEach((post) => {
-      postList.appendChild(createPostLink(post));
-    });
-  }
-}
-
-const currentYearEl = document.getElementById('current-year');
-if (currentYearEl) {
-  currentYearEl.textContent = String(new Date().getFullYear());
-}
-
-setupListeningAlbums();
-setupAmbientReading();
 
 function renderDashboardTrack(trackData) {
   if (!dashboardTrack) {
@@ -57,20 +37,19 @@ function renderDashboardTrack(trackData) {
 
   const safeTrackData = trackData && typeof trackData === 'object' ? trackData : {};
   const trackTitle = typeof safeTrackData.title === 'string' ? safeTrackData.title.trim() : '';
-  const trackArtist =
-    typeof safeTrackData.artist === 'string' ? safeTrackData.artist.trim() : '';
+  const trackArtist = typeof safeTrackData.artist === 'string' ? safeTrackData.artist.trim() : '';
   const trackAlbum = typeof safeTrackData.album === 'string' ? safeTrackData.album.trim() : '';
   const trackUrl = typeof safeTrackData.url === 'string' ? safeTrackData.url.trim() : '';
-  const artworkUrl =
-    typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl.trim() : '';
-  const dashboardTrackText =
-    [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
+  const artworkUrl = typeof safeTrackData.artworkUrl === 'string' ? safeTrackData.artworkUrl.trim() : '';
+  const dashboardTrackText = [trackTitle, trackArtist].filter(Boolean).join(' — ') || 'No track selected yet';
   const trackTitleText = trackTitle || 'No track selected yet';
   const trackArtistText = trackArtist || 'Artist unknown';
 
   if (dashboardTrackTextEl) {
     dashboardTrackTextEl.textContent = trackTitleText;
   }
+
+  dashboardTrack.classList.toggle('is-empty', !(trackTitle || trackArtist));
 
   if (dashboardAlbumEl) {
     dashboardAlbumEl.textContent = trackAlbum;
@@ -96,18 +75,13 @@ function renderDashboardTrack(trackData) {
     }
   }
 
-  dashboardTrack.classList.toggle('is-empty', !(trackTitle || trackArtist));
-
   if (dashboardTrackLinkEl) {
     if (trackUrl) {
       dashboardTrackLinkEl.hidden = false;
       dashboardTrackLinkEl.href = trackUrl;
       dashboardTrackLinkEl.target = '_blank';
       dashboardTrackLinkEl.rel = 'noreferrer';
-      const linkLabel =
-        dashboardTrackText === 'No track selected yet'
-          ? 'Open track'
-          : `Open track: ${dashboardTrackText}`;
+      const linkLabel = dashboardTrackText === 'No track selected yet' ? 'Open track' : `Open track: ${dashboardTrackText}`;
       dashboardTrackLinkEl.textContent = 'Open track';
       dashboardTrackLinkEl.setAttribute('aria-label', linkLabel);
     } else {
@@ -147,6 +121,36 @@ function loadLastPlayedTrack() {
     });
 }
 
+if (postList) {
+  postList.innerHTML = '';
+
+  if (!dashboardPosts.length) {
+    postList.appendChild(createEmptyPost());
+  } else {
+    dashboardPosts.forEach((post) => {
+      postList.appendChild(createPostLink(post));
+    });
+  }
+}
+
+const currentYearEl = document.getElementById('current-year');
+if (currentYearEl) {
+  currentYearEl.textContent = String(new Date().getFullYear());
+}
+
+const buildStampEl = document.getElementById('build-stamp');
+if (buildStampEl) {
+  const buildSha = buildStampEl.dataset.buildSha || 'unknown';
+  const timestamp = new Date().toISOString();
+  buildStampEl.textContent = `build: ${buildSha} ${timestamp}`;
+}
+
+setupNavToggle();
+setupMatrixRain();
+setupListeningAlbums();
+setupAmbientReading();
+
+
 function setupAmbientReading() {
   const root = document.documentElement;
 
@@ -173,50 +177,6 @@ function setupAmbientReading() {
   window.addEventListener('scroll', setProgress, { passive: true });
 }
 
-function setupListeningAlbums() {
-  const albumList = document.getElementById('album-list');
-  if (!albumList) {
-    return;
-  }
-
-  const albums = Array.isArray(window.LISTENING_TO_ALBUMS) ? window.LISTENING_TO_ALBUMS : [];
-
-  albumList.innerHTML = '';
-  albums.forEach((album) => {
-    if (!album || typeof album !== 'object') {
-      return;
-    }
-
-    const albumTitle = typeof album.title === 'string' ? album.title.trim() : '';
-    const albumArtist = typeof album.artist === 'string' ? album.artist.trim() : '';
-    const artwork = typeof album.artwork === 'string' ? album.artwork.trim() : '';
-    if (!albumTitle || !artwork) {
-      return;
-    }
-
-    const label = [albumTitle, albumArtist].filter(Boolean).join(' - ');
-
-    const item = document.createElement('li');
-    item.className = 'album-item';
-    item.tabIndex = 0;
-
-    const artworkImage = document.createElement('img');
-    artworkImage.className = 'album-artwork';
-    artworkImage.src = artwork;
-    artworkImage.alt = `${label} artwork`;
-    artworkImage.loading = 'lazy';
-
-    const overlay = document.createElement('span');
-    overlay.className = 'album-overlay';
-    overlay.textContent = label || albumTitle;
-
-    item.appendChild(artworkImage);
-    item.appendChild(overlay);
-
-    albumList.appendChild(item);
-  });
-}
-
 function createEmptyPost() {
   const entry = document.createElement('article');
   entry.className = 'post-row';
@@ -225,33 +185,24 @@ function createEmptyPost() {
   meta.className = 'post-date';
   meta.textContent = 'Nothing yet';
 
-  const content = document.createElement('div');
-  content.className = 'post-row-grid';
-
   const title = document.createElement('h2');
   title.className = 'post-title';
   title.textContent = 'Add your first post in assets/js/posts.js.';
 
-  content.appendChild(title);
   entry.appendChild(meta);
-  entry.appendChild(createPostCover(null, ''));
-  entry.appendChild(content);
-
+  entry.appendChild(title);
   return entry;
 }
 
 function createPostLink(post) {
   const entry = document.createElement('article');
   entry.className = 'post-row';
-  const destination = `post.html?slug=${resolvePostSlug(post)}`;
+  const destination = `post.html?slug=${slugify(post.title)}`;
 
   const time = document.createElement('time');
   time.className = 'post-date';
   time.dateTime = post.date;
   time.textContent = formatDate(post.date) || post.date;
-
-  const content = document.createElement('div');
-  content.className = 'post-row-grid';
 
   const title = document.createElement('h2');
   title.className = 'post-title';
@@ -261,25 +212,16 @@ function createPostLink(post) {
   link.textContent = post.title;
   title.appendChild(link);
 
-  content.appendChild(title);
+  entry.appendChild(time);
+  entry.appendChild(title);
 
   const excerptData = deriveExcerpt(post);
   if (excerptData.text) {
     const excerpt = document.createElement('p');
     excerpt.className = 'post-excerpt';
     excerpt.textContent = excerptData.text;
-    content.appendChild(excerpt);
+    entry.appendChild(excerpt);
   }
-
-  const chevron = document.createElement('span');
-  chevron.className = 'post-chevron';
-  chevron.setAttribute('aria-hidden', 'true');
-  chevron.textContent = '›';
-
-  entry.appendChild(time);
-  entry.appendChild(createPostCover(post, destination));
-  entry.appendChild(content);
-  entry.appendChild(chevron);
 
   return entry;
 }
@@ -296,8 +238,7 @@ function createPostCover(post, destination) {
     coverImage.alt = '';
     coverImage.loading = 'lazy';
 
-    const coverTitle =
-      typeof post.title === 'string' && post.title.trim() ? post.title : 'untitled';
+    const coverTitle = typeof post.title === 'string' && post.title.trim() ? post.title : 'untitled';
     coverLink.setAttribute('aria-label', `Open post cover: ${coverTitle}`);
     coverLink.appendChild(coverImage);
     return coverLink;
@@ -310,16 +251,8 @@ function createPostCover(post, destination) {
   return placeholder;
 }
 
-function resolvePostSlug(post) {
-  if (post && typeof post.slug === 'string' && post.slug.trim()) {
-    return post.slug.trim();
-  }
-
-  return slugify(post && post.title ? post.title : '');
-}
-
 function slugify(text) {
-  return String(text)
+  return text
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
@@ -342,7 +275,7 @@ function formatDate(isoString) {
     const month = Number(monthStr);
     const day = Number(dayStr);
     if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) {
-      return String(isoString);
+      return isoString;
     }
     date = new Date(year, month - 1, day);
 
@@ -408,8 +341,23 @@ function deriveExcerpt(post) {
   return { text: `${safeCut.replace(/[.,;:!?]+$/u, '')}…`, isFromBody: true };
 }
 
+function renderBody(raw) {
+  const paragraphs = String(raw)
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  if (!paragraphs.length) {
+    return '';
+  }
+
+  return paragraphs
+    .map((paragraph) => `<p>${applyFormatting(paragraph)}</p>`)
+    .join('');
+}
+
 function applyFormatting(text) {
-  const escaped = String(text)
+  const escaped = text
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
@@ -444,4 +392,121 @@ function replaceUrls(segment) {
     (match) =>
       `<a href="${match}" rel="noreferrer noopener" target="_blank">${match}</a>`
   );
+}
+
+function setupNavToggle() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.getElementById('primary-nav');
+  if (!navToggle || !navMenu) return;
+
+  navToggle.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  navMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (navMenu.classList.contains('is-open')) {
+        navMenu.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+}
+
+function setupMatrixRain() {
+  const canvas = document.getElementById('matrix-rain');
+  const toggle = document.getElementById('matrix-toggle');
+  if (!canvas || typeof window.startMatrixRain !== 'function') return;
+
+  const prefersReduced =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const storedPreference = localStorage.getItem('matrixEnabled');
+  const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
+  const defaultMatrixEnabled = true;
+  let isEnabled = hasStoredPreference ? storedPreference === 'true' : defaultMatrixEnabled;
+  let stopAnimation = null;
+
+  if (prefersReduced) {
+    isEnabled = false;
+  }
+
+  applyMatrixState(isEnabled);
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      applyMatrixState(!isEnabled);
+    });
+  }
+
+  function applyMatrixState(nextState) {
+    isEnabled = Boolean(nextState);
+    document.body.classList.toggle('matrix-disabled', !isEnabled);
+    document.body.classList.toggle('matrix-enabled', isEnabled);
+    if (toggle) {
+      toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+      toggle.setAttribute('aria-disabled', prefersReduced ? 'true' : 'false');
+    }
+    localStorage.setItem('matrixEnabled', String(isEnabled));
+
+    if (isEnabled) {
+      if (!stopAnimation) {
+        stopAnimation = window.startMatrixRain(canvas);
+      }
+    } else if (stopAnimation) {
+      stopAnimation();
+      stopAnimation = null;
+    }
+  }
+}
+
+function setupListeningAlbums() {
+  const albumList = document.getElementById('album-list');
+  if (!albumList) return;
+
+  const albums = Array.isArray(window.LISTENING_TO_ALBUMS) ? window.LISTENING_TO_ALBUMS : [];
+  const shuffledAlbums = shuffleAlbums([...albums]);
+
+  albumList.innerHTML = '';
+  shuffledAlbums.forEach((album) => {
+    if (!album || typeof album !== 'object') {
+      return;
+    }
+
+    const albumTitle = typeof album.title === 'string' ? album.title.trim() : '';
+    const albumArtist = typeof album.artist === 'string' ? album.artist.trim() : '';
+    const artwork = typeof album.artwork === 'string' ? album.artwork.trim() : '';
+    if (!albumTitle || !artwork) {
+      return;
+    }
+
+    const label = [albumTitle, albumArtist].filter(Boolean).join(' - ');
+
+    const item = document.createElement('li');
+    item.className = 'album-item';
+    item.tabIndex = 0;
+
+    const artworkImage = document.createElement('img');
+    artworkImage.className = 'album-artwork';
+    artworkImage.src = artwork;
+    artworkImage.alt = `${label} artwork`;
+    artworkImage.loading = 'lazy';
+
+    const overlay = document.createElement('span');
+    overlay.className = 'album-overlay';
+    overlay.textContent = label || albumTitle;
+
+    item.appendChild(artworkImage);
+    item.appendChild(overlay);
+
+    albumList.appendChild(item);
+  });
+}
+
+function shuffleAlbums(albums) {
+  for (let index = albums.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [albums[index], albums[randomIndex]] = [albums[randomIndex], albums[index]];
+  }
+  return albums;
 }

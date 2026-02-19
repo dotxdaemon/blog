@@ -1,19 +1,11 @@
-// ABOUTME: Verifies the Listening To section renders an album artwork grid entry.
-// ABOUTME: Ensures hover metadata and the configured The 1975 artwork source are wired.
+// ABOUTME: Verifies the Listening To section renders artwork entries from the requested album list.
+// ABOUTME: Ensures configured entries are unique and include restored favorites plus Frank cover override.
 const assert = require('assert');
-const fs = require('fs');
 const path = require('path');
-const {
-  assertMatches,
-  assertNotMatches,
-  readIndexHtml,
-  readRepoFile,
-  readStyles,
-} = require('./helpers');
+const { assertMatches, readIndexHtml, readRepoFile, readStyles } = require('./helpers');
 
 const html = readIndexHtml();
 const script = readRepoFile('assets/js/app.js');
-const data = readRepoFile('assets/js/listening-to.js');
 const css = readStyles();
 
 assertMatches(html, /id="album-list"/i, 'Expected index.html to include an album grid list target.');
@@ -29,6 +21,8 @@ assertMatches(
 );
 assertMatches(script, /function setupListeningAlbums\(/, 'Expected app.js to define a listening album grid renderer.');
 assertMatches(script, /className = 'album-overlay'/, 'Expected album renderer to create an overlay label.');
+assertMatches(script, /function shuffleAlbums\(/, 'Expected app.js to define an album shuffling helper.');
+assertMatches(script, /Math\.random\(/, 'Expected album shuffle logic to use randomized ordering.');
 assertMatches(
   css,
   /\.album-item:hover\s+\.album-overlay,[\s\S]*opacity:\s*1/i,
@@ -36,86 +30,82 @@ assertMatches(
 );
 assertMatches(
   css,
-  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-grid\s*\{[^}]*grid-template-columns:\s*1fr/i,
-  'Expected coarse-pointer layout to switch album grid to one column for readable labels.'
+  /\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected desktop listening grid to render 4 albums across.'
 );
 assertMatches(
   css,
-  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-overlay\s*\{[^}]*opacity:\s*1/i,
-  'Expected coarse-pointer devices to show album labels without hover.'
-);
-assertMatches(
-  css,
-  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-overlay\s*\{[^}]*position:\s*absolute/i,
-  'Expected coarse-pointer labels to render as a bottom caption strip on artwork.'
-);
-assertMatches(
-  data,
-  /artwork:\s*['"]assets\/images\/the-1975\.jpg['"]/i,
-  'Expected listening data to reference the The 1975 artwork image path.'
-);
-assertMatches(
-  data,
-  /title:\s*['"]Being Funny in a Foreign Language['"]/i,
-  'Expected listening data to include the album title for this artwork.'
-);
-assertMatches(data, /artist:\s*['"]The 1975['"]/i, 'Expected listening data to include The 1975 artist name.');
-assertMatches(
-  data,
-  /title:\s*['"]Time 'n' Place['"]/i,
-  'Expected listening data to include Time n Place for the kero artwork.'
-);
-assertMatches(data, /artist:\s*['"]Kero Kero Bonito['"]/i, 'Expected listening data to include Kero Kero Bonito.');
-assertMatches(
-  data,
-  /artwork:\s*['"]assets\/images\/kero\.jpg['"]/i,
-  'Expected listening data to reference the kero artwork image path.'
-);
-assertMatches(
-  data,
-  /title:\s*['"]From Under the Cork Tree['"]/i,
-  'Expected listening data to include From Under the Cork Tree.'
-);
-assertMatches(data, /artist:\s*['"]Fall Out Boy['"]/i, 'Expected listening data to include Fall Out Boy.');
-assertMatches(
-  data,
-  /artwork:\s*['"]assets\/images\/fall-out-boy\.jpg['"]/i,
-  'Expected listening data to reference the fall out boy artwork image path.'
-);
-assertMatches(
-  data,
-  /title:\s*['"]F\*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3['"]/i,
-  'Expected listening data to include the Skrillex album title.'
-);
-assertMatches(data, /artist:\s*['"]Skrillex['"]/i, 'Expected listening data to include Skrillex.');
-assertMatches(
-  data,
-  /artwork:\s*['"]assets\/images\/skrillex\.jpg['"]/i,
-  'Expected listening data to reference the skrillex artwork image path.'
-);
-assertNotMatches(
-  html,
-  /No track selected yet|Artist unknown/i,
-  'Did not expect default no-track fallback text in the Listening section.'
+  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected touch layout to show a denser 2-column album grid.'
 );
 
-const artworkPath = path.join(__dirname, '..', 'assets', 'images', 'the-1975.jpg');
-assert.ok(
-  fs.existsSync(artworkPath),
-  'Expected artwork image file at assets/images/the-1975.jpg.'
-);
-const keroArtworkPath = path.join(__dirname, '..', 'assets', 'images', 'kero.jpg');
-assert.ok(
-  fs.existsSync(keroArtworkPath),
-  'Expected artwork image file at assets/images/kero.jpg.'
-);
-const fallOutBoyArtworkPath = path.join(__dirname, '..', 'assets', 'images', 'fall-out-boy.jpg');
-assert.ok(
-  fs.existsSync(fallOutBoyArtworkPath),
-  'Expected artwork image file at assets/images/fall-out-boy.jpg.'
-);
-const skrillexArtworkPath = path.join(__dirname, '..', 'assets', 'images', 'skrillex.jpg');
-assert.ok(
-  fs.existsSync(skrillexArtworkPath),
-  'Expected artwork image file at assets/images/skrillex.jpg.'
-);
+const listeningDataPath = path.join(__dirname, '..', 'assets', 'js', 'listening-to.js');
+global.window = {};
+delete require.cache[listeningDataPath];
+require(listeningDataPath);
+const albums = Array.isArray(global.window.LISTENING_TO_ALBUMS) ? global.window.LISTENING_TO_ALBUMS : [];
+
+assert.strictEqual(albums.length, 33, 'Expected 33 unique listening albums including the latest additions.');
+
+const keyFor = (album) => `${String(album.title || '').trim().toLowerCase()}::${String(album.artist || '').trim().toLowerCase()}`;
+const uniqueKeys = new Set(albums.map(keyFor));
+assert.strictEqual(uniqueKeys.size, albums.length, 'Expected duplicate album entries to be removed.');
+
+albums.forEach((album) => {
+  if (album && album.title === 'Nostalgia, Ultra' && album.artist === 'Frank Ocean') {
+    assert.strictEqual(
+      album.artwork,
+      'assets/images/frank.jpeg',
+      'Expected Nostalgia, Ultra to use the local Frank artwork image.'
+    );
+    return;
+  }
+  assert.ok(
+    /^https:\/\/is\d-ssl\.mzstatic\.com\/image\/thumb\//i.test(String(album.artwork || '')) ||
+      /^assets\/images\//i.test(String(album.artwork || '')),
+    `Expected "${album.title}" to use a valid artwork URL or local image path.`
+  );
+});
+
+const expectedPairs = [
+  ['My Beautiful Dark Twisted Fantasy', 'Kanye West'],
+  ['Voicenotes', 'Charlie Puth'],
+  ['Colors', 'Between the Buried and Me'],
+  ['Take Care', 'Drake'],
+  ['Good at Falling', 'The Japanese House'],
+  ['The 1975', 'The 1975'],
+  ['I like it when you sleep, for you are so beautiful yet so unaware of it', 'The 1975'],
+  ['Notes on a Conditional Form', 'The 1975'],
+  ['Being Funny in a Foreign Language', 'The 1975'],
+  ['Skrillex and Diplo present Jack U', 'Jack U'],
+  ['Quest For Fire', 'Skrillex'],
+  ['Lonerism', 'Tame Impala'],
+  ['Currents', 'Tame Impala'],
+  ['Bait Ones', 'Jai Paul'],
+  ['Nostalgia, Ultra', 'Frank Ocean'],
+  ['My Dinosaur Life', 'Motion City Soundtrack'],
+  ['Golden Hour', 'Kacey Musgraves'],
+  ['Nurture', 'Porter Robinson'],
+  ['Worlds', 'Porter Robinson'],
+  ["Time 'n' Place", 'Kero Kero Bonito'],
+  ['From Under the Cork Tree', 'Fall Out Boy'],
+  ['F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3', 'Skrillex'],
+  ['Blue Rev', 'Alvvays'],
+  ['Two Star & The Dream Police', 'Mk.gee'],
+  ['A LA SALA', 'Khruangbin'],
+  ['Mirrors', 'DJ Seinfeld'],
+  ['Blue Weekend', 'Wolf Alice'],
+  ['Persona 5 (Original Soundtrack)', 'ATLUS Sound Team'],
+  ['Forever', 'Charly Bliss'],
+  ['the record', 'boygenius'],
+  ['Oncle Jazz', 'Men I Trust'],
+  ["Short n' Sweet", 'Sabrina Carpenter'],
+  ['Late Registration', 'Kanye West'],
+];
+
+for (const [title, artist] of expectedPairs) {
+  assert.ok(
+    albums.some((album) => album && album.title === title && album.artist === artist),
+    `Expected listening data to include "${title}" by ${artist}.`
+  );
+}

@@ -22,8 +22,12 @@ assertMatches(script, /day:\s*'2-digit'/i, 'Expected post date formatting to kee
 assertMatches(script, /toUpperCase\(\)/i, 'Expected post date badge text to be uppercased.');
 assertMatches(readRepoFile('style.css'), /--font-body:\s*'Cormorant Garamond',\s*Georgia,\s*serif/i, 'Expected the site body font token to use the original serif font.');
 assertMatches(css, /\.post-page\s+\.post-content\s*\{[\s\S]*line-height:\s*1\.9/i, 'Expected post content line height to be increased for easier reading.');
-assertMatches(css, /\.post-page\s+\.post-title\s*\{[\s\S]*font-size:\s*clamp\(/i, 'Expected post title to scale like a primary heading.');
+assertMatches(css, /\.post-page\s+\.post-title\s*\{[\s\S]*font-size:\s*34px/i, 'Expected post title to remain prominent without oversized hero scaling.');
 assertMatches(css, /\.post-page\s+\.post-detail\s*\{[\s\S]*border:\s*none/i, 'Expected post detail container to remove the boxed card border.');
+assertMatches(css, /\.post-page\s+\.post-detail\s*\{[\s\S]*max-width:\s*640px/i, 'Expected post detail container width to match the shared post stream scale.');
+assertNotMatches(css, /\.post-page::before\s*\{[\s\S]*background:\s*transparent/i, 'Did not expect post detail to remove the shared background layer.');
+assertNotMatches(css, /\.post-page::after\s*\{[\s\S]*background:\s*transparent/i, 'Did not expect post detail to remove the shared grain layer.');
+assertNotMatches(css, /\.post-page\s+\.site-main\s*\{[\s\S]*display:\s*block/i, 'Did not expect post detail to bypass the shared grid layout.');
 
 assertNotMatches(html, /id="post-reading-time"/i, 'Expected the post template to omit reading-time metadata.');
 assertNotMatches(html, /class="post-meta-divider"/i, 'Expected the post template to omit the metadata divider when only date remains.');

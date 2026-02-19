@@ -1,5 +1,6 @@
-/* ABOUTME: Implements full-text search across all blog posts with ranked instant results. */
-/* ABOUTME: Keeps list rendering, date formatting, and footer year behavior in sync sitewide. */
+/* ABOUTME: Implements full-text search across all blog posts. */
+/* ABOUTME: Provides instant results with highlighted matches. */
+
 (function () {
   'use strict';
 
@@ -22,31 +23,36 @@
       performSearch('', tagFilter);
     }
 
+    // Debounced search
     let timeout;
-    searchInput.addEventListener('input', (event) => {
+    searchInput.addEventListener('input', (e) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        const query = event.target.value.trim();
+        const query = e.target.value.trim();
         performSearch(query, tagFilter);
         updateUrl(query, tagFilter);
       }, 150);
     });
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === '/' && document.activeElement !== searchInput) {
-        event.preventDefault();
+    // Handle keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Focus search on / key
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
         searchInput.focus();
       }
-
-      if (event.key === 'Escape' && document.activeElement === searchInput) {
+      // Clear on Escape
+      if (e.key === 'Escape' && document.activeElement === searchInput) {
         searchInput.value = '';
-        performSearch('', tagFilter);
-        updateUrl('', tagFilter);
+        performSearch('');
         searchInput.blur();
       }
     });
   }
 
+  // Setup common functionality
+  setupNavToggle();
+  setupMatrixRain();
   setCurrentYear();
 
   function performSearch(query, activeTag) {
@@ -71,7 +77,7 @@
 
     const results = searchPosts(query, filteredPosts);
 
-    if (!results.length) {
+    if (results.length === 0) {
       resultsContainer.innerHTML = `
         ${tagNotice}
         <div class="no-results">
@@ -121,15 +127,18 @@
         let score = 0;
 
         terms.forEach((term) => {
+          // Title matches are weighted higher
           if (titleLower.includes(term)) {
             score += 10;
           }
+          // Excerpt/body matches
           if (excerptLower.includes(term)) {
             score += 5;
           }
           if (bodyLower.includes(term)) {
             score += 3;
           }
+          // Tag matches
           if (tagsLower.includes(term)) {
             score += 4;
           }
@@ -147,7 +156,8 @@
     const formattedDate = formatDate(post.date);
     const readingTime = calculateReadingTime(post.body);
     const meta = [formattedDate, readingTime].filter(Boolean).join(' • ');
-    const href = `post.html?slug=${resolvePostSlug(post)}`;
+    const href = `post.html?slug=${slugify(post.title)}`;
+
     const cover = renderCover(post, href);
 
     return `
@@ -163,73 +173,43 @@
     `;
   }
 
+
   function renderCover(post, href) {
     if (post && typeof post.cover === 'string' && post.cover.trim()) {
       return `<a class="post-cover-link" href="${href}" aria-label="Open post cover: ${escapeHtml(post.title)}"><img class="post-cover-image" src="${escapeHtml(post.cover)}" alt="" loading="lazy" /></a>`;
     }
-
     return '<span class="post-cover-placeholder" aria-hidden="true">TEXT</span>';
   }
 
   function getHighlightedExcerpt(post, query) {
-    const text = getBaseExcerpt(post, 220);
-    if (!text) {
-      return '';
-    }
-
-    const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
-    if (!terms.length) {
-      return escapeHtml(text);
-    }
-
+    const text = post.excerpt || post.body || '';
     const lowerText = text.toLowerCase();
-    let startPos = -1;
+    const lowerQuery = query.toLowerCase();
+    const terms = lowerQuery.split(/\s+/).filter(Boolean);
 
+    // Find the first matching term position
+    let startPos = -1;
     for (const term of terms) {
-      const position = lowerText.indexOf(term);
-      if (position !== -1 && (startPos === -1 || position < startPos)) {
-        startPos = position;
+      const pos = lowerText.indexOf(term);
+      if (pos !== -1 && (startPos === -1 || pos < startPos)) {
+        startPos = pos;
       }
     }
 
-    let excerpt = text;
-
-    if (startPos !== -1) {
+    let excerpt;
+    if (startPos === -1) {
+      // No match found, use beginning
+      excerpt = text.slice(0, 200);
+    } else {
+      // Show context around the match
       const contextStart = Math.max(0, startPos - 50);
       const contextEnd = Math.min(text.length, startPos + 150);
-      excerpt = `${contextStart > 0 ? '...' : ''}${text.slice(contextStart, contextEnd)}${
-        contextEnd < text.length ? '...' : ''
-      }`;
+      excerpt = (contextStart > 0 ? '...' : '') +
+                text.slice(contextStart, contextEnd) +
+                (contextEnd < text.length ? '...' : '');
     }
 
     return highlightMatches(escapeHtml(excerpt), query);
-  }
-
-  function getBaseExcerpt(post, maxLength) {
-    if (!post || typeof post !== 'object') {
-      return '';
-    }
-
-    const source =
-      typeof post.excerpt === 'string' && post.excerpt.trim()
-        ? post.excerpt.trim()
-        : String(post.body || '')
-            .split(/\n{2,}/)
-            .map((paragraph) => paragraph.trim())
-            .filter(Boolean)[0] || '';
-
-    const text = source.replace(/\s+/g, ' ').trim();
-    if (!text) {
-      return '';
-    }
-
-    if (text.length <= maxLength) {
-      return text;
-    }
-
-    const truncated = text.slice(0, maxLength);
-    const pivot = truncated.lastIndexOf(' ');
-    return `${(pivot > 48 ? truncated.slice(0, pivot) : truncated).replace(/[.,;:!?]+$/u, '')}…`;
   }
 
   function highlightMatches(text, query) {
@@ -245,83 +225,36 @@
   }
 
   function formatDate(isoString) {
-    if (!isoString) {
-      return '';
-    }
-
-    const basicMatch =
-      typeof isoString === 'string' && isoString.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    let date;
-
-    if (isoString instanceof Date) {
-      date = isoString;
-    } else if (basicMatch) {
-      const [, yearStr, monthStr, dayStr] = basicMatch;
-      const year = Number(yearStr);
-      const month = Number(monthStr);
-      const day = Number(dayStr);
-      if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) {
-        return String(isoString);
-      }
-      date = new Date(year, month - 1, day);
-
-      if (
-        date.getFullYear() !== year ||
-        date.getMonth() !== month - 1 ||
-        date.getDate() !== day
-      ) {
-        return '';
-      }
-    } else {
-      date = new Date(isoString);
-    }
-
-    if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
-      return '';
-    }
-
+    if (!isoString) return '';
+    const date = new Date(isoString);
+    if (Number.isNaN(date.getTime())) return '';
     return new Intl.DateTimeFormat(undefined, {
-      month: 'short',
-      day: 'numeric',
       year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     }).format(date);
   }
 
   function calculateReadingTime(text) {
-    if (!text) {
-      return '';
-    }
-
-    const words = String(text)
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean).length;
+    if (!text) return '';
+    const words = String(text).split(/\s+/).length;
     const minutes = Math.max(1, Math.ceil(words / 200));
     return `${minutes} min read`;
   }
 
   function escapeRegex(string) {
-    return String(string).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   function normalizeTag(tag) {
     if (!tag) {
       return '';
     }
-
     return String(tag).trim().toLowerCase();
   }
 
-  function resolvePostSlug(post) {
-    if (post && typeof post.slug === 'string' && post.slug.trim()) {
-      return post.slug.trim();
-    }
-
-    return slugify(post && post.title ? post.title : '');
-  }
-
   function slugify(text) {
-    return String(text)
+    return text
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
@@ -341,20 +274,82 @@
     } else {
       url.searchParams.delete('q');
     }
-
     if (activeTag) {
       url.searchParams.set('tag', activeTag);
     } else {
       url.searchParams.delete('tag');
     }
-
     window.history.replaceState({}, '', url);
   }
 
-  function setCurrentYear() {
-    const element = document.getElementById('current-year');
-    if (element) {
-      element.textContent = String(new Date().getFullYear());
+  function setupNavToggle() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('primary-nav');
+    if (!navToggle || !navMenu) return;
+
+    navToggle.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (navMenu.classList.contains('is-open')) {
+          navMenu.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
+  function setupMatrixRain() {
+    const canvas = document.getElementById('matrix-rain');
+    const toggle = document.getElementById('matrix-toggle');
+    if (!canvas || typeof window.startMatrixRain !== 'function') return;
+
+    const prefersReduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const storedPreference = localStorage.getItem('matrixEnabled');
+    const hasStoredPreference = storedPreference === 'true' || storedPreference === 'false';
+    const defaultMatrixEnabled = true;
+    let isEnabled = hasStoredPreference ? storedPreference === 'true' : defaultMatrixEnabled;
+    let stopAnimation = null;
+
+    if (prefersReduced) {
+      isEnabled = false;
     }
+
+    applyMatrixState(isEnabled);
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        applyMatrixState(!isEnabled);
+      });
+    }
+
+    function applyMatrixState(nextState) {
+      isEnabled = Boolean(nextState);
+      document.body.classList.toggle('matrix-disabled', !isEnabled);
+      document.body.classList.toggle('matrix-enabled', isEnabled);
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+        toggle.setAttribute('aria-disabled', prefersReduced ? 'true' : 'false');
+      }
+      localStorage.setItem('matrixEnabled', String(isEnabled));
+
+      if (isEnabled) {
+        if (!stopAnimation) {
+          stopAnimation = window.startMatrixRain(canvas);
+        }
+      } else if (stopAnimation) {
+        stopAnimation();
+        stopAnimation = null;
+      }
+    }
+  }
+
+  function setCurrentYear() {
+    const el = document.getElementById('current-year');
+    if (el) el.textContent = new Date().getFullYear();
   }
 })();

@@ -17,7 +17,7 @@
     return;
   }
 
-  const post = orderedPosts.find((entry) => resolvePostSlug(entry) === postSlug);
+  const post = orderedPosts.find((entry) => slugify(entry.title) === postSlug);
 
   if (!post) {
     globalScope.location.href = 'posts.html';
@@ -60,14 +60,6 @@
     if (postContentEl) {
       postContentEl.innerHTML = renderBody(postEntry.body || '');
     }
-  }
-
-  function resolvePostSlug(postEntry) {
-    if (postEntry && typeof postEntry.slug === 'string' && postEntry.slug.trim()) {
-      return postEntry.slug.trim();
-    }
-
-    return slugify(postEntry && postEntry.title ? postEntry.title : '');
   }
 
   function slugify(text) {
@@ -117,13 +109,12 @@
 
     return new Intl.DateTimeFormat(undefined, {
       month: 'short',
-      day: 'numeric',
-      year: 'numeric',
+      day: '2-digit',
     }).format(date);
   }
 
   function formatPostDateBadge(isoString) {
-    return formatDate(isoString);
+    return formatDate(isoString).toUpperCase();
   }
 
 

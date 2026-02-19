@@ -1,25 +1,32 @@
-// ABOUTME: Ensures the homepage header includes primary navigation links.
-// ABOUTME: Confirms shared page chrome is available from the landing page.
-const { assertMatches, readIndexHtml } = require('./helpers');
+// ABOUTME: Ensures the homepage avoids full navigation while keeping a small posts shortcut.
+// ABOUTME: Confirms the posts page omits archives nav and the footer link block.
+const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile } = require('./helpers');
 
 const html = readIndexHtml();
-assertMatches(
+const postsHtml = readRepoFile('posts.html');
+assertNotMatches(
   html,
   /<nav[^>]*class="site-nav"/i,
-  'Expected the homepage header to include primary navigation links.'
+  'Did not expect the homepage header to include top-right navigation links.'
 );
-assertMatches(
+assertNotMatches(
   html,
   /<a[^>]*href="archives\.html"/i,
-  'Expected homepage navigation to include the archives link.'
+  'Did not expect homepage header archives navigation links.'
 );
 assertMatches(
   html,
-  /<a[^>]*href="search\.html"/i,
-  'Expected homepage navigation to include the search link.'
+  /<a[^>]*class="[^"]*home-posts-link[^"]*"[^>]*href="posts\.html"[^>]*>posts<\/a>/i,
+  'Expected homepage header to include a small posts shortcut link.'
 );
-assertMatches(
-  html,
-  /<a[^>]*href="posts\.html"/i,
-  'Expected homepage navigation to include the posts link.'
+
+assertNotMatches(
+  postsHtml,
+  /<a[^>]*href="archives\.html"/i,
+  'Did not expect posts page navigation to include an archives link.'
+);
+assertNotMatches(
+  postsHtml,
+  /<footer[^>]*class="site-footer"/i,
+  'Did not expect posts page to render the footer block.'
 );

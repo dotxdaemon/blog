@@ -10,67 +10,66 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <canvas class="matrix-rain" id="matrix-rain" aria-hidden="true"></canvas>
     <div class="layout">
       <header class="site-header">
-        <div class="site-header__inner">
-          <div class="site-title-block">
-            <a class="site-title site-title-link" href="index.html">velvetdaemon</a>
-            <hr class="site-title-rule" aria-hidden="true" />
+      <div class="site-header__inner">
+        <a class="site-title" href="index.html">velvetdaemon</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a class="nav-link invert-on-hover" href="index.html">Home</a>
+          <a class="nav-link invert-on-hover" href="archives.html">Archives</a>
+          <a class="nav-link invert-on-hover" href="search.html" aria-current="page">Search</a>
+          <a class="nav-link invert-on-hover" href="posts.html">Posts</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main" id="main-content">
+      <section class="post-stream module-card">
+        <header class="search-header">
+          <h1 class="section-title">Search</h1>
+        </header>
+
+        <div class="search-form">
+          <div class="search-input-wrapper">
+            <span class="search-icon" aria-hidden="true">&#128269;</span>
+            <input
+              type="search"
+              id="search-input"
+              class="search-input"
+              placeholder="Search posts..."
+              autocomplete="off"
+              autofocus
+            />
           </div>
-          <nav class="site-nav" aria-label="Primary navigation">
-            <a class="nav-link" href="index.html">Home</a>
-            <a class="nav-link" href="archives.html">Archives</a>
-            <a class="nav-link" href="search.html" aria-current="page">Search</a>
-            <a class="nav-link" href="posts.html">Posts</a>
-          </nav>
         </div>
-      </header>
 
-      <main class="site-main" id="main-content">
-        <section class="post-stream module-card">
-          <header class="search-header">
-            <h1 class="section-title">Search</h1>
-          </header>
-
-          <div class="search-form">
-            <div class="search-input-wrapper">
-              <span class="search-icon" aria-hidden="true">&#128269;</span>
-              <input
-                type="search"
-                id="search-input"
-                class="search-input"
-                placeholder="Search posts..."
-                autocomplete="off"
-                autofocus
-              />
-            </div>
-          </div>
-
-          <div id="search-results" aria-live="polite">
-            <p class="search-hint">Type to search through all posts...</p>
-          </div>
-        </section>
+        <div id="search-results" aria-live="polite">
+          <p class="search-hint">Type to search through all posts...</p>
+        </div>
+      </section>
       </main>
-
-      <footer class="site-footer" id="site-footer" aria-label="Site footer">
-        <div class="site-footer__inner">
-          <p>&copy; <span id="current-year"></span> velvetdaemon - built for reading</p>
-          <div class="site-footer__links">
-            <a class="nav-link" href="index.html">About</a>
-            <a
-              class="nav-link"
-              href="https://github.com/dotxdaemon"
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
 
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="site-footer__inner">
+        <p>&copy; <span id="current-year"></span> velvetdaemon &mdash; built for reading</p>
+        <div class="site-footer__links">
+          <a class="nav-link invert-on-hover" href="index.html#hero">About</a>
+          <a
+            class="nav-link invert-on-hover"
+            href="https://github.com/dotxdaemon"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+
     <script src="assets/js/posts.js"></script>
+    <script src="assets/js/matrix.js"></script>
     <script src="assets/js/search.js"></script>
   </body>
 </html>

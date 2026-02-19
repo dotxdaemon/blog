@@ -12,12 +12,24 @@ assertMatches(
 
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*767px\)[\s\S]*\.dashboard-track-artwork,[\s\S]*\.dashboard-track-icon\s*\{[\s\S]*width:\s*min\(100%,\s*320px\)/i,
-  'Expected dashboard artwork and icon width to scale within small screens.'
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.dashboard-track-icon\s*\{[\s\S]*width:\s*min\(100%,\s*220px\)/i,
+  'Expected listening waveform width to stay compact on small screens.'
 );
 
 assertMatches(
   css,
-  /@media\s*\(max-width:\s*767px\)[\s\S]*\.site-footer__inner\s*\{[\s\S]*align-items:\s*flex-start/i,
-  'Expected shared footer content to align for narrow screens.'
+  /@media\s*\(max-width:\s*900px\)[\s\S]*\.site-main\s*\{[\s\S]*grid-template-columns:\s*1fr/i,
+  'Expected the dashboard to collapse into one column under 900px.'
+);
+
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*900px\)[\s\S]*\.post-stream\s*\{[\s\S]*max-width:\s*none/i,
+  'Expected posts stream to expand to full width in stacked layout.'
+);
+
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.post-footer\s*\{[\s\S]*position:\s*static/i,
+  'Expected post footer to use static positioning on small screens.'
 );
