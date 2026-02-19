@@ -21,6 +21,8 @@ assertMatches(
 );
 assertMatches(script, /function setupListeningAlbums\(/, 'Expected app.js to define a listening album grid renderer.');
 assertMatches(script, /className = 'album-overlay'/, 'Expected album renderer to create an overlay label.');
+assertMatches(script, /function shuffleAlbums\(/, 'Expected app.js to define an album shuffling helper.');
+assertMatches(script, /Math\.random\(/, 'Expected album shuffle logic to use randomized ordering.');
 assertMatches(
   css,
   /\.album-item:hover\s+\.album-overlay,[\s\S]*opacity:\s*1/i,
@@ -43,7 +45,7 @@ delete require.cache[listeningDataPath];
 require(listeningDataPath);
 const albums = Array.isArray(global.window.LISTENING_TO_ALBUMS) ? global.window.LISTENING_TO_ALBUMS : [];
 
-assert.strictEqual(albums.length, 22, 'Expected 22 unique listening albums including restored favorites.');
+assert.strictEqual(albums.length, 33, 'Expected 33 unique listening albums including the latest additions.');
 
 const keyFor = (album) => `${String(album.title || '').trim().toLowerCase()}::${String(album.artist || '').trim().toLowerCase()}`;
 const uniqueKeys = new Set(albums.map(keyFor));
@@ -88,6 +90,17 @@ const expectedPairs = [
   ["Time 'n' Place", 'Kero Kero Bonito'],
   ['From Under the Cork Tree', 'Fall Out Boy'],
   ['F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3', 'Skrillex'],
+  ['Blue Rev', 'Alvvays'],
+  ['Two Star & The Dream Police', 'Mk.gee'],
+  ['A LA SALA', 'Khruangbin'],
+  ['Mirrors', 'DJ Seinfeld'],
+  ['Blue Weekend', 'Wolf Alice'],
+  ['Persona 5 (Original Soundtrack)', 'ATLUS Sound Team'],
+  ['Forever', 'Charly Bliss'],
+  ['the record', 'boygenius'],
+  ['Oncle Jazz', 'Men I Trust'],
+  ["Short n' Sweet", 'Sabrina Carpenter'],
+  ['Late Registration', 'Kanye West'],
 ];
 
 for (const [title, artist] of expectedPairs) {

@@ -465,9 +465,10 @@ function setupListeningAlbums() {
   if (!albumList) return;
 
   const albums = Array.isArray(window.LISTENING_TO_ALBUMS) ? window.LISTENING_TO_ALBUMS : [];
+  const shuffledAlbums = shuffleAlbums([...albums]);
 
   albumList.innerHTML = '';
-  albums.forEach((album) => {
+  shuffledAlbums.forEach((album) => {
     if (!album || typeof album !== 'object') {
       return;
     }
@@ -500,4 +501,12 @@ function setupListeningAlbums() {
 
     albumList.appendChild(item);
   });
+}
+
+function shuffleAlbums(albums) {
+  for (let index = albums.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [albums[index], albums[randomIndex]] = [albums[randomIndex], albums[index]];
+  }
+  return albums;
 }

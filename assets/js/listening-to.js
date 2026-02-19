@@ -111,4 +111,59 @@ window.LISTENING_TO_ALBUMS = [
     artist: 'Skrillex',
     artwork: 'assets/images/skrillex.jpg',
   },
+  {
+    title: 'Blue Rev',
+    artist: 'Alvvays',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/57/d1/be/57d1be08-4faf-06b5-3de6-165b194e0091/5400863086077.png/600x600bb.jpg',
+  },
+  {
+    title: 'Two Star & The Dream Police',
+    artist: 'Mk.gee',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d3/ea/e4/d3eae41a-be38-575d-7b07-3fc1c2e7142d/193436368681_FINALARTWORK.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'A LA SALA',
+    artist: 'Khruangbin',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/4b/82/45/4b82450e-4547-166f-aced-7d7f85b67d4b/43543.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Mirrors',
+    artist: 'DJ Seinfeld',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/06/f5/88/06f5888f-b992-a571-5508-e4f61cd8b902/5054429148763.png/600x600bb.jpg',
+  },
+  {
+    title: 'Blue Weekend',
+    artist: 'Wolf Alice',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a0/c1/51/a0c15196-e60f-dea7-8b7c-24bdbe94cf65/886449055173.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Persona 5 (Original Soundtrack)',
+    artist: 'ATLUS Sound Team',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ad/10/fe/ad10fee6-76eb-7eaa-a632-c2afece21b53/LNCM-1175_PERSONA5-OST_h1_new.jpg/600x536bb.jpg',
+  },
+  {
+    title: 'Forever',
+    artist: 'Charly Bliss',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d4/6e/37/d46e37fb-5d8b-d4d1-7218-506c7c0dcb6b/102553.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'the record',
+    artist: 'boygenius',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/ad/fc/81/adfc819e-00b2-3cb5-deb2-931a5b6da3fa/22UM1IM44998.rgb.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Oncle Jazz',
+    artist: 'Men I Trust',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/50/c6/94/50c694d6-36cd-8808-5da3-d677b7726b6c/artwork.jpg/600x600bb.jpg',
+  },
+  {
+    title: "Short n' Sweet",
+    artist: 'Sabrina Carpenter',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a1/1c/ca/a11ccab6-7d4c-e041-d028-998bcebeb709/24UMGIM61704.rgb.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Late Registration',
+    artist: 'Kanye West',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/00/68/13/006813b3-9ca1-2e6f-98df-4ef78cd6cb49/06UMGIM20452.rgb.jpg/600x595bb.jpg',
+  },
 ];
