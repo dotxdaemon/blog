@@ -4,7 +4,7 @@ window.BLOG_POSTS = [
   {
     title: "hi everybody",
     date: "2025-09-19",
-    cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=160&q=60",
+    cover: "",
     tags: ["intro", "notes"],
     body: "hi everybody",
     ambientTone: "cool",
@@ -20,7 +20,7 @@ window.BLOG_POSTS = [
   {
     title: "movies I want to watch",
     date: "2025-09-26",
-    cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=160&q=60",
+    cover: "",
     tags: ["movies", "watchlist"],
     body: `Hamnet
 
