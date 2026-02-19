@@ -60,6 +60,39 @@ assertMatches(
   'Expected listening data to include the album title for this artwork.'
 );
 assertMatches(data, /artist:\s*['"]The 1975['"]/i, 'Expected listening data to include The 1975 artist name.');
+assertMatches(
+  data,
+  /title:\s*['"]Time 'n' Place['"]/i,
+  'Expected listening data to include Time n Place for the kero artwork.'
+);
+assertMatches(data, /artist:\s*['"]Kero Kero Bonito['"]/i, 'Expected listening data to include Kero Kero Bonito.');
+assertMatches(
+  data,
+  /artwork:\s*['"]assets\/images\/kero\.jpg['"]/i,
+  'Expected listening data to reference the kero artwork image path.'
+);
+assertMatches(
+  data,
+  /title:\s*['"]From Under the Cork Tree['"]/i,
+  'Expected listening data to include From Under the Cork Tree.'
+);
+assertMatches(data, /artist:\s*['"]Fall Out Boy['"]/i, 'Expected listening data to include Fall Out Boy.');
+assertMatches(
+  data,
+  /artwork:\s*['"]assets\/images\/fall-out-boy\.jpg['"]/i,
+  'Expected listening data to reference the fall out boy artwork image path.'
+);
+assertMatches(
+  data,
+  /title:\s*['"]F\*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3['"]/i,
+  'Expected listening data to include the Skrillex album title.'
+);
+assertMatches(data, /artist:\s*['"]Skrillex['"]/i, 'Expected listening data to include Skrillex.');
+assertMatches(
+  data,
+  /artwork:\s*['"]assets\/images\/skrillex\.jpg['"]/i,
+  'Expected listening data to reference the skrillex artwork image path.'
+);
 assertNotMatches(
   html,
   /No track selected yet|Artist unknown/i,
@@ -70,4 +103,19 @@ const artworkPath = path.join(__dirname, '..', 'assets', 'images', 'the-1975.jpg
 assert.ok(
   fs.existsSync(artworkPath),
   'Expected artwork image file at assets/images/the-1975.jpg.'
+);
+const keroArtworkPath = path.join(__dirname, '..', 'assets', 'images', 'kero.jpg');
+assert.ok(
+  fs.existsSync(keroArtworkPath),
+  'Expected artwork image file at assets/images/kero.jpg.'
+);
+const fallOutBoyArtworkPath = path.join(__dirname, '..', 'assets', 'images', 'fall-out-boy.jpg');
+assert.ok(
+  fs.existsSync(fallOutBoyArtworkPath),
+  'Expected artwork image file at assets/images/fall-out-boy.jpg.'
+);
+const skrillexArtworkPath = path.join(__dirname, '..', 'assets', 'images', 'skrillex.jpg');
+assert.ok(
+  fs.existsSync(skrillexArtworkPath),
+  'Expected artwork image file at assets/images/skrillex.jpg.'
 );
