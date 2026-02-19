@@ -1,6 +1,6 @@
-// ABOUTME: Ensures the homepage header removes top-right navigation links.
-// ABOUTME: Confirms the compact title-only header is rendered.
-const { assertNotMatches, readIndexHtml } = require('./helpers');
+// ABOUTME: Ensures the homepage avoids full navigation while keeping a small posts shortcut.
+// ABOUTME: Confirms only a subtle posts link appears in the homepage header.
+const { assertMatches, assertNotMatches, readIndexHtml } = require('./helpers');
 
 const html = readIndexHtml();
 assertNotMatches(
@@ -12,4 +12,9 @@ assertNotMatches(
   html,
   /<a[^>]*href="archives\.html"/i,
   'Did not expect homepage header archives navigation links.'
+);
+assertMatches(
+  html,
+  /<a[^>]*class="[^"]*home-posts-link[^"]*"[^>]*href="posts\.html"[^>]*>posts<\/a>/i,
+  'Expected homepage header to include a small posts shortcut link.'
 );

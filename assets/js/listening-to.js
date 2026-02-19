@@ -74,7 +74,7 @@ window.LISTENING_TO_ALBUMS = [
   {
     title: 'Nostalgia, Ultra',
     artist: 'Frank Ocean',
-    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/2b/bc/ef/2bbcef12-588c-776b-77b3-ed92c2a583ac/5059460237445.jpg/600x600bb.jpg',
+    artwork: 'assets/images/frank.jpeg',
   },
   {
     title: 'My Dinosaur Life',
@@ -95,5 +95,20 @@ window.LISTENING_TO_ALBUMS = [
     title: 'Worlds',
     artist: 'Porter Robinson',
     artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e0/a0/f7/e0a0f7da-5840-02dd-bf45-39e2a4198f0b/14UMGIM24283.rgb.jpg/600x600bb.jpg',
+  },
+  {
+    title: "Time 'n' Place",
+    artist: 'Kero Kero Bonito',
+    artwork: 'assets/images/kero.jpg',
+  },
+  {
+    title: 'From Under the Cork Tree',
+    artist: 'Fall Out Boy',
+    artwork: 'assets/images/fall-out-boy.jpg',
+  },
+  {
+    title: 'F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3',
+    artist: 'Skrillex',
+    artwork: 'assets/images/skrillex.jpg',
   },
 ];

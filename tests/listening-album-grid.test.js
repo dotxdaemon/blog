@@ -1,5 +1,5 @@
 // ABOUTME: Verifies the Listening To section renders artwork entries from the requested album list.
-// ABOUTME: Ensures configured entries are unique and each has a remote iTunes artwork URL.
+// ABOUTME: Ensures configured entries are unique and include restored favorites plus Frank cover override.
 const assert = require('assert');
 const path = require('path');
 const { assertMatches, readIndexHtml, readRepoFile, readStyles } = require('./helpers');
@@ -26,6 +26,16 @@ assertMatches(
   /\.album-item:hover\s+\.album-overlay,[\s\S]*opacity:\s*1/i,
   'Expected album overlay to become visible on hover or focus.'
 );
+assertMatches(
+  css,
+  /\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected desktop listening grid to render 4 albums across.'
+);
+assertMatches(
+  css,
+  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected touch layout to show a denser 2-column album grid.'
+);
 
 const listeningDataPath = path.join(__dirname, '..', 'assets', 'js', 'listening-to.js');
 global.window = {};
@@ -33,16 +43,25 @@ delete require.cache[listeningDataPath];
 require(listeningDataPath);
 const albums = Array.isArray(global.window.LISTENING_TO_ALBUMS) ? global.window.LISTENING_TO_ALBUMS : [];
 
-assert.strictEqual(albums.length, 19, 'Expected 19 unique listening albums.');
+assert.strictEqual(albums.length, 22, 'Expected 22 unique listening albums including restored favorites.');
 
 const keyFor = (album) => `${String(album.title || '').trim().toLowerCase()}::${String(album.artist || '').trim().toLowerCase()}`;
 const uniqueKeys = new Set(albums.map(keyFor));
 assert.strictEqual(uniqueKeys.size, albums.length, 'Expected duplicate album entries to be removed.');
 
 albums.forEach((album) => {
+  if (album && album.title === 'Nostalgia, Ultra' && album.artist === 'Frank Ocean') {
+    assert.strictEqual(
+      album.artwork,
+      'assets/images/frank.jpeg',
+      'Expected Nostalgia, Ultra to use the local Frank artwork image.'
+    );
+    return;
+  }
   assert.ok(
-    /^https:\/\/is\d-ssl\.mzstatic\.com\/image\/thumb\//i.test(String(album.artwork || '')),
-    `Expected "${album.title}" to use a remote iTunes artwork URL.`
+    /^https:\/\/is\d-ssl\.mzstatic\.com\/image\/thumb\//i.test(String(album.artwork || '')) ||
+      /^assets\/images\//i.test(String(album.artwork || '')),
+    `Expected "${album.title}" to use a valid artwork URL or local image path.`
   );
 });
 
@@ -66,6 +85,9 @@ const expectedPairs = [
   ['Golden Hour', 'Kacey Musgraves'],
   ['Nurture', 'Porter Robinson'],
   ['Worlds', 'Porter Robinson'],
+  ["Time 'n' Place", 'Kero Kero Bonito'],
+  ['From Under the Cork Tree', 'Fall Out Boy'],
+  ['F*CK U SKRILLEX YOU THINK UR ANDY WARHOL BUT UR NOT!! <3', 'Skrillex'],
 ];
 
 for (const [title, artist] of expectedPairs) {
