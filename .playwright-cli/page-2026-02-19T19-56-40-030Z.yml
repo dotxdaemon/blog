@@ -1,0 +1,34 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "velvetdaemon" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+      - navigation "Primary navigation" [ref=e6]:
+        - link "Home" [ref=e7] [cursor=pointer]:
+          - /url: index.html
+        - link "Search" [ref=e8] [cursor=pointer]:
+          - /url: search.html
+        - link "Posts" [ref=e9] [cursor=pointer]:
+          - /url: posts.html
+  - main [ref=e10]:
+    - region "Latest writing" [ref=e11]:
+      - heading "Latest writing" [level=2] [ref=e12]
+      - generic [ref=e13]:
+        - article [ref=e14]:
+          - time [ref=e15]: 30 Dec
+          - heading "cooking recipes" [level=2] [ref=e16]:
+            - link "cooking recipes" [ref=e17] [cursor=pointer]:
+              - /url: post.html?slug=cooking-recipes
+          - paragraph [ref=e18]: pantry chicken thighs
+        - article [ref=e19]:
+          - time [ref=e20]: 26 Sept
+          - heading "movies I want to watch" [level=2] [ref=e21]:
+            - link "movies I want to watch" [ref=e22] [cursor=pointer]:
+              - /url: post.html?slug=movies-i-want-to-watch
+          - paragraph [ref=e23]: Hamnet
+        - article [ref=e24]:
+          - time [ref=e25]: 19 Sept
+          - heading "hi everybody" [level=2] [ref=e26]:
+            - link "hi everybody" [ref=e27] [cursor=pointer]:
+              - /url: post.html?slug=hi-everybody
+          - paragraph [ref=e28]: hi everybody
