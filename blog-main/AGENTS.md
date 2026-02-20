@@ -103,7 +103,7 @@ actual purpose.
 ## Version Control
 
 * If the project isn't in a git repo, STOP and ask permission to initialize one.
-* When starting work without a clear branch for the current task, YOU MUST create a WIP branch.
+* Just commit to main
 * YOU MUST TRACK All non-trivial changes in git.
 * YOU MUST commit frequently throughout the development process, even if your high-level tasks are not yet done. Commit your journal entries.
 * NEVER SKIP, EVADE OR DISABLE A PRE-COMMIT HOOK
@@ -387,7 +387,7 @@ Version Control
 
 If the project isn't in a git repo, STOP and ask permission to initialize one.
 
-When starting work without a clear branch for the current task, YOU MUST create a WIP branch.
+Just commit to main
 
 YOU MUST TRACK All non-trivial changes in git.
 
