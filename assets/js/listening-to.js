@@ -166,4 +166,44 @@ window.LISTENING_TO_ALBUMS = [
     artist: 'Kanye West',
     artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/00/68/13/006813b3-9ca1-2e6f-98df-4ef78cd6cb49/06UMGIM20452.rgb.jpg/600x595bb.jpg',
   },
+  {
+    title: 'Modern Vampires of the City',
+    artist: 'Vampire Weekend',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b2/c7/94/b2c79469-1105-1a37-c092-5f889f6ed15a/634904055653.png/600x600bb.jpg',
+  },
+  {
+    title: 'House of Balloons',
+    artist: 'The Weeknd',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/31/18/fa/3118fab0-90ea-2ae5-cf6c-bc64054ab9e3/21UMGIM21449.rgb.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'The Suburbs',
+    artist: 'Arcade Fire',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ea/9f/1a/ea9f1ab0-4cac-c925-590d-14461f676912/886446576510.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Contra',
+    artist: 'Vampire Weekend',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/e2/06/c4/e206c459-bb28-97c3-f501-cd2111126d2f/634904142964.png/600x600bb.jpg',
+  },
+  {
+    title: 'Settle',
+    artist: 'Disclosure',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/c3/eb/3e/c3eb3efb-bc90-d5ac-c7c3-a047b08af582/13UMGIM46983.rgb.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Flockaveli',
+    artist: 'Waka Flocka Flame',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/2b/7a/1a/2b7a1ad0-21c7-9f1b-0ebe-6da35e9d34ce/093624969907.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Discovery',
+    artist: 'Daft Punk',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fd/4a/77/fd4a77db-0ebc-d043-41a2-f32fa1bb0fb4/dj.qrikkdwj.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Lush',
+    artist: 'Snail Mail',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e3/f0/b8/e3f0b8b0-88c4-58df-a148-d4714d4fe7dc/744861117957.png/600x600bb.jpg',
+  },
 ];

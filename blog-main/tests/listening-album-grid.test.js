@@ -45,7 +45,7 @@ delete require.cache[listeningDataPath];
 require(listeningDataPath);
 const albums = Array.isArray(global.window.LISTENING_TO_ALBUMS) ? global.window.LISTENING_TO_ALBUMS : [];
 
-assert.strictEqual(albums.length, 33, 'Expected 33 unique listening albums including the latest additions.');
+assert.strictEqual(albums.length, 41, 'Expected 41 unique listening albums including the latest additions.');
 
 const keyFor = (album) => `${String(album.title || '').trim().toLowerCase()}::${String(album.artist || '').trim().toLowerCase()}`;
 const uniqueKeys = new Set(albums.map(keyFor));
@@ -101,6 +101,14 @@ const expectedPairs = [
   ['Oncle Jazz', 'Men I Trust'],
   ["Short n' Sweet", 'Sabrina Carpenter'],
   ['Late Registration', 'Kanye West'],
+  ['Modern Vampires of the City', 'Vampire Weekend'],
+  ['House of Balloons', 'The Weeknd'],
+  ['The Suburbs', 'Arcade Fire'],
+  ['Contra', 'Vampire Weekend'],
+  ['Settle', 'Disclosure'],
+  ['Flockaveli', 'Waka Flocka Flame'],
+  ['Discovery', 'Daft Punk'],
+  ['Lush', 'Snail Mail'],
 ];
 
 for (const [title, artist] of expectedPairs) {
