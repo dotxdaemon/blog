@@ -206,4 +206,14 @@ window.LISTENING_TO_ALBUMS = [
     artist: 'Snail Mail',
     artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e3/f0/b8/e3f0b8b0-88c4-58df-a148-d4714d4fe7dc/744861117957.png/600x600bb.jpg',
   },
+  {
+    title: 'Untrue',
+    artist: 'Burial',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/9d/0f/1c/9d0f1c2b-2fae-d8ac-3920-ce9ec5bc85b5/7982.jpg/600x600bb.jpg',
+  },
+  {
+    title: 'Punisher',
+    artist: 'Phoebe Bridgers',
+    artwork: 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/39/91/4f/39914f60-e9aa-4ae9-3962-44b0a5e5d570/656605150062.jpg/600x600bb.jpg',
+  },
 ];

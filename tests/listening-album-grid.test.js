@@ -45,7 +45,7 @@ delete require.cache[listeningDataPath];
 require(listeningDataPath);
 const albums = Array.isArray(global.window.LISTENING_TO_ALBUMS) ? global.window.LISTENING_TO_ALBUMS : [];
 
-assert.strictEqual(albums.length, 41, 'Expected 41 unique listening albums including the latest additions.');
+assert.strictEqual(albums.length, 43, 'Expected 43 unique listening albums including the latest additions.');
 
 const keyFor = (album) => `${String(album.title || '').trim().toLowerCase()}::${String(album.artist || '').trim().toLowerCase()}`;
 const uniqueKeys = new Set(albums.map(keyFor));
@@ -109,6 +109,8 @@ const expectedPairs = [
   ['Flockaveli', 'Waka Flocka Flame'],
   ['Discovery', 'Daft Punk'],
   ['Lush', 'Snail Mail'],
+  ['Untrue', 'Burial'],
+  ['Punisher', 'Phoebe Bridgers'],
 ];
 
 for (const [title, artist] of expectedPairs) {
