@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
-  <rect width="1600" height="900" fill="#F5F0E8"/>
-  <text x="80" y="120" fill="#1A1816" font-family="Georgia, serif" font-size="54" letter-spacing="6">Checklist Evidence 068</text>
-  <text x="80" y="220" fill="#6B635E" font-family="Inter, sans-serif" font-size="26">Thumbnails: force square aspect ratio</text>
-  <text x="80" y="300" fill="#A39C96" font-family="Inter, sans-serif" font-size="22">Source: style.css + index.html implementation in this repository.</text>
-</svg>
