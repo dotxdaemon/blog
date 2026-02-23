@@ -6,6 +6,7 @@ const html = readIndexHtml();
 const postsHtml = readRepoFile('posts.html');
 const searchHtml = readRepoFile('search.html');
 const archivesHtml = readRepoFile('archives.html');
+const postHtml = readRepoFile('post.html');
 assertNotMatches(
   html,
   /<nav[^>]*class="site-nav"/i,
@@ -69,4 +70,65 @@ assertNotMatches(
   archivesHtml,
   /built for reading|>\s*About\s*<|>\s*GitHub\s*</i,
   'Did not expect archives page to render legacy footer text or links.'
+);
+
+assertMatches(
+  postsHtml,
+  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
+  'Expected posts page navigation label to be lowercase "home".'
+);
+assertMatches(
+  postsHtml,
+  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
+  'Expected posts page navigation label to be lowercase "search".'
+);
+assertMatches(
+  postsHtml,
+  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
+  'Expected posts page navigation label to be lowercase "posts".'
+);
+assertMatches(
+  searchHtml,
+  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
+  'Expected search page navigation label to be lowercase "home".'
+);
+assertMatches(
+  searchHtml,
+  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
+  'Expected search page navigation label to be lowercase "search".'
+);
+assertMatches(
+  searchHtml,
+  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
+  'Expected search page navigation label to be lowercase "posts".'
+);
+assertMatches(
+  archivesHtml,
+  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
+  'Expected archives page navigation label to be lowercase "home".'
+);
+assertMatches(
+  archivesHtml,
+  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
+  'Expected archives page navigation label to be lowercase "search".'
+);
+assertMatches(
+  archivesHtml,
+  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
+  'Expected archives page navigation label to be lowercase "posts".'
+);
+assertMatches(
+  postHtml,
+  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
+  'Expected post detail navigation label to be lowercase "home".'
+);
+assertMatches(
+  postHtml,
+  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
+  'Expected post detail navigation label to be lowercase "search".'
+);
+assertMatches(
+  postHtml,
+  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
+  'Expected post detail navigation label to be lowercase "posts".'
 );
