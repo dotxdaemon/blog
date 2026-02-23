@@ -38,6 +38,16 @@ assertNotMatches(
   /<a[^>]*href="archives\.html"/i,
   'Did not expect search page navigation to include an archives link.'
 );
+assertNotMatches(
+  searchHtml,
+  /<footer[^>]*class="site-footer"/i,
+  'Did not expect search page to render the footer block.'
+);
+assertNotMatches(
+  searchHtml,
+  /built for reading|>\s*About\s*<|>\s*GitHub\s*</i,
+  'Did not expect search page to render legacy footer text or links.'
+);
 
 assertNotMatches(
   archivesHtml,
@@ -49,4 +59,14 @@ assertNotMatches(
   archivesHtml,
   /assets\/js\/archives\.js/i,
   'Did not expect archives page to load archive list rendering script.'
+);
+assertNotMatches(
+  archivesHtml,
+  /<footer[^>]*class="site-footer"/i,
+  'Did not expect archives page to render the footer block.'
+);
+assertNotMatches(
+  archivesHtml,
+  /built for reading|>\s*About\s*<|>\s*GitHub\s*</i,
+  'Did not expect archives page to render legacy footer text or links.'
 );
