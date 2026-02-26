@@ -7,6 +7,7 @@ const postsHtml = readRepoFile('posts.html');
 const searchHtml = readRepoFile('search.html');
 const archivesHtml = readRepoFile('archives.html');
 const postHtml = readRepoFile('post.html');
+const moviesHtml = readRepoFile('movies.html');
 assertNotMatches(
   html,
   /<nav[^>]*class="site-nav"/i,
@@ -88,6 +89,11 @@ assertMatches(
   'Expected posts page navigation label to be lowercase "posts".'
 );
 assertMatches(
+  postsHtml,
+  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
+  'Expected posts page navigation to include lowercase "movies".'
+);
+assertMatches(
   searchHtml,
   /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
   'Expected search page navigation label to be lowercase "home".'
@@ -101,6 +107,11 @@ assertMatches(
   searchHtml,
   /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
   'Expected search page navigation label to be lowercase "posts".'
+);
+assertMatches(
+  searchHtml,
+  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
+  'Expected search page navigation to include lowercase "movies".'
 );
 assertMatches(
   archivesHtml,
@@ -118,6 +129,11 @@ assertMatches(
   'Expected archives page navigation label to be lowercase "posts".'
 );
 assertMatches(
+  archivesHtml,
+  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
+  'Expected archives page navigation to include lowercase "movies".'
+);
+assertMatches(
   postHtml,
   /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
   'Expected post detail navigation label to be lowercase "home".'
@@ -131,4 +147,29 @@ assertMatches(
   postHtml,
   /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
   'Expected post detail navigation label to be lowercase "posts".'
+);
+assertMatches(
+  postHtml,
+  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
+  'Expected post detail navigation to include lowercase "movies".'
+);
+assertMatches(
+  moviesHtml,
+  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
+  'Expected movies page navigation label to be lowercase "home".'
+);
+assertMatches(
+  moviesHtml,
+  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
+  'Expected movies page navigation label to be lowercase "search".'
+);
+assertMatches(
+  moviesHtml,
+  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
+  'Expected movies page navigation label to be lowercase "posts".'
+);
+assertMatches(
+  moviesHtml,
+  /<a[^>]*href="movies\.html"[^>]*aria-current="page"[^>]*>\s*movies\s*<\/a>/,
+  'Expected movies page to mark movies as the active navigation link.'
 );

@@ -464,7 +464,15 @@ function setupListeningAlbums() {
   const albumList = document.getElementById('album-list');
   if (!albumList) return;
 
-  const albums = Array.isArray(window.LISTENING_TO_ALBUMS) ? window.LISTENING_TO_ALBUMS : [];
+  const sourceKey =
+    typeof albumList.dataset.source === 'string' && albumList.dataset.source.trim()
+      ? albumList.dataset.source.trim()
+      : 'LISTENING_TO_ALBUMS';
+  const overlayMode =
+    typeof albumList.dataset.overlay === 'string' && albumList.dataset.overlay.trim()
+      ? albumList.dataset.overlay.trim().toLowerCase()
+      : 'title-secondary';
+  const albums = Array.isArray(window[sourceKey]) ? window[sourceKey] : [];
   const shuffledAlbums = shuffleAlbums([...albums]);
 
   albumList.innerHTML = '';
@@ -475,12 +483,14 @@ function setupListeningAlbums() {
 
     const albumTitle = typeof album.title === 'string' ? album.title.trim() : '';
     const albumArtist = typeof album.artist === 'string' ? album.artist.trim() : '';
+    const albumDirector = typeof album.director === 'string' ? album.director.trim() : '';
     const artwork = typeof album.artwork === 'string' ? album.artwork.trim() : '';
     if (!albumTitle || !artwork) {
       return;
     }
 
-    const label = [albumTitle, albumArtist].filter(Boolean).join(' - ');
+    const secondaryName = albumArtist || albumDirector;
+    const label = overlayMode === 'title' ? albumTitle : [albumTitle, secondaryName].filter(Boolean).join(' - ');
 
     const item = document.createElement('li');
     item.className = 'album-item';
@@ -489,7 +499,7 @@ function setupListeningAlbums() {
     const artworkImage = document.createElement('img');
     artworkImage.className = 'album-artwork';
     artworkImage.src = artwork;
-    artworkImage.alt = `${label} artwork`;
+    artworkImage.alt = `${(label || albumTitle)} artwork`;
     artworkImage.loading = 'lazy';
 
     const overlay = document.createElement('span');

@@ -7,6 +7,7 @@ const testFiles = [
   'dashboard-integration.test.js',
   'lastfm-artwork.test.js',
   'listening-album-grid.test.js',
+  'movies-page.test.js',
   'posts.test.js',
   'rss.test.js',
   'navigation.test.js',

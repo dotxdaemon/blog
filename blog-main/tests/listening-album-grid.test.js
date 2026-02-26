@@ -20,6 +20,26 @@ assertMatches(
   'Expected album tiles to span their grid column width.'
 );
 assertMatches(script, /function setupListeningAlbums\(/, 'Expected app.js to define a listening album grid renderer.');
+assertMatches(
+  script,
+  /albumList\.dataset\.source/i,
+  'Expected app.js to support selecting the listening grid data source from dataset attributes.'
+);
+assertMatches(
+  script,
+  /window\[sourceKey\]/,
+  'Expected app.js to resolve listening data from a global key selected by dataset source.'
+);
+assertMatches(
+  script,
+  /albumList\.dataset\.overlay/i,
+  'Expected app.js to support overlay mode selection from dataset attributes.'
+);
+assertMatches(
+  script,
+  /overlayMode === 'title'/,
+  'Expected app.js to support title-only overlay labels.'
+);
 assertMatches(script, /className = 'album-overlay'/, 'Expected album renderer to create an overlay label.');
 assertMatches(script, /function shuffleAlbums\(/, 'Expected app.js to define an album shuffling helper.');
 assertMatches(script, /Math\.random\(/, 'Expected album shuffle logic to use randomized ordering.');

@@ -1,0 +1,47 @@
+<!-- ABOUTME: Dedicated page for displaying favorite movie posters in the shared grid style. -->
+<!-- ABOUTME: Uses the same shuffled artwork renderer with title-only overlays and site nav chrome. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movies - velvetdaemon</title>
+    <meta name="description" content="Favorite movies and posters." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas class="matrix-rain" id="matrix-rain" aria-hidden="true"></canvas>
+    <div class="layout">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <a class="site-title" href="index.html">velvetdaemon</a>
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a class="nav-link invert-on-hover" href="index.html">home</a>
+            <a class="nav-link invert-on-hover" href="search.html">search</a>
+            <a class="nav-link invert-on-hover" href="posts.html">posts</a>
+            <a class="nav-link invert-on-hover" href="movies.html" aria-current="page">movies</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="site-main" id="main-content">
+        <div class="left-column">
+          <section class="listening-to module-card" aria-label="Movies I like">
+            <h1 class="section-title">MOVIES I LIKE</h1>
+            <ul
+              class="album-grid"
+              id="album-list"
+              data-source="MOVIES_I_LIKE"
+              data-overlay="title"
+              aria-label="Favorite movies"
+            ></ul>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="assets/js/movies-i-like.js"></script>
+    <script src="assets/js/matrix.js"></script>
+    <script src="assets/js/app.js" type="module"></script>
+  </body>
+</html>
