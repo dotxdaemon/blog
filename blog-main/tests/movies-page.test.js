@@ -66,3 +66,23 @@ assertMatches(
   /artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/8bokS83zGdhaXgN9tjidUKmAftW\.jpg'/,
   'Expected the first movie entry to use the higher-resolution poster URL.'
 );
+assertMatches(
+  movieDataScript,
+  /title:\s*'The Social Network'[\s\S]*director:\s*'David Fincher'/,
+  'Expected movie data to include The Social Network by David Fincher.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Watchmen'[\s\S]*director:\s*'Zack Snyder'/,
+  'Expected movie data to include Watchmen by Zack Snyder.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'The Matrix'[\s\S]*director:\s*'The Wachowskis'/,
+  'Expected movie data to include The Matrix with director metadata.'
+);
+assertMatches(
+  html,
+  /\.movies-page\s+\.album-item\s*\{[\s\S]*aspect-ratio:\s*2\s*\/\s*3/i,
+  'Expected movies page cards to use a standardized poster aspect ratio.'
+);
