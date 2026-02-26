@@ -472,6 +472,12 @@ function setupListeningAlbums() {
     typeof albumList.dataset.overlay === 'string' && albumList.dataset.overlay.trim()
       ? albumList.dataset.overlay.trim().toLowerCase()
       : 'title-secondary';
+  const artworkFitMode =
+    typeof albumList.dataset.fit === 'string' && albumList.dataset.fit.trim()
+      ? albumList.dataset.fit.trim().toLowerCase()
+      : 'cover';
+  const touchOverlayEnabled =
+    window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const albums = Array.isArray(window[sourceKey]) ? window[sourceKey] : [];
   const shuffledAlbums = shuffleAlbums([...albums]);
 
@@ -501,6 +507,7 @@ function setupListeningAlbums() {
     artworkImage.src = artwork;
     artworkImage.alt = `${(label || albumTitle)} artwork`;
     artworkImage.loading = 'lazy';
+    artworkImage.style.objectFit = artworkFitMode === 'contain' ? 'contain' : 'cover';
 
     const overlay = document.createElement('span');
     overlay.className = 'album-overlay';
@@ -508,6 +515,12 @@ function setupListeningAlbums() {
 
     item.appendChild(artworkImage);
     item.appendChild(overlay);
+
+    if (touchOverlayEnabled) {
+      item.addEventListener('click', () => {
+        item.classList.toggle('is-overlay-visible');
+      });
+    }
 
     albumList.appendChild(item);
   });

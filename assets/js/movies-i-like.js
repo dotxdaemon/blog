@@ -5,6 +5,6 @@ window.MOVIES_I_LIKE = [
     title: 'The Girl with the Dragon Tattoo',
     director: 'David Fincher',
     year: 2011,
-    artwork: 'https://upload.wikimedia.org/wikipedia/en/8/80/The_Girl_with_the_Dragon_Tattoo_Poster.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/8bokS83zGdhaXgN9tjidUKmAftW.jpg',
   },
 ];

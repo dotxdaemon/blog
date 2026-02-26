@@ -40,6 +40,16 @@ assertMatches(
   /overlayMode === 'title'/,
   'Expected app.js to support title-only overlay labels.'
 );
+assertMatches(
+  script,
+  /classList\.toggle\('is-overlay-visible'\)/,
+  'Expected app.js to toggle album overlay visibility state on touch click.'
+);
+assertMatches(
+  script,
+  /matchMedia\('\(hover:\s*none\),\s*\(pointer:\s*coarse\)'\)/,
+  'Expected app.js to scope overlay click toggles to touch/coarse-pointer contexts.'
+);
 assertMatches(script, /className = 'album-overlay'/, 'Expected album renderer to create an overlay label.');
 assertMatches(script, /function shuffleAlbums\(/, 'Expected app.js to define an album shuffling helper.');
 assertMatches(script, /Math\.random\(/, 'Expected album shuffle logic to use randomized ordering.');
@@ -47,6 +57,16 @@ assertMatches(
   css,
   /\.album-item:hover\s+\.album-overlay,[\s\S]*opacity:\s*1/i,
   'Expected album overlay to become visible on hover or focus.'
+);
+assertMatches(
+  css,
+  /\.album-item\.is-overlay-visible\s+\.album-overlay\s*\{[\s\S]*opacity:\s*1/i,
+  'Expected album overlay to become visible when touch users toggle an active item.'
+);
+assertMatches(
+  css,
+  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-overlay\s*\{[\s\S]*opacity:\s*0/i,
+  'Expected touch styles to keep overlays hidden until users tap an item.'
 );
 assertMatches(
   css,

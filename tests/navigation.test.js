@@ -23,6 +23,11 @@ assertMatches(
   /<a[^>]*class="[^"]*home-posts-link[^"]*"[^>]*href="posts\.html"[^>]*>posts<\/a>/i,
   'Expected homepage header to include a small posts shortcut link.'
 );
+assertMatches(
+  html,
+  /<a[^>]*class="[^"]*home-posts-link[^"]*"[^>]*href="movies\.html"[^>]*>movies<\/a>/i,
+  'Expected homepage header to include a small movies shortcut link next to posts.'
+);
 
 assertNotMatches(
   postsHtml,

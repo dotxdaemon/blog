@@ -23,6 +23,11 @@ assertMatches(
 );
 assertMatches(
   html,
+  /id="album-list"[^>]*data-fit="contain"/i,
+  'Expected movies grid to request contain-fit artwork so tall posters are not cropped.'
+);
+assertMatches(
+  html,
   /<script[^>]*src="assets\/js\/movies-i-like\.js"[^>]*><\/script>/i,
   'Expected movies page to load the movies data script.'
 );
@@ -42,6 +47,11 @@ assertMatches(
   'Expected app.js to read configurable overlay mode from album list dataset attributes.'
 );
 assertMatches(
+  appScript,
+  /albumList\.dataset\.fit/i,
+  'Expected app.js to read configurable artwork fit mode from album list dataset attributes.'
+);
+assertMatches(
   movieDataScript,
   /window\.MOVIES_I_LIKE\s*=\s*\[\s*\{\s*title:\s*'The Girl with the Dragon Tattoo'/,
   'Expected the first movie entry to be The Girl with the Dragon Tattoo.'
@@ -53,6 +63,6 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /artwork:\s*'https:\/\/upload\.wikimedia\.org\/wikipedia\/en\/8\/80\/The_Girl_with_the_Dragon_Tattoo_Poster\.jpg'/,
-  'Expected the first movie entry to use the discovered poster URL.'
+  /artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/8bokS83zGdhaXgN9tjidUKmAftW\.jpg'/,
+  'Expected the first movie entry to use the higher-resolution poster URL.'
 );

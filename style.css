@@ -176,6 +176,12 @@ input {
   color: var(--ink);
 }
 
+.home-quick-links {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -435,8 +441,8 @@ input {
 }
 
 .album-item:hover .album-overlay,
-.album-item:focus .album-overlay,
-.album-item:focus-within .album-overlay {
+.album-item:focus-visible .album-overlay,
+.album-item.is-overlay-visible .album-overlay {
   opacity: 1;
 }
 
@@ -465,7 +471,7 @@ input {
     inset: auto 0 0 0;
     font-size: 12px;
     line-height: 1.4;
-    opacity: 1;
+    opacity: 0;
     padding: 10px 12px;
     position: absolute;
   }
