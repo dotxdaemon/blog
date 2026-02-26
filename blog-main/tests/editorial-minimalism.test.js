@@ -2,7 +2,8 @@
 // ABOUTME: Confirms typography hierarchy, listening focus, and posts-page separation.
 const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile, readStyles } = require('./helpers');
 
-const html = readIndexHtml();
+const indexHtml = readIndexHtml();
+const musicHtml = readRepoFile('music.html');
 const postsHtml = readRepoFile('posts.html');
 const css = readStyles();
 
@@ -15,7 +16,7 @@ assertMatches(css, /@media\s*\(max-width:\s*767px\)[\s\S]*\.site-title\s*\{\s*fo
 assertMatches(css, /\.site-main[\s\S]*grid-template-columns:\s*repeat\(12,\s*minmax\(0,\s*1fr\)\)/i, 'Expected a 12-column layout grid on desktop.');
 assertMatches(css, /\.left-column[\s\S]*grid-column:\s*1\s*\/\s*-1/i, 'Expected listening column to span the full desktop grid.');
 assertMatches(css, /\.left-column\s*\{[^}]*grid-row:\s*1/i, 'Expected listening column to stay in the first grid row.');
-assertMatches(html, /class="section-title" id="listening-to">LISTENING TO</i, 'Expected LISTENING TO label to remain present.');
+assertMatches(musicHtml, /class="section-title" id="listening-to">LISTENING TO</i, 'Expected LISTENING TO label to remain present on music page.');
 assertMatches(css, /\.section-title[\s\S]*letter-spacing:\s*0\.3em/i, 'Expected section labels to use expanded tracking.');
 assertMatches(css, /\.section-title[\s\S]*font-variant-caps:\s*all-small-caps/i, 'Expected section labels to render as small-caps.');
 
@@ -30,14 +31,15 @@ assertMatches(css, /\.post-date[\s\S]*font-style:\s*italic/i, 'Expected post dat
 assertMatches(css, /\.post-date[\s\S]*text-transform:\s*none/i, 'Expected post dates to avoid uppercase formatting.');
 assertMatches(css, /\.post-link[\s\S]*transition:\s*color\s+0\.2s\s+ease/i, 'Expected post title hover transition timing.');
 assertMatches(css, /\.post-link:hover[\s\S]*color:\s*var\(--post-hover\)/i, 'Expected post title hover tone to use muted warmth.');
-assertNotMatches(html, /class="[^"]*post-stream[^"]*"/i, 'Did not expect the homepage to render the post stream section.');
-assertNotMatches(html, /id="posts"/i, 'Did not expect the homepage to include the posts container.');
+assertNotMatches(indexHtml, /class="[^"]*post-stream[^"]*"/i, 'Did not expect the homepage to render the post stream section.');
+assertNotMatches(indexHtml, /id="posts"/i, 'Did not expect the homepage to include the posts container.');
+assertNotMatches(indexHtml, /id="album-list"/i, 'Did not expect homepage to include listening grid after moving albums to music page.');
 assertMatches(postsHtml, /class="[^"]*post-stream[^"]*"/i, 'Expected posts page to render the post stream section.');
 assertMatches(postsHtml, /id="posts"/i, 'Expected posts page to include the posts container.');
 
-assertMatches(html, /id="dashboard-track-text"/i, 'Expected listening block to include a track title target.');
-assertMatches(html, /id="dashboard-artist"/i, 'Expected listening block to include an artist target.');
-assertMatches(html, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected listening block to include waveform artwork.');
+assertMatches(musicHtml, /id="dashboard-track-text"/i, 'Expected listening block to include a track title target.');
+assertMatches(musicHtml, /id="dashboard-artist"/i, 'Expected listening block to include an artist target.');
+assertMatches(musicHtml, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected listening block to include waveform artwork.');
 
 assertMatches(css, /body::after[\s\S]*opacity:\s*0\.04/i, 'Expected paper grain overlay opacity near 4%.');
 assertMatches(css, /body::after[\s\S]*feTurbulence/i, 'Expected paper grain to come from inline SVG noise.');

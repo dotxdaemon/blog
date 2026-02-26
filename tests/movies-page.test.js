@@ -1,5 +1,6 @@
 // ABOUTME: Verifies the movies page uses the shared artwork grid and movie dataset source.
 // ABOUTME: Ensures the first movie entry and poster metadata are wired from static data.
+const assert = require('assert');
 const { assertMatches, readRepoFile } = require('./helpers');
 
 const html = readRepoFile('movies.html');
@@ -23,8 +24,8 @@ assertMatches(
 );
 assertMatches(
   html,
-  /id="album-list"[^>]*data-fit="contain"/i,
-  'Expected movies grid to request contain-fit artwork so tall posters are not cropped.'
+  /id="album-list"[^>]*data-fit="cover"/i,
+  'Expected movies grid to request cover-fit artwork for consistent poster framing.'
 );
 assertMatches(
   html,
@@ -80,6 +81,67 @@ assertMatches(
   movieDataScript,
   /title:\s*'The Matrix'[\s\S]*director:\s*'The Wachowskis'/,
   'Expected movie data to include The Matrix with director metadata.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Gone Girl'[\s\S]*director:\s*'David Fincher'/,
+  'Expected movie data to include Gone Girl by David Fincher.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'The Dark Knight'[\s\S]*director:\s*'Christopher Nolan'/,
+  'Expected movie data to include The Dark Knight by Christopher Nolan.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'La La Land'[\s\S]*director:\s*'Damien Chazelle'/,
+  'Expected movie data to include La La Land by Damien Chazelle.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Kill Bill:\s*Vol\.\s*1'/,
+  'Expected movie data to include Kill Bill: Vol. 1.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'\(500\)\s*Days of Summer'/,
+  'Expected movie data to include (500) Days of Summer.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Crazy,\s*Stupid,\s*Love\.'/,
+  'Expected movie data to include Crazy, Stupid, Love.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Whiplash'/,
+  'Expected movie data to include Whiplash.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Fight Club'/,
+  'Expected movie data to include Fight Club.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Spirited Away'/,
+  'Expected movie data to include Spirited Away.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Eyes Wide Shut'/,
+  'Expected movie data to include Eyes Wide Shut.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Tenet'/,
+  'Expected movie data to include Tenet.'
+);
+const laLaLandMatches = movieDataScript.match(/title:\s*'La La Land'/g) || [];
+assert.strictEqual(
+  laLaLandMatches.length,
+  1,
+  'Expected duplicate La La Land entries to be excluded from movie data.'
 );
 assertMatches(
   html,

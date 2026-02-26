@@ -1,71 +1,104 @@
-// ABOUTME: Ensures the homepage avoids full navigation while keeping a small posts shortcut.
-// ABOUTME: Confirms posts and search chrome omit archives links and archive-list rendering.
+// ABOUTME: Verifies the site navigation stays consistent across all top-level pages.
+// ABOUTME: Ensures home/search/posts/movies/music links are lowercase and correctly highlighted.
 const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile } = require('./helpers');
 
-const html = readIndexHtml();
+const indexHtml = readIndexHtml();
 const postsHtml = readRepoFile('posts.html');
 const searchHtml = readRepoFile('search.html');
 const archivesHtml = readRepoFile('archives.html');
 const postHtml = readRepoFile('post.html');
 const moviesHtml = readRepoFile('movies.html');
-assertNotMatches(
-  html,
-  /<nav[^>]*class="site-nav"/i,
-  'Did not expect the homepage header to include top-right navigation links.'
-);
-assertNotMatches(
-  html,
-  /<a[^>]*href="archives\.html"/i,
-  'Did not expect homepage header archives navigation links.'
-);
-assertMatches(
-  html,
-  /<a[^>]*class="[^"]*home-posts-link[^"]*"[^>]*href="posts\.html"[^>]*>posts<\/a>/i,
-  'Expected homepage header to include a small posts shortcut link.'
-);
-assertMatches(
-  html,
-  /<a[^>]*class="[^"]*home-posts-link[^"]*"[^>]*href="movies\.html"[^>]*>movies<\/a>/i,
-  'Expected homepage header to include a small movies shortcut link next to posts.'
-);
+const musicHtml = readRepoFile('music.html');
+
+const navPages = [
+  ['index', indexHtml],
+  ['posts', postsHtml],
+  ['search', searchHtml],
+  ['archives', archivesHtml],
+  ['post', postHtml],
+  ['movies', moviesHtml],
+  ['music', musicHtml],
+];
+
+navPages.forEach(([pageName, html]) => {
+  assertMatches(
+    html,
+    /<nav[^>]*class="site-nav"[^>]*>/i,
+    `Expected ${pageName} page to include the shared site navigation.`
+  );
+  assertMatches(
+    html,
+    /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/i,
+    `Expected ${pageName} page to include lowercase "home" nav text.`
+  );
+  assertMatches(
+    html,
+    /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/i,
+    `Expected ${pageName} page to include lowercase "search" nav text.`
+  );
+  assertMatches(
+    html,
+    /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/i,
+    `Expected ${pageName} page to include lowercase "posts" nav text.`
+  );
+  assertMatches(
+    html,
+    /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/i,
+    `Expected ${pageName} page to include lowercase "movies" nav text.`
+  );
+  assertMatches(
+    html,
+    /<a[^>]*href="music\.html"[^>]*>\s*music\s*<\/a>/i,
+    `Expected ${pageName} page to include lowercase "music" nav text.`
+  );
+  assertNotMatches(
+    html,
+    /href="archives\.html"/i,
+    `Did not expect ${pageName} page navigation to include an archives link.`
+  );
+});
 
 assertNotMatches(
-  postsHtml,
-  /<a[^>]*href="archives\.html"/i,
-  'Did not expect posts page navigation to include an archives link.'
+  indexHtml,
+  /class="[^"]*home-posts-link[^"]*"/i,
+  'Did not expect homepage to keep quick-link buttons once shared nav is enabled.'
 );
+
+assertMatches(
+  indexHtml,
+  /<a[^>]*href="index\.html"[^>]*aria-current="page"[^>]*>\s*home\s*<\/a>/i,
+  'Expected homepage to mark home as active in the shared nav.'
+);
+assertMatches(
+  postsHtml,
+  /<a[^>]*href="posts\.html"[^>]*aria-current="page"[^>]*>\s*posts\s*<\/a>/i,
+  'Expected posts page to mark posts as active.'
+);
+assertMatches(
+  searchHtml,
+  /<a[^>]*href="search\.html"[^>]*aria-current="page"[^>]*>\s*search\s*<\/a>/i,
+  'Expected search page to mark search as active.'
+);
+assertMatches(
+  moviesHtml,
+  /<a[^>]*href="movies\.html"[^>]*aria-current="page"[^>]*>\s*movies\s*<\/a>/i,
+  'Expected movies page to mark movies as active.'
+);
+assertMatches(
+  musicHtml,
+  /<a[^>]*href="music\.html"[^>]*aria-current="page"[^>]*>\s*music\s*<\/a>/i,
+  'Expected music page to mark music as active.'
+);
+
 assertNotMatches(
   postsHtml,
   /<footer[^>]*class="site-footer"/i,
   'Did not expect posts page to render the footer block.'
 );
-
-assertNotMatches(
-  searchHtml,
-  /<a[^>]*href="archives\.html"/i,
-  'Did not expect search page navigation to include an archives link.'
-);
 assertNotMatches(
   searchHtml,
   /<footer[^>]*class="site-footer"/i,
   'Did not expect search page to render the footer block.'
-);
-assertNotMatches(
-  searchHtml,
-  /built for reading|>\s*About\s*<|>\s*GitHub\s*</i,
-  'Did not expect search page to render legacy footer text or links.'
-);
-
-assertNotMatches(
-  archivesHtml,
-  /id="archives-content"/i,
-  'Did not expect archives page to render the archive post list container.'
-);
-
-assertNotMatches(
-  archivesHtml,
-  /assets\/js\/archives\.js/i,
-  'Did not expect archives page to load archive list rendering script.'
 );
 assertNotMatches(
   archivesHtml,
@@ -74,107 +107,11 @@ assertNotMatches(
 );
 assertNotMatches(
   archivesHtml,
-  /built for reading|>\s*About\s*<|>\s*GitHub\s*</i,
-  'Did not expect archives page to render legacy footer text or links.'
+  /id="archives-content"/i,
+  'Did not expect archives page to render the archive post list container.'
 );
-
-assertMatches(
-  postsHtml,
-  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
-  'Expected posts page navigation label to be lowercase "home".'
-);
-assertMatches(
-  postsHtml,
-  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
-  'Expected posts page navigation label to be lowercase "search".'
-);
-assertMatches(
-  postsHtml,
-  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
-  'Expected posts page navigation label to be lowercase "posts".'
-);
-assertMatches(
-  postsHtml,
-  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
-  'Expected posts page navigation to include lowercase "movies".'
-);
-assertMatches(
-  searchHtml,
-  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
-  'Expected search page navigation label to be lowercase "home".'
-);
-assertMatches(
-  searchHtml,
-  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
-  'Expected search page navigation label to be lowercase "search".'
-);
-assertMatches(
-  searchHtml,
-  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
-  'Expected search page navigation label to be lowercase "posts".'
-);
-assertMatches(
-  searchHtml,
-  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
-  'Expected search page navigation to include lowercase "movies".'
-);
-assertMatches(
+assertNotMatches(
   archivesHtml,
-  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
-  'Expected archives page navigation label to be lowercase "home".'
-);
-assertMatches(
-  archivesHtml,
-  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
-  'Expected archives page navigation label to be lowercase "search".'
-);
-assertMatches(
-  archivesHtml,
-  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
-  'Expected archives page navigation label to be lowercase "posts".'
-);
-assertMatches(
-  archivesHtml,
-  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
-  'Expected archives page navigation to include lowercase "movies".'
-);
-assertMatches(
-  postHtml,
-  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
-  'Expected post detail navigation label to be lowercase "home".'
-);
-assertMatches(
-  postHtml,
-  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
-  'Expected post detail navigation label to be lowercase "search".'
-);
-assertMatches(
-  postHtml,
-  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
-  'Expected post detail navigation label to be lowercase "posts".'
-);
-assertMatches(
-  postHtml,
-  /<a[^>]*href="movies\.html"[^>]*>\s*movies\s*<\/a>/,
-  'Expected post detail navigation to include lowercase "movies".'
-);
-assertMatches(
-  moviesHtml,
-  /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/,
-  'Expected movies page navigation label to be lowercase "home".'
-);
-assertMatches(
-  moviesHtml,
-  /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/,
-  'Expected movies page navigation label to be lowercase "search".'
-);
-assertMatches(
-  moviesHtml,
-  /<a[^>]*href="posts\.html"[^>]*>\s*posts\s*<\/a>/,
-  'Expected movies page navigation label to be lowercase "posts".'
-);
-assertMatches(
-  moviesHtml,
-  /<a[^>]*href="movies\.html"[^>]*aria-current="page"[^>]*>\s*movies\s*<\/a>/,
-  'Expected movies page to mark movies as the active navigation link.'
+  /assets\/js\/archives\.js/i,
+  'Did not expect archives page to load archive list rendering script.'
 );

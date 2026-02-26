@@ -3,12 +3,11 @@
 const {
   assertMatches,
   assertNotMatches,
-  readIndexHtml,
   readRepoFile,
   readStyles,
 } = require('./helpers');
 
-const html = readIndexHtml();
+const html = readRepoFile('music.html');
 const script = readRepoFile('assets/js/app.js');
 const styles = readStyles();
 

@@ -2,13 +2,30 @@
 // ABOUTME: Ensures configured entries are unique and include restored favorites plus Frank cover override.
 const assert = require('assert');
 const path = require('path');
-const { assertMatches, readIndexHtml, readRepoFile, readStyles } = require('./helpers');
+const {
+  assertMatches,
+  assertNotMatches,
+  readIndexHtml,
+  readRepoFile,
+  readStyles,
+} = require('./helpers');
 
-const html = readIndexHtml();
+const indexHtml = readIndexHtml();
+const html = readRepoFile('music.html');
 const script = readRepoFile('assets/js/app.js');
 const css = readStyles();
 
-assertMatches(html, /id="album-list"/i, 'Expected index.html to include an album grid list target.');
+assertMatches(html, /id="album-list"/i, 'Expected music.html to include an album grid list target.');
+assertMatches(
+  html,
+  /id="album-list"[^>]*data-source="LISTENING_TO_ALBUMS"/i,
+  'Expected music page album grid to use LISTENING_TO_ALBUMS as its data source.'
+);
+assertNotMatches(
+  indexHtml,
+  /id="album-list"/i,
+  'Did not expect homepage to render the listening album grid after moving albums to music page.'
+);
 assertMatches(
   css,
   /\.listening-to\s*\{[^}]*width:\s*100%/i,
