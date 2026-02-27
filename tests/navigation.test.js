@@ -1,5 +1,5 @@
-// ABOUTME: Verifies the site navigation stays consistent across all top-level pages.
-// ABOUTME: Ensures home/search/posts/movies/music links are lowercase and correctly highlighted.
+// ABOUTME: Verifies the site navigation stays consistent across the remaining top-level pages.
+// ABOUTME: Ensures home/posts/movies/music links are lowercase and search is fully removed from navigation.
 const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile } = require('./helpers');
 
 const indexHtml = readIndexHtml();
@@ -13,7 +13,6 @@ const musicHtml = readRepoFile('music.html');
 const navPages = [
   ['index', indexHtml],
   ['posts', postsHtml],
-  ['search', searchHtml],
   ['archives', archivesHtml],
   ['post', postHtml],
   ['movies', moviesHtml],
@@ -30,11 +29,6 @@ navPages.forEach(([pageName, html]) => {
     html,
     /<a[^>]*href="index\.html"[^>]*>\s*home\s*<\/a>/i,
     `Expected ${pageName} page to include lowercase "home" nav text.`
-  );
-  assertMatches(
-    html,
-    /<a[^>]*href="search\.html"[^>]*>\s*search\s*<\/a>/i,
-    `Expected ${pageName} page to include lowercase "search" nav text.`
   );
   assertMatches(
     html,
@@ -56,6 +50,11 @@ navPages.forEach(([pageName, html]) => {
     /href="archives\.html"/i,
     `Did not expect ${pageName} page navigation to include an archives link.`
   );
+  assertNotMatches(
+    html,
+    /href="search\.html"/i,
+    `Did not expect ${pageName} page navigation to include a search link.`
+  );
 });
 
 assertNotMatches(
@@ -75,11 +74,6 @@ assertMatches(
   'Expected posts page to mark posts as active.'
 );
 assertMatches(
-  searchHtml,
-  /<a[^>]*href="search\.html"[^>]*aria-current="page"[^>]*>\s*search\s*<\/a>/i,
-  'Expected search page to mark search as active.'
-);
-assertMatches(
   moviesHtml,
   /<a[^>]*href="movies\.html"[^>]*aria-current="page"[^>]*>\s*movies\s*<\/a>/i,
   'Expected movies page to mark movies as active.'
@@ -97,8 +91,13 @@ assertNotMatches(
 );
 assertNotMatches(
   searchHtml,
-  /<footer[^>]*class="site-footer"/i,
-  'Did not expect search page to render the footer block.'
+  /search-input|search-results|assets\/js\/search\.js/i,
+  'Did not expect search page to expose search UI or load the search script.'
+);
+assertMatches(
+  searchHtml,
+  /http-equiv="refresh"[^>]*content="0;\s*url=posts\.html"/i,
+  'Expected search page to redirect immediately to posts.'
 );
 assertNotMatches(
   archivesHtml,

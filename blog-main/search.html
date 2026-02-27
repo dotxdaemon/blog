@@ -1,58 +1,17 @@
-<!-- ABOUTME: Search page with full-text search across all posts. -->
-<!-- ABOUTME: Provides instant filtering as user types. -->
+<!-- ABOUTME: Provides a deprecated search route that forwards visitors to the posts page. -->
+<!-- ABOUTME: Removes interactive search behavior while preserving the existing URL path. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search - velvetdaemon</title>
-    <meta name="description" content="Search all blog posts." />
+    <meta http-equiv="refresh" content="0; url=posts.html" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <canvas class="matrix-rain" id="matrix-rain" aria-hidden="true"></canvas>
-    <div class="layout">
-      <header class="site-header">
-      <div class="site-header__inner">
-        <a class="site-title" href="index.html">velvetdaemon</a>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <a class="nav-link invert-on-hover" href="index.html">home</a>
-          <a class="nav-link invert-on-hover" href="search.html" aria-current="page">search</a>
-          <a class="nav-link invert-on-hover" href="posts.html">posts</a>
-          <a class="nav-link invert-on-hover" href="movies.html">movies</a>
-          <a class="nav-link invert-on-hover" href="music.html">music</a>
-        </nav>
-      </div>
-    </header>
-
-    <main class="site-main" id="main-content">
-      <section class="post-stream module-card">
-        <header class="search-header">
-          <h1 class="section-title">Search</h1>
-        </header>
-
-        <div class="search-form">
-          <div class="search-input-wrapper">
-            <span class="search-icon" aria-hidden="true">&#128269;</span>
-            <input
-              type="search"
-              id="search-input"
-              class="search-input"
-              placeholder="Search posts..."
-              autocomplete="off"
-              autofocus
-            />
-          </div>
-        </div>
-
-        <div id="search-results" aria-live="polite">
-          <p class="search-hint">Type to search through all posts...</p>
-        </div>
-      </section>
-      </main>
-    </div>
-    <script src="assets/js/posts.js"></script>
-    <script src="assets/js/matrix.js"></script>
-    <script src="assets/js/search.js"></script>
+    <script>
+      window.location.replace('posts.html');
+    </script>
   </body>
 </html>

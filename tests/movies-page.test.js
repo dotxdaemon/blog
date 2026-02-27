@@ -137,6 +137,16 @@ assertMatches(
   /title:\s*'Tenet'/,
   'Expected movie data to include Tenet.'
 );
+assertMatches(
+  movieDataScript,
+  /title:\s*'Inglourious Basterds'[\s\S]*director:\s*'Quentin Tarantino'/,
+  'Expected movie data to include Inglourious Basterds by Quentin Tarantino.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Sin City'[\s\S]*director:\s*'Robert Rodriguez & Frank Miller'/,
+  'Expected movie data to include Sin City by Robert Rodriguez and Frank Miller.'
+);
 const laLaLandMatches = movieDataScript.match(/title:\s*'La La Land'/g) || [];
 assert.strictEqual(
   laLaLandMatches.length,

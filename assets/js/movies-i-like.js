@@ -91,4 +91,17 @@ window.MOVIES_I_LIKE = [
     year: 2020,
     artwork: 'https://image.tmdb.org/t/p/original/aCIFMriQh8rvhxpN1IWGgvH0Tlg.jpg',
   },
+  {
+    title: 'Inglourious Basterds',
+    director: 'Quentin Tarantino',
+    year: 2009,
+    artwork: 'https://image.tmdb.org/t/p/original/7sfbEnaARXDDhKm0CZ7D7uc2sbo.jpg',
+  },
+  {
+    title: 'Sin City',
+    director: 'Robert Rodriguez & Frank Miller',
+    year: 2005,
+    artwork: 'https://image.tmdb.org/t/p/original/i66G50wATMmPrvpP95f0XP6ZdVS.jpg',
+  },
+
 ];

@@ -11,7 +11,7 @@ const html = readRepoFile('music.html');
 const script = readRepoFile('assets/js/app.js');
 const styles = readStyles();
 
-assertMatches(html, /id="dashboard-track-artwork"/i, 'Expected listening section to include a dashboard artwork image element.');
+assertNotMatches(html, /id="dashboard-track-artwork"/i, 'Did not expect listening section to render a dashboard artwork image element.');
 assertMatches(html, /id="dashboard-track-link"/i, 'Expected listening section to include a dashboard artwork link container.');
 assertMatches(script, /artworkUrl/i, 'Expected dashboard script to read an artwork URL from track data.');
 assertMatches(script, /dashboard-track-artwork/i, 'Expected dashboard script to target the artwork image element.');
