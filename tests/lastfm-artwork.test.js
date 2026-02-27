@@ -1,5 +1,5 @@
-// ABOUTME: Ensures the listening section supports rendering track artwork when available.
-// ABOUTME: Confirms dashboard script reads artwork metadata from track data.
+// ABOUTME: Ensures the listening section omits a dedicated artwork image element in the current layout.
+// ABOUTME: Confirms dashboard script still handles track artwork metadata safely when the image target is absent.
 const {
   assertMatches,
   assertNotMatches,
