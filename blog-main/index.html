@@ -1,11 +1,12 @@
-<!-- ABOUTME: Provides the homepage with shared site navigation and lightweight landing layout. -->
-<!-- ABOUTME: Keeps home chrome consistent while dedicated media pages render listening and movie grids. -->
+<!-- ABOUTME: Provides the homepage with the listening dashboard and shuffled album artwork grid as default. -->
+<!-- ABOUTME: Reuses the shared album renderer while keeping the same tab layout as the rest of the site. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>velvetdaemon</title>
+    <meta name="description" content="Listening dashboard and album grid." />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -25,11 +26,36 @@
         </div>
       </header>
 
-      <main class="site-main" id="main-content"></main>
+      <main class="site-main" id="main-content" data-dashboard>
+        <div class="left-column">
+          <section class="listening-to module-card" data-listening-to aria-label="Listening to">
+            <h2 class="section-title" id="listening-to">LISTENING TO</h2>
+            <p class="dashboard-status" id="dashboard-status" hidden><span class="live-dot" aria-hidden="true"></span><span class="dashboard-status-text"></span></p>
+            <div class="dashboard-track-empty" id="dashboard-track" aria-live="polite" hidden>
+              <div class="dashboard-track-meta">
+                <p class="dashboard-track-text dashboard-track-title" id="dashboard-track-text"></p>
+                <p class="dashboard-track-artist" id="dashboard-artist"></p>
+                <p class="dashboard-track-album" id="dashboard-album" hidden></p>
+                <a class="dashboard-track-link" id="dashboard-track-link" href="#" hidden>Open track</a>
+              </div>
+              <span class="dashboard-track-icon" aria-hidden="true">
+                <svg viewBox="0 0 240 44" role="img" aria-label="Waveform">
+                  <path d="M5 22h14l4-6 6 12 5-17 6 20 6-14 6 18 7-23 6 16 6-12 5 9h17l6-8 7 13 6-19 7 22 7-14h18l6-9 6 14 7-20 6 16 6-11h18l4-5 5 10h12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </span>
+            </div>
+            <ul class="album-grid" id="album-list" data-source="LISTENING_TO_ALBUMS" aria-label="Favorite albums"></ul>
+          </section>
+        </div>
+      </main>
       <footer class="site-footer"></footer>
     </div>
 
+    <script>
+      window.VELVETDAEMON_DASHBOARD = window.VELVETDAEMON_DASHBOARD || {};
+    </script>
     <script src="assets/js/matrix.js"></script>
+    <script src="assets/js/listening-to.js"></script>
     <script src="assets/js/app.js" type="module"></script>
   </body>
 </html>

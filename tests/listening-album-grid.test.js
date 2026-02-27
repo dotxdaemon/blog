@@ -21,10 +21,25 @@ assertMatches(
   /id="album-list"[^>]*data-source="LISTENING_TO_ALBUMS"/i,
   'Expected music page album grid to use LISTENING_TO_ALBUMS as its data source.'
 );
-assertNotMatches(
+assertMatches(
   indexHtml,
   /id="album-list"/i,
-  'Did not expect homepage to render the listening album grid after moving albums to music page.'
+  'Expected homepage to render the listening album grid when music becomes the default page.'
+);
+assertMatches(
+  indexHtml,
+  /id="album-list"[^>]*data-source="LISTENING_TO_ALBUMS"/i,
+  'Expected homepage album grid to use LISTENING_TO_ALBUMS as its data source.'
+);
+assertMatches(
+  indexHtml,
+  /id="dashboard-track"/i,
+  'Expected homepage to include the listening dashboard track container.'
+);
+assertMatches(
+  indexHtml,
+  /assets\/js\/listening-to\.js/i,
+  'Expected homepage to load the listening-to data script.'
 );
 assertMatches(
   css,

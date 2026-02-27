@@ -33,13 +33,16 @@ assertMatches(css, /\.post-link[\s\S]*transition:\s*color\s+0\.2s\s+ease/i, 'Exp
 assertMatches(css, /\.post-link:hover[\s\S]*color:\s*var\(--post-hover\)/i, 'Expected post title hover tone to use muted warmth.');
 assertNotMatches(indexHtml, /class="[^"]*post-stream[^"]*"/i, 'Did not expect the homepage to render the post stream section.');
 assertNotMatches(indexHtml, /id="posts"/i, 'Did not expect the homepage to include the posts container.');
-assertNotMatches(indexHtml, /id="album-list"/i, 'Did not expect homepage to include listening grid after moving albums to music page.');
+assertMatches(indexHtml, /id="album-list"/i, 'Expected homepage to include listening grid once music becomes the default page.');
 assertMatches(postsHtml, /class="[^"]*post-stream[^"]*"/i, 'Expected posts page to render the post stream section.');
 assertMatches(postsHtml, /id="posts"/i, 'Expected posts page to include the posts container.');
 
 assertMatches(musicHtml, /id="dashboard-track-text"/i, 'Expected listening block to include a track title target.');
 assertMatches(musicHtml, /id="dashboard-artist"/i, 'Expected listening block to include an artist target.');
 assertMatches(musicHtml, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected listening block to include waveform artwork.');
+assertMatches(indexHtml, /id="dashboard-track-text"/i, 'Expected homepage listening block to include a track title target.');
+assertMatches(indexHtml, /id="dashboard-artist"/i, 'Expected homepage listening block to include an artist target.');
+assertMatches(indexHtml, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected homepage listening block to include waveform artwork.');
 
 assertMatches(css, /body::after[\s\S]*opacity:\s*0\.04/i, 'Expected paper grain overlay opacity near 4%.');
 assertMatches(css, /body::after[\s\S]*feTurbulence/i, 'Expected paper grain to come from inline SVG noise.');
