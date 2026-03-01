@@ -103,5 +103,35 @@ window.MOVIES_I_LIKE = [
     year: 2005,
     artwork: 'https://image.tmdb.org/t/p/original/i66G50wATMmPrvpP95f0XP6ZdVS.jpg',
   },
+  {
+    title: 'The Handmaiden',
+    director: 'Park Chan-wook',
+    year: 2016,
+    artwork: 'https://image.tmdb.org/t/p/original/dLlH4aNHdnmf62umnInL8xPlPzw.jpg',
+  },
+  {
+    title: 'Oldboy',
+    director: 'Park Chan-wook',
+    year: 2003,
+    artwork: 'https://image.tmdb.org/t/p/original/pWDtjs568ZfOTMbURQBYuT4Qxka.jpg',
+  },
+  {
+    title: 'Midnight in Paris',
+    director: 'Woody Allen',
+    year: 2011,
+    artwork: 'https://image.tmdb.org/t/p/original/4wBG5kbfagTQclETblPRRGihk0I.jpg',
+  },
+  {
+    title: 'Blue Jasmine',
+    director: 'Woody Allen',
+    year: 2013,
+    artwork: 'https://image.tmdb.org/t/p/original/ukjN0Zv8V32JsorQYEpP2y6PbKX.jpg',
+  },
+  {
+    title: 'School of Rock',
+    director: 'Richard Linklater',
+    year: 2003,
+    artwork: 'https://image.tmdb.org/t/p/original/ygr0Wlmm1KmE16TUefNitIscVBG.jpg',
+  },
 
 ];

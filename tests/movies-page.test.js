@@ -147,6 +147,31 @@ assertMatches(
   /title:\s*'Sin City'[\s\S]*director:\s*'Robert Rodriguez & Frank Miller'/,
   'Expected movie data to include Sin City by Robert Rodriguez and Frank Miller.'
 );
+assertMatches(
+  movieDataScript,
+  /title:\s*'The Handmaiden'[\s\S]*director:\s*'Park Chan-wook'/,
+  'Expected movie data to include The Handmaiden by Park Chan-wook.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Oldboy'[\s\S]*director:\s*'Park Chan-wook'/,
+  'Expected movie data to include Oldboy by Park Chan-wook.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Midnight in Paris'[\s\S]*director:\s*'Woody Allen'/,
+  'Expected movie data to include Midnight in Paris by Woody Allen.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Blue Jasmine'[\s\S]*director:\s*'Woody Allen'/,
+  'Expected movie data to include Blue Jasmine by Woody Allen.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'School of Rock'[\s\S]*director:\s*'Richard Linklater'/,
+  'Expected movie data to include School of Rock by Richard Linklater.'
+);
 const laLaLandMatches = movieDataScript.match(/title:\s*'La La Land'/g) || [];
 assert.strictEqual(
   laLaLandMatches.length,
