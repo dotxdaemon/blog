@@ -505,3 +505,29 @@ Visual Verification Guardrails
 - Use a failure-first flow for UI bugs: show one failing check before code changes, then show it passing after.
 - Keep UI fixes minimal and scoped; avoid unrelated style refactors and explain every touched selector and file.
 - End with a confidence section listing: what is known for sure, what is inferred, and what could still be wrong.
+
+## External Data Integrity Gate
+
+When adding or updating any externally sourced data (IDs, URLs, names, metadata, mappings), you MUST follow this protocol:
+
+1) No ID guessing
+- NEVER use external IDs from memory.
+- Resolve candidates via source search using the requested name plus disambiguators (artist/director/year/version) when available.
+
+2) Identity verification before copy
+- Open the canonical source page for the selected candidate.
+- Verify the source page title/identity exactly matches the requested entity before copying any ID or URL.
+- If multiple plausible matches remain, STOP and ask Sean.
+
+3) Pairwise mapping proof
+- For each added/changed record, produce a deterministic mapping check:
+  `requested item -> source page identity -> stored ID/URL`.
+- If any link in that chain is ambiguous or mismatched, task is FAIL.
+
+4) Failure-first regression
+- Add a failing test that asserts the exact intended mapping for each changed record.
+- Confirm fail, apply minimal fix, confirm pass.
+
+5) Deployment-level verification
+- After changes, verify the deployed path data reflects the same exact mappings (not just local files).
+- If deployed mappings differ from local expectations, do not mark complete.
