@@ -182,6 +182,16 @@ assertMatches(
   /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/zXLXaepIBvFVLU25DH3wv4IPSbe\.jpg'/,
   'Expected School of Rock to use the correct TMDB poster URL.'
 );
+assertMatches(
+  movieDataScript,
+  /title:\s*'Mad Max:\s*Fury Road'[\s\S]*director:\s*'George Miller'/,
+  'Expected movie data to include Mad Max: Fury Road by George Miller.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Mad Max:\s*Fury Road'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/hA2ple9q4qnwxp3hKVNhroipsir\.jpg'/,
+  'Expected Mad Max: Fury Road to use the correct TMDB poster URL.'
+);
 const laLaLandMatches = movieDataScript.match(/title:\s*'La La Land'/g) || [];
 assert.strictEqual(
   laLaLandMatches.length,

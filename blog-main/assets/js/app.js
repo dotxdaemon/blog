@@ -523,11 +523,12 @@ function setupListeningAlbums() {
 
     if (touchOverlayEnabled) {
       item.addEventListener('click', () => {
-        const wasVisible = item.classList.contains('is-overlay-visible');
-        clearTouchOverlays();
-        if (!wasVisible) {
-          item.classList.add('is-overlay-visible');
+        if (item.classList.contains('is-overlay-visible')) {
+          item.classList.remove('is-overlay-visible');
+          return;
         }
+        clearTouchOverlays();
+        item.classList.add('is-overlay-visible');
       });
     }
 

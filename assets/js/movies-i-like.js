@@ -133,5 +133,11 @@ window.MOVIES_I_LIKE = [
     year: 2003,
     artwork: 'https://image.tmdb.org/t/p/original/zXLXaepIBvFVLU25DH3wv4IPSbe.jpg',
   },
+  {
+    title: 'Mad Max: Fury Road',
+    director: 'George Miller',
+    year: 2015,
+    artwork: 'https://image.tmdb.org/t/p/original/hA2ple9q4qnwxp3hKVNhroipsir.jpg',
+  },
 
 ];
