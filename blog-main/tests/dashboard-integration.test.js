@@ -17,3 +17,8 @@ assertMatches(appScript, /const dashboardTrackText = \[trackTitle, trackArtist\]
 
 
 assertMatches(appScript, /fetch\(['"]assets\/data\/last-played\.json['"]\)/, 'Expected dashboard to fetch last played data for listening track details.');
+assertMatches(
+  appScript,
+  /function loadLastPlayedTrack\(\)\s*\{[\s\S]*if\s*\(!dashboardTrack\)\s*\{\s*return;\s*\}/,
+  'Expected last played fetch logic to bail out when dashboard track UI is not present on the page.'
+);

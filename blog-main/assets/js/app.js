@@ -95,6 +95,10 @@ function renderDashboardTrack(trackData) {
 }
 
 function loadLastPlayedTrack() {
+  if (!dashboardTrack) {
+    return;
+  }
+
   fetch('assets/data/last-played.json')
     .then((response) => {
       if (!response.ok) {
