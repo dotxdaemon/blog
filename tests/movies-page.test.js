@@ -169,8 +169,18 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
+  /title:\s*'Blue Jasmine'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/nsj0RLRI10351uYMoAKPur6Derd\.jpg'/,
+  'Expected Blue Jasmine to use the correct TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
   /title:\s*'School of Rock'[\s\S]*director:\s*'Richard Linklater'/,
   'Expected movie data to include School of Rock by Richard Linklater.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/zXLXaepIBvFVLU25DH3wv4IPSbe\.jpg'/,
+  'Expected School of Rock to use the correct TMDB poster URL.'
 );
 const laLaLandMatches = movieDataScript.match(/title:\s*'La La Land'/g) || [];
 assert.strictEqual(

@@ -125,13 +125,13 @@ window.MOVIES_I_LIKE = [
     title: 'Blue Jasmine',
     director: 'Woody Allen',
     year: 2013,
-    artwork: 'https://image.tmdb.org/t/p/original/ukjN0Zv8V32JsorQYEpP2y6PbKX.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/nsj0RLRI10351uYMoAKPur6Derd.jpg',
   },
   {
     title: 'School of Rock',
     director: 'Richard Linklater',
     year: 2003,
-    artwork: 'https://image.tmdb.org/t/p/original/ygr0Wlmm1KmE16TUefNitIscVBG.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/zXLXaepIBvFVLU25DH3wv4IPSbe.jpg',
   },
 
 ];
