@@ -74,8 +74,13 @@ assertMatches(
 );
 assertMatches(
   script,
-  /classList\.toggle\('is-overlay-visible'\)/,
-  'Expected app.js to toggle album overlay visibility state on touch click.'
+  /classList\.contains\('is-overlay-visible'\)[\s\S]*classList\.add\('is-overlay-visible'\)/,
+  'Expected app.js to use touch click state checks before showing overlay visibility.'
+);
+assertMatches(
+  script,
+  /document\.addEventListener\('click',[\s\S]*!albumList\.contains\(event\.target\)[\s\S]*clearTouchOverlays\(\)/,
+  'Expected app.js to clear touch overlay visibility when users tap outside the album grid.'
 );
 assertMatches(
   script,

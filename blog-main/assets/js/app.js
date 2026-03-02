@@ -480,6 +480,11 @@ function setupListeningAlbums() {
     window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const albums = Array.isArray(window[sourceKey]) ? window[sourceKey] : [];
   const shuffledAlbums = shuffleAlbums([...albums]);
+  const clearTouchOverlays = () => {
+    albumList.querySelectorAll('.album-item.is-overlay-visible').forEach((albumItem) => {
+      albumItem.classList.remove('is-overlay-visible');
+    });
+  };
 
   albumList.innerHTML = '';
   shuffledAlbums.forEach((album) => {
@@ -518,12 +523,27 @@ function setupListeningAlbums() {
 
     if (touchOverlayEnabled) {
       item.addEventListener('click', () => {
-        item.classList.toggle('is-overlay-visible');
+        const wasVisible = item.classList.contains('is-overlay-visible');
+        clearTouchOverlays();
+        if (!wasVisible) {
+          item.classList.add('is-overlay-visible');
+        }
       });
     }
 
     albumList.appendChild(item);
   });
+
+  if (touchOverlayEnabled) {
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Node)) {
+        return;
+      }
+      if (!albumList.contains(event.target)) {
+        clearTouchOverlays();
+      }
+    });
+  }
 }
 
 function shuffleAlbums(albums) {
