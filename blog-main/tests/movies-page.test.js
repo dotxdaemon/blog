@@ -1,11 +1,12 @@
 // ABOUTME: Verifies the movies page uses the shared artwork grid and movie dataset source.
 // ABOUTME: Ensures the first movie entry and poster metadata are wired from static data.
 const assert = require('assert');
-const { assertMatches, readRepoFile } = require('./helpers');
+const { assertMatches, assertNotMatches, readRepoFile, readStyles } = require('./helpers');
 
 const html = readRepoFile('movies.html');
 const appScript = readRepoFile('assets/js/app.js');
 const movieDataScript = readRepoFile('assets/js/movies-i-like.js');
+const css = readStyles();
 
 assertMatches(
   html,
@@ -269,7 +270,12 @@ assert.strictEqual(
   'Expected duplicate La La Land entries to be excluded from movie data.'
 );
 assertMatches(
-  html,
+  css,
   /\.movies-page\s+\.album-item\s*\{[\s\S]*aspect-ratio:\s*2\s*\/\s*3/i,
   'Expected movies page cards to use a standardized poster aspect ratio.'
+);
+assertNotMatches(
+  html,
+  /<style>[\s\S]*\.movies-page\s+\.album-item[\s\S]*<\/style>/i,
+  'Did not expect movies page to keep an inline poster style block.'
 );

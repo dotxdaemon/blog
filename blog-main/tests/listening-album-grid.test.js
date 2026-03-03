@@ -117,8 +117,28 @@ assertMatches(
 );
 assertMatches(
   css,
-  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i,
-  'Expected touch layout to show a denser 2-column album grid.'
+  /@media\s*\(max-width:\s*767px\)[\s\S]*\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected mobile layout to render 3 albums across for standard phone widths.'
+);
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*420px\)[\s\S]*\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected narrow phones to collapse the listening grid to 2 columns.'
+);
+assertMatches(
+  css,
+  /\.movies-page\s+\.album-item\s*\{[\s\S]*aspect-ratio:\s*2\s*\/\s*3/i,
+  'Expected movie poster cards to use the shared 2:3 aspect ratio in the main stylesheet.'
+);
+assertNotMatches(
+  readRepoFile('movies.html'),
+  /<style>[\s\S]*\.movies-page\s+\.album-item[\s\S]*<\/style>/i,
+  'Did not expect movies page to keep inline poster ratio style blocks.'
+);
+assertMatches(
+  css,
+  /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-overlay\s*\{[\s\S]*opacity:\s*0/i,
+  'Expected touch overlay styles to remain gated under coarse-pointer conditions.'
 );
 
 const listeningDataPath = path.join(__dirname, '..', 'assets', 'js', 'listening-to.js');
