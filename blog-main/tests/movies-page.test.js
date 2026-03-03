@@ -192,6 +192,76 @@ assertMatches(
   /title:\s*'Mad Max:\s*Fury Road'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/hA2ple9q4qnwxp3hKVNhroipsir\.jpg'/,
   'Expected Mad Max: Fury Road to use the correct TMDB poster URL.'
 );
+assertMatches(
+  movieDataScript,
+  /title:\s*'The Killer'[\s\S]*director:\s*'David Fincher'/,
+  'Expected movie data to include The Killer by David Fincher.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'The Killer'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/ipkcgvN7h3yZnbYowthloHLKsf4\.jpg'/,
+  'Expected The Killer to use the correct TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Uncut Gems'[\s\S]*director:\s*'Benny Safdie & Josh Safdie'/,
+  'Expected movie data to include Uncut Gems with director metadata.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Uncut Gems'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/6XN1vxHc7kUSqNWtaQKN45J5x2v\.jpg'/,
+  'Expected Uncut Gems to use the correct TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'TAR'[\s\S]*director:\s*'Todd Field'/,
+  'Expected movie data to include TAR by Todd Field.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'TAR'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/dRVAlaU0vbG6hMf2K45NSiIyoUe\.jpg'/,
+  'Expected TAR to use the correct TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Kill Bill:\s*Vol\.\s*2'[\s\S]*director:\s*'Quentin Tarantino'/,
+  'Expected movie data to include Kill Bill: Vol. 2 by Quentin Tarantino.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Kill Bill:\s*Vol\.\s*2'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/2yhg0mZQMhDyvUQ4rG1IZ4oIA8L\.jpg'/,
+  'Expected Kill Bill: Vol. 2 to use the correct TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Melancholia'[\s\S]*director:\s*'Lars von Trier'/,
+  'Expected movie data to include Melancholia by Lars von Trier.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Melancholia'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/fMneszMiQuTKY8JUXrGGB5vwqJf\.jpg'/,
+  'Expected Melancholia to use the correct TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Carol'[\s\S]*director:\s*'Todd Haynes'/,
+  'Expected movie data to include Carol by Todd Haynes.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Carol'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/cJeled7EyPdur6TnCA5GYg0UVna\.jpg'/,
+  'Expected Carol to use the correct TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Ex Machina'[\s\S]*director:\s*'Alex Garland'/,
+  'Expected movie data to include Ex Machina by Alex Garland.'
+);
+assertMatches(
+  movieDataScript,
+  /title:\s*'Ex Machina'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/dmJW8IAKHKxFNiUnoDR7JfsK7Rp\.jpg'/,
+  'Expected Ex Machina to use the correct TMDB poster URL.'
+);
 const laLaLandMatches = movieDataScript.match(/title:\s*'La La Land'/g) || [];
 assert.strictEqual(
   laLaLandMatches.length,

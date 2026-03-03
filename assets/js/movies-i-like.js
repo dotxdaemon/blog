@@ -139,5 +139,47 @@ window.MOVIES_I_LIKE = [
     year: 2015,
     artwork: 'https://image.tmdb.org/t/p/original/hA2ple9q4qnwxp3hKVNhroipsir.jpg',
   },
+  {
+    title: 'The Killer',
+    director: 'David Fincher',
+    year: 2023,
+    artwork: 'https://image.tmdb.org/t/p/original/ipkcgvN7h3yZnbYowthloHLKsf4.jpg',
+  },
+  {
+    title: 'Uncut Gems',
+    director: 'Benny Safdie & Josh Safdie',
+    year: 2019,
+    artwork: 'https://image.tmdb.org/t/p/original/6XN1vxHc7kUSqNWtaQKN45J5x2v.jpg',
+  },
+  {
+    title: 'TAR',
+    director: 'Todd Field',
+    year: 2022,
+    artwork: 'https://image.tmdb.org/t/p/original/dRVAlaU0vbG6hMf2K45NSiIyoUe.jpg',
+  },
+  {
+    title: 'Kill Bill: Vol. 2',
+    director: 'Quentin Tarantino',
+    year: 2004,
+    artwork: 'https://image.tmdb.org/t/p/original/2yhg0mZQMhDyvUQ4rG1IZ4oIA8L.jpg',
+  },
+  {
+    title: 'Melancholia',
+    director: 'Lars von Trier',
+    year: 2011,
+    artwork: 'https://image.tmdb.org/t/p/original/fMneszMiQuTKY8JUXrGGB5vwqJf.jpg',
+  },
+  {
+    title: 'Carol',
+    director: 'Todd Haynes',
+    year: 2015,
+    artwork: 'https://image.tmdb.org/t/p/original/cJeled7EyPdur6TnCA5GYg0UVna.jpg',
+  },
+  {
+    title: 'Ex Machina',
+    director: 'Alex Garland',
+    year: 2015,
+    artwork: 'https://image.tmdb.org/t/p/original/dmJW8IAKHKxFNiUnoDR7JfsK7Rp.jpg',
+  },
 
 ];
