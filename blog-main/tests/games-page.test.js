@@ -1,7 +1,7 @@
 // ABOUTME: Verifies the games page uses the shared artwork grid and game dataset source.
 // ABOUTME: Ensures requested game titles and cover URLs are wired from static data.
 const assert = require('assert');
-const { assertMatches, readRepoFile, readStyles } = require('./helpers');
+const { assertMatches, assertNotMatches, readRepoFile, readStyles } = require('./helpers');
 
 const html = readRepoFile('games.html');
 const appScript = readRepoFile('assets/js/app.js');
@@ -22,6 +22,11 @@ assertMatches(
   html,
   /id="album-list"[^>]*data-overlay="title"/i,
   'Expected games grid to use title-only overlay labels.'
+);
+assertMatches(
+  html,
+  /id="album-list"[^>]*data-fit="contain"/i,
+  'Expected games grid to use contain fit so covers are not cropped.'
 );
 assertMatches(
   html,
@@ -66,8 +71,23 @@ requiredTitles.forEach((title) => {
 
 assertMatches(
   gameDataScript,
-  /artwork:\s*'https:\/\/upload\.wikimedia\.org\/wikipedia\/en\/0\/0e\/The_Legend_of_Zelda_Twilight_Princess_Game_Cover\.jpg'/,
-  'Expected Twilight Princess to use the configured cover artwork URL.'
+  /artwork:\s*'https:\/\/images\.igdb\.com\/igdb\/image\/upload\/t_original\/co3mtv\.jpg'/,
+  'Expected Twilight Princess to use the configured high-resolution cover artwork URL.'
+);
+
+const highResArtworkMatches = gameDataScript.match(
+  /artwork:\s*'https:\/\/images\.igdb\.com\/igdb\/image\/upload\/t_original\/co[a-z0-9]+\.(jpg|png)'/g
+) || [];
+assert.strictEqual(
+  highResArtworkMatches.length,
+  10,
+  'Expected all game entries to use IGDB t_original high-resolution artwork URLs.'
+);
+
+assertNotMatches(
+  gameDataScript,
+  /upload\.wikimedia\.org|m\.media-amazon\.com/i,
+  'Did not expect games data to keep low-resolution cover sources.'
 );
 
 assertMatches(
