@@ -8,6 +8,7 @@ const testFiles = [
   'lastfm-artwork.test.js',
   'listening-album-grid.test.js',
   'movies-page.test.js',
+  'games-page.test.js',
   'music-page.test.js',
   'posts.test.js',
   'rss.test.js',

@@ -1,5 +1,5 @@
 // ABOUTME: Verifies the site navigation stays consistent across the remaining top-level pages.
-// ABOUTME: Ensures home/posts/movies/music links are lowercase and search is fully removed from navigation.
+// ABOUTME: Ensures home/posts/movies/music/games links are lowercase and search is fully removed from navigation.
 const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile } = require('./helpers');
 
 const indexHtml = readIndexHtml();
@@ -9,6 +9,7 @@ const archivesHtml = readRepoFile('archives.html');
 const postHtml = readRepoFile('post.html');
 const moviesHtml = readRepoFile('movies.html');
 const musicHtml = readRepoFile('music.html');
+const gamesHtml = readRepoFile('games.html');
 
 const navPages = [
   ['index', indexHtml],
@@ -17,6 +18,7 @@ const navPages = [
   ['post', postHtml],
   ['movies', moviesHtml],
   ['music', musicHtml],
+  ['games', gamesHtml],
 ];
 
 navPages.forEach(([pageName, html]) => {
@@ -44,6 +46,11 @@ navPages.forEach(([pageName, html]) => {
     html,
     /<a[^>]*href="music\.html"[^>]*>\s*music\s*<\/a>/i,
     `Expected ${pageName} page to include lowercase "music" nav text.`
+  );
+  assertMatches(
+    html,
+    /<a[^>]*href="games\.html"[^>]*>\s*games\s*<\/a>/i,
+    `Expected ${pageName} page to include lowercase "games" nav text.`
   );
   assertNotMatches(
     html,
@@ -82,6 +89,11 @@ assertMatches(
   musicHtml,
   /<a[^>]*href="music\.html"[^>]*aria-current="page"[^>]*>\s*music\s*<\/a>/i,
   'Expected music page to mark music as active.'
+);
+assertMatches(
+  gamesHtml,
+  /<a[^>]*href="games\.html"[^>]*aria-current="page"[^>]*>\s*games\s*<\/a>/i,
+  'Expected games page to mark games as active.'
 );
 
 assertNotMatches(

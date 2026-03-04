@@ -408,6 +408,10 @@ input {
   aspect-ratio: 2 / 3;
 }
 
+.games-page .album-item {
+  aspect-ratio: 2 / 3;
+}
+
 .album-artwork {
   display: block;
   height: 100%;
