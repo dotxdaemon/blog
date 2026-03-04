@@ -95,6 +95,11 @@ assertMatches(
   /\.games-page\s+\.album-item\s*\{[\s\S]*aspect-ratio:\s*2\s*\/\s*3/i,
   'Expected games page cards to use a standardized cover aspect ratio.'
 );
+assertNotMatches(
+  css,
+  /\.games-page\s+\.album-item\s*\{[\s\S]*background-color:\s*#111/i,
+  'Did not expect games page cards to keep a black tile background.'
+);
 
 const titleMatches = gameDataScript.match(/title:\s*'/g) || [];
 assert.strictEqual(titleMatches.length, 10, 'Expected exactly 10 game entries in the dataset.');
