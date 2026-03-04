@@ -410,6 +410,7 @@ input {
 
 .games-page .album-item {
   aspect-ratio: 2 / 3;
+  border: 0;
 }
 
 .album-artwork {

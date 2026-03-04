@@ -95,6 +95,11 @@ assertMatches(
   /\.games-page\s+\.album-item\s*\{[\s\S]*aspect-ratio:\s*2\s*\/\s*3/i,
   'Expected games page cards to use a standardized cover aspect ratio.'
 );
+assertMatches(
+  css,
+  /\.games-page\s+\.album-item\s*\{[^}]*border:\s*(?:none|0)\s*;[^}]*\}/i,
+  'Expected games page cards to remove tile borders so only cover art is shown.'
+);
 assertNotMatches(
   css,
   /\.games-page\s+\.album-item\s*\{[\s\S]*background-color:\s*#111/i,
