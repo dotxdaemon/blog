@@ -51,6 +51,11 @@ assertMatches(
   /\.album-item\s*\{[^}]*width:\s*100%/i,
   'Expected album tiles to span their grid column width.'
 );
+assertMatches(
+  css,
+  /\.album-item\s*\{[^}]*display:\s*block/i,
+  'Expected album tiles to use block display so hover hit areas stay within tile bounds.'
+);
 assertMatches(script, /function setupListeningAlbums\(/, 'Expected app.js to define a listening album grid renderer.');
 assertMatches(
   script,
