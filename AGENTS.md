@@ -528,6 +528,20 @@ DO NOT add text or add content of your own unless I specify WHAT to add. Show a 
 
 6) Artifact Hygiene
 - Do not leave screenshot/debug artifact files in repo working tree unless Sean explicitly asked for them to be committed.
+- Screenshots may be created only as transient verification artifacts and must not be stored in the repo working tree unless Sean explicitly asked for them to be committed.
+
+Screenshot Evidence Integrity
+
+- The before/after screenshot requirement counts as evidence only after the checks in this section pass.
+- Do not write verification screenshots directly to shared `/tmp` paths.
+- Create a fresh, dedicated artifact directory for each task or run and use absolute paths for every screenshot.
+- Never reuse a previous screenshot path when capturing evidence for a current task.
+- Before citing a screenshot as proof, verify that the file exists at the expected path, the timestamp is from the current run, the dimensions match the claimed viewport, and a hash has been recorded.
+- If two screenshots are expected to differ, identical hashes or a zero visual diff invalidate the evidence unless the result is explicitly explained.
+- If preview output, file metadata, hashes, or visual diffs contradict each other, the screenshot evidence is invalid.
+- When screenshot evidence is invalid, do not present it as proof; regenerate it in a fresh artifact directory or report that visual verification is currently unreliable.
+- Remove transient screenshot artifacts after reporting unless Sean explicitly asked to keep them.
+- Do not leave proof images in the repo tree.
 
 Visual Verification Guardrails
 
