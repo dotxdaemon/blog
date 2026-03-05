@@ -12,7 +12,7 @@ const {
 
 const indexHtml = readIndexHtml();
 const html = readRepoFile('music.html');
-const script = readRepoFile('assets/js/app.js');
+const script = readRepoFile('assets/js/artwork-grid.js');
 const css = readStyles();
 
 assertMatches(html, /id="album-list"/i, 'Expected music.html to include an album grid list target.');
@@ -42,6 +42,16 @@ assertMatches(
   'Expected homepage to load the listening-to data script.'
 );
 assertMatches(
+  indexHtml,
+  /assets\/js\/artwork-grid\.js/i,
+  'Expected homepage to load the shared artwork grid script.'
+);
+assertMatches(
+  html,
+  /assets\/js\/artwork-grid\.js/i,
+  'Expected music page to load the shared artwork grid script.'
+);
+assertMatches(
   css,
   /\.listening-to\s*\{[^}]*width:\s*100%/i,
   'Expected listening module to use full available width so album tiles do not collapse.'
@@ -56,64 +66,90 @@ assertMatches(
   /\.album-item\s*\{[^}]*display:\s*block/i,
   'Expected album tiles to use block display so hover hit areas stay within tile bounds.'
 );
-assertMatches(script, /function setupListeningAlbums\(/, 'Expected app.js to define a listening album grid renderer.');
+assertMatches(script, /function setupArtworkGrid\(/, 'Expected artwork-grid.js to define an artwork grid renderer.');
 assertMatches(
   script,
   /albumList\.dataset\.source/i,
-  'Expected app.js to support selecting the listening grid data source from dataset attributes.'
+  'Expected artwork-grid.js to support selecting the listening grid data source from dataset attributes.'
 );
 assertMatches(
   script,
   /window\[sourceKey\]/,
-  'Expected app.js to resolve listening data from a global key selected by dataset source.'
+  'Expected artwork-grid.js to resolve listening data from a global key selected by dataset source.'
 );
 assertMatches(
   script,
   /albumList\.dataset\.overlay/i,
-  'Expected app.js to support overlay mode selection from dataset attributes.'
+  'Expected artwork-grid.js to support overlay mode selection from dataset attributes.'
 );
 assertMatches(
   script,
   /overlayMode === 'title'/,
-  'Expected app.js to support title-only overlay labels.'
+  'Expected artwork-grid.js to support title-only overlay labels.'
 );
 assertMatches(
   script,
   /classList\.contains\('is-overlay-visible'\)[\s\S]*classList\.add\('is-overlay-visible'\)/,
-  'Expected app.js to use touch click state checks before showing overlay visibility.'
+  'Expected artwork-grid.js to use touch click state checks before showing overlay visibility.'
 );
 assertMatches(
   script,
-  /item\.addEventListener\('click',[\s\S]*classList\.contains\('is-overlay-visible'\)[\s\S]*classList\.remove\('is-overlay-visible'\)[\s\S]*classList\.add\('is-overlay-visible'\)/,
-  'Expected touch click handling to close overlay on second tap and reopen on next tap.'
+  /artworkFrame\.addEventListener\('click',[\s\S]*classList\.contains\('is-overlay-visible'\)[\s\S]*classList\.remove\('is-overlay-visible'\)[\s\S]*classList\.add\('is-overlay-visible'\)/,
+  'Expected touch click handling to close overlay on second tap and reopen on the artwork frame.'
 );
 assertMatches(
   script,
   /document\.addEventListener\('click',[\s\S]*!albumList\.contains\(event\.target\)[\s\S]*clearTouchOverlays\(\)/,
-  'Expected app.js to clear touch overlay visibility when users tap outside the album grid.'
+  'Expected artwork-grid.js to clear touch overlay visibility when users tap outside the album grid.'
 );
 assertMatches(
   script,
   /matchMedia\('\(hover:\s*none\),\s*\(pointer:\s*coarse\)'\)/,
-  'Expected app.js to scope overlay click toggles to touch/coarse-pointer contexts.'
+  'Expected artwork-grid.js to scope overlay click toggles to touch/coarse-pointer contexts.'
 );
-assertMatches(script, /className = 'album-overlay'/, 'Expected album renderer to create an overlay label.');
-assertMatches(script, /function shuffleAlbums\(/, 'Expected app.js to define an album shuffling helper.');
+assertMatches(script, /className = 'album-overlay'/, 'Expected artwork grid renderer to create an overlay label.');
+assertMatches(script, /className = 'album-artwork-frame'/, 'Expected album renderer to create an artwork interaction frame.');
+assertMatches(
+  script,
+  /artworkFrame\.addEventListener\('click',[\s\S]*classList\.contains\('is-overlay-visible'\)[\s\S]*classList\.remove\('is-overlay-visible'\)[\s\S]*classList\.add\('is-overlay-visible'\)/,
+  'Expected touch click handling to be attached to the artwork frame so taps outside artwork do not toggle labels.'
+);
+assertMatches(script, /function shuffleArtworkItems\(/, 'Expected artwork-grid.js to define an artwork shuffling helper.');
 assertMatches(script, /Math\.random\(/, 'Expected album shuffle logic to use randomized ordering.');
 assertMatches(
   css,
-  /\.album-item:hover\s+\.album-overlay,[\s\S]*opacity:\s*1/i,
-  'Expected album overlay to become visible on hover or focus.'
+  /\.album-artwork-frame:hover\s+\.album-overlay,[\s\S]*opacity:\s*1/i,
+  'Expected album overlay to become visible only when the artwork frame is hovered or focused.'
 );
 assertMatches(
   css,
-  /\.album-item\.is-overlay-visible\s+\.album-overlay\s*\{[\s\S]*opacity:\s*1/i,
-  'Expected album overlay to become visible when touch users toggle an active item.'
+  /\.album-artwork-frame\.is-overlay-visible\s+\.album-overlay\s*\{[\s\S]*opacity:\s*1/i,
+  'Expected album overlay to become visible when touch users toggle an active artwork frame.'
 );
 assertMatches(
   css,
   /\.album-overlay\s*\{[^}]*pointer-events:\s*none/i,
   'Expected album overlay to disable pointer events so hover/tap hit areas stay constrained to the tile.'
+);
+assertMatches(
+  css,
+  /\.album-artwork-frame\s*\{[^}]*position:\s*absolute/i,
+  'Expected album artwork frame to be absolutely positioned within the tile bounds.'
+);
+assertMatches(
+  css,
+  /\.album-artwork-frame\s*\{[^}]*--artwork-frame-top, 0[\s\S]*--artwork-frame-left, 0/i,
+  'Expected album artwork frames to support inset variables for artwork-only bounds.'
+);
+assertMatches(
+  script,
+  /artworkImage\.naturalWidth[\s\S]*artworkImage\.naturalHeight[\s\S]*style\.setProperty\('--artwork-frame-top'/,
+  'Expected contain-fit artwork bounds to be computed from the image natural size.'
+);
+assertMatches(
+  script,
+  /window\.addEventListener\('resize',\s*refreshArtworkFrames\)/,
+  'Expected contain-fit artwork bounds to refresh on resize.'
 );
 assertMatches(
   css,

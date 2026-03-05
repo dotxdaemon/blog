@@ -4,7 +4,7 @@ const assert = require('assert');
 const { assertMatches, assertNotMatches, readRepoFile, readStyles } = require('./helpers');
 
 const html = readRepoFile('games.html');
-const appScript = readRepoFile('assets/js/app.js');
+const artworkGridScript = readRepoFile('assets/js/artwork-grid.js');
 const gameDataScript = readRepoFile('assets/js/games-i-like.js');
 const css = readStyles();
 
@@ -39,9 +39,14 @@ assertMatches(
   'Expected games page to load app.js as a module.'
 );
 assertMatches(
-  appScript,
+  html,
+  /<script[^>]*src="assets\/js\/artwork-grid\.js"[^>]*type="module"[^>]*><\/script>/i,
+  'Expected games page to load artwork-grid.js as a module.'
+);
+assertMatches(
+  artworkGridScript,
   /albumList\.dataset\.source/i,
-  'Expected app.js to support selecting the artwork source key from dataset attributes.'
+  'Expected artwork-grid.js to support selecting the artwork source key from dataset attributes.'
 );
 assertMatches(
   gameDataScript,

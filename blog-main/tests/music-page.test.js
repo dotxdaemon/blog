@@ -26,6 +26,11 @@ assertMatches(
 );
 assertMatches(
   html,
+  /<script[^>]*src="assets\/js\/artwork-grid\.js"[^>]*type="module"[^>]*><\/script>/i,
+  'Expected music page to load artwork-grid.js as a module.'
+);
+assertMatches(
+  html,
   /<a[^>]*href="music\.html"[^>]*aria-current="page"[^>]*>\s*music\s*<\/a>/i,
   'Expected music page to mark music as the active navigation link.'
 );

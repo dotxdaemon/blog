@@ -4,7 +4,7 @@ const assert = require('assert');
 const { assertMatches, assertNotMatches, readRepoFile, readStyles } = require('./helpers');
 
 const html = readRepoFile('movies.html');
-const appScript = readRepoFile('assets/js/app.js');
+const artworkGridScript = readRepoFile('assets/js/artwork-grid.js');
 const movieDataScript = readRepoFile('assets/js/movies-i-like.js');
 const css = readStyles();
 
@@ -39,19 +39,24 @@ assertMatches(
   'Expected movies page to load app.js as a module.'
 );
 assertMatches(
-  appScript,
+  html,
+  /<script[^>]*src="assets\/js\/artwork-grid\.js"[^>]*type="module"[^>]*><\/script>/i,
+  'Expected movies page to load artwork-grid.js as a module.'
+);
+assertMatches(
+  artworkGridScript,
   /albumList\.dataset\.source/i,
-  'Expected app.js to read a configurable source key from album list dataset attributes.'
+  'Expected artwork-grid.js to read a configurable source key from album list dataset attributes.'
 );
 assertMatches(
-  appScript,
+  artworkGridScript,
   /albumList\.dataset\.overlay/i,
-  'Expected app.js to read configurable overlay mode from album list dataset attributes.'
+  'Expected artwork-grid.js to read configurable overlay mode from album list dataset attributes.'
 );
 assertMatches(
-  appScript,
+  artworkGridScript,
   /albumList\.dataset\.fit/i,
-  'Expected app.js to read configurable artwork fit mode from album list dataset attributes.'
+  'Expected artwork-grid.js to read configurable artwork fit mode from album list dataset attributes.'
 );
 assertMatches(
   movieDataScript,

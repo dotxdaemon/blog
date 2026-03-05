@@ -405,6 +405,18 @@ input {
   width: 100%;
 }
 
+.album-artwork-frame {
+  cursor: pointer;
+  display: block;
+  inset:
+    var(--artwork-frame-top, 0)
+    var(--artwork-frame-right, 0)
+    var(--artwork-frame-bottom, 0)
+    var(--artwork-frame-left, 0);
+  overflow: hidden;
+  position: absolute;
+}
+
 .movies-page .album-item {
   aspect-ratio: 2 / 3;
 }
@@ -438,13 +450,13 @@ input {
   transition: opacity 0.2s ease;
 }
 
-.album-item:hover .album-overlay,
-.album-item:focus-visible .album-overlay,
-.album-item.is-overlay-visible .album-overlay {
+.album-artwork-frame:hover .album-overlay,
+.album-artwork-frame:focus-visible .album-overlay,
+.album-artwork-frame.is-overlay-visible .album-overlay {
   opacity: 1;
 }
 
-.album-item:focus-visible {
+.album-artwork-frame:focus-visible {
   outline: 2px solid var(--accent-45);
   outline-offset: 2px;
 }
