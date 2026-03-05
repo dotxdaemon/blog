@@ -112,6 +112,11 @@ assertMatches(
 );
 assertMatches(
   css,
+  /\.album-overlay\s*\{[^}]*pointer-events:\s*none/i,
+  'Expected album overlay to disable pointer events so hover/tap hit areas stay constrained to the tile.'
+);
+assertMatches(
+  css,
   /@media\s*\(hover:\s*none\),\s*\(pointer:\s*coarse\)[\s\S]*\.album-overlay\s*\{[\s\S]*opacity:\s*0/i,
   'Expected touch styles to keep overlays hidden until users tap an item.'
 );

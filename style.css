@@ -433,6 +433,7 @@ input {
   line-height: 1.35;
   opacity: 0;
   padding: 10px;
+  pointer-events: none;
   position: absolute;
   transition: opacity 0.2s ease;
 }
