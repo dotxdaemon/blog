@@ -63,6 +63,8 @@ const requiredTitles = [
   'Jak and Daxter 1',
   'Jak and Daxter 2',
   'Jak and Daxter 3',
+  'Sekiro: Shadows Die Twice',
+  'Dark Souls',
   'Super Smash Bros Ultimate',
   'Super Smash Bros Melee',
 ];
@@ -79,13 +81,23 @@ assertMatches(
   /artwork:\s*'https:\/\/images\.igdb\.com\/igdb\/image\/upload\/t_original\/co3mtv\.jpg'/,
   'Expected Twilight Princess to use the configured high-resolution cover artwork URL.'
 );
+assertMatches(
+  gameDataScript,
+  /title:\s*'Sekiro: Shadows Die Twice'[\s\S]*artwork:\s*'https:\/\/images\.igdb\.com\/igdb\/image\/upload\/t_original\/co2a23\.jpg'/,
+  'Expected Sekiro: Shadows Die Twice to use the verified IGDB cover artwork URL.'
+);
+assertMatches(
+  gameDataScript,
+  /title:\s*'Dark Souls'[\s\S]*artwork:\s*'https:\/\/images\.igdb\.com\/igdb\/image\/upload\/t_original\/coax7q\.jpg'/,
+  'Expected Dark Souls to use the verified IGDB cover artwork URL.'
+);
 
 const highResArtworkMatches = gameDataScript.match(
   /artwork:\s*'https:\/\/images\.igdb\.com\/igdb\/image\/upload\/t_original\/co[a-z0-9]+\.(jpg|png)'/g
 ) || [];
 assert.strictEqual(
   highResArtworkMatches.length,
-  10,
+  12,
   'Expected all game entries to use IGDB t_original high-resolution artwork URLs.'
 );
 
@@ -112,4 +124,4 @@ assertNotMatches(
 );
 
 const titleMatches = gameDataScript.match(/title:\s*'/g) || [];
-assert.strictEqual(titleMatches.length, 10, 'Expected exactly 10 game entries in the dataset.');
+assert.strictEqual(titleMatches.length, 12, 'Expected exactly 12 game entries in the dataset.');

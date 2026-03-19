@@ -50,6 +50,18 @@ window.GAMES_I_LIKE = [
     artwork: 'https://images.igdb.com/igdb/image/upload/t_original/co6kks.jpg',
   },
   {
+    title: 'Sekiro: Shadows Die Twice',
+    platform: 'PlayStation 4',
+    year: 2019,
+    artwork: 'https://images.igdb.com/igdb/image/upload/t_original/co2a23.jpg',
+  },
+  {
+    title: 'Dark Souls',
+    platform: 'PlayStation 3',
+    year: 2011,
+    artwork: 'https://images.igdb.com/igdb/image/upload/t_original/coax7q.jpg',
+  },
+  {
     title: 'Super Smash Bros Ultimate',
     platform: 'Nintendo Switch',
     year: 2018,
