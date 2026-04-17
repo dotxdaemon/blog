@@ -181,5 +181,11 @@ window.MOVIES_I_LIKE = [
     year: 2015,
     artwork: 'https://image.tmdb.org/t/p/original/dmJW8IAKHKxFNiUnoDR7JfsK7Rp.jpg',
   },
+  {
+    title: 'Hellboy',
+    director: 'Guillermo del Toro',
+    year: 2004,
+    artwork: 'https://image.tmdb.org/t/p/original/lbaTEneOofwvAyg77R8HbFML2zT.jpg',
+  },
 
 ];
