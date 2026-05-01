@@ -109,11 +109,16 @@ function loadLastPlayedTrack() {
 
 if (postList) {
   postList.innerHTML = '';
+  const postLimit = Number.parseInt(postList.dataset.limit || '', 10);
+  const visiblePosts =
+    Number.isInteger(postLimit) && postLimit > 0
+      ? dashboardPosts.slice(0, postLimit)
+      : dashboardPosts;
 
-  if (!dashboardPosts.length) {
+  if (!visiblePosts.length) {
     postList.appendChild(createEmptyPost());
   } else {
-    dashboardPosts.forEach((post) => {
+    visiblePosts.forEach((post) => {
       postList.appendChild(createPostLink(post));
     });
   }

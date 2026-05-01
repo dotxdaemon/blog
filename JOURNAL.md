@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-01
+  Task: Turn the home tab into a personal index.
+  Notes: Moved the album wall out of the homepage, added latest writing/currently listening/recent obsessions sections, kept the music page as the album grid, and added regression coverage for the home index.
+- Date: 2026-05-01
   Task: Remove dead listening artwork wiring from the deployed dashboard script.
   Notes: Added regression coverage that keeps the homepage listening script text-and-link only, removed the unused artwork image DOM path, and verified npm test in blog-main after the fix.
 - Date: 2026-03-11

@@ -31,9 +31,9 @@ assertMatches(css, /\.post-date[\s\S]*font-style:\s*italic/i, 'Expected post dat
 assertMatches(css, /\.post-date[\s\S]*text-transform:\s*none/i, 'Expected post dates to avoid uppercase formatting.');
 assertMatches(css, /\.post-link[\s\S]*transition:\s*color\s+0\.2s\s+ease/i, 'Expected post title hover transition timing.');
 assertMatches(css, /\.post-link:hover[\s\S]*color:\s*var\(--post-hover\)/i, 'Expected post title hover tone to use muted warmth.');
-assertNotMatches(indexHtml, /class="[^"]*post-stream[^"]*"/i, 'Did not expect the homepage to render the post stream section.');
-assertNotMatches(indexHtml, /id="posts"/i, 'Did not expect the homepage to include the posts container.');
-assertMatches(indexHtml, /id="album-list"/i, 'Expected homepage to include listening grid once music becomes the default page.');
+assertNotMatches(indexHtml, /class="[^"]*post-stream[^"]*"/i, 'Did not expect the homepage to render the full post stream section.');
+assertMatches(indexHtml, /id="posts"[^>]*data-limit="3"/i, 'Expected the homepage to include a limited writing list.');
+assertNotMatches(indexHtml, /id="album-list"/i, 'Did not expect homepage to include the music album grid.');
 assertMatches(postsHtml, /class="[^"]*post-stream[^"]*"/i, 'Expected posts page to render the post stream section.');
 assertMatches(postsHtml, /id="posts"/i, 'Expected posts page to include the posts container.');
 
