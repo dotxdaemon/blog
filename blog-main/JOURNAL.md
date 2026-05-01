@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-01
+  Task: Remove dead listening artwork wiring from the deployed dashboard script.
+  Notes: Added regression coverage that keeps the homepage listening script text-and-link only, removed the unused artwork image DOM path, and verified npm test in blog-main after the fix.
 - Date: 2026-03-11
   Task: Apply lavender matrix styling, readable post content, and Last.fm hover details.
   Notes: Updated the palette and matrix rain colors to lavender tones, preserved post body line breaks, removed post-page nav links, and showed song plus artist on Last.fm overlays with updated tests; reran npm test, npm run lint, and npm run typecheck.
