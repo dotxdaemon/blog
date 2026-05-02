@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-02
+  Task: Make the static blog compatible with Vercel root deployments.
+  Notes: Set Vercel's root output directory to blog-main, removed root-to-blog-main rewrites that can lose to filesystem precedence, and added config coverage so Vercel and GitHub Pages serve the same static folder.
 - Date: 2026-05-01
   Task: Turn the home tab into a personal index.
   Notes: Moved the album wall out of the homepage, added latest writing/currently listening/recent obsessions sections, kept the music page as the album grid, and added regression coverage for the home index.

@@ -10,6 +10,7 @@ const testFiles = [
   'movies-page.test.js',
   'games-page.test.js',
   'music-page.test.js',
+  'vercel-config.test.js',
   'posts.test.js',
   'rss.test.js',
   'navigation.test.js',
