@@ -187,5 +187,11 @@ window.MOVIES_I_LIKE = [
     year: 2004,
     artwork: 'https://image.tmdb.org/t/p/original/lbaTEneOofwvAyg77R8HbFML2zT.jpg',
   },
+  {
+    title: 'The Devil Wears Prada',
+    director: 'David Frankel',
+    year: 2006,
+    artwork: 'https://image.tmdb.org/t/p/original/8912AsVuS7Sj915apArUFbv6F9L.jpg',
+  },
 
 ];

@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-02
+  Task: Add The Devil Wears Prada to the movies page.
+  Notes: Verified the 2006 David Frankel film against TMDb movie 350, used the TMDb original poster path from the poster page, and added regression coverage for the movie metadata.
+- Date: 2026-05-02
   Task: Make the static blog compatible with Vercel root deployments.
   Notes: Set Vercel's root output directory to blog-main, removed root-to-blog-main rewrites that can lose to filesystem precedence, and added config coverage so Vercel and GitHub Pages serve the same static folder.
 - Date: 2026-05-01
