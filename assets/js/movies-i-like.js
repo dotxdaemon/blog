@@ -29,7 +29,7 @@ window.MOVIES_I_LIKE = [
     title: 'Gone Girl',
     director: 'David Fincher',
     year: 2014,
-    artwork: 'https://image.tmdb.org/t/p/original/ts996lKsxvjkO2yiYG0ht4qAicO.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/1qi55eCNOoW21XJ24VoK2PUi56A.jpg',
   },
   {
     title: 'The Dark Knight',

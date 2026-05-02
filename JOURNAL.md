@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-02
+  Task: Replace the pixelated Gone Girl movie poster.
+  Notes: Verified TMDb movie 210577 and swapped the invalid-ratio 1166x1717 Gone Girl poster for a 2000x3000 English poster with regression coverage in root and blog-main.
+- Date: 2026-05-02
   Task: Add The Devil Wears Prada to the movies page.
   Notes: Verified the 2006 David Frankel film against TMDb movie 350, used the TMDb original poster path from the poster page, and added regression coverage for the movie metadata.
 - Date: 2026-05-02

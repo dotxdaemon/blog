@@ -95,6 +95,16 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
+  /title:\s*'Gone Girl'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/1qi55eCNOoW21XJ24VoK2PUi56A\.jpg'/,
+  'Expected Gone Girl to use the correct TMDB poster URL.'
+);
+assertNotMatches(
+  movieDataScript,
+  /title:\s*'Gone Girl'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/ts996lKsxvjkO2yiYG0ht4qAicO\.jpg'/,
+  'Expected Gone Girl to avoid the invalid-ratio TMDB poster URL.'
+);
+assertMatches(
+  movieDataScript,
   /title:\s*'The Dark Knight'[\s\S]*director:\s*'Christopher Nolan'/,
   'Expected movie data to include The Dark Knight by Christopher Nolan.'
 );
