@@ -1,4 +1,4 @@
-// ABOUTME: Verifies the homepage renders only the requested image.
+// ABOUTME: Verifies the homepage keeps site navigation while showing the requested image.
 // ABOUTME: Confirms the approved image asset is present at the expected dimensions.
 const assert = require('assert');
 const fs = require('fs');
@@ -11,28 +11,33 @@ const assetPath = path.join(__dirname, '..', 'assets', 'images', 'homepage.png')
 
 assertMatches(
   indexHtml,
-  /<body class="home-image-body">\s*<main class="home-image-page" role="img" aria-label="Illustrated figure in a black suit and iridescent coat"><\/main>\s*<\/body>/i,
-  'Expected homepage body to contain only the requested image surface.'
+  /<header class="site-header">[\s\S]*<nav class="site-nav" aria-label="Primary navigation">[\s\S]*aria-current="page"[\s\S]*home[\s\S]*<\/nav>[\s\S]*<\/header>/i,
+  'Expected homepage to keep the site header and navigation.'
+);
+assertMatches(
+  indexHtml,
+  /<main class="site-main home-image-main" id="main-content">\s*<section class="home-image-page" role="img" aria-label="Illustrated figure in a black suit and iridescent coat"><\/section>\s*<\/main>/i,
+  'Expected homepage main content to contain only the requested image surface.'
 );
 assertNotMatches(
   indexHtml,
-  /<header\b|<nav\b|<footer\b|<script\b|<img\b|data-dashboard|id="posts"|id="album-list"|id="dashboard-track"/i,
-  'Did not expect the image-only homepage to render navigation, scripts, widgets, or extra image elements.'
+  /class="home-image-body"|data-dashboard|id="posts"|id="album-list"|id="dashboard-track"|assets\/js\/app\.js|assets\/js\/listening-to\.js|assets\/js\/artwork-grid\.js/i,
+  'Did not expect the homepage image content to load dashboard, posts, or artwork-grid UI.'
 );
 assertMatches(
   css,
-  /\.home-image-body\s*\{[\s\S]*background-color:\s*#0f0f0f;[\s\S]*margin:\s*0;[\s\S]*min-height:\s*100svh;[\s\S]*min-height:\s*100dvh;[\s\S]*padding:\s*0;[\s\S]*\}/i,
-  'Expected the image-only homepage body to fill the viewport without page spacing.'
+  /\.site-main\.home-image-main\s*\{\s*display:\s*block;\s*\}/i,
+  'Expected the homepage image content to use the normal site shell without grid columns.'
+);
+assertNotMatches(
+  css,
+  /\.home-image-body/i,
+  'Did not expect homepage-specific body styles to override the site shell.'
 );
 assertMatches(
   css,
-  /\.home-image-body::before,\s*\.home-image-body::after\s*\{\s*content:\s*none;\s*\}/i,
-  'Expected the image-only homepage to suppress global background overlays.'
-);
-assertMatches(
-  css,
-  /\.home-image-page\s*\{[\s\S]*background-image:\s*url\('assets\/images\/homepage\.png'\);[\s\S]*background-position:\s*center;[\s\S]*background-repeat:\s*no-repeat;[\s\S]*background-size:\s*contain;[\s\S]*min-height:\s*100svh;[\s\S]*min-height:\s*100dvh;[\s\S]*width:\s*100%;[\s\S]*\}/i,
-  'Expected the homepage image surface to show the approved asset without cropping.'
+  /\.home-image-page\s*\{[\s\S]*aspect-ratio:\s*2\s*\/\s*3;[\s\S]*background-image:\s*url\('assets\/images\/homepage\.png'\);[\s\S]*background-position:\s*center;[\s\S]*background-repeat:\s*no-repeat;[\s\S]*background-size:\s*contain;[\s\S]*margin:\s*0\s+auto;[\s\S]*max-width:\s*100%;[\s\S]*width:\s*560px;[\s\S]*\}/i,
+  'Expected the homepage content area to show the approved asset without taking over the site shell.'
 );
 
 assert.ok(fs.existsSync(assetPath), 'Expected the approved homepage image asset to exist.');

@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-05
+  Task: Restore homepage navigation around the approved image.
+  Notes: Corrected the image homepage so the shared site shell and navigation remain visible while the main content stays limited to Sean-approved image; added regression coverage and verified screenshots.
+- Date: 2026-05-05
   Task: Make the homepage a single approved image.
   Notes: Replaced root and blog-main homepage bodies with a single image-backed surface, committed Sean-approved PNG assets in both served asset folders, and verified root/blog-main tests, lint, typecheck, image-hook gate, and Playwright screenshots.
 - Date: 2026-05-02
