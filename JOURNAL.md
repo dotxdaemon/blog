@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-05
+  Task: Make the homepage a single approved image.
+  Notes: Replaced root and blog-main homepage bodies with a single image-backed surface, committed Sean-approved PNG assets in both served asset folders, and verified root/blog-main tests, lint, typecheck, image-hook gate, and Playwright screenshots.
 - Date: 2026-05-02
   Task: Replace the pixelated Gone Girl movie poster.
   Notes: Verified TMDb movie 210577 and swapped the invalid-ratio 1166x1717 Gone Girl poster for a 2000x3000 English poster with regression coverage in root and blog-main.

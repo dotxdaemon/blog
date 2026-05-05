@@ -1,8 +1,7 @@
-// ABOUTME: Validates homepage tokens and layout for the restrained editorial dashboard design.
-// ABOUTME: Confirms typography hierarchy, listening focus, and posts-page separation.
-const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile, readStyles } = require('./helpers');
+// ABOUTME: Validates site tokens and layout for the restrained editorial design.
+// ABOUTME: Confirms typography hierarchy, listening focus, and posts-page layout.
+const { assertMatches, readRepoFile, readStyles } = require('./helpers');
 
-const indexHtml = readIndexHtml();
 const musicHtml = readRepoFile('music.html');
 const postsHtml = readRepoFile('posts.html');
 const css = readStyles();
@@ -31,18 +30,12 @@ assertMatches(css, /\.post-date[\s\S]*font-style:\s*italic/i, 'Expected post dat
 assertMatches(css, /\.post-date[\s\S]*text-transform:\s*none/i, 'Expected post dates to avoid uppercase formatting.');
 assertMatches(css, /\.post-link[\s\S]*transition:\s*color\s+0\.2s\s+ease/i, 'Expected post title hover transition timing.');
 assertMatches(css, /\.post-link:hover[\s\S]*color:\s*var\(--post-hover\)/i, 'Expected post title hover tone to use muted warmth.');
-assertNotMatches(indexHtml, /class="[^"]*post-stream[^"]*"/i, 'Did not expect the homepage to render the full post stream section.');
-assertMatches(indexHtml, /id="posts"[^>]*data-limit="3"/i, 'Expected the homepage to include a limited writing list.');
-assertNotMatches(indexHtml, /id="album-list"/i, 'Did not expect homepage to include the music album grid.');
 assertMatches(postsHtml, /class="[^"]*post-stream[^"]*"/i, 'Expected posts page to render the post stream section.');
 assertMatches(postsHtml, /id="posts"/i, 'Expected posts page to include the posts container.');
 
 assertMatches(musicHtml, /id="dashboard-track-text"/i, 'Expected listening block to include a track title target.');
 assertMatches(musicHtml, /id="dashboard-artist"/i, 'Expected listening block to include an artist target.');
 assertMatches(musicHtml, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected listening block to include waveform artwork.');
-assertMatches(indexHtml, /id="dashboard-track-text"/i, 'Expected homepage listening block to include a track title target.');
-assertMatches(indexHtml, /id="dashboard-artist"/i, 'Expected homepage listening block to include an artist target.');
-assertMatches(indexHtml, /class="dashboard-track-icon"[\s\S]*<svg/i, 'Expected homepage listening block to include waveform artwork.');
 
 assertMatches(css, /body::after[\s\S]*opacity:\s*0\.04/i, 'Expected paper grain overlay opacity near 4%.');
 assertMatches(css, /body::after[\s\S]*feTurbulence/i, 'Expected paper grain to come from inline SVG noise.');

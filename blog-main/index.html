@@ -1,73 +1,15 @@
-<!-- ABOUTME: Provides the homepage with a compact personal index and current listening block. -->
-<!-- ABOUTME: Points visitors toward writing, music, movies, and games without duplicating deeper pages. -->
+<!-- ABOUTME: Serves the homepage as a single approved visual surface. -->
+<!-- ABOUTME: Keeps the first screen focused on the requested image without site chrome. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>velvetdaemon</title>
-    <meta name="description" content="Personal index." />
+    <meta name="description" content="Image homepage." />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <canvas class="matrix-rain" id="matrix-rain" aria-hidden="true"></canvas>
-    <div class="ambient-fabric" aria-hidden="true"></div>
-    <div class="layout">
-      <header class="site-header">
-        <div class="site-header__inner">
-          <a class="site-title" href="index.html">velvetdaemon</a>
-          <nav class="site-nav" aria-label="Primary navigation">
-            <a class="nav-link invert-on-hover" href="index.html" aria-current="page">home</a>
-            <a class="nav-link invert-on-hover" href="posts.html">posts</a>
-            <a class="nav-link invert-on-hover" href="movies.html">movies</a>
-            <a class="nav-link invert-on-hover" href="music.html">music</a>
-            <a class="nav-link invert-on-hover" href="games.html">games</a>
-          </nav>
-        </div>
-      </header>
-
-      <main class="site-main home-main" id="main-content" data-dashboard>
-        <section class="home-index" aria-label="Home index">
-          <section class="home-index-section home-writing" aria-labelledby="latest-writing">
-            <h2 class="section-title" id="latest-writing">latest writing</h2>
-            <div class="post-list" id="posts" data-limit="3" aria-live="polite"></div>
-          </section>
-
-          <section class="home-index-section home-listening" aria-labelledby="currently-listening">
-            <h2 class="section-title" id="currently-listening">currently listening</h2>
-            <div class="dashboard-track-empty" id="dashboard-track" aria-live="polite">
-              <div class="dashboard-track-meta">
-                <p class="dashboard-track-text dashboard-track-title" id="dashboard-track-text"></p>
-                <p class="dashboard-track-artist" id="dashboard-artist"></p>
-                <p class="dashboard-track-album" id="dashboard-album" hidden></p>
-                <a class="dashboard-track-link" id="dashboard-track-link" href="#" hidden>Open track</a>
-              </div>
-              <span class="dashboard-track-icon" aria-hidden="true">
-                <svg viewBox="0 0 240 44" role="img" aria-label="Waveform">
-                  <path d="M5 22h14l4-6 6 12 5-17 6 20 6-14 6 18 7-23 6 16 6-12 5 9h17l6-8 7 13 6-19 7 22 7-14h18l6-9 6 14 7-20 6 16 6-11h18l4-5 5 10h12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-              </span>
-            </div>
-          </section>
-
-          <section class="home-index-section home-obsessions" aria-labelledby="recent-obsessions">
-            <h2 class="section-title" id="recent-obsessions">recent obsessions</h2>
-            <div class="home-obsession-list">
-              <a class="home-obsession-link" href="music.html">music</a>
-              <a class="home-obsession-link" href="movies.html">movies</a>
-              <a class="home-obsession-link" href="games.html">games</a>
-            </div>
-          </section>
-        </section>
-      </main>
-      <footer class="site-footer"></footer>
-    </div>
-
-    <script>
-      window.VELVETDAEMON_DASHBOARD = window.VELVETDAEMON_DASHBOARD || {};
-    </script>
-    <script src="assets/js/posts.js"></script>
-    <script src="assets/js/matrix.js"></script>
-    <script src="assets/js/app.js" type="module"></script>
+  <body class="home-image-body">
+    <main class="home-image-page" role="img" aria-label="Illustrated figure in a black suit and iridescent coat"></main>
   </body>
 </html>

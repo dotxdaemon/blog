@@ -1,5 +1,5 @@
-// ABOUTME: Verifies the site navigation stays consistent across the remaining top-level pages.
-// ABOUTME: Ensures home/posts/movies/music/games links are lowercase and search is fully removed from navigation.
+// ABOUTME: Verifies the site navigation stays consistent across content pages.
+// ABOUTME: Ensures home/posts/movies/music/games links are lowercase and search stays out of navigation.
 const { assertMatches, assertNotMatches, readIndexHtml, readRepoFile } = require('./helpers');
 
 const indexHtml = readIndexHtml();
@@ -12,7 +12,6 @@ const musicHtml = readRepoFile('music.html');
 const gamesHtml = readRepoFile('games.html');
 
 const navPages = [
-  ['index', indexHtml],
   ['posts', postsHtml],
   ['archives', archivesHtml],
   ['post', postHtml],
@@ -66,14 +65,14 @@ navPages.forEach(([pageName, html]) => {
 
 assertNotMatches(
   indexHtml,
-  /class="[^"]*home-posts-link[^"]*"/i,
-  'Did not expect homepage to keep quick-link buttons once shared nav is enabled.'
+  /<nav[^>]*class="site-nav"[^>]*>/i,
+  'Did not expect image-only homepage to include shared navigation.'
 );
 
-assertMatches(
+assertNotMatches(
   indexHtml,
-  /<a[^>]*href="index\.html"[^>]*aria-current="page"[^>]*>\s*home\s*<\/a>/i,
-  'Expected homepage to mark home as active in the shared nav.'
+  /class="[^"]*home-posts-link[^"]*"/i,
+  'Did not expect image-only homepage to include quick-link buttons.'
 );
 assertMatches(
   postsHtml,

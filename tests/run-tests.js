@@ -5,6 +5,7 @@ const path = require('path');
 const testFiles = [
   'editorial-minimalism.test.js',
   'dashboard-integration.test.js',
+  'home-image.test.js',
   'lastfm-artwork.test.js',
   'listening-album-grid.test.js',
   'movies-page.test.js',

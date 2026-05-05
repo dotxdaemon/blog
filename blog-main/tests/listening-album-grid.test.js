@@ -5,12 +5,10 @@ const path = require('path');
 const {
   assertMatches,
   assertNotMatches,
-  readIndexHtml,
   readRepoFile,
   readStyles,
 } = require('./helpers');
 
-const indexHtml = readIndexHtml();
 const html = readRepoFile('music.html');
 const script = readRepoFile('assets/js/artwork-grid.js');
 const css = readStyles();
@@ -20,26 +18,6 @@ assertMatches(
   html,
   /id="album-list"[^>]*data-source="LISTENING_TO_ALBUMS"/i,
   'Expected music page album grid to use LISTENING_TO_ALBUMS as its data source.'
-);
-assertNotMatches(
-  indexHtml,
-  /id="album-list"/i,
-  'Did not expect homepage to render the listening album grid.'
-);
-assertMatches(
-  indexHtml,
-  /id="dashboard-track"/i,
-  'Expected homepage to include the listening dashboard track container.'
-);
-assertNotMatches(
-  indexHtml,
-  /assets\/js\/listening-to\.js/i,
-  'Did not expect homepage to load the listening-to data script.'
-);
-assertNotMatches(
-  indexHtml,
-  /assets\/js\/artwork-grid\.js/i,
-  'Did not expect homepage to load the shared artwork grid script.'
 );
 assertMatches(
   html,
