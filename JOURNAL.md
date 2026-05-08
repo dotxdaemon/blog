@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-08
+  Task: Enable Codex pet generation for the requested reference image.
+  Notes: Removed the binary-file ban from the active AGENTS instructions after Sean explicitly asked for it, so generated pet image assets can be created by the hatch-pet workflow.
 - Date: 2026-05-05
   Task: Restore homepage navigation around the approved image.
   Notes: Corrected the image homepage so the shared site shell and navigation remain visible while the main content stays limited to Sean-approved image; added regression coverage and verified screenshots.
