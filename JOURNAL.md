@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-08
+  Task: Package and activate the Prism Codex pet.
+  Notes: Custom Codex pets are selected with the persisted `selected-avatar-id` value `custom:<pet-folder>`; Prism lives at `/Users/seankim/.codex/pets/prism` and is activated as `custom:prism`.
+- Date: 2026-05-08
   Task: Enable Codex pet generation for the requested reference image.
   Notes: Removed the binary-file ban from the active AGENTS instructions after Sean explicitly asked for it, so generated pet image assets can be created by the hatch-pet workflow.
 - Date: 2026-05-05
