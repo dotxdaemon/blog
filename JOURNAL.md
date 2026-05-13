@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-13
+  Task: Make movie posters read less rasterized.
+  Notes: Kept TMDb poster assets unchanged, set the movies grid to three desktop columns, preserved the narrow-phone two-column layout with regression coverage in root and blog-main, and verified the deployed blog-main path with screenshots plus npm test, lint, and typecheck.
 - Date: 2026-05-08
   Task: Package and activate the Prism Codex pet.
   Notes: Custom Codex pets are selected with the persisted `selected-avatar-id` value `custom:<pet-folder>`; Prism lives at `/Users/seankim/.codex/pets/prism` and is activated as `custom:prism`.

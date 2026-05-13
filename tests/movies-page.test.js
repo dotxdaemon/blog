@@ -294,6 +294,16 @@ assertMatches(
   /\.movies-page\s+\.album-item\s*\{[\s\S]*aspect-ratio:\s*2\s*\/\s*3/i,
   'Expected movies page cards to use a standardized poster aspect ratio.'
 );
+assertMatches(
+  css,
+  /\.movies-page\s+\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected movies page posters to use a wider desktop grid so poster typography stays legible.'
+);
+assertMatches(
+  css,
+  /@media\s*\(max-width:\s*420px\)[\s\S]*\.movies-page\s+\.album-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/i,
+  'Expected narrow movie pages to preserve two poster columns.'
+);
 assertNotMatches(
   html,
   /<style>[\s\S]*\.movies-page\s+\.album-item[\s\S]*<\/style>/i,

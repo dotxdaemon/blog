@@ -411,6 +411,10 @@ input {
   padding: 0;
 }
 
+.movies-page .album-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .album-item {
   aspect-ratio: 1 / 1;
   border: 1px solid var(--line);
@@ -880,6 +884,10 @@ input {
 
 @media (max-width: 420px) {
   .album-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .movies-page .album-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

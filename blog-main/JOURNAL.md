@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-13
+  Task: Make movie posters read less rasterized.
+  Notes: Kept TMDb poster assets unchanged, set the movies grid to three desktop columns, preserved the narrow-phone two-column layout with regression coverage in root and blog-main, and verified the deployed blog-main path with screenshots plus npm test, lint, and typecheck.
 - Date: 2026-05-01
   Task: Turn the home tab into a personal index.
   Notes: Moved the album wall out of the homepage, added latest writing/currently listening/recent obsessions sections, kept the music page as the album grid, and added regression coverage for the home index.
