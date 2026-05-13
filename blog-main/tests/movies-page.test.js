@@ -185,7 +185,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Blue Jasmine'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/nsj0RLRI10351uYMoAKPur6Derd\.jpg'/,
+  /title:\s*'Blue Jasmine'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/zLdLiUJfueZBctdv8OvkmGXEHEC\.jpg'/,
   'Expected Blue Jasmine to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -195,7 +195,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/zXLXaepIBvFVLU25DH3wv4IPSbe\.jpg'/,
+  /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/g2NQsJbvT1H8QBTZtzZiseHTNRL\.jpg'/,
   'Expected School of Rock to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -275,7 +275,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Ex Machina'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/dmJW8IAKHKxFNiUnoDR7JfsK7Rp\.jpg'/,
+  /title:\s*'Ex Machina'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/9goPE2IoMIXxTLWzl7aizwuIiLh\.jpg'/,
   'Expected Ex Machina to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -283,6 +283,78 @@ assertMatches(
   /title:\s*'The Devil Wears Prada'[\s\S]*director:\s*'David Frankel'[\s\S]*year:\s*2006[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/8912AsVuS7Sj915apArUFbv6F9L\.jpg'/,
   'Expected movie data to include The Devil Wears Prada with the verified TMDB poster URL.'
 );
+const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const posterMappings = [
+  {
+    title: 'The Dark Knight',
+    director: 'Christopher Nolan',
+    year: 2008,
+    artwork: 'https://image.tmdb.org/t/p/original/xQPgyZOBhaz1GdCQIPf5A5VeFzO.jpg',
+  },
+  {
+    title: '(500) Days of Summer',
+    director: 'Marc Webb',
+    year: 2009,
+    artwork: 'https://image.tmdb.org/t/p/original/mKrdarFQ6H4E9HR02YiubLABXSZ.jpg',
+  },
+  {
+    title: 'Whiplash',
+    director: 'Damien Chazelle',
+    year: 2014,
+    artwork: 'https://image.tmdb.org/t/p/original/9E949mB5NEq3BZu9nHQgWF2uGGN.jpg',
+  },
+  {
+    title: 'Eyes Wide Shut',
+    director: 'Stanley Kubrick',
+    year: 1999,
+    artwork: 'https://image.tmdb.org/t/p/original/bYixINmclYNkF64iVRHhp6LE8xn.jpg',
+  },
+  {
+    title: 'Tenet',
+    director: 'Christopher Nolan',
+    year: 2020,
+    artwork: 'https://image.tmdb.org/t/p/original/oRkLA2EkXaRLmK63BkvK74G8tC4.jpg',
+  },
+  {
+    title: 'Inglourious Basterds',
+    director: 'Quentin Tarantino',
+    year: 2009,
+    artwork: 'https://image.tmdb.org/t/p/original/slE7k3ZNMvawwgNCjMcnpDBUN7r.jpg',
+  },
+  {
+    title: 'Oldboy',
+    director: 'Park Chan-wook',
+    year: 2003,
+    artwork: 'https://image.tmdb.org/t/p/original/9HmrSXXZTHnRt46poimF0mMe7rS.jpg',
+  },
+  {
+    title: 'Blue Jasmine',
+    director: 'Woody Allen',
+    year: 2013,
+    artwork: 'https://image.tmdb.org/t/p/original/zLdLiUJfueZBctdv8OvkmGXEHEC.jpg',
+  },
+  {
+    title: 'School of Rock',
+    director: 'Richard Linklater',
+    year: 2003,
+    artwork: 'https://image.tmdb.org/t/p/original/g2NQsJbvT1H8QBTZtzZiseHTNRL.jpg',
+  },
+  {
+    title: 'Ex Machina',
+    director: 'Alex Garland',
+    year: 2015,
+    artwork: 'https://image.tmdb.org/t/p/original/9goPE2IoMIXxTLWzl7aizwuIiLh.jpg',
+  },
+];
+posterMappings.forEach(({ title, director, year, artwork }) => {
+  assertMatches(
+    movieDataScript,
+    new RegExp(
+      `title:\\s*'${escapeForRegExp(title)}'[\\s\\S]*director:\\s*'${escapeForRegExp(director)}'[\\s\\S]*year:\\s*${year}[\\s\\S]*artwork:\\s*'${escapeForRegExp(artwork)}'`
+    ),
+    `Expected ${title} to use the verified TMDB poster URL.`
+  );
+});
 const laLaLandMatches = movieDataScript.match(/title:\s*'La La Land'/g) || [];
 assert.strictEqual(
   laLaLandMatches.length,

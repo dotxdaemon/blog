@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-13
+  Task: Replace remaining rough movie poster assets.
+  Notes: Verified ten lower-resolution TMDb poster mappings, replaced them with 2000px-wide TMDb original poster URLs in root and blog-main, added exact mapping regression coverage, and validated the deployed blog-main page with full-grid screenshot and natural image dimensions.
+- Date: 2026-05-13
   Task: Make movie posters read less rasterized.
   Notes: Kept TMDb poster assets unchanged, set the movies grid to three desktop columns, preserved the narrow-phone two-column layout with regression coverage in root and blog-main, and verified the deployed blog-main path with screenshots plus npm test, lint, and typecheck.
 - Date: 2026-05-08

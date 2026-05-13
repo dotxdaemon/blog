@@ -35,7 +35,7 @@ window.MOVIES_I_LIKE = [
     title: 'The Dark Knight',
     director: 'Christopher Nolan',
     year: 2008,
-    artwork: 'https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/xQPgyZOBhaz1GdCQIPf5A5VeFzO.jpg',
   },
   {
     title: 'La La Land',
@@ -53,7 +53,7 @@ window.MOVIES_I_LIKE = [
     title: '(500) Days of Summer',
     director: 'Marc Webb',
     year: 2009,
-    artwork: 'https://image.tmdb.org/t/p/original/qXAuQ9hF30sQRsXf40OfRVl0MJZ.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/mKrdarFQ6H4E9HR02YiubLABXSZ.jpg',
   },
   {
     title: 'Crazy, Stupid, Love.',
@@ -65,7 +65,7 @@ window.MOVIES_I_LIKE = [
     title: 'Whiplash',
     director: 'Damien Chazelle',
     year: 2014,
-    artwork: 'https://image.tmdb.org/t/p/original/7fn624j5lj3xTme2SgiLCeuedmO.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/9E949mB5NEq3BZu9nHQgWF2uGGN.jpg',
   },
   {
     title: 'Fight Club',
@@ -83,19 +83,19 @@ window.MOVIES_I_LIKE = [
     title: 'Eyes Wide Shut',
     director: 'Stanley Kubrick',
     year: 1999,
-    artwork: 'https://image.tmdb.org/t/p/original/knEIz1eNGl5MQDbrEAVWA7iRqF9.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/bYixINmclYNkF64iVRHhp6LE8xn.jpg',
   },
   {
     title: 'Tenet',
     director: 'Christopher Nolan',
     year: 2020,
-    artwork: 'https://image.tmdb.org/t/p/original/aCIFMriQh8rvhxpN1IWGgvH0Tlg.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/oRkLA2EkXaRLmK63BkvK74G8tC4.jpg',
   },
   {
     title: 'Inglourious Basterds',
     director: 'Quentin Tarantino',
     year: 2009,
-    artwork: 'https://image.tmdb.org/t/p/original/7sfbEnaARXDDhKm0CZ7D7uc2sbo.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/slE7k3ZNMvawwgNCjMcnpDBUN7r.jpg',
   },
   {
     title: 'Sin City',
@@ -113,7 +113,7 @@ window.MOVIES_I_LIKE = [
     title: 'Oldboy',
     director: 'Park Chan-wook',
     year: 2003,
-    artwork: 'https://image.tmdb.org/t/p/original/pWDtjs568ZfOTMbURQBYuT4Qxka.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/9HmrSXXZTHnRt46poimF0mMe7rS.jpg',
   },
   {
     title: 'Midnight in Paris',
@@ -125,13 +125,13 @@ window.MOVIES_I_LIKE = [
     title: 'Blue Jasmine',
     director: 'Woody Allen',
     year: 2013,
-    artwork: 'https://image.tmdb.org/t/p/original/nsj0RLRI10351uYMoAKPur6Derd.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/zLdLiUJfueZBctdv8OvkmGXEHEC.jpg',
   },
   {
     title: 'School of Rock',
     director: 'Richard Linklater',
     year: 2003,
-    artwork: 'https://image.tmdb.org/t/p/original/zXLXaepIBvFVLU25DH3wv4IPSbe.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/g2NQsJbvT1H8QBTZtzZiseHTNRL.jpg',
   },
   {
     title: 'Mad Max: Fury Road',
@@ -179,7 +179,7 @@ window.MOVIES_I_LIKE = [
     title: 'Ex Machina',
     director: 'Alex Garland',
     year: 2015,
-    artwork: 'https://image.tmdb.org/t/p/original/dmJW8IAKHKxFNiUnoDR7JfsK7Rp.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/9goPE2IoMIXxTLWzl7aizwuIiLh.jpg',
   },
   {
     title: 'Hellboy',
