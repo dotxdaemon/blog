@@ -70,7 +70,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/8bokS83zGdhaXgN9tjidUKmAftW\.jpg'/,
+  /artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/xkCsjPBstdfE6BdWXImpHUahAAW\.jpg'/,
   'Expected the first movie entry to use the higher-resolution poster URL.'
 );
 assertMatches(
@@ -95,7 +95,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Gone Girl'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/1qi55eCNOoW21XJ24VoK2PUi56A\.jpg'/,
+  /title:\s*'Gone Girl'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/yOGG2o157R4b5XpfiRVRrVqMRIx\.jpg'/,
   'Expected Gone Girl to use the correct TMDB poster URL.'
 );
 assertNotMatches(
@@ -185,7 +185,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Blue Jasmine'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/zLdLiUJfueZBctdv8OvkmGXEHEC\.jpg'/,
+  /title:\s*'Blue Jasmine'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/q2IixqOwLAU9Un1JoxkWud8mg3x\.jpg'/,
   'Expected Blue Jasmine to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -235,7 +235,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'TAR'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/dRVAlaU0vbG6hMf2K45NSiIyoUe\.jpg'/,
+  /title:\s*'TAR'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/9FSlyzf5qXOOxAthSFHzxB7iVGg\.jpg'/,
   'Expected TAR to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -245,7 +245,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Kill Bill:\s*Vol\.\s*2'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/2yhg0mZQMhDyvUQ4rG1IZ4oIA8L\.jpg'/,
+  /title:\s*'Kill Bill:\s*Vol\.\s*2'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/7wY8uuZgd7ICTnMLnk8kDqgdMsA\.jpg'/,
   'Expected Kill Bill: Vol. 2 to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -280,16 +280,52 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'The Devil Wears Prada'[\s\S]*director:\s*'David Frankel'[\s\S]*year:\s*2006[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/8912AsVuS7Sj915apArUFbv6F9L\.jpg'/,
+  /title:\s*'The Devil Wears Prada'[\s\S]*director:\s*'David Frankel'[\s\S]*year:\s*2006[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/hgGAZlGE1i60W2201sBcuWE5aBk\.jpg'/,
   'Expected movie data to include The Devil Wears Prada with the verified TMDB poster URL.'
 );
 const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const posterMappings = [
   {
+    title: 'The Girl with the Dragon Tattoo',
+    director: 'David Fincher',
+    year: 2011,
+    artwork: 'https://image.tmdb.org/t/p/original/xkCsjPBstdfE6BdWXImpHUahAAW.jpg',
+  },
+  {
+    title: 'The Social Network',
+    director: 'David Fincher',
+    year: 2010,
+    artwork: 'https://image.tmdb.org/t/p/original/2511MLJ0x1msUSWKGvgTXe2bnjM.jpg',
+  },
+  {
+    title: 'Watchmen',
+    director: 'Zack Snyder',
+    year: 2009,
+    artwork: 'https://image.tmdb.org/t/p/original/aZzbKNtmGmkHxaGh5xu9tgw65n2.jpg',
+  },
+  {
+    title: 'Gone Girl',
+    director: 'David Fincher',
+    year: 2014,
+    artwork: 'https://image.tmdb.org/t/p/original/yOGG2o157R4b5XpfiRVRrVqMRIx.jpg',
+  },
+  {
     title: 'The Dark Knight',
     director: 'Christopher Nolan',
     year: 2008,
     artwork: 'https://image.tmdb.org/t/p/original/xQPgyZOBhaz1GdCQIPf5A5VeFzO.jpg',
+  },
+  {
+    title: 'La La Land',
+    director: 'Damien Chazelle',
+    year: 2016,
+    artwork: 'https://image.tmdb.org/t/p/original/uJGarMSzXNUQzThMbEqePK5nsIx.jpg',
+  },
+  {
+    title: 'Kill Bill: Vol. 1',
+    director: 'Quentin Tarantino',
+    year: 2003,
+    artwork: 'https://image.tmdb.org/t/p/original/9yaVKBwvbvq3qL8zzSmuoxZuoFK.jpg',
   },
   {
     title: '(500) Days of Summer',
@@ -301,13 +337,19 @@ const posterMappings = [
     title: 'Whiplash',
     director: 'Damien Chazelle',
     year: 2014,
-    artwork: 'https://image.tmdb.org/t/p/original/9E949mB5NEq3BZu9nHQgWF2uGGN.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/mh6vEkev7d2F5uirRN8BGrfmOy7.jpg',
+  },
+  {
+    title: 'Spirited Away',
+    director: 'Hayao Miyazaki',
+    year: 2001,
+    artwork: 'https://image.tmdb.org/t/p/original/z9kaFR5fRaQqCaHN0WKapxYPWDl.jpg',
   },
   {
     title: 'Eyes Wide Shut',
     director: 'Stanley Kubrick',
     year: 1999,
-    artwork: 'https://image.tmdb.org/t/p/original/bYixINmclYNkF64iVRHhp6LE8xn.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/eDaJm2BTSOwtHZIrVoBc1fhAidJ.jpg',
   },
   {
     title: 'Tenet',
@@ -322,6 +364,12 @@ const posterMappings = [
     artwork: 'https://image.tmdb.org/t/p/original/slE7k3ZNMvawwgNCjMcnpDBUN7r.jpg',
   },
   {
+    title: 'The Handmaiden',
+    director: 'Park Chan-wook',
+    year: 2016,
+    artwork: 'https://image.tmdb.org/t/p/original/8MnMGO3oALkaiavehLmsKwvBU8S.jpg',
+  },
+  {
     title: 'Oldboy',
     director: 'Park Chan-wook',
     year: 2003,
@@ -331,13 +379,31 @@ const posterMappings = [
     title: 'Blue Jasmine',
     director: 'Woody Allen',
     year: 2013,
-    artwork: 'https://image.tmdb.org/t/p/original/zLdLiUJfueZBctdv8OvkmGXEHEC.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/q2IixqOwLAU9Un1JoxkWud8mg3x.jpg',
   },
   {
     title: 'School of Rock',
     director: 'Richard Linklater',
     year: 2003,
     artwork: 'https://image.tmdb.org/t/p/original/g2NQsJbvT1H8QBTZtzZiseHTNRL.jpg',
+  },
+  {
+    title: 'TAR',
+    director: 'Todd Field',
+    year: 2022,
+    artwork: 'https://image.tmdb.org/t/p/original/9FSlyzf5qXOOxAthSFHzxB7iVGg.jpg',
+  },
+  {
+    title: 'Kill Bill: Vol. 2',
+    director: 'Quentin Tarantino',
+    year: 2004,
+    artwork: 'https://image.tmdb.org/t/p/original/7wY8uuZgd7ICTnMLnk8kDqgdMsA.jpg',
+  },
+  {
+    title: 'The Devil Wears Prada',
+    director: 'David Frankel',
+    year: 2006,
+    artwork: 'https://image.tmdb.org/t/p/original/hgGAZlGE1i60W2201sBcuWE5aBk.jpg',
   },
   {
     title: 'Ex Machina',

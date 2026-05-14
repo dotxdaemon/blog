@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-14
+  Task: Replace still-rasterized movie posters.
+  Notes: Reproduced the deployed blog-main movies grid, traced the remaining roughness to overcompressed TMDb poster source files rather than layout scaling, replaced fourteen poster URLs in root and blog-main with verified TMDb originals, added exact mapping regression coverage, and captured a matching after-grid screenshot.
 - Date: 2026-05-13
   Task: Replace remaining rough movie poster assets.
   Notes: Verified ten lower-resolution TMDb poster mappings, replaced them with 2000px-wide TMDb original poster URLs in root and blog-main, added exact mapping regression coverage, and validated the deployed blog-main page with full-grid screenshot and natural image dimensions.
