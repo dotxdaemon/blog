@@ -195,7 +195,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/g2NQsJbvT1H8QBTZtzZiseHTNRL\.jpg'/,
+  /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/zXLXaepIBvFVLU25DH3wv4IPSbe\.jpg'/,
   'Expected School of Rock to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -215,7 +215,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'The Killer'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/ipkcgvN7h3yZnbYowthloHLKsf4\.jpg'/,
+  /title:\s*'The Killer'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/e7Jvsry47JJQruuezjU2X1Z6J77\.jpg'/,
   'Expected The Killer to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -225,7 +225,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Uncut Gems'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/6XN1vxHc7kUSqNWtaQKN45J5x2v\.jpg'/,
+  /title:\s*'Uncut Gems'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/5GOEm3hNPWWhn2smyzptN7NmxOa\.jpg'/,
   'Expected Uncut Gems to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -235,7 +235,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'TAR'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/9FSlyzf5qXOOxAthSFHzxB7iVGg\.jpg'/,
+  /title:\s*'TAR'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/dRVAlaU0vbG6hMf2K45NSiIyoUe\.jpg'/,
   'Expected TAR to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -245,7 +245,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Kill Bill:\s*Vol\.\s*2'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/7wY8uuZgd7ICTnMLnk8kDqgdMsA\.jpg'/,
+  /title:\s*'Kill Bill:\s*Vol\.\s*2'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/2yhg0mZQMhDyvUQ4rG1IZ4oIA8L\.jpg'/,
   'Expected Kill Bill: Vol. 2 to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -295,7 +295,7 @@ const posterMappings = [
     title: 'The Social Network',
     director: 'David Fincher',
     year: 2010,
-    artwork: 'https://image.tmdb.org/t/p/original/2511MLJ0x1msUSWKGvgTXe2bnjM.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/n0ybibhJtQ5icDqTp8eRytcIHJx.jpg',
   },
   {
     title: 'Watchmen',
@@ -325,7 +325,7 @@ const posterMappings = [
     title: 'Kill Bill: Vol. 1',
     director: 'Quentin Tarantino',
     year: 2003,
-    artwork: 'https://image.tmdb.org/t/p/original/9yaVKBwvbvq3qL8zzSmuoxZuoFK.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/v7TaX8kXMXs5yFFGR41guUDNcnB.jpg',
   },
   {
     title: '(500) Days of Summer',
@@ -334,10 +334,16 @@ const posterMappings = [
     artwork: 'https://image.tmdb.org/t/p/original/mKrdarFQ6H4E9HR02YiubLABXSZ.jpg',
   },
   {
+    title: 'Crazy, Stupid, Love.',
+    director: 'Glenn Ficarra & John Requa',
+    year: 2011,
+    artwork: 'https://image.tmdb.org/t/p/original/nrhDoMH1si6VxvdvcZnsGISSCrc.jpg',
+  },
+  {
     title: 'Whiplash',
     director: 'Damien Chazelle',
     year: 2014,
-    artwork: 'https://image.tmdb.org/t/p/original/mh6vEkev7d2F5uirRN8BGrfmOy7.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/t75ZmwnqpcGFCGx5iBNJYEk5v9r.jpg',
   },
   {
     title: 'Spirited Away',
@@ -373,7 +379,7 @@ const posterMappings = [
     title: 'Oldboy',
     director: 'Park Chan-wook',
     year: 2003,
-    artwork: 'https://image.tmdb.org/t/p/original/9HmrSXXZTHnRt46poimF0mMe7rS.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/pWDtjs568ZfOTMbURQBYuT4Qxka.jpg',
   },
   {
     title: 'Blue Jasmine',
@@ -385,19 +391,19 @@ const posterMappings = [
     title: 'School of Rock',
     director: 'Richard Linklater',
     year: 2003,
-    artwork: 'https://image.tmdb.org/t/p/original/g2NQsJbvT1H8QBTZtzZiseHTNRL.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/zXLXaepIBvFVLU25DH3wv4IPSbe.jpg',
   },
   {
     title: 'TAR',
     director: 'Todd Field',
     year: 2022,
-    artwork: 'https://image.tmdb.org/t/p/original/9FSlyzf5qXOOxAthSFHzxB7iVGg.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/dRVAlaU0vbG6hMf2K45NSiIyoUe.jpg',
   },
   {
     title: 'Kill Bill: Vol. 2',
     director: 'Quentin Tarantino',
     year: 2004,
-    artwork: 'https://image.tmdb.org/t/p/original/7wY8uuZgd7ICTnMLnk8kDqgdMsA.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/2yhg0mZQMhDyvUQ4rG1IZ4oIA8L.jpg',
   },
   {
     title: 'The Devil Wears Prada',

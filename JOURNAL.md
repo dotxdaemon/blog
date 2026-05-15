@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-14
+  Task: Replace rough-looking movie poster choices after deployed review.
+  Notes: The remaining bad-looking movie posters were not being upscaled; the sources were already large enough but several poster choices were visually noisy, overly text-heavy, or grainy at grid size. Replaced ten specific TMDb poster URLs in root and blog-main with clearer verified poster assets, added exact mapping coverage, and checked rendered natural dimensions.
+- Date: 2026-05-14
   Task: Replace still-rasterized movie posters.
   Notes: Reproduced the deployed blog-main movies grid, traced the remaining roughness to overcompressed TMDb poster source files rather than layout scaling, replaced fourteen poster URLs in root and blog-main with verified TMDb originals, added exact mapping regression coverage, and captured a matching after-grid screenshot.
 - Date: 2026-05-13
