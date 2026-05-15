@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-15
+  Task: Standardize movie posters to official primary artwork.
+  Notes: Replaced alternate TMDb poster choices with exact primary poster URLs from canonical movie pages in root and blog-main, expanded mapping coverage to every movie, and verified the deployed-size grid uses original poster assets at 1080p.
 - Date: 2026-05-14
   Task: Finish 1080p movie poster cleanup.
   Notes: Reproduced the deployed movies grid at 1920x1080, confirmed the remaining rough posters were artwork-choice problems rather than layout upscaling, replaced five verified TMDb originals in root and blog-main, and checked loaded natural dimensions against 349px rendered poster width.
