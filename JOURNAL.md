@@ -1,6 +1,9 @@
 # Journal
 
 - Date: 2026-05-14
+  Task: Finish 1080p movie poster cleanup.
+  Notes: Reproduced the deployed movies grid at 1920x1080, confirmed the remaining rough posters were artwork-choice problems rather than layout upscaling, replaced five verified TMDb originals in root and blog-main, and checked loaded natural dimensions against 349px rendered poster width.
+- Date: 2026-05-14
   Task: Replace rough-looking movie poster choices after deployed review.
   Notes: The remaining bad-looking movie posters were not being upscaled; the sources were already large enough but several poster choices were visually noisy, overly text-heavy, or grainy at grid size. Replaced ten specific TMDb poster URLs in root and blog-main with clearer verified poster assets, added exact mapping coverage, and checked rendered natural dimensions.
 - Date: 2026-05-14

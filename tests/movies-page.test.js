@@ -95,7 +95,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Gone Girl'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/yOGG2o157R4b5XpfiRVRrVqMRIx\.jpg'/,
+  /title:\s*'Gone Girl'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/lv5xShBIDPe7m4ufdlV0IAc7Avk\.jpg'/,
   'Expected Gone Girl to use the correct TMDB poster URL.'
 );
 assertNotMatches(
@@ -195,7 +195,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/zXLXaepIBvFVLU25DH3wv4IPSbe\.jpg'/,
+  /title:\s*'School of Rock'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/2rqdDealh7e1OmfJSOpKcAikGSI\.jpg'/,
   'Expected School of Rock to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -225,7 +225,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'Uncut Gems'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/5GOEm3hNPWWhn2smyzptN7NmxOa\.jpg'/,
+  /title:\s*'Uncut Gems'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/sg0xxJeb3u1C4kAxhSuTwTNpEDt\.jpg'/,
   'Expected Uncut Gems to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -235,7 +235,7 @@ assertMatches(
 );
 assertMatches(
   movieDataScript,
-  /title:\s*'TAR'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/dRVAlaU0vbG6hMf2K45NSiIyoUe\.jpg'/,
+  /title:\s*'TAR'[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/7Xxb52yc4kWA8VB6IlfHDSct3Fk\.jpg'/,
   'Expected TAR to use the correct TMDB poster URL.'
 );
 assertMatches(
@@ -307,7 +307,7 @@ const posterMappings = [
     title: 'Gone Girl',
     director: 'David Fincher',
     year: 2014,
-    artwork: 'https://image.tmdb.org/t/p/original/yOGG2o157R4b5XpfiRVRrVqMRIx.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/lv5xShBIDPe7m4ufdlV0IAc7Avk.jpg',
   },
   {
     title: 'The Dark Knight',
@@ -331,7 +331,7 @@ const posterMappings = [
     title: '(500) Days of Summer',
     director: 'Marc Webb',
     year: 2009,
-    artwork: 'https://image.tmdb.org/t/p/original/mKrdarFQ6H4E9HR02YiubLABXSZ.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/qq8u4IssFMHLsiQneRtBwjToryL.jpg',
   },
   {
     title: 'Crazy, Stupid, Love.',
@@ -391,13 +391,13 @@ const posterMappings = [
     title: 'School of Rock',
     director: 'Richard Linklater',
     year: 2003,
-    artwork: 'https://image.tmdb.org/t/p/original/zXLXaepIBvFVLU25DH3wv4IPSbe.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/2rqdDealh7e1OmfJSOpKcAikGSI.jpg',
   },
   {
     title: 'TAR',
     director: 'Todd Field',
     year: 2022,
-    artwork: 'https://image.tmdb.org/t/p/original/dRVAlaU0vbG6hMf2K45NSiIyoUe.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/7Xxb52yc4kWA8VB6IlfHDSct3Fk.jpg',
   },
   {
     title: 'Kill Bill: Vol. 2',
