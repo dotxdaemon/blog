@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-05-21
+  Task: Restore root and blog-main dashboard script parity.
+  Notes: Audited same-path root versus blog-main drift, confirmed blog-main is the deployed source for both Vercel and GitHub Pages, removed the stale dashboard artwork script path from the root app script, aligned the root regression test with the deployed text-and-link listening assertions, and verified root plus deployed blog-main checks.
 - Date: 2026-05-15
   Task: Standardize movie posters to official primary artwork.
   Notes: Replaced alternate TMDb poster choices with exact primary poster URLs from canonical movie pages in root and blog-main, expanded mapping coverage to every movie, and verified the deployed-size grid uses original poster assets at 1080p.
