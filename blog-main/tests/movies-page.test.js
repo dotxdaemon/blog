@@ -284,6 +284,10 @@ assertMatches(
   'Expected movie data to include The Devil Wears Prada with the verified TMDB poster URL.'
 );
 const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const jsStringPattern = (value) => {
+  const escapedValue = escapeForRegExp(value).replace(/'/g, "\\\\?'").replace(/"/g, '\\\\?"');
+  return `(?:'${escapedValue}'|"${escapedValue}")`;
+};
 const posterMappings = [
   {
     title: 'The Girl with the Dragon Tattoo',
@@ -454,6 +458,12 @@ const posterMappings = [
     artwork: 'https://image.tmdb.org/t/p/original/8912AsVuS7Sj915apArUFbv6F9L.jpg',
   },
   {
+    title: "Molly's Game",
+    director: 'Aaron Sorkin',
+    year: 2017,
+    artwork: 'https://image.tmdb.org/t/p/original/zrGQwKNmAz5awZI2V1k5M4eTTTN.jpg',
+  },
+  {
     title: 'Melancholia',
     director: 'Lars von Trier',
     year: 2011,
@@ -482,7 +492,7 @@ posterMappings.forEach(({ title, director, year, artwork }) => {
   assertMatches(
     movieDataScript,
     new RegExp(
-      `title:\\s*'${escapeForRegExp(title)}'[\\s\\S]*director:\\s*'${escapeForRegExp(director)}'[\\s\\S]*year:\\s*${year}[\\s\\S]*artwork:\\s*'${escapeForRegExp(artwork)}'`
+      `title:\\s*${jsStringPattern(title)}[\\s\\S]*director:\\s*${jsStringPattern(director)}[\\s\\S]*year:\\s*${year}[\\s\\S]*artwork:\\s*${jsStringPattern(artwork)}`
     ),
     `Expected ${title} to use the verified TMDB poster URL.`
   );
