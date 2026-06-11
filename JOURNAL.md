@@ -3,6 +3,9 @@
 - Date: 2026-06-11
   Task: Add Molly's Game to the movies page.
   Notes: Verified TMDb movie 396371 for the 2017 Aaron Sorkin film, added the original poster URL in root and blog-main movie data, expanded mapping coverage for apostrophe titles, and verified root plus deployed blog-main tests, lint, typecheck, forbidden-pattern gate, and screenshots.
+- Date: 2026-06-11
+  Task: Replace Molly's Game with the sunglasses poster.
+  Notes: Verified the TMDb posters page for movie 396371, swapped Molly's Game to the sunglasses poster URL in root and blog-main, updated exact mapping coverage, and verified root plus deployed blog-main tests, lint, typecheck, forbidden-pattern gate, and screenshots.
 - Date: 2026-05-21
   Task: Restore root and blog-main dashboard script parity.
   Notes: Audited same-path root versus blog-main drift, confirmed blog-main is the deployed source for both Vercel and GitHub Pages, removed the stale dashboard artwork script path from the root app script, aligned the root regression test with the deployed text-and-link listening assertions, and verified root plus deployed blog-main checks.

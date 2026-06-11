@@ -461,7 +461,7 @@ const posterMappings = [
     title: "Molly's Game",
     director: 'Aaron Sorkin',
     year: 2017,
-    artwork: 'https://image.tmdb.org/t/p/original/zrGQwKNmAz5awZI2V1k5M4eTTTN.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/h9hUP5ZJGsjL2wbERrGlj4dMjZq.jpg',
   },
   {
     title: 'Melancholia',
