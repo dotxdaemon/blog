@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-07-06
+  Task: Remove Cloud Atlas from the movies page.
+  Notes: Removed the Cloud Atlas record from root and deployed blog-main movie data, added explicit absence coverage in both test suites, and validated the complete three-column grid with locally cached copies of the configured poster files after third-party image loading made direct full-page captures unreliable.
 - Date: 2026-06-11
   Task: Add Molly's Game to the movies page.
   Notes: Verified TMDb movie 396371 for the 2017 Aaron Sorkin film, added the original poster URL in root and blog-main movie data, expanded mapping coverage for apostrophe titles, and verified root plus deployed blog-main tests, lint, typecheck, forbidden-pattern gate, and screenshots.

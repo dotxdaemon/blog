@@ -283,6 +283,11 @@ assertMatches(
   /title:\s*'The Devil Wears Prada'[\s\S]*director:\s*'David Frankel'[\s\S]*year:\s*2006[\s\S]*artwork:\s*'https:\/\/image\.tmdb\.org\/t\/p\/original\/8912AsVuS7Sj915apArUFbv6F9L\.jpg'/,
   'Expected movie data to include The Devil Wears Prada with the verified TMDB poster URL.'
 );
+assertNotMatches(
+  movieDataScript,
+  /title:\s*'Cloud Atlas'/,
+  'Expected Cloud Atlas to be excluded from movie data.'
+);
 const escapeForRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const jsStringPattern = (value) => {
   const escapedValue = escapeForRegExp(value).replace(/'/g, "\\\\?'").replace(/"/g, '\\\\?"');

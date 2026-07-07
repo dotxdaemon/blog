@@ -199,11 +199,5 @@ window.MOVIES_I_LIKE = [
     year: 2017,
     artwork: 'https://image.tmdb.org/t/p/original/h9hUP5ZJGsjL2wbERrGlj4dMjZq.jpg',
   },
-  {
-    title: 'Cloud Atlas',
-    director: 'Lana Wachowski, Tom Tykwer & Lilly Wachowski',
-    year: 2012,
-    artwork: 'https://image.tmdb.org/t/p/original/8naVv2Xu3rWI5JKHz0vCujx6GaJ.jpg',
-  },
 
 ];
