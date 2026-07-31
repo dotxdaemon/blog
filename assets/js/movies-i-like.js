@@ -44,6 +44,12 @@ window.MOVIES_I_LIKE = [
     artwork: 'https://image.tmdb.org/t/p/original/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg',
   },
   {
+    title: 'Doctor Strange',
+    director: 'Scott Derrickson',
+    year: 2016,
+    artwork: 'https://image.tmdb.org/t/p/original/uGBVj3bEbCoZbDjjl9wTxcygko1.jpg',
+  },
+  {
     title: 'Kill Bill: Vol. 1',
     director: 'Quentin Tarantino',
     year: 2003,

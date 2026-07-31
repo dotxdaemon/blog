@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-07-30
+  Task: Add Doctor Strange to the movies page.
+  Notes: Added the 2016 Scott Derrickson film to root and deployed blog-main movie data with the primary TMDb poster URL and exact mapping coverage.
 - Date: 2026-07-06
   Task: Remove Cloud Atlas from the movies page.
   Notes: Removed the Cloud Atlas record from root and deployed blog-main movie data, added explicit absence coverage in both test suites, and validated the complete three-column grid with locally cached copies of the configured poster files after third-party image loading made direct full-page captures unreliable.
