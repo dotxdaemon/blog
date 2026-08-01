@@ -1,0 +1,1 @@
+- Initialized journal per Sean's request; will track worktree setup, design decisions, and testing outcomes here.
