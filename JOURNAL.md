@@ -2,7 +2,7 @@
 
 - Date: 2026-08-20
   Task: Correct the Don Jon poster on the movies page.
-  Notes: Replaced the blue fan-art collage with the official red-and-white theatrical poster in root and deployed blog-main data, and updated exact mapping coverage.
+  Notes: Replaced the blue fan-art collage with the official red-and-white theatrical poster in root and deployed blog-main data, updated exact mapping coverage, and versioned the movie data script to bypass cached artwork.
 - Date: 2026-08-20
   Task: Add Don Jon and Materialists to the movies page.
   Notes: Added both films to root and deployed blog-main movie data with verified primary TMDb poster URLs and exact mapping coverage.
