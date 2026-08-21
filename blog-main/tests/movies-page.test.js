@@ -30,8 +30,8 @@ assertMatches(
 );
 assertMatches(
   html,
-  /<script[^>]*src="assets\/js\/movies-i-like\.js"[^>]*><\/script>/i,
-  'Expected movies page to load the movies data script.'
+  /<script[^>]*src="assets\/js\/movies-i-like\.js\?v=20260820-poster-fix"[^>]*><\/script>/i,
+  'Expected movies page to load the cache-busted movies data script.'
 );
 assertMatches(
   html,
