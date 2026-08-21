@@ -209,7 +209,7 @@ window.MOVIES_I_LIKE = [
     title: 'Don Jon',
     director: 'Joseph Gordon-Levitt',
     year: 2013,
-    artwork: 'https://image.tmdb.org/t/p/original/uh8bwvgGXeUKzdL4oSul9zxyTcd.jpg',
+    artwork: 'https://image.tmdb.org/t/p/original/u2u6ACxl0Jg5u6iS68j239MKEQ5.jpg',
   },
   {
     title: 'Materialists',
