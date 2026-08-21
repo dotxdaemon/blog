@@ -205,5 +205,17 @@ window.MOVIES_I_LIKE = [
     year: 2017,
     artwork: 'https://image.tmdb.org/t/p/original/h9hUP5ZJGsjL2wbERrGlj4dMjZq.jpg',
   },
+  {
+    title: 'Don Jon',
+    director: 'Joseph Gordon-Levitt',
+    year: 2013,
+    artwork: 'https://image.tmdb.org/t/p/original/uh8bwvgGXeUKzdL4oSul9zxyTcd.jpg',
+  },
+  {
+    title: 'Materialists',
+    director: 'Celine Song',
+    year: 2025,
+    artwork: 'https://image.tmdb.org/t/p/original/eDo0pNruy0Qgj6BdTyHIR4cxHY8.jpg',
+  },
 
 ];
