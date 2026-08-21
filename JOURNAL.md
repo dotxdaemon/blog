@@ -1,5 +1,8 @@
 # Journal
 
+- Date: 2026-08-20
+  Task: Add Don Jon and Materialists to the movies page.
+  Notes: Added both films to root and deployed blog-main movie data with verified primary TMDb poster URLs and exact mapping coverage.
 - Date: 2026-07-30
   Task: Add Doctor Strange to the movies page.
   Notes: Added the 2016 Scott Derrickson film to root and deployed blog-main movie data with the primary TMDb poster URL and exact mapping coverage.
